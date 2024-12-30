@@ -33,6 +33,12 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures{
+        viewBinding = true
+    }
+    buildFeatures{
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -42,7 +48,14 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.play.services.location)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    //Counter Code Picker
+    implementation ("com.hbb20:ccp:2.5.0")
+    implementation ("com.github.ibrahimsn98:SmoothBottomBar:1.7.8")
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.2")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.7.2")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }
