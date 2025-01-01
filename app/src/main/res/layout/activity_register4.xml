@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/back_arrow"
+            android:src="@drawable/baseline_arrow_back_24" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginVertical="16dp"
+            android:progress="60"
+            android:progressTint="#4CAF50" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tv_team_size_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What’s your team size?"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="24dp"
+            android:fontFamily="sans-serif-medium" />
+
+        <!-- Radio Group -->
+        <RadioGroup
+            android:id="@+id/rg_team_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/rb_just_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Just me"
+                android:textSize="16sp"
+                android:buttonTint="#FF6200EE"
+                android:paddingVertical="12dp" />
+
+            <RadioButton
+                android:id="@+id/rb_2_3_members"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2-3 staff members"
+                android:textSize="16sp"
+                android:buttonTint="#FF6200EE"
+                android:paddingVertical="12dp" />
+
+            <RadioButton
+                android:id="@+id/rb_4_6_members"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4-6 staff members"
+                android:textSize="16sp"
+                android:buttonTint="#FF6200EE"
+                android:paddingVertical="12dp" />
+
+            <RadioButton
+                android:id="@+id/rb_more_than_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="More than 6 staff members"
+                android:textSize="16sp"
+                android:buttonTint="#FF6200EE"
+                android:paddingVertical="12dp" />
+        </RadioGroup>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnContinue3"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/gradient_button"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/continue1"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            >
+
+        </androidx.appcompat.widget.AppCompatButton>
+    </LinearLayout>
+</ScrollView>

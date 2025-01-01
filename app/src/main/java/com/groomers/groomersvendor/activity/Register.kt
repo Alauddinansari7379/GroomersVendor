@@ -18,7 +18,7 @@ class Register : AppCompatActivity() {
 
         with(binding){
             btnContinue.setOnClickListener {
-                startActivity(Intent(context, Register3::class.java))
+                startActivity(Intent(context, Register2::class.java))
             }
             tvLogin.setOnClickListener {
                 startActivity(Intent(context, Login::class.java))

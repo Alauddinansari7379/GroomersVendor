@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp"
     android:scrollbars="vertical">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <!-- Existing fields -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAddImage"
         android:layout_width="match_parent"
@@ -21,7 +24,6 @@
         android:textColor="@color/black"
         android:textSize="16sp" />
 
-
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextTitle"
         android:layout_width="match_parent"
@@ -31,7 +33,7 @@
         android:background="@drawable/corner_edt"
         android:inputType="textCapWords"
         android:padding="10dp"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextDescription"
@@ -45,7 +47,7 @@
         android:background="@drawable/corner_edt"
         android:padding="10dp"
         android:textSize="16sp"
-        android:gravity="top|start"/>
+        android:gravity="top|start" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageViewPreview"
@@ -53,8 +55,9 @@
         android:layout_height="200dp"
         android:layout_marginTop="10dp"
         android:scaleType="centerCrop"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
+    <!-- Price and Quantity -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,7 +70,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:fontFamily="@font/poppins_bold"
-            android:text="@string/item_price"/>
+            android:text="@string/item_price" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/price"
@@ -80,8 +83,7 @@
             android:background="@drawable/border_bg"
             android:inputType="textCapWords"
             android:padding="10dp"
-            android:textSize="16sp"/>
-
+            android:textSize="16sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -89,7 +91,7 @@
             android:textColor="@color/black"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="@string/quantity"/>
+            android:text="@string/quantity" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/Quantity"
@@ -102,10 +104,10 @@
             android:background="@drawable/border_bg"
             android:inputType="textCapWords"
             android:padding="10dp"
-            android:textSize="16sp"/>
-
+            android:textSize="16sp" />
     </LinearLayout>
 
+    <!-- Time and Date -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -118,7 +120,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:fontFamily="@font/poppins_bold"
-            android:text="@string/item_time"/>
+            android:text="@string/item_time" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/time"
@@ -131,8 +133,7 @@
             android:background="@drawable/border_bg"
             android:inputType="textCapWords"
             android:padding="10dp"
-            android:textSize="16sp"/>
-
+            android:textSize="16sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -140,7 +141,7 @@
             android:textColor="@color/black"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="@string/item_date"/>
+            android:text="@string/item_date" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/date"
@@ -153,11 +154,79 @@
             android:background="@drawable/border_bg"
             android:inputType="textCapWords"
             android:padding="10dp"
-            android:textSize="16sp"/>
-
+            android:textSize="16sp" />
     </LinearLayout>
 
+    <!-- Service Type -->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins_bold"
+        android:layout_marginTop="8dp"
+        android:text="Service type" />
 
+    <Spinner
+        android:id="@+id/spinnerServiceType"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/corner_edt" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_bold"
+            android:layout_marginTop="8dp"
+            android:text="Address" />
+    <!-- Address -->
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Address"
+        android:background="@drawable/corner_edt"
+        android:inputType="textMultiLine"
+        android:padding="10dp"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp" />
+
+    <!-- Category -->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins_bold"
+        android:layout_marginTop="8dp"
+        android:text="@string/category" />
+
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/corner_edt" />
+
+    <!-- Slot Time -->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins_bold"
+        android:layout_marginTop="8dp"
+        android:text="Slot time" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextSlotTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Select date"
+        android:background="@drawable/corner_edt"
+        android:inputType="none"
+        android:focusable="false"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp" />
+
+    <!-- Post Service Button -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
@@ -173,8 +242,8 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="14sp"
-        android:textStyle="bold">
+        android:textStyle="bold" />
+    </LinearLayout>
 
-    </androidx.appcompat.widget.AppCompatButton>
+</ScrollView>
 
-</LinearLayout>

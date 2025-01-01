@@ -41,13 +41,13 @@
     <string name="upload_your_photo">Upload Your Photo</string>
     <string name="post_title">Post Title</string>
     <string name="post_description">Post Description</string>
-    <string name="item_price">Item Price:-</string>
+    <string name="item_price">Price:-</string>
     <string name="_100">100</string>
     <string name="quantity">Quantity:-</string>
     <string name="_2">2</string>
-    <string name="item_time">Item Time:-</string>
+    <string name="item_time">Time:-</string>
     <string name="_10pm">10pm</string>
-    <string name="item_date">Item Date:-</string>
+    <string name="item_date">Date:-</string>
     <string name="_10_jun">10 jun</string>
     <string name="submit">Submit</string>
     <string name="orders">Orders</string>

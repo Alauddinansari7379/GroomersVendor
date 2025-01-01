@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.groomers.groomersvendor.MainActivity
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivityLoginBinding
 
@@ -18,7 +19,7 @@ class Login : AppCompatActivity() {
 
         with(binding){
             btnLogin.setOnClickListener {
-                startActivity(Intent(context,SubUserLogin::class.java))
+                startActivity(Intent(context,MainActivity::class.java))
             }
 
             tvRegister.setOnClickListener {
