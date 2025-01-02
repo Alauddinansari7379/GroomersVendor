@@ -149,5 +149,15 @@
     <string name="address_350">Address · ₹350</string>
     <string name="_31_mins_6_5_km">31 mins · 6.5 km</string>
     <string name="_4_0">4.0★</string>
+    <string name="start_adding_services">Start Adding Services</string>
+    <string name="add_at_least_one_service_now_later_you_can_add_more_edit_details_and_group_services_into_categories">Add at least one service now. Later you can add more, edit details, and group services into categories.</string>
+    <string name="remove_service">Remove Service</string>
+    <string name="female_haircut">Female Haircut</string>
+    <string name="_45min">45min</string>
+    <string name="edit_service">Edit Service</string>
+    <string name="hair_extensions">Hair Extensions</string>
+    <string name="_2h">2h</string>
+    <string name="_35_00">$35.00</string>
+    <string name="add_service">Add Service</string>
 
 </resources>
