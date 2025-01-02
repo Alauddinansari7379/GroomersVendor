@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    android:background="#FFFFFF">
+    android:background="@color/white">
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -28,19 +28,19 @@
             android:progress="60"
             android:progressTint="#4CAF50" />
 
-        <!-- Title -->
-        <TextView
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_team_size_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="What’s your team size?"
+            android:text="@string/what_s_your_team_size"
             android:textSize="20sp"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:layout_gravity="center_horizontal"
             android:paddingBottom="24dp"
             android:fontFamily="sans-serif-medium" />
 
-        <!-- Radio Group -->
+
         <RadioGroup
             android:id="@+id/rg_team_size"
             android:layout_width="match_parent"
@@ -51,36 +51,36 @@
                 android:id="@+id/rb_just_me"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Just me"
+                android:text="@string/just_me"
                 android:textSize="16sp"
-                android:buttonTint="#FF6200EE"
+                android:buttonTint="@color/mainColor"
                 android:paddingVertical="12dp" />
 
             <RadioButton
                 android:id="@+id/rb_2_3_members"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2-3 staff members"
+                android:text="@string/_2_3_staff_members"
                 android:textSize="16sp"
-                android:buttonTint="#FF6200EE"
+                android:buttonTint="@color/mainColor"
                 android:paddingVertical="12dp" />
 
             <RadioButton
                 android:id="@+id/rb_4_6_members"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4-6 staff members"
+                android:text="@string/_4_6_staff_members"
                 android:textSize="16sp"
-                android:buttonTint="#FF6200EE"
+                android:buttonTint="@color/mainColor"
                 android:paddingVertical="12dp" />
 
             <RadioButton
                 android:id="@+id/rb_more_than_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="More than 6 staff members"
+                android:text="@string/more_than_6_staff_members"
                 android:textSize="16sp"
-                android:buttonTint="#FF6200EE"
+                android:buttonTint="@color/mainColor"
                 android:paddingVertical="12dp" />
         </RadioGroup>
 
@@ -102,5 +102,5 @@
             >
 
         </androidx.appcompat.widget.AppCompatButton>
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </ScrollView>

@@ -159,5 +159,24 @@
     <string name="_2h">2h</string>
     <string name="_35_00">$35.00</string>
     <string name="add_service">Add Service</string>
+    <string name="category_name_f">Category Name F</string>
+    <string name="category_name_e">Category Name E</string>
+    <string name="category_name_d">Category Name D</string>
+    <string name="category_name_c">Category Name C</string>
+    <string name="category_name_b">Category Name B</string>
+    <string name="category_name_a">Category Name A</string>
+    <string name="choose_a_business_category_that_will_help_your_customers_find_you_when_they_re_browsing_for_services">Choose a business category that will help your customers find you when they\'re browsing for services.</string>
+    <string name="tyga_tell_us_about_your_business">Tyga, tell us about your business</string>
+    <string name="your_business_hours">Your Business Hours</string>
+    <string name="when_can_clients_book_with_you">When can clients book with you?</string>
+    <string name="what_s_your_team_size">What’s your team size?</string>
+    <string name="just_me">Just me</string>
+    <string name="_2_3_staff_members">2-3 staff members</string>
+    <string name="_4_6_staff_members">4-6 staff members</string>
+    <string name="more_than_6_staff_members">More than 6 staff members</string>
+    <string name="service_type">Service type</string>
+    <string name="address">Address</string>
+    <string name="slot_time">Slot time</string>
+    <string name="select_date">Select date</string>
 
 </resources>
