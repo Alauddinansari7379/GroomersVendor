@@ -15,7 +15,7 @@ class Register4 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.btnContinue3.setOnClickListener {
-            startActivity(Intent(this@Register4,Register3::class.java))
+            startActivity(Intent(this@Register4,YourAddress::class.java))
         }
     }
 }

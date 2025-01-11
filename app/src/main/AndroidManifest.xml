@@ -18,6 +18,36 @@
         android:theme="@style/Theme.GroomersVendor"
         tools:targetApi="31">
         <activity
+            android:name=".activity.Settings"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UploadCover"
+            android:exported="false" />
+        <activity
+            android:name=".activity.RegisterSuccess"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ServiceSetup"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UploadOwnerIdentity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.YourAddress"
+            android:exported="false" />
+        <activity
+            android:name=".activity.About"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SelectLanguage"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Welcome2"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Welcome"
+            android:exported="false" />
+        <activity
             android:name=".activity.Register5"
             android:exported="false" />
         <activity

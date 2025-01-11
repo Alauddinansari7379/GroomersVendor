@@ -178,5 +178,17 @@
     <string name="address">Address</string>
     <string name="slot_time">Slot time</string>
     <string name="select_date">Select date</string>
+    <string name="get_started">Get Started</string>
+    <string name="welcome_to_groomers_nfor_professionals">Welcome to Groomers\nFor professionals</string>
+    <string name="all_in_one_soluation">All in One soluation</string>
+    <string name="to_manage_bookings_do_marketing_and_to_grow_your_business">to manage bookings, do Marketing and to grow your business.</string>
+    <string name="select_the_best_of_your_knowledge">Select the best of your knowledge</string>
+    <string name="choose_a_language">Choose A Language</string>
+    <string name="english">English</string>
+    <string name="hindi">हिंदी</string>
+    <string name="what_s_your_business">What\'s your business?</string>
+    <string name="select_the_category_you_feel_best_represents_your_business">Select the category you feel best represents your business.</string>
+    <string name="confirm_your_address">Confirm your address</string>
+    <string name="where_can_clients_find_you">Where can clients find you?</string>
 
 </resources>

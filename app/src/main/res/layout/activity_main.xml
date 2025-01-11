@@ -10,6 +10,7 @@
             android:id="@+id/linearLayoutCompat"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:visibility="gone"
             android:layout_gravity="center"
             android:background="@color/mainColor"
             android:gravity="center"

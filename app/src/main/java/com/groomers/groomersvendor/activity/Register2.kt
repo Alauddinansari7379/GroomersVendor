@@ -15,22 +15,22 @@ class Register2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.card1.setOnClickListener {
-            startActivity(Intent(this@Register2, Register4::class.java))
+            startActivity(Intent(this@Register2, About::class.java))
         }
-        binding.card2.setOnClickListener {
-            startActivity(Intent(this@Register2, Register4::class.java))
-        }
-        binding.card3.setOnClickListener {
-            startActivity(Intent(this@Register2, Register4::class.java))
-        }
-        binding.card4.setOnClickListener {
-            startActivity(Intent(this@Register2, Register4::class.java))
-        }
-        binding.card5.setOnClickListener {
-            startActivity(Intent(this@Register2, Register4::class.java))
-        }
-        binding.card6.setOnClickListener {
-            startActivity(Intent(this@Register2, Register4::class.java))
-        }
+//        binding.card2.setOnClickListener {
+//            startActivity(Intent(this@Register2, Register4::class.java))
+//        }
+//        binding.card3.setOnClickListener {
+//            startActivity(Intent(this@Register2, Register4::class.java))
+//        }
+//        binding.card4.setOnClickListener {
+//            startActivity(Intent(this@Register2, Register4::class.java))
+//        }
+//        binding.card5.setOnClickListener {
+//            startActivity(Intent(this@Register2, Register4::class.java))
+//        }
+//        binding.card6.setOnClickListener {
+//            startActivity(Intent(this@Register2, Register4::class.java))
+//        }
     }
 }

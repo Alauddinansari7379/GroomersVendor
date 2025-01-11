@@ -24,7 +24,7 @@ class SplashScreen : AppCompatActivity() {
         setContentView(binding.root)
 
         Handler().postDelayed({
-            startActivity(Intent(this, Login::class.java))
+            startActivity(Intent(this, Welcome::class.java))
             finish()
         }, 2000)
     }

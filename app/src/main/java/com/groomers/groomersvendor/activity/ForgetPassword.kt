@@ -19,12 +19,9 @@ class ForgetPassword : AppCompatActivity() {
             btnChange.setOnClickListener {
                 startActivity(Intent(context,Login::class.java))
             }
-
             tvRegister.setOnClickListener {
                 startActivity(Intent(context,Register::class.java))
             }
         }
-
-
     }
 }

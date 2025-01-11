@@ -316,7 +316,7 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:background="@drawable/gradient_button"
+        android:background="@drawable/btnlanguagebg"
         android:fontFamily="@font/poppins_regular"
         android:gravity="center"
         android:text="@string/continue1"

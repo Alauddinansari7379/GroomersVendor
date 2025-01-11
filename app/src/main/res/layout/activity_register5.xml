@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/poppins_bold"
             android:paddingBottom="8dp"
             android:text="@string/start_adding_services"
             android:textColor="@color/black"
@@ -46,9 +46,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"
+            android:fontFamily="@font/poppins_regular"
             android:text="@string/add_at_least_one_service_now_later_you_can_add_more_edit_details_and_group_services_into_categories"
             android:textColor="@color/gray"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -88,8 +89,9 @@
                         android:id="@+id/tv_service_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
                         android:text="@string/female_haircut"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="16sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -97,6 +99,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_45min"
+                        android:fontFamily="@font/poppins_regular"
                         android:textColor="@color/gray"
                         android:textSize="14sp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -107,6 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingEnd="8dp"
+                    android:fontFamily="@font/poppins_regular"
                     android:text="@string/_35_00"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -149,6 +153,7 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
                         android:text="@string/hair_extensions"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
@@ -158,6 +163,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_2h"
+                        android:fontFamily="@font/poppins_regular"
                         android:textColor="@color/gray"
                         android:textSize="14sp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -169,6 +175,7 @@
                     android:layout_height="wrap_content"
                     android:paddingEnd="8dp"
                     android:text="@string/_35_00"
+                    android:fontFamily="@font/poppins_regular"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="RtlSymmetry" />
@@ -211,6 +218,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/female_haircut"
+                        android:fontFamily="@font/poppins_regular"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -219,6 +227,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_45min"
+                        android:fontFamily="@font/poppins_regular"
                         android:textColor="@color/gray"
                         android:textSize="14sp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -230,8 +239,9 @@
                     android:layout_height="wrap_content"
                     android:paddingEnd="8dp"
                     android:text="@string/_35_00"
+                    android:fontFamily="@font/poppins_regular"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     tools:ignore="RtlSymmetry" />
 
 
@@ -264,6 +274,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="8dp"
                     android:text="@string/add_service"
+                    android:fontFamily="@font/poppins_bold"
                     android:textColor="@color/mainColor"
                     android:textSize="16sp"
                     tools:ignore="RtlSymmetry" />
@@ -276,7 +287,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:background="@drawable/gradient_button"
+            android:background="@drawable/btnlanguagebg"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
             android:text="@string/continue1"
