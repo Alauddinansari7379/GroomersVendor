@@ -1,6 +1,7 @@
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -10,10 +11,10 @@
             android:id="@+id/linearLayoutCompat"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:visibility="gone"
             android:layout_gravity="center"
             android:background="@color/mainColor"
             android:gravity="center"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -55,32 +56,29 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:defaultNavHost="true"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation1"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat"
             app:navGraph="@navigation/nav_graph" />
 
-        <me.ibrahimsn.lib.SmoothBottomBar
-            android:id="@+id/bottom_navigation1"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            style="@style/BottomNavigationStyle"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
-            app:backgroundColor="#8992E7"
-            app:cornerRadius="10dp"
-            android:shadowRadius="10"
-            app:iconSize="24dp"
-            app:iconTint="@color/white"
-            app:iconTintActive="@color/white"
-            app:indicatorColor="@color/mainColor"
-            app:indicatorRadius="16dp"
-            app:itemPadding="10dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
+            app:elevation="10dp"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/bottom_menu"
-            app:sideMargins="1dp"
-            app:textColor="@color/white"
-            app:textSize="11sp" />
+            app:menu="@menu/bottom_menu">
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

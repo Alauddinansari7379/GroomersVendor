@@ -1,13 +1,23 @@
 package com.groomers.groomersvendor.activity
 
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.groomers.groomersvendor.R
+import com.groomers.groomersvendor.Common
+import com.groomers.groomersvendor.databinding.ActivitySettingsBinding
 
-class Settings : AppCompatActivity() {
+class Settings : Common() {
+    private val binding by lazy { ActivitySettingsBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        setContentView(binding.root)
+        // Get the background color of the root view
+        val backgroundColor = (binding.root.background as? ColorDrawable)?.color ?: Color.WHITE
+
+        // Update the status bar color to match the background color
+        updateStatusBarColor(backgroundColor)
+        binding.mainLayout.setOnClickListener{startActivity(Intent(this@Settings,Checkout::class.java))}
 
     }
 }

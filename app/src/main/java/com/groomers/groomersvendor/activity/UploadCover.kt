@@ -1,21 +1,24 @@
 package com.groomers.groomersvendor.activity
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.R
+import com.groomers.groomersvendor.databinding.ActivityUploadCoverBinding
 
-class UploadCover : AppCompatActivity() {
+class UploadCover : Common() {
+    private val binding by lazy { ActivityUploadCoverBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_upload_cover)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        val backgroundColor = (binding.root.background as? ColorDrawable)?.color ?: Color.WHITE
+
+        // Update the status bar color to match the background color
+        updateStatusBarColor(backgroundColor)
     }
 }

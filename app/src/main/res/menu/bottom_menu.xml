@@ -12,8 +12,8 @@
         />
     <item
         android:id="@+id/orderListFragment"
-        android:icon="@drawable/list"
-        android:title="@string/orders"
+        android:icon="@drawable/marketing"
+        android:title="@string/marketing"
         />
     <item
         android:id="@+id/profileFragment"

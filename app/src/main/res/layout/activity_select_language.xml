@@ -6,19 +6,39 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvChooseLanguage"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/choose_a_language"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:fontFamily="@font/poppins_bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="30dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Back Icon -->
+        <ImageView
+            android:id="@+id/back_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:src="@drawable/baseline_arrow_back_24" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/screen_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:text="@string/choose_a_language"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
 
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -29,7 +49,7 @@
         android:textColor="@color/black"
         android:textSize="14sp"
         android:fontFamily="@font/poppins_regular"
-        app:layout_constraintTop_toBottomOf="@id/tvChooseLanguage"
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp" />

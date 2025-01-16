@@ -18,6 +18,12 @@
         android:theme="@style/Theme.GroomersVendor"
         tools:targetApi="31">
         <activity
+            android:name=".activity.Marketing"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Checkout"
+            android:exported="false" />
+        <activity
             android:name=".activity.Settings"
             android:exported="false" />
         <activity

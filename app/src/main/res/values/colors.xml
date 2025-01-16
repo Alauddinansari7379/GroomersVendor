@@ -13,4 +13,7 @@
     <color name="yellow">#FFEB3B</color>
     <color name="pink">#E71A64</color>
     <color name="light_gray">#CEC9CA</color>
+    <color name="bottomNavigationBackground">#2A2E43</color>
+    <color name="bottomNavigationSelectedColor">#4C57DE</color>
+    <color name="bottomNavigationTintColor">#B2B2B2</color>
 </resources>

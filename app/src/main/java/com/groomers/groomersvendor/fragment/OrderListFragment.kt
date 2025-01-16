@@ -25,7 +25,7 @@ class OrderListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_order_list, container, false)
-        view.findViewById<Button>(R.id.btn_930am).setOnClickListener {
+        /*view.findViewById<Button>(R.id.btn_930am).setOnClickListener {
             val intent = Intent(requireContext(), OrderLists::class.java)
             startActivity(intent)
         }
@@ -52,7 +52,7 @@ class OrderListFragment : Fragment() {
         view . findViewById < Button >(R.id.btn_10pm).setOnClickListener {
             val intent = Intent(requireContext(), OrderLists::class.java)
             startActivity(intent)
-        }
+        }*/
         return view
     }
     private fun updateDateDisplay() {

@@ -5,6 +5,8 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
@@ -20,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.model.Item
 import java.io.IOException
@@ -94,6 +97,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         recyclerView6.adapter = adapter
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
         getLastLocation()
+        // Get the background color of the fragment's root view
+        val backgroundColor = (view.background as? ColorDrawable)?.color ?: Color.WHITE
+
+        // Update the status bar color to match the background color
+        (activity as? Common)?.updateStatusBarColor( backgroundColor)
 
 
     }

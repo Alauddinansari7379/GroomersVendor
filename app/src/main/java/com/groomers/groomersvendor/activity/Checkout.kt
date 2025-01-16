@@ -10,22 +10,18 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.R
-import com.groomers.groomersvendor.databinding.ActivityRegister3Binding
+import com.groomers.groomersvendor.databinding.ActivityCheckoutBinding
 
-class Register3 : Common() {
-    private val binding by lazy { ActivityRegister3Binding.inflate(layoutInflater) }
+class Checkout : Common() {
+    private val binding by lazy { ActivityCheckoutBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        // Get the background color of the root view
         val backgroundColor = (binding.root.background as? ColorDrawable)?.color ?: Color.WHITE
 
         // Update the status bar color to match the background color
         updateStatusBarColor(backgroundColor)
-        binding.btnContinue3.setOnClickListener {
-            startActivity(Intent(this@Register3,ServiceSetup::class.java))
-        }
-
+        binding.topMAinConstraints.setOnClickListener { startActivity(Intent(this@Checkout,Marketing::class.java)) }
 
     }
 }

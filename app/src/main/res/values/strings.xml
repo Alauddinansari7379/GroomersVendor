@@ -190,5 +190,17 @@
     <string name="select_the_category_you_feel_best_represents_your_business">Select the category you feel best represents your business.</string>
     <string name="confirm_your_address">Confirm your address</string>
     <string name="where_can_clients_find_you">Where can clients find you?</string>
+    <string name="marketing">Marketing</string>
+    <string name="help_center">Help center</string>
+    <string name="add_details_to_establish_your_brand_adjust_location_settings_and_create_custom_forms_for_customer">Add details to establish your brand,adjust location settings,and create custom forms for customer</string>
+    <string name="business_details">Business details</string>
+    <string name="edit_your_opening_and_business_hours_manage_time_off_and_schedule_working_hours_for_staffmembers">Edit your opening and business hours,manage time off and schedule working hours for staffmembers</string>
+    <string name="schedule_management">Schedule management</string>
+    <string name="all_payment_settings_in_one_place">All payment settings in one place</string>
+    <string name="payment_and_checkout">Payment and Checkout</string>
+    <string name="edit">Edit</string>
+    <string name="view_and_analytics">View and Analytics</string>
+    <string name="edit_your_profile_details">Edit your profile details</string>
+
 
 </resources>

@@ -7,5 +7,15 @@
     </style>
 
     <style name="Theme.GroomersVendor" parent="Base.Theme.GroomersVendor" />
+    <style name="BottomNavigationStyle" parent="Widget.Design.BottomNavigationView">
+        <!--        <item name="android:foreground">@drawable/ripple_custom</item>-->
+        <item name="android:background">@color/bottomNavigationBackground</item>
+        <!--<item name="itemBackground">@drawable/ripple_custom</item>-->
+        <item name="itemIconTint">@color/bottom_navigation_color</item>
+        <item name="itemTextColor">@color/bottom_navigation_color</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <!--        <item name="android:fontFamily">@font/varela_round</item>-->
+
+    </style>
 
 </resources>

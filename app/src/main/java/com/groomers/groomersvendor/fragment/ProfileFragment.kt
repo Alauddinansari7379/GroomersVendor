@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.activity.OrderLists
@@ -22,7 +23,7 @@ class ProfileFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
-        view.findViewById<FloatingActionButton>(R.id.settings).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.settings).setOnClickListener {
             val intent = Intent(requireContext(), Settings::class.java)
             startActivity(intent)
         }
