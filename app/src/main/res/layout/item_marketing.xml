@@ -12,24 +12,24 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Status Indicator -->
-        <TextView
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Inactive"
+            android:text="@string/inactive"
             android:textSize="12sp"
             android:textColor="#808080"
             android:fontFamily="@font/poppins_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Title -->
-        <TextView
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Social Post Creator"
+            android:text="@string/social_post_creator"
             android:textSize="14sp"
             android:fontFamily="@font/poppins_bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,12 +37,12 @@
             app:layout_constraintEnd_toStartOf="@id/icon"
             android:layout_marginTop="8dp" />
 
-        <!-- Description -->
-        <TextView
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Show off your business on social media"
+            android:text="@string/show_off_your_business_on_social_media"
             android:textSize="12sp"
             android:fontFamily="@font/poppins_regular"
             android:textColor="#606060"
@@ -51,8 +51,8 @@
             app:layout_constraintEnd_toStartOf="@id/icon"
             android:layout_marginTop="4dp" />
 
-        <!-- Icon -->
-        <ImageView
+
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/icon"
             android:layout_width="40dp"
             android:layout_height="40dp"

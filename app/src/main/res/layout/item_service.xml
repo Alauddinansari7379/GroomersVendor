@@ -14,12 +14,12 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Service Name -->
-        <TextView
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/service_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Service Name"
+            android:text="@string/service_name"
             android:textSize="16sp"
             android:textColor="@color/black"
             android:ellipsize="end"
@@ -31,12 +31,11 @@
             app:layout_constraintEnd_toStartOf="@id/set_price_button"
             app:layout_constraintHorizontal_bias="0" />
 
-        <!-- Set Price Button -->
         <Button
             android:id="@+id/set_price_button"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:text="Set price"
+            android:text="@string/set_price"
             android:textSize="11sp"
             android:backgroundTint="@color/black"
             android:textColor="@color/white"

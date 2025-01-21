@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Header Section -->
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/header_card"
                 android:layout_width="0dp"
@@ -44,7 +44,7 @@
                         android:background="@drawable/border"
                         android:drawablePadding="5dp"
                         android:drawableEnd="@drawable/baseline_add_24"
-                        android:text="Add Cover"
+                        android:text="@string/add_cover"
                         android:textColor="@color/black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -57,7 +57,7 @@
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/border"
                         android:drawableEnd="@drawable/scan"
-                        android:text="Share Profile"
+                        android:text="@string/share_profile"
                         android:drawablePadding="5dp"
                         android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +65,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <!-- Profile Section -->
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/profile"
                 android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                 android:layout_marginTop="100dp"
                 app:layout_constraintTop_toBottomOf="@id/header_card">
 
-                <!-- Card for Profile -->
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/profile_card"
                     android:layout_width="match_parent"
@@ -91,7 +91,7 @@
                         android:layout_height="wrap_content"
                         android:padding="16dp">
 
-                        <!-- Profile Image -->
+
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/profile_image"
                             android:layout_width="80dp"
@@ -102,7 +102,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <!-- Store Icon with Badge -->
+
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/store_badge"
                             android:layout_width="wrap_content"
@@ -122,7 +122,7 @@
                                 android:fontFamily="@font/poppins_regular"
                                 android:gravity="center"
                                 android:padding="4dp"
-                                android:text="n/a"
+                                android:text="@string/n_a"
                                 android:textColor="@android:color/black"
                                 android:textSize="12sp"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -130,21 +130,21 @@
                                 app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <!-- Name -->
+
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/name_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:fontFamily="@font/poppins_bold"
-                            android:text="Ash"
+                            android:text="@string/ash"
                             android:textColor="@android:color/black"
                             android:textSize="16sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/store_badge" />
 
-                        <!-- Status Card -->
+
                         <androidx.cardview.widget.CardView
                             android:id="@+id/status_card"
                             android:layout_width="match_parent"
@@ -166,7 +166,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/poppins_regular"
-                                    android:text="Novice"
+                                    android:text="@string/novice"
                                     android:textColor="@android:color/black"
                                     android:textSize="14sp"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -179,7 +179,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/poppins_regular"
                                     android:gravity="end"
-                                    android:text="2 of 5 completed"
+                                    android:text="@string/_2_of_5_completed"
                                     android:textColor="@android:color/black"
                                     android:textSize="14sp"
                                     app:layout_constraintEnd_toEndOf="parent"
@@ -214,46 +214,47 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/profile_card">
 
-                    <LinearLayout
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="16dp">
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:contentDescription="Finance Center Icon"
+                            android:contentDescription="@string/finance_center_icon"
                             android:src="@drawable/budget" />
 
-                        <LinearLayout
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:paddingStart="16dp">
+                            android:paddingStart="16dp"
+                            tools:ignore="RtlSymmetry">
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_bold"
-                                android:text="Finance Center"
+                                android:text="@string/finance_center"
                                 android:textSize="14sp" />
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="All Booksy Payments settings in one place"
+                                android:text="@string/all_booksy_payments_settings_in_one_place"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="14sp" />
 
-                        </LinearLayout>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    </LinearLayout>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Create Social Post Card -->
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_social_post"
                     android:layout_width="0dp"
@@ -266,47 +267,47 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/card_finance_center">
 
-                    <LinearLayout
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="16dp">
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:contentDescription="Social Post Icon"
                             android:src="@drawable/share" />
 
-                        <LinearLayout
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:paddingStart="16dp">
+                            android:paddingStart="16dp"
+                            tools:ignore="RtlSymmetry">
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_bold"
-                                android:text="Create a Social Post"
+                                android:text="@string/create_a_social_post"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Use Social Post creator to keep yourself busy"
+                                android:text="@string/use_social_post_creator_to_keep_yourself_busy"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="14sp" />
 
-                        </LinearLayout>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    </LinearLayout>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.cardview.widget.CardView>
 
-                <!-- View Transaction Summary Card -->
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_transaction_summary"
                     android:layout_width="0dp"
@@ -318,47 +319,47 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/card_social_post">
 
-                    <LinearLayout
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="16dp">
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:contentDescription="Transaction Icon"
                             android:src="@drawable/exchange"
                             app:tint="@color/yellow" />
 
-                        <LinearLayout
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:paddingStart="16dp">
+                            android:paddingStart="16dp"
+                            tools:ignore="RtlSymmetry">
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_bold"
-                                android:text="View Transaction Summary"
+                                android:text="@string/view_transaction_summary"
                                 android:textSize="14sp" />
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Review your recent sales and make sure all of your appointments are checked out."
+                                android:text="@string/review_your_recent_sales_and_make_sure_all_of_your_appointments_are_checked_out"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="14sp" />
 
-                        </LinearLayout>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    </LinearLayout>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.cardview.widget.CardView>
 
-                <LinearLayout
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/portfolio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -371,12 +372,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/card_transaction_summary">
 
-                    <!-- Portfolio Section -->
-                    <TextView
+
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="Portfolio"
+                        android:text="@string/portfolio"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -386,70 +387,69 @@
                         android:layout_height="40dp"
                         android:layout_marginBottom="24dp"
                         android:background="@drawable/outline_button"
-                        android:text="Add from phone"
+                        android:text="@string/add_from_phone"
                         android:textColor="@android:color/black" />
 
-                    <!-- Latest Reviews Section -->
-                    <TextView
+
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Latest Reviews"
+                        android:text="@string/latest_reviews"
                         android:textColor="@android:color/black"
                         android:textSize="14sp" />
 
-                    <LinearLayout
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:gravity="center"
                         android:orientation="horizontal">
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:layout_marginEnd="8dp"
-                            android:contentDescription="No Reviews"
                             android:src="@drawable/chat" />
 
-                        <LinearLayout
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="4dp"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="No reviews yet ..."
+                                android:text="@string/no_reviews_yet"
                                 android:textColor="@android:color/black"
                                 android:textSize="14sp" />
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Use Social Posts and Message Blasts to encourage your clients to leave reviews on your Profile."
+                                android:text="@string/use_social_posts_and_message_blasts_to_encourage_your_clients_to_leave_reviews_on_your_profile"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="12sp" />
-                        </LinearLayout>
-                    </LinearLayout>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    <!-- Your Performance Section -->
-                    <LinearLayout
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins_bold"
-                            android:text="Your Performance"
+                            android:text="@string/your_performance"
                             android:textColor="@android:color/black"
                             android:textSize="14sp" />
 
@@ -458,14 +458,14 @@
                             android:layout_height="30dp"
                             android:layout_marginEnd="16dp"
                             android:background="@drawable/outline_button"
-                            android:text="DETAILED REPORT"
+                            android:text="@string/detailed_report"
                             android:textColor="@android:color/black"
-                            android:textSize="11dp" />
-                    </LinearLayout>
+                            android:textSize="11sp" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
-                </LinearLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <LinearLayout
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -474,13 +474,13 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/portfolio">
 
-                    <!-- Tabs Section -->
+
                     <HorizontalScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:overScrollMode="never">
 
-                        <LinearLayout
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
@@ -491,7 +491,7 @@
                                 android:layout_height="40dp"
                                 android:layout_marginEnd="8dp"
                                 android:background="@drawable/tab_selected"
-                                android:text="Today"
+                                android:text="@string/today"
                                 android:textColor="@color/black" />
 
                             <androidx.appcompat.widget.AppCompatButton
@@ -500,7 +500,7 @@
                                 android:layout_height="40dp"
                                 android:layout_marginEnd="8dp"
                                 android:background="@drawable/tab_unselected"
-                                android:text="Week #1"
+                                android:text="@string/week_1"
                                 android:textColor="@color/black" />
 
                             <androidx.appcompat.widget.AppCompatButton
@@ -509,19 +509,19 @@
                                 android:layout_height="40dp"
                                 android:layout_marginEnd="8dp"
                                 android:background="@drawable/tab_unselected"
-                                android:text="January" />
+                                android:text="@string/january" />
 
                             <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/tab_year"
                                 android:layout_width="wrap_content"
                                 android:layout_height="40dp"
                                 android:background="@drawable/tab_unselected"
-                                android:text="2025" />
-                        </LinearLayout>
+                                android:text="@string/_2025" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
                     </HorizontalScrollView>
 
-                    <!-- Revenue Card -->
-                    <LinearLayout
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -529,90 +529,90 @@
                         android:orientation="vertical"
                         android:padding="16dp">
 
-                        <TextView
+                        <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:fontFamily="@font/poppins_bold"
-                            android:text="Revenue"
+                            android:text="@string/revenue"
                             android:textColor="@android:color/black"
                             android:textSize="14sp" />
 
-                        <!-- Revenue Chart Placeholder -->
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:layout_marginBottom="16dp"
                             android:background="@color/light_gray" />
 
-                        <!-- Revenue Details -->
+
                         <GridLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:columnCount="2"
                             android:rowCount="3">
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="SERVICES"
+                                android:text="@string/services"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="12sp" />
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="$0 ▲0%"
+                                android:text="@string/_0_0"
                                 android:textColor="@android:color/black"
                                 android:textSize="12sp" />
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="GIFT CARDS"
+                                android:text="@string/gift_cards"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="12sp" />
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="$0 ▲0%"
+                                android:text="@string/_0_0"
                                 android:textColor="@android:color/black"
                                 android:textSize="12sp" />
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="REVENUE FORECAST"
+                                android:text="@string/revenue_forecast"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="12sp" />
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="$0"
+                                android:text="@string/_0"
                                 android:textColor="@android:color/black"
                                 android:textSize="12sp" />
                         </GridLayout>
-                    </LinearLayout>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <!-- Booksy Library Section -->
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:layout_marginBottom="8dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Booksy Library"
+                        android:text="@string/booksy_library"
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 
-                    <LinearLayout
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/card_background"
@@ -624,35 +624,34 @@
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:layout_marginEnd="8dp"
-                            android:contentDescription="Play Icon"
                             android:src="@drawable/play" />
 
-                        <LinearLayout
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="4dp"
                                 android:fontFamily="@font/poppins_bold"
-                                android:text="How to's, tips  tricks, and more..."
+                                android:text="@string/how_to_s_tips_tricks_and_more"
                                 android:textColor="@android:color/black"
                                 android:textSize="14sp" />
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Need more features? Want to scale your business?"
+                                android:text="@string/need_more_features_want_to_scale_your_business"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="12sp" />
-                        </LinearLayout>
-                    </LinearLayout>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-                </LinearLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Options Section -->
@@ -668,7 +667,7 @@
         android:src="@drawable/settings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />-->
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -698,7 +697,7 @@
             app:srcCompat="@drawable/settings"
             app:useCompatPadding="false" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/chat_fab_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -713,6 +712,6 @@
             android:textColor="@android:color/white"
             android:textSize="12sp" />
 
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
