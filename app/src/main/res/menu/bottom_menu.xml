@@ -3,12 +3,12 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/home"
-        android:title="@string/home"
+        android:title="Appointments"
         />
     <item
         android:id="@+id/addPostFragment"
         android:icon="@drawable/add"
-        android:title="@string/add_post"
+        android:title="Finance"
         />
     <item
         android:id="@+id/orderListFragment"
@@ -18,7 +18,7 @@
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/profile"
-        android:title="@string/my_profile"
+        android:title="Shop profile"
         />
 
 </menu>

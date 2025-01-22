@@ -4,14 +4,12 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.PopupMenu
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.groomers.groomersvendor.databinding.ActivityMainBinding
+import com.groomers.groomersvendor.helper.BottomNavigationBehavior
 import me.ibrahimsn.lib.SmoothBottomBar
 class MainActivity : Common() {
     private lateinit var bottomNav: BottomNavigationView
@@ -29,6 +27,9 @@ class MainActivity : Common() {
         // Set up the NavHostFragment and NavController
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.hostFragment) as NavHostFragment
+//        binding.bottomNavigation1.layoutParams.behavior =
+//            BottomNavigationBehavior()
+
         val navController = navHostFragment.navController
 
         // Attach the BottomNavigationView to the NavController
