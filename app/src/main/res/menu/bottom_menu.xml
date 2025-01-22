@@ -8,6 +8,10 @@
     <item
         android:id="@+id/addPostFragment"
         android:icon="@drawable/add"
+        android:title="Add post"/>
+    <item
+        android:id="@+id/financeFragment2"
+        android:icon="@drawable/bars"
         android:title="Finance"
         />
     <item

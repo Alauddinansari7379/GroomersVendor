@@ -25,4 +25,9 @@
         android:name="com.groomers.groomersvendor.fragment.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/financeFragment2"
+        android:name="com.groomers.groomersvendor.fragment.FinanceFragment"
+        android:label="fragment_finance"
+        tools:layout="@layout/fragment_finance" />
 </navigation>
