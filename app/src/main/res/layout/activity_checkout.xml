@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E9E4E4"
+    android:background="@color/white"
     tools:context=".activity.Checkout">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/backImage"
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -28,11 +28,11 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/black" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:text="Checkout"
+            android:text="@string/checkout"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -54,8 +54,8 @@
         app:layout_constraintTop_toBottomOf="@+id/topMAinConstraint"
         app:layout_constraintWidth_percent=".94">
 
-        <ImageView
-            android:id="@+id/profileaimg"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/profileImg"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="fitXY"
@@ -68,14 +68,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:text="Select A client  or leave empty walk_in"
+            android:text="@string/select_a_client_or_leave_empty_walk_in"
             android:textColor="@color/black"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/profileaimg"
+            app:layout_constraintStart_toEndOf="@+id/profileImg"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/rightArrow"
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -94,7 +94,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Amount Due"
+        android:hint="@string/amount_due"
         app:layout_constraintTop_toBottomOf="@+id/topMAinConstraints"
         app:prefixText="$">
 
@@ -126,7 +126,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add service" />
+            android:text="@string/add_service" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -150,7 +150,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add service" />
+            android:text="@string/add_service" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 

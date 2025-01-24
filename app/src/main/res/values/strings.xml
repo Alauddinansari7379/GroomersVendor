@@ -239,6 +239,14 @@
     <string name="booksy_library">Booksy Library</string>
     <string name="how_to_s_tips_tricks_and_more">How to\'s, tips tricks, and more...</string>
     <string name="need_more_features_want_to_scale_your_business">Need more features? Want to scale your business?</string>
+    <string name="male">Male</string>
+    <string name="hair_cut_and_style">Hair cut and style</string>
+    <string name="hair_color">Hair color</string>
+    <string name="hair_chemical">Hair chemical</string>
+    <string name="hair_cut_and_style_16">Hair cut and style(16)</string>
+    <string name="checkout">Checkout</string>
+    <string name="select_a_client_or_leave_empty_walk_in">Select A client or leave empty walk_in</string>
+    <string name="amount_due">Amount Due</string>
 
 
 </resources>

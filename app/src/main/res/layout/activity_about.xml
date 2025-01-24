@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#FFFFFF"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="24dp">
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/back_arrow"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="start"
-        android:visibility="gone"
         android:layout_marginTop="10dp"
         android:contentDescription="@string/back_arrow"
-        android:src="@drawable/baseline_arrow_back_24" />
+        android:src="@drawable/baseline_arrow_back_24"
+        android:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -23,7 +24,7 @@
         android:layout_height="4dp"
         android:layout_marginVertical="16dp"
         android:progress="80"
-        android:progressTint="#4CAF50" />
+        android:progressTint="@color/green" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,12 +35,12 @@
         android:textColor="@color/black"
         android:textSize="20sp" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:fontFamily="@font/poppins_regular"
-        android:text="Tell us more about yourself and your business."
+        android:text="@string/tell_us_more_about_yourself_and_your_business"
         android:textColor="@color/gray"
         android:textSize="13sp" />
 
@@ -54,10 +55,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:maxLines="1"
             android:lines="1"
+            android:maxLines="1"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="8dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -71,10 +72,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:maxLines="1"
             android:lines="1"
+            android:maxLines="1"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="8dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -88,25 +89,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:maxLines="1"
             android:lines="1"
+            android:maxLines="1"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="8dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnContinue3"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/btnlanguagebg"
-        android:fontFamily="@font/poppins_regular"
-        android:gravity="center"
-        android:text="@string/continue1"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:textStyle="bold"/>
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnContinue3"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/btnlanguagebg"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/continue1"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
