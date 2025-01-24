@@ -30,6 +30,8 @@ class MainActivity : Common() {
 //        binding.bottomNavigation1.layoutParams.behavior =
 //            BottomNavigationBehavior()
 
+        //somenath
+
         val navController = navHostFragment.navController
 
         // Attach the BottomNavigationView to the NavController
