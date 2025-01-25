@@ -247,6 +247,8 @@
     <string name="checkout">Checkout</string>
     <string name="select_a_client_or_leave_empty_walk_in">Select A client or leave empty walk_in</string>
     <string name="amount_due">Amount Due</string>
-
+    <string name="appointment">Appointment</string>
+    <string name="finance">Finance</string>
+    <string name="shop_profile">Shop Profile</string>
 
 </resources>

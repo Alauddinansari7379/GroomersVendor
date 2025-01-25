@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:scrollbars="none"
     android:padding="16dp">
 
     <LinearLayout
@@ -29,7 +30,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/sf_bold"
                 android:text="Upload Cover"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
@@ -40,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:text="1. Upload Cover"
             android:textColor="@android:color/black"
             android:textSize="14sp" />
@@ -65,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:text="2. Upload Salon Outside Image"
             android:textColor="@android:color/black"
             android:textSize="14sp" />
@@ -93,7 +94,7 @@
             android:text="Rules  Instruction:"
             android:textColor="@android:color/black"
             android:textSize="14sp"
-           android:fontFamily="@font/poppins_bold" />
+           android:fontFamily="@font/sf_bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -108,7 +109,7 @@
                 android:text="• Image Should be clear visible about your brand."
                 android:textColor="@android:color/black"
                 android:textSize="12sp"
-                android:fontFamily="@font/poppins_regular"/>
+                android:fontFamily="@font/sf_regular"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -117,7 +118,7 @@
                 android:text="• Inside Image should not have any phone number."
                 android:textColor="@android:color/black"
                 android:textSize="12sp"
-                android:fontFamily="@font/poppins_regular"/>
+                android:fontFamily="@font/sf_regular"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -125,7 +126,7 @@
                 android:text="• The image should not have any Model image unless you have the copyright of it."
                 android:textColor="@android:color/black"
                 android:textSize="12sp"
-                android:fontFamily="@font/poppins_regular"/>
+                android:fontFamily="@font/sf_regular"/>
         </LinearLayout>
 
         <!-- Skip Button -->
@@ -139,7 +140,7 @@
             android:layout_marginTop="50dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/border"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/sf_regular"
             android:gravity="center"
             android:text="Skip"
             android:textAllCaps="false"

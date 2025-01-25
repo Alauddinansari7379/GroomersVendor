@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/sf_bold"
         android:gravity="center"
         android:text="@string/all_in_one_solution"
         android:textColor="@color/white"
@@ -25,7 +25,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/sf_bold"
         android:gravity="center"
         android:text="@string/to_manage_bookings_do_marketing_and_to_grow_your_business"
         android:textColor="@color/white"
@@ -37,8 +37,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgMascot"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:src="@drawable/welcome_2"
         app:layout_constraintBottom_toTopOf="@+id/btnGetStarted"
         app:layout_constraintEnd_toEndOf="parent"

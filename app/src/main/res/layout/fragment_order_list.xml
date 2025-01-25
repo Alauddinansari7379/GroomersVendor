@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="Marketing"
         android:textSize="20sp"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/sf_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginBottom="16dp" />

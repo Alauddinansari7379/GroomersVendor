@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:overScrollMode="never"
+        android:scrollbars="none"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -34,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:layout_marginVertical="16dp"
-                android:progress="80"
+                android:progress="100"
                 android:progressTint="#4CAF50" />
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvTitle"
@@ -82,6 +83,8 @@
                         android:layout_height="wrap_content"
                         android:checked="false"
                         android:text="@string/sunday"
+                        android:thumbTint="@color/switch_color"
+                        android:trackTint="@color/switch_color_off"
                         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -89,7 +92,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/poppins_regular"
+                        android:fontFamily="@font/sf_regular"
                         android:gravity="end"
                         android:text="@string/closed"
                         android:textColor="@color/black"
@@ -111,21 +114,23 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="16dp">
-
                     <Switch
                         android:id="@+id/switch_monday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:text="@string/monday"
+                        android:thumbTint="@color/switch_color"
+                        android:trackTint="@color/switch_color_off"
                         tools:ignore="UseSwitchCompatOrMaterialXml" />
+
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_monday_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/poppins_regular"
+                        android:fontFamily="@font/sf_regular"
                         android:gravity="end"
                         android:text="@string/_10_00_am_7_00_pm"
                         android:textColor="#000000"
@@ -153,6 +158,8 @@
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:text="@string/tuesday"
+                        android:thumbTint="@color/switch_color"
+                        android:trackTint="@color/switch_color_off"
                         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -160,7 +167,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/poppins_regular"
+                        android:fontFamily="@font/sf_regular"
                         android:gravity="end"
                         android:text="@string/_10_00_am_7_00_pm"
                         android:textColor="@color/black"
@@ -188,6 +195,8 @@
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:text="@string/wednesday"
+                        android:thumbTint="@color/switch_color"
+                        android:trackTint="@color/switch_color_off"
                         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -195,7 +204,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/poppins_regular"
+                        android:fontFamily="@font/sf_regular"
                         android:gravity="end"
                         android:text="@string/_10_00_am_7_00_pm"
                         android:textColor="@color/black"
@@ -223,6 +232,8 @@
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:text="@string/thursday"
+                        android:thumbTint="@color/switch_color"
+                        android:trackTint="@color/switch_color_off"
                         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -230,7 +241,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/poppins_regular"
+                        android:fontFamily="@font/sf_regular"
                         android:gravity="end"
                         android:text="@string/_10_00_am_7_00_pm"
                         android:textColor="@color/black"
@@ -258,6 +269,8 @@
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:text="@string/friday"
+                        android:thumbTint="@color/switch_color"
+                        android:trackTint="@color/switch_color_off"
                         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -265,7 +278,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/poppins_regular"
+                        android:fontFamily="@font/sf_regular"
                         android:gravity="end"
                         android:text="@string/_10_00_am_7_00_pm"
                         android:textColor="@color/black"
@@ -293,6 +306,8 @@
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:text="@string/saturday"
+                        android:thumbTint="@color/switch_color"
+                        android:trackTint="@color/switch_color_off"
                         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -300,7 +315,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/poppins_regular"
+                        android:fontFamily="@font/sf_regular"
                         android:gravity="end"
                         android:text="@string/_10_00_am_7_00_pm"
                         android:textColor="@color/black"
@@ -318,7 +333,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:background="@drawable/btnlanguagebg"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/sf_regular"
         android:gravity="center"
         android:text="@string/continue1"
         android:textAllCaps="false"

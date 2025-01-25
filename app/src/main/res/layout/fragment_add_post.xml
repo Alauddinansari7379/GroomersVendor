@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:scrollbars="vertical">
+    android:scrollbars="none">
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,16 +12,17 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAddImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/border_bg"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/sf_bold"
         android:gravity="center"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:text="@string/upload_your_photo"
         android:textColor="@color/black"
+        android:textAllCaps="false"
         android:textSize="16sp" />
 
     <androidx.appcompat.widget.AppCompatEditText
@@ -32,6 +33,7 @@
         android:textColorHint="@color/black"
         android:background="@drawable/corner_edt"
         android:inputType="textCapWords"
+        android:fontFamily="@font/sf_regular"
         android:padding="10dp"
         android:textSize="16sp" />
 
@@ -42,6 +44,7 @@
         android:hint="@string/post_description"
         android:minHeight="140dp"
         android:inputType="textMultiLine"
+        android:fontFamily="@font/sf_regular"
         android:textColorHint="@color/black"
         android:layout_marginTop="8dp"
         android:background="@drawable/corner_edt"
@@ -69,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:text="@string/item_price" />
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -79,6 +82,7 @@
             android:hint="@string/_100"
             android:textColorHint="@color/black"
             android:layout_weight="1"
+            android:fontFamily="@font/sf_regular"
             android:layout_marginStart="8dp"
             android:background="@drawable/border_bg"
             android:inputType="textCapWords"
@@ -90,7 +94,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:layout_marginStart="8dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:text="@string/quantity" />
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -99,6 +103,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/_2"
             android:layout_weight="1"
+            android:fontFamily="@font/sf_regular"
             android:textColorHint="@color/black"
             android:layout_marginStart="8dp"
             android:background="@drawable/border_bg"
@@ -119,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:text="@string/item_time" />
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -127,6 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/_10pm"
+            android:fontFamily="@font/sf_regular"
             android:layout_weight="1"
             android:textColorHint="@color/black"
             android:layout_marginStart="8dp"
@@ -140,7 +146,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:layout_marginStart="8dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:text="@string/item_date" />
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -150,6 +156,7 @@
             android:hint="@string/_10_jun"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
+            android:fontFamily="@font/sf_regular"
             android:textColorHint="@color/black"
             android:background="@drawable/border_bg"
             android:inputType="textCapWords"
@@ -162,7 +169,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/sf_bold"
         android:layout_marginTop="8dp"
         android:text="@string/service_type" />
 
@@ -175,7 +182,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:layout_marginTop="8dp"
             android:text="@string/address" />
 
@@ -195,7 +202,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/sf_bold"
         android:layout_marginTop="8dp"
         android:text="@string/category" />
 
@@ -210,7 +217,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/sf_bold"
         android:layout_marginTop="8dp"
         android:text="@string/slot_time" />
 
@@ -236,7 +243,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/gradient_button"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/sf_regular"
         android:gravity="center"
         android:text="@string/post_service"
         android:textAllCaps="false"

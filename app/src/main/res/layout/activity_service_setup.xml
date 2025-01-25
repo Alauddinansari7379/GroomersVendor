@@ -14,7 +14,6 @@
         android:padding="16dp"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/back_icon"
             android:layout_width="wrap_content"
@@ -28,17 +27,18 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:gravity="center"
             android:text="Service setup"
             android:textSize="20sp" />
 
     </LinearLayout>
 
+
     <EditText
         android:id="@+id/searchView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
@@ -46,6 +46,7 @@
         android:drawableEnd="@drawable/baseline_search_24"
         android:hint="@string/search"
         android:padding="12dp"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_bar" />
@@ -118,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:gravity="center"
             android:text="@string/hair_cut_and_style" />
 
@@ -126,7 +127,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:gravity="center"
             android:text="@string/hair_color" />
 
@@ -134,7 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:gravity="center"
             android:text="@string/hair_chemical" />
 
@@ -145,7 +146,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/sf_bold"
         android:text="@string/hair_cut_and_style_16"
         android:textColor="#00BCD4"
         android:textSize="20sp"
@@ -194,7 +195,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:maxLines="1"
                     android:text="Service Name"
                     android:textColor="@color/black"
@@ -212,7 +213,7 @@
                     android:layout_height="30dp"
                     android:background="@drawable/btnlanguagebg1"
                     android:backgroundTint="@color/mainColor"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:text="@string/set_price"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
@@ -247,7 +248,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:maxLines="1"
                     android:text="Service Name"
                     android:textColor="@color/black"
@@ -266,7 +267,7 @@
                     android:layout_height="30dp"
                     android:background="@drawable/btnlanguagebg1"
                     android:backgroundTint="@color/mainColor"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:text="@string/set_price"
                     android:textColor="@color/white"
                     android:textSize="11sp"
@@ -300,7 +301,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:maxLines="1"
                     android:text="Service Name"
                     android:textColor="@color/black"
@@ -318,7 +319,7 @@
                     android:layout_height="30dp"
                     android:background="@drawable/btnlanguagebg1"
                     android:backgroundTint="@color/mainColor"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:text="@string/set_price"
                     android:textColor="@color/white"
                     android:textSize="11sp"
@@ -352,7 +353,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:maxLines="1"
                     android:text="@string/service_name"
                     android:textColor="@color/black"
@@ -370,7 +371,7 @@
                     android:layout_height="30dp"
                     android:background="@drawable/btnlanguagebg1"
                     android:backgroundTint="@color/mainColor"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:text="@string/set_price"
                     android:textColor="@color/white"
                     android:textSize="11sp"
@@ -404,7 +405,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:maxLines="1"
                     android:text="Service Name"
                     android:textColor="@color/black"
@@ -422,7 +423,7 @@
                     android:layout_height="30dp"
                     android:background="@drawable/btnlanguagebg1"
                     android:backgroundTint="@color/mainColor"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:text="@string/set_price"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
@@ -447,7 +448,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="30dp"
         android:background="@drawable/btnlanguagebg"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/sf_regular"
         android:gravity="center"
         android:text="@string/continue1"
         android:textAllCaps="false"

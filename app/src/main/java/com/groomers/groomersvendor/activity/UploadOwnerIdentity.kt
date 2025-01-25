@@ -13,7 +13,6 @@ class UploadOwnerIdentity : Common() {
     private val binding by lazy { ActivityUploadOwnerIdentityBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(binding.root)
         // Get the background color of the root view
         val backgroundColor = (binding.root.background as? ColorDrawable)?.color ?: Color.WHITE

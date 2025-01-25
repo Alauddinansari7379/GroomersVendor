@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:layout_marginVertical="16dp"
-        android:progress="60"
+        android:progress="80"
         android:progressTint="#4CAF50" />
 
     <!-- Title -->
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text="Upload Owner Identity"
         android:textSize="20sp"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/sf_bold"
         android:layout_marginBottom="8dp" />
 
     <!-- Subtitle -->
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Highly recommended"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/sf_regular"
         android:textSize="16sp"
         android:textColor="#666666"
         android:layout_marginBottom="14dp" />
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:text="1. Upload Identity Proof"
         android:textSize="16sp"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/sf_bold"
         android:layout_marginBottom="8dp" />
 
     <Spinner
@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:text="2. Upload shop registration/leased agreement"
         android:textSize="16sp"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/sf_bold"
         android:layout_marginBottom="8dp" />
 
     <LinearLayout
@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:text="Add Shop Registration/Leased Agreement or any other establishment registration document"
             android:textColor="#666666"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/sf_regular"
             android:gravity="center"
             android:padding="16dp"
             android:textSize="14sp" />
@@ -118,7 +118,7 @@
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
             android:background="@drawable/border"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/sf_regular"
             android:text="Skip"
             android:textAllCaps="false"
             android:textColor="@color/black"
@@ -133,7 +133,7 @@
             android:layout_weight="1"
             android:layout_marginStart="8dp"
             android:background="@drawable/btnlanguagebg"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/sf_regular"
             android:text="@string/continue1"
             android:textAllCaps="false"
             android:textColor="@color/white"

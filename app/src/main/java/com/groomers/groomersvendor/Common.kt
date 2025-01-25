@@ -11,14 +11,8 @@ open class Common : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
     }
 
-    /**
-     * Automatically update the status bar color based on the background color of the screen
-     */
     fun updateStatusBarColor(color: Int) {
-        // Change the status bar color to match the background color
         window.statusBarColor = color
-
-        // Check if the color is white (or very light)
         val isLightColor = color.isLightColor()
 
         // If the color is light (like white), set the status bar icons to dark

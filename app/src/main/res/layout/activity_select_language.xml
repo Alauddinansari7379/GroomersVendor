@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:gravity="center"
             android:text="@string/choose_a_language"
             android:textSize="20sp" />
@@ -48,7 +48,7 @@
         android:text="@string/select_the_best_of_your_knowledge"
         android:textColor="@color/black"
         android:textSize="14sp"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/sf_regular"
         app:layout_constraintTop_toBottomOf="@id/top_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

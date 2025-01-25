@@ -45,7 +45,7 @@ class SelectLanguage : Common() {
 
         binding.btnContinue.setOnClickListener {
             // Proceed to the next activity
-            startActivity(Intent(this@SelectLanguage, Register2::class.java))
+            startActivity(Intent(this@SelectLanguage, Login::class.java))
         }
     }
 

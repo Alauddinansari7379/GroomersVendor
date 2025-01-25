@@ -23,77 +23,82 @@
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:layout_marginVertical="16dp"
-        android:progress="80"
+        android:progress="20"
         android:progressTint="@color/green" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/sf_bold"
         android:text="@string/about_you"
         android:textColor="@color/black"
         android:textSize="20sp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:fontFamily="@font/poppins_regular"
-        android:text="@string/tell_us_more_about_yourself_and_your_business"
-        android:textColor="@color/gray"
-        android:textSize="13sp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/business_name">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+         android:layout_marginTop="20dp"
+         android:orientation="vertical">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:lines="1"
-            android:maxLines="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/sf_regular"
+            android:text="@string/tell_us_more_about_yourself_and_your_business"
+            android:textColor="@color/gray"
+            android:textSize="13sp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/your_name">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:lines="1"
-            android:maxLines="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="match_parent"
+            android:hint="@string/business_name"
+            >
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/phone_number">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etEmail"
+            <com.google.android.material.textfield.TextInputEditText
+                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 android:drawablePadding="5dp"
+                android:fontFamily="@font/sf_regular"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:lines="1"
-            android:maxLines="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:hint="@string/your_name"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 android:drawablePadding="5dp"
+                android:fontFamily="@font/sf_regular"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+
+            android:layout_height="match_parent"
+            android:hint="@string/phone_number"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 android:drawablePadding="5dp"
+                android:fontFamily="@font/sf_regular"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -106,7 +111,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="16dp"
             android:background="@drawable/btnlanguagebg"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/sf_regular"
             android:gravity="center"
             android:text="@string/continue1"
             android:textAllCaps="false"

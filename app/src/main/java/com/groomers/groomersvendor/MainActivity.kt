@@ -17,33 +17,26 @@ class MainActivity : Common() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
         setContentView(binding.root)
         val backgroundColor = (binding.root.background as? ColorDrawable)?.color ?: Color.WHITE
-
         // Update the status bar color to match the background color
         updateStatusBarColor(backgroundColor)
         bottomNav = binding.bottomNavigationView
-
         // Set up the NavHostFragment and NavController
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.hostFragment) as NavHostFragment
-//        binding.bottomNavigation1.layoutParams.behavior =
-//            BottomNavigationBehavior()
-
-        //somenath
-
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.hostFragment) as NavHostFragment
         val navController = navHostFragment.navController
-
         // Attach the BottomNavigationView to the NavController
         bottomNav.setupWithNavController(navController)
 
         // Update the toolbar title dynamically based on the selected fragment
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.tvTitle.text = when (destination.id) {
-                R.id.homeFragment -> getString(R.string.dashboard)
-                R.id.addPostFragment -> getString(R.string.post_title)
-                R.id.orderListFragment -> getString(R.string.order_list)
-                else -> getString(R.string.my_profile)
+                R.id.homeFragment -> getString(R.string.appointment)
+                R.id.addPostFragment -> getString(R.string.add_post)
+                R.id.financeFragment2 -> getString(R.string.finance)
+                R.id.orderListFragment -> getString(R.string.marketing)
+                else -> getString(R.string.shop_profile)
             }
         }
     }

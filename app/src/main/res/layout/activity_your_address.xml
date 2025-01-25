@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="80dp"
+        android:scrollbars="none"
         app:layout_constraintTop_toBottomOf="@id/progress_bar"
         app:layout_constraintBottom_toTopOf="@id/button_container">
 
@@ -37,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/sf_bold"
                 android:text="Confirm Your Address"
                 android:textSize="20sp"
                 android:textColor="#000000"
@@ -48,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/sf_regular"
                 android:text="Where can clients find you?"
                 android:textColor="#666666"
                 android:textSize="12sp"
@@ -66,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingVertical="8dp"
-                    android:fontFamily="@font/poppins_bold" />
+                    android:fontFamily="@font/sf_bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Street Address Line 2 -->
@@ -81,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingVertical="8dp"
-                    android:fontFamily="@font/poppins_bold" />
+                    android:fontFamily="@font/sf_bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- City Label -->
@@ -89,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/sf_bold"
                 android:text="City"
                 android:textColor="#000000" />
 
@@ -106,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/sf_bold"
                 android:text="Zip Code"
                 android:textColor="#000000" />
 
@@ -137,7 +138,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/btnlanguagebg"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/sf_regular"
             android:text="Continue"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -151,7 +152,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/border"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/sf_regular"
             android:text="Reset"
             android:textAllCaps="false"
             android:textColor="@color/black"

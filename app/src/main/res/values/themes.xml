@@ -1,21 +1,24 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.GroomersVendor" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="android:statusBarColor">@color/mainColor</item>
+    <style name="Theme.GroomersVendor" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:forceDarkAllowed" tools:targateApi="q" tools:targetApi="q">false</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/mainColor</item>
+        <item name="colorPrimaryVariant">@color/main_Color_Dark</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/mainColor</item>
+        <item name="colorSecondaryVariant">@color/main_Color_Dark</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.GroomersVendor" parent="Base.Theme.GroomersVendor" />
     <style name="BottomNavigationStyle" parent="Widget.Design.BottomNavigationView">
-        <!--        <item name="android:foreground">@drawable/ripple_custom</item>-->
         <item name="android:background">@color/bottomNavigationBackground</item>
-        <!--<item name="itemBackground">@drawable/ripple_custom</item>-->
         <item name="itemIconTint">@color/bottom_navigation_color</item>
         <item name="itemTextColor">@color/bottom_navigation_color</item>
         <item name="fontFamily">@font/poppins_regular</item>
-        <!--        <item name="android:fontFamily">@font/varela_round</item>-->
-
     </style>
-
 </resources>

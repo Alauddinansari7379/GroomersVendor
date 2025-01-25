@@ -23,7 +23,7 @@ class Login : AppCompatActivity() {
             }
 
             tvRegister.setOnClickListener {
-                startActivity(Intent(context,Register::class.java))
+                startActivity(Intent(context,Register2::class.java))
             }
 
             tvForget.setOnClickListener {

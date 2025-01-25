@@ -54,7 +54,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:text="@string/select_profile_picture"
                     android:textAlignment="center"
                     android:textColor="@color/black"
@@ -70,7 +70,7 @@
                 android:gravity="center"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/sf_bold"
                 android:text="@string/register_new_user"
                 android:textColor="@color/black"
                 android:textSize="20sp">
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginStart="15dp"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/sf_regular"
                 android:text="@string/please_fill_below_details_to_continue"
                 android:textColor="@color/black"
                 android:textSize="14sp">
@@ -105,7 +105,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:inputType="text"
                     android:maxLines="1"
                     android:textSize="12sp"
@@ -128,7 +128,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:inputType="text"
                     android:maxLines="1"
                     android:textSize="12sp"
@@ -153,7 +153,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:textSize="12sp"
@@ -178,7 +178,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:textSize="12sp"
@@ -201,7 +201,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:textSize="12sp"
@@ -224,7 +224,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:inputType="text"
                     android:maxLines="1"
                     android:textSize="12sp"
@@ -247,7 +247,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:inputType="text"
                     android:maxLines="1"
                     android:textSize="12sp"
@@ -270,7 +270,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:inputType="text"
                     android:maxLines="1"
                     android:textSize="12sp"
@@ -293,7 +293,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:inputType="number"
                     android:maxLength="6"
                     android:maxLines="1"
@@ -341,7 +341,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_regular"
+                        android:fontFamily="@font/sf_regular"
                         android:inputType="number"
                         android:maxLength="12"
                         android:maxLines="1"
@@ -367,7 +367,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:textSize="12sp"
@@ -384,7 +384,7 @@
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/gradient_button"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/sf_regular"
                 android:gravity="center"
                 android:text="@string/continue1"
                 android:textAllCaps="false"
@@ -408,7 +408,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:gravity="center"
                     android:text="@string/already_have_an_account"
                     android:textColor="@color/mainColor"
@@ -422,7 +422,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:fontFamily="@font/poppins_bold"
+                    android:fontFamily="@font/sf_bold"
                     android:gravity="center"
                     android:text="@string/log_in"
                     android:textColor="@color/main_Color_Dark"

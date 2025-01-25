@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:text="@string/order_list"
             android:textColor="@color/white"
             android:textSize="16sp" />
@@ -88,7 +88,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Order No- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -100,7 +100,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="@string/_7438648721"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -127,7 +127,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Name- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -138,7 +138,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="testio2"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -157,7 +157,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Service Type- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -168,7 +168,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="2"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -194,7 +194,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Description- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -205,7 +205,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Test"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -224,7 +224,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Service Hours-"
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -235,7 +235,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="2"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -261,7 +261,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Type- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -272,7 +272,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Hair Cutting"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -291,7 +291,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Price- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -302,7 +302,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="$100"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -330,7 +330,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Lnagauge- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -341,7 +341,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="English"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -407,7 +407,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Order No- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -418,7 +418,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="7438648721"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -445,7 +445,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Name- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -456,7 +456,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="testio2"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -475,7 +475,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Service Type- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -486,7 +486,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="2"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -512,7 +512,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Description- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -523,7 +523,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Test"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -542,7 +542,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Service Hours-"
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -553,7 +553,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="2"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -579,7 +579,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Type- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -590,7 +590,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Hair Cutting"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -609,7 +609,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Price- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -620,7 +620,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="$100"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -648,7 +648,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Lnagauge- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -659,7 +659,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="English"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -725,7 +725,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Order No- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -736,7 +736,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="7438648721"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -763,7 +763,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Name- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -774,7 +774,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="testio2"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -793,7 +793,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Service Type- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -804,7 +804,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="2"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -830,7 +830,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Description- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -841,7 +841,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Test"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -860,7 +860,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Service Hours-"
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -871,7 +871,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="2"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -897,7 +897,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Type- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -908,7 +908,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Hair Cutting"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -927,7 +927,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Price- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -938,7 +938,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="$100"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -966,7 +966,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Lnagauge- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -977,7 +977,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="English"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -1043,7 +1043,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Order No- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -1054,7 +1054,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="7438648721"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -1081,7 +1081,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Name- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -1092,7 +1092,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="testio2"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -1111,7 +1111,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Service Type- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -1122,7 +1122,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="2"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -1148,7 +1148,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Description- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -1159,7 +1159,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Test"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -1178,7 +1178,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Service Hours-"
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -1189,7 +1189,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="2"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -1215,7 +1215,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Type- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -1226,7 +1226,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Hair Cutting"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -1245,7 +1245,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Price- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -1256,7 +1256,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="$100"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
@@ -1284,7 +1284,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="Lnagauge- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
@@ -1295,7 +1295,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="English"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"

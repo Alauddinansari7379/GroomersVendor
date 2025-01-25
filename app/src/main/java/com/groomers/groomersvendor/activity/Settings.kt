@@ -19,5 +19,8 @@ class Settings : Common() {
         updateStatusBarColor(backgroundColor)
         binding.mainLayout.setOnClickListener{startActivity(Intent(this@Settings,Checkout::class.java))}
 
+        binding.orderList.setOnClickListener {
+            startActivity(Intent(this@Settings,OrderLists::class.java))
+        }
     }
 }

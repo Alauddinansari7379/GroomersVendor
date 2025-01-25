@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Congratulations"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/sf_bold"
                 android:textColor="@color/black"
                 android:textSize="20sp"/>
 
@@ -50,7 +50,7 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:lineSpacingExtra="4dp"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/sf_regular"
                 android:text="Your business registration is complete. Our team will review your details and get back to you within 48 hours. Stay tuned!"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -65,7 +65,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/sf_bold"
         android:text="let's grow and succeed together!"
         android:textColor="@color/white"
         android:textSize="16sp"

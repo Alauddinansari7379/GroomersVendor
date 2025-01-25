@@ -10,6 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="16dp"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:text="@string/latest_reviews"
             android:textColor="@android:color/black"
             android:textSize="14sp" />
@@ -81,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:text="@string/no_reviews_yet"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
@@ -89,7 +90,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:text="@string/use_social_posts_and_message_blasts_to_encourage_your_clients_to_leave_reviews_on_your_profile"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="12sp" />
@@ -107,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/sf_bold"
                 android:text="@string/your_performance"
                 android:textColor="@android:color/black"
                 android:textSize="14sp" />
@@ -130,6 +131,7 @@
         android:layout_height="wrap_content"
         android:overScrollMode="never"
         android:layout_marginTop="16dp"
+        android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/portfolio">
@@ -191,7 +193,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:text="@string/revenue"
             android:textColor="@android:color/black"
             android:textSize="14sp" />
@@ -213,7 +215,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/sf_regular"
                 android:text="@string/services"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
@@ -221,7 +223,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/sf_regular"
                 android:text="@string/_0_0"
                 android:textColor="@android:color/black"
                 android:textSize="12sp" />
@@ -229,7 +231,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/sf_regular"
                 android:text="@string/gift_cards"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
@@ -244,7 +246,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/sf_regular"
                 android:text="@string/revenue_forecast"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
@@ -252,7 +254,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/sf_regular"
                 android:text="@string/_0"
                 android:textColor="@android:color/black"
                 android:textSize="12sp" />
@@ -263,7 +265,7 @@
         android:id="@+id/appCompatTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/sf_bold"
         android:text="@string/booksy_library"
         android:layout_marginTop="16dp"
         android:textColor="@android:color/black"
@@ -299,7 +301,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/sf_bold"
                 android:text="@string/how_to_s_tips_tricks_and_more"
                 android:textColor="@android:color/black"
                 android:textSize="14sp" />
@@ -307,7 +309,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/sf_regular"
                 android:text="@string/need_more_features_want_to_scale_your_business"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />

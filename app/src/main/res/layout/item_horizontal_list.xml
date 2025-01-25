@@ -48,7 +48,7 @@
                         android:layout_marginTop="8dp"
                         android:textColor="@color/black"
                         android:textSize="16sp"
-                        android:fontFamily="@font/poppins_bold"
+                        android:fontFamily="@font/sf_bold"
                          />
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="20dp"
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/address_350"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:textColor="@color/gray"
                     android:textSize="14sp"
                     app:layout_constraintTop_toBottomOf="@id/llText"
@@ -87,7 +87,7 @@
                         android:text="@string/_31_mins_6_5_km"
                         android:textColor="@color/gray"
                         android:textSize="14sp"
-                        android:fontFamily="@font/poppins_regular"
+                        android:fontFamily="@font/sf_regular"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/rating" />
@@ -99,7 +99,7 @@
                         android:background="@color/green"
                         android:padding="4dp"
                         android:text="@string/_4_0"
-                        android:fontFamily="@font/poppins_regular"
+                        android:fontFamily="@font/sf_regular"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold"

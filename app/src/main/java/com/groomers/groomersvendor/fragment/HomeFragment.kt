@@ -96,7 +96,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         adapter = HomeAdapter(itemList)
         recyclerView6.adapter = adapter
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        getLastLocation()
+     //   getLastLocation()
         // Get the background color of the fragment's root view
         val backgroundColor = (view.background as? ColorDrawable)?.color ?: Color.WHITE
 

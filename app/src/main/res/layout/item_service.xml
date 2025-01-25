@@ -24,7 +24,7 @@
             android:textColor="@color/black"
             android:ellipsize="end"
             android:maxLines="1"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/sf_regular"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="16dp"
+        android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@+id/settings"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -41,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:fontFamily="@font/poppins_bold"
+                    android:fontFamily="@font/sf_bold"
                     android:gravity="center"
                     android:text="@string/settings"
                     android:textSize="20sp" />
@@ -69,6 +70,68 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/orderList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="8dp"
+                    cardview:cardCornerRadius="8dp"
+                    cardview:cardElevation="4dp">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/list" />
+
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/order_list"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sf_bold"
+                                android:text="Order List"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sf_regular"
+                                android:text="All order list in one place"
+                                android:textColor="@color/gray"
+                                android:textSize="12sp" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                             android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/baseline_arrow_forward_ios_24"
+                            cardview:tint="@color/black" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -108,7 +171,7 @@
                                 android:id="@+id/setting_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_bold"
+                                android:fontFamily="@font/sf_bold"
                                 android:text="@string/payment_and_checkout"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
@@ -118,7 +181,7 @@
                                 android:id="@+id/setting_subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="@string/all_payment_settings_in_one_place"
                                 android:textColor="@color/gray"
                                 android:textSize="12sp" />
@@ -172,7 +235,7 @@
                                 android:id="@+id/schedule_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_bold"
+                                android:fontFamily="@font/sf_bold"
                                 android:text="@string/schedule_management"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
@@ -182,7 +245,7 @@
                                 android:id="@+id/schedule_subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="@string/edit_your_opening_and_business_hours_manage_time_off_and_schedule_working_hours_for_staffmembers"
                                 android:textColor="@color/gray"
                                 android:textSize="12sp" />
@@ -236,7 +299,7 @@
                                 android:id="@+id/home_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_bold"
+                                android:fontFamily="@font/sf_bold"
                                 android:text="@string/business_details"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
@@ -246,7 +309,7 @@
                                 android:id="@+id/home_subtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/sf_regular"
                                 android:text="@string/add_details_to_establish_your_brand_adjust_location_settings_and_create_custom_forms_for_customer"
                                 android:textColor="@color/gray"
                                 android:textSize="12sp" />

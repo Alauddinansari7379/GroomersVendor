@@ -30,10 +30,10 @@
             android:id="@+id/welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:gravity="center"
             android:text="@string/welcome_back"
-            app:fontFamily="@font/poppins_bold"
+            app:fontFamily="@font/sf_bold"
             android:textColor="@color/mainColor"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/email"
                     android:drawablePadding="5dp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/lock"
                     android:drawablePadding="5dp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/sf_regular"
                     android:inputType="textPassword"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -95,7 +95,7 @@
             android:layout_marginTop="50dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/gradient_button"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/sf_regular"
             android:gravity="center"
             android:text="@string/log_in"
             android:textAllCaps="false"
@@ -111,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/sf_regular"
             android:text="@string/forget_password"
             android:textColor="@color/mainColor"
             android:textSize="14sp"
@@ -130,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/are_you_a_new_user"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/sf_regular"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="5dp"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/sf_bold"
                 android:text="@string/register"
                 android:textColor="#6672FF"
                 android:textSize="14sp"

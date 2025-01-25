@@ -235,5 +235,16 @@
     <string name="booksy_library">Booksy लाइब्रेरी</string>
     <string name="how_to_s_tips_tricks_and_more">कैसे करें, टिप्स, ट्रिक्स और अधिक...</string>
     <string name="need_more_features_want_to_scale_your_business">और सुविधाएँ चाहिए? अपने व्यवसाय को स्केल करना चाहते हैं?</string>
+    <string name="male">पुरुष</string>
+    <string name="hair_cut_and_style">हेयर कट और स्टाइल</string>
+    <string name="hair_color">हेयर कलर</string>
+    <string name="hair_chemical">हेयर केमिकल</string>
+    <string name="hair_cut_and_style_16">हेयर कट और स्टाइल (16)</string>
+    <string name="checkout">चेकआउट</string>
+    <string name="select_a_client_or_leave_empty_walk_in">कृपया एक क्लाइंट चुनें या वॉक-इन के लिए खाली छोड़ें</string>
+    <string name="amount_due">देय राशि</string>
+    <string name="appointment">अपॉइंटमेंट</string>
+    <string name="finance">वित्त</string>
+    <string name="shop_profile">दुकान प्रोफ़ाइल</string>
 
 </resources>

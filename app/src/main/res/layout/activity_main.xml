@@ -18,7 +18,6 @@
                 android:layout_gravity="center"
                 android:background="@color/mainColor"
                 android:gravity="center"
-                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -30,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
-                    android:fontFamily="@font/poppins_bold"
+                    android:fontFamily="@font/sf_bold"
                     android:text="@string/dashboard"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
@@ -74,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:clickable="true"
+                android:background="@color/mainColor"
                 android:focusable="true"
                 android:foreground="?selectableItemBackground"
                 app:elevation="10dp"

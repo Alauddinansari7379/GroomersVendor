@@ -20,7 +20,7 @@
             android:text="@string/inactive"
             android:textSize="12sp"
             android:textColor="#808080"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/sf_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="@string/social_post_creator"
             android:textSize="14sp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvStatus"
             app:layout_constraintEnd_toStartOf="@id/icon"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="@string/show_off_your_business_on_social_media"
             android:textSize="12sp"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/sf_regular"
             android:textColor="#606060"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"

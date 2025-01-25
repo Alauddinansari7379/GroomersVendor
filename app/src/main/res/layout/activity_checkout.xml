@@ -36,6 +36,7 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:fontFamily="@font/sf_bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/backImage"
             app:layout_constraintTop_toTopOf="parent" />
@@ -72,6 +73,7 @@
             android:textColor="@color/black"
             android:textSize="12sp"
             android:textStyle="bold"
+            android:fontFamily="@font/sf_regular"
             app:layout_constraintStart_toEndOf="@+id/profileImg"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -101,7 +103,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/sf_bold"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,6 +128,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_regular"
             android:text="@string/add_service" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -145,6 +148,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginEnd="5dp"
+            android:fontFamily="@font/sf_regular"
             android:src="@drawable/discount" />
 
         <androidx.appcompat.widget.AppCompatTextView
