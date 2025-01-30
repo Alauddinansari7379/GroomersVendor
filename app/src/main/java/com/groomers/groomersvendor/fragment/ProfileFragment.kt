@@ -13,22 +13,25 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.activity.OrderLists
 import com.groomers.groomersvendor.activity.Settings
+import com.groomers.groomersvendor.databinding.FragmentProfileBinding
 
 
 class ProfileFragment : Fragment() {
-
+    lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_profile, container, false)
-        view.findViewById<LinearLayoutCompat>(R.id.settings).setOnClickListener {
-            val intent = Intent(requireContext(), Settings::class.java)
-            startActivity(intent)
-        }
-        return view
+    ): View? {
+        return inflater.inflate(R.layout.fragment_profile, container, false)
+    }
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+            binding = FragmentProfileBinding.bind(view)
+            binding.btnFloating.setOnClickListener {
+                startActivity(Intent(requireContext(),Settings::class.java))
+            }
     }
 
 }

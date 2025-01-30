@@ -4,6 +4,7 @@ import HomeAdapter
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -24,79 +25,42 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.R
+import com.groomers.groomersvendor.activity.OrderDetail
+import com.groomers.groomersvendor.activity.OrderLists
+import com.groomers.groomersvendor.activity.Settings
+import com.groomers.groomersvendor.databinding.FragmentHomeBinding
+import com.groomers.groomersvendor.databinding.FragmentProfileBinding
 import com.groomers.groomersvendor.model.Item
 import java.io.IOException
 import java.util.Locale
 
 
-class HomeFragment : Fragment(R.layout.fragment_home) {
-
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var recyclerView2: RecyclerView
-    private lateinit var recyclerView3: RecyclerView
-    private lateinit var recyclerView4: RecyclerView
-    private lateinit var recyclerView5: RecyclerView
-    private lateinit var recyclerView6: RecyclerView
+class HomeFragment : Fragment() {
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
-    private var currentAddress = ""
     private val REQUEST_CODE = 100
     private lateinit var currentLocation: TextView
 
+    lateinit var binding: FragmentHomeBinding
 
-    private lateinit var adapter: HomeAdapter
-    private val itemList = listOf(
-        Item(R.drawable.hair_cutting, "Hair Cut"),
-        Item(R.drawable.hair_salon, "Hair Spa"),
-        Item(R.drawable.body_message, "Body Massage"),
-        Item(R.drawable.hair_cutting1, "Hair Coloring"),
-        Item(R.drawable.body_message, "Scalp Treatment"),
-        Item(R.drawable.body_message, "Aromatherapy Massage"),
-        Item(R.drawable.body_message, "Facial"),
-        Item(R.drawable.hair_cutting, "Manicure"),
-    )
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
 
+    ): View? {
+        return inflater.inflate(R.layout.fragment_home, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentHomeBinding.bind(view)
+        binding.llOrder.setOnClickListener {
+            startActivity(Intent(requireContext(), OrderDetail::class.java))
+        }
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        recyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        adapter = HomeAdapter(itemList)
-        recyclerView.adapter = adapter
-        currentLocation = view.findViewById<TextView>(R.id.tvLocation)
-        recyclerView2 = view.findViewById(R.id.recyclerView2)
-        recyclerView2.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        adapter = HomeAdapter(itemList)
-        recyclerView2.adapter = adapter
 
-
-        recyclerView3 = view.findViewById(R.id.recyclerView3)
-        recyclerView3.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        adapter = HomeAdapter(itemList)
-        recyclerView3.adapter = adapter
-
-
-        recyclerView4 = view.findViewById(R.id.recyclerView4)
-        recyclerView4.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        adapter = HomeAdapter(itemList)
-        recyclerView4.adapter = adapter
-
-
-        recyclerView5 = view.findViewById(R.id.recyclerView5)
-        recyclerView5.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        adapter = HomeAdapter(itemList)
-        recyclerView5.adapter = adapter
-
-
-        recyclerView6 = view.findViewById(R.id.recyclerView6)
-        recyclerView6.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        adapter = HomeAdapter(itemList)
-        recyclerView6.adapter = adapter
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
-     //   getLastLocation()
+        getLastLocation()
         // Get the background color of the fragment's root view
         val backgroundColor = (view.background as? ColorDrawable)?.color ?: Color.WHITE
 
@@ -129,11 +93,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             val postalCode = addresses?.get(0)?.postalCode.toString()
                             val subLocality = addresses?.get(0)?.subLocality
                             val subAdminArea = addresses?.get(0)?.subAdminArea
-                            currentAddress = "$subLocality, $locality, $countryName"
+                           // currentAddress = "$subLocality, $locality, $countryName"
                             postalCodeNew = postalCode
 
                             // Update location text
-                            currentLocation.text = addresses?.get(0)?.getAddressLine(0)
+                            binding.tvLocation.text = addresses?.get(0)?.getAddressLine(0)
 
                             Log.e(ContentValues.TAG, "locality: $locality")
                             Log.e(ContentValues.TAG, "countryName: $countryName")

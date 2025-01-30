@@ -17,7 +17,6 @@ class MainActivity : Common() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         setContentView(binding.root)
         val backgroundColor = (binding.root.background as? ColorDrawable)?.color ?: Color.WHITE
         // Update the status bar color to match the background color

@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/mainColor"
+    android:background="@color/white"
     tools:context=".activity.SplashScreen">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:background="@mipmap/ic_launcher_round"/>
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:background="@drawable/logo_white"/>
 
 </LinearLayout>

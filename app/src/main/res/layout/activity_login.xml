@@ -6,18 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:backgroundTint="@color/mainColor"
     tools:context=".activity.Login">
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:gravity="center"
-        android:background="@drawable/top_background1"
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:background="@mipmap/ic_launcher_round"/>
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            android:background="@drawable/logo_white"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -142,7 +142,7 @@
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/sf_bold"
                 android:text="@string/register"
-                android:textColor="#6672FF"
+                android:textColor="@color/mainColor"
                 android:textSize="14sp"
                 android:textStyle="bold" />
         </LinearLayout>
