@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import androidx.appcompat.app.AppCompatActivity
 import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.databinding.ActivityUploadOwnerIdentityBinding
 

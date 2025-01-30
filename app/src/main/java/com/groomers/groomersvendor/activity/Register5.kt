@@ -4,13 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.groomers.groomersvendor.Common
-import com.groomers.groomersvendor.R
-import com.groomers.groomersvendor.databinding.ActivityRegister3Binding
 import com.groomers.groomersvendor.databinding.ActivityRegister5Binding
 
 class Register5 : Common() {

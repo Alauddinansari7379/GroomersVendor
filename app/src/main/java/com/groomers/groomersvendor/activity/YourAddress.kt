@@ -5,12 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.groomers.groomersvendor.Common
-import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivityYourAddressBinding
 
 class YourAddress : Common() {

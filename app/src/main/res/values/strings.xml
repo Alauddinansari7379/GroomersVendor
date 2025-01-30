@@ -256,5 +256,6 @@
     <string name="user_type">User type</string>
     <string name="already_added">Already added</string>
     <string name="service_list">Service List</string>
+    <string name="enter_map_url">Enter map url</string>
 
 </resources>
