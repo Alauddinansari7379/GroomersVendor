@@ -1,10 +1,12 @@
 package com.groomers.groomersvendor.fragment
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
@@ -12,6 +14,8 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.groomers.groomersvendor.R
+import com.groomers.groomersvendor.activity.AddServiceDetails
+import com.groomers.groomersvendor.activity.ServiceList
 import java.util.Calendar
 
 
@@ -24,6 +28,8 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     private lateinit var spinnerServiceType: Spinner
     private lateinit var spinnerCategory: Spinner
     private lateinit var editTextSlotTime: EditText
+    private lateinit var addPost: Button
+    private lateinit var alreadyAdded: Button
 
     private var selectedImageUri: Uri? = null
 
@@ -51,6 +57,8 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
         spinnerServiceType = view.findViewById(R.id.spinnerServiceType)
         spinnerCategory = view.findViewById(R.id.spinnerCategory)
         editTextSlotTime = view.findViewById(R.id.editTextSlotTime)
+        addPost = view.findViewById(R.id.btnAddPost)
+        alreadyAdded = view.findViewById(R.id.btnAlreadyAdded)
 
         // Button click to add image
         btnAddImage.setOnClickListener {
@@ -63,6 +71,14 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
         // Set up calendar selection for slot time
         editTextSlotTime.setOnClickListener {
             openDatePickerDialog()
+        }
+        addPost.setOnClickListener {
+            val intent = Intent(requireContext(), AddServiceDetails::class.java)
+            startActivity(intent)
+        }
+        alreadyAdded.setOnClickListener {
+            val intent = Intent(requireContext(), ServiceList::class.java)
+            startActivity(intent)
         }
     }
 

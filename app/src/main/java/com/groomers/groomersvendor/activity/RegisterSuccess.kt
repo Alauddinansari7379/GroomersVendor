@@ -25,7 +25,7 @@ class RegisterSuccess : Common() {
         // Update the status bar color to match the background color
         updateStatusBarColor(backgroundColor)
         Handler().postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, Login::class.java))
             finish()
         }, 5000)
     }

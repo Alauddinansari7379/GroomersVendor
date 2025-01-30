@@ -18,6 +18,18 @@
         android:theme="@style/Theme.GroomersVendor"
         tools:targetApi="31">
         <activity
+            android:name=".activity.ServiceList"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddServiceDetails"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AboutYourCredentials"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Contact"
+            android:exported="false" />
+        <activity
             android:name=".activity.Marketing"
             android:exported="false" />
         <activity
@@ -80,9 +92,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.SubUserLogin"
-            android:exported="false" />
         <activity
             android:name=".activity.ForgetPassword"
             android:exported="false" />

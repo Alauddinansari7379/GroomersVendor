@@ -96,7 +96,7 @@
     <string name="register_new_user">Register New User</string>
     <string name="add_member">Add Member</string>
     <string name="my_profile">My Profile</string>
-    <string name="add_post">Add Post</string>
+    <string name="add_post">Add Service</string>
     <string name="search">Search</string>
     <string name="dashboard">Dashboard</string>
     <string name="confirm_password">Confirm Password</string>
@@ -250,5 +250,11 @@
     <string name="appointment">Appointment</string>
     <string name="finance">Finance</string>
     <string name="shop_profile">Shop Profile</string>
+    <string name="about_your_credentials">About your credentials</string>
+    <string name="user_id">User id</string>
+    <string name="add_service_details">Add Service details</string>
+    <string name="user_type">User type</string>
+    <string name="already_added">Already added</string>
+    <string name="service_list">Service List</string>
 
 </resources>

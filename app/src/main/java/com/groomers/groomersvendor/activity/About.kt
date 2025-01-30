@@ -22,7 +22,7 @@ class About : Common() {
 
         // Update the status bar color to match the background color
         updateStatusBarColor(backgroundColor)
-        binding.btnContinue3.setOnClickListener { startActivity(Intent(this@About,Register4::class.java)) }
+        binding.btnContinue3.setOnClickListener { startActivity(Intent(this@About,AboutYourCredentials::class.java)) }
 
     }
 }
