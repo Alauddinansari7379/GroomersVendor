@@ -5,9 +5,10 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:backgroundTint="@color/mainColor"
+    android:orientation="vertical"
     tools:context=".activity.Login">
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="250dp"
@@ -17,7 +18,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="250dp"
             android:layout_height="200dp"
-            android:background="@drawable/logo_white"/>
+            android:background="@drawable/logo_white" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="-50dp"
         android:orientation="vertical">
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/welcome"
             android:layout_width="match_parent"
@@ -33,10 +35,10 @@
             android:fontFamily="@font/sf_bold"
             android:gravity="center"
             android:text="@string/welcome_back"
-            app:fontFamily="@font/sf_bold"
             android:textColor="@color/mainColor"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:fontFamily="@font/sf_bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,11 +49,13 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:hint="@string/email"
-                >
+                app:boxStrokeColor="@color/mainColor"
+                app:boxStrokeErrorColor="@color/red">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEmail"
@@ -60,17 +64,19 @@
                     android:drawableStart="@drawable/email"
                     android:drawablePadding="5dp"
                     android:fontFamily="@font/sf_regular"
-                    android:maxLines="1" />
+                    android:paddingVertical="8dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/password"
                 android:layout_marginTop="10dp"
-                app:endIconMode="password_toggle"
-                >
+                android:hint="@string/password"
+                app:boxStrokeColor="@color/mainColor"
+                app:boxStrokeErrorColor="@color/red"
+                app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPassword"
@@ -80,7 +86,8 @@
                     android:drawablePadding="5dp"
                     android:fontFamily="@font/sf_regular"
                     android:inputType="textPassword"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:paddingVertical="8dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -129,8 +136,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/are_you_a_new_user"
                 android:fontFamily="@font/sf_regular"
+                android:text="@string/are_you_a_new_user"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 

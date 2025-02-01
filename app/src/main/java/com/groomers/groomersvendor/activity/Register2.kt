@@ -22,8 +22,11 @@ class Register2 : Common() {
 
         // Update the status bar color to match the background color
         updateStatusBarColor(backgroundColor)
+
         binding.card1.setOnClickListener {
-            startActivity(Intent(this@Register2, About::class.java))
+            val intent = Intent(this, About::class.java)
+            intent.putExtra("category", "category")
+            startActivity(intent)
         }
 //        binding.card2.setOnClickListener {
 //            startActivity(Intent(this@Register2, Register4::class.java))

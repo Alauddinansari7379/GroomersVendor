@@ -57,6 +57,7 @@
             android:hint="@string/business_name">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etBusinessName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="8dp"
@@ -71,6 +72,7 @@
             android:hint="@string/your_name">
 
             <com.google.android.material.textfield.TextInputEditText
+               android:id="@+id/etYourName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="8dp"
@@ -85,6 +87,7 @@
             android:hint="@string/phone_number">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPhoneNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="8dp"
