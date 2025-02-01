@@ -3,14 +3,11 @@ package com.groomers.groomersvendor
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.widget.PopupMenu
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.groomers.groomersvendor.databinding.ActivityMainBinding
-import com.groomers.groomersvendor.helper.BottomNavigationBehavior
-import me.ibrahimsn.lib.SmoothBottomBar
+
 class MainActivity : Common() {
     private lateinit var bottomNav: BottomNavigationView
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
