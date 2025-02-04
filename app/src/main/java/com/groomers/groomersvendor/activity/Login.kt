@@ -2,20 +2,15 @@ package com.groomers.groomersvendor.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.groomers.groomersvendor.MainActivity
-import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivityLoginBinding
 import com.groomers.groomersvendor.helper.AppProgressBar
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.viewmodel.LoginViewModel
+
 class Login : AppCompatActivity() {
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
     private val context = this@Login
