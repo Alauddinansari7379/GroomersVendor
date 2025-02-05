@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.groomers.groomersvendor.MainActivity
 import com.groomers.groomersvendor.databinding.ActivityLoginBinding
 import com.groomers.groomersvendor.helper.AppProgressBar
+import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.viewmodel.LoginViewModel
 
@@ -45,9 +46,9 @@ class Login : AppCompatActivity() {
             // Observe isLoading to show/hide progress
             viewModel.isLoading.observe(context) { isLoading ->
                 if (isLoading) {
-                    AppProgressBar.showLoaderDialog(context)
+                    CustomLoader.showLoaderDialog(context)
                 } else {
-                    AppProgressBar.hideLoaderDialog()
+                    CustomLoader.hideLoaderDialog()
                 }
             }
 
