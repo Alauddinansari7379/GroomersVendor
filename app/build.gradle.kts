@@ -70,5 +70,10 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     //
     implementation ("com.intuit.sdp:sdp-android:1.0.6")
+    //loader
+    implementation ("com.airbnb.android:lottie:6.1.0")
+    //cardview
+    implementation ("androidx.cardview:cardview:1.0.0")
+
 
 }

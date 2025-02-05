@@ -17,10 +17,27 @@ class AboutYourCredentials : AppCompatActivity() {
         val businessName = intent.getStringExtra("businessName")
         val yourName = intent.getStringExtra("yourName")
         val phoneNO = intent.getStringExtra("phoneNO")
-        val userId = binding.etUserId.text.toString()
-        val email = binding.etEmail.text.toString()
-        val password = binding.etPassword.text.toString()
+
         binding.btnContinue3.setOnClickListener {
+            val userId = binding.etUserId.text.toString()
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
+            if (userId.isEmpty()) {
+                binding.etUserId.error = "Please enter user id"
+                binding.etUserId.requestFocus()
+                return@setOnClickListener
+            }
+            if (password.isEmpty()) {
+                binding.etPassword.error = "Please enter password"
+                binding.etPassword.requestFocus()
+                return@setOnClickListener
+            }
+            if (email.isEmpty()) {
+                binding.etEmail.error = "Please enter your email"
+                binding.etEmail.requestFocus()
+                return@setOnClickListener
+            }
+
             val intent = Intent(this, Register4::class.java)
             intent.putExtra("category", category)
             intent.putExtra("businessName", businessName)

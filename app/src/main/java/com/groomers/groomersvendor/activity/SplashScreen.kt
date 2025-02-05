@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import com.groomers.groomersvendor.Common
+import com.groomers.groomersvendor.MainActivity
 import com.groomers.groomersvendor.databinding.ActivitySplashScreenBinding
+import com.groomers.groomersvendor.sharedpreferences.SessionManager
 
 class SplashScreen : Common() {
     private lateinit var binding: ActivitySplashScreenBinding
@@ -18,6 +20,7 @@ class SplashScreen : Common() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
+         val sessionManager = SessionManager(context)
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
         // Get the background color of the root view
@@ -25,7 +28,6 @@ class SplashScreen : Common() {
 
         // Update the status bar color to match the background color
         updateStatusBarColor(backgroundColor)
-
         Handler().postDelayed({
             startActivity(Intent(this, Welcome::class.java))
             finish()

@@ -35,7 +35,24 @@ class YourAddress : Common() {
         binding.btnContinue.setOnClickListener {
             val selectedCity = binding.spinnerCity.selectedItem.toString()
             val selectedZip = binding.spinnerZip.selectedItem.toString()
-
+            val address1 = binding.etAddress1.text.toString()
+            val address2 = binding.etAddress2.text.toString()
+            val mapUrl = binding.etMapUrl.text.toString()
+            if (address1.isEmpty()) {
+                binding.etAddress1.error = "Please enter address 1"
+                binding.etAddress1.requestFocus()
+                return@setOnClickListener
+            }
+            if (address2.isEmpty()) {
+                binding.etAddress2.error = "Please enter address 2"
+                binding.etAddress2.requestFocus()
+                return@setOnClickListener
+            }
+            if (mapUrl.isEmpty()) {
+                binding.etMapUrl.error = "Please enter map url"
+                binding.etMapUrl.requestFocus()
+                return@setOnClickListener
+            }
 
             if (selectedCity == "Select City") {
                 Toast.makeText(this, "Please select a city", Toast.LENGTH_SHORT).show()
@@ -46,6 +63,7 @@ class YourAddress : Common() {
                 Toast.makeText(this, "Please select a ZIP Code", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
 
             val intent = Intent(this@YourAddress, UploadOwnerIdentity::class.java)
             intent.putExtra("SELECTED_CITY", selectedCity)
@@ -70,7 +88,7 @@ class YourAddress : Common() {
         binding.spinnerCity.adapter = cityAdapter
 
 // Populate ZIP code spinner
-        val zipCodeList = listOf("Select ZIP Code", "T3C", "M5H", "V5K")
+        val zipCodeList = listOf("Select ZIP Code", "746477", "376", "366")
         val zipCodeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, zipCodeList)
         zipCodeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerZip.adapter = zipCodeAdapter

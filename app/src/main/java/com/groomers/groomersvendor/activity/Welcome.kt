@@ -7,10 +7,12 @@ import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import com.groomers.groomersvendor.Common
+import com.groomers.groomersvendor.MainActivity
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.adapter.SliderAdapter
 import com.groomers.groomersvendor.databinding.ActivityWelcomeBinding
 import com.groomers.groomersvendor.model.SliderItem
+import com.groomers.groomersvendor.sharedpreferences.SessionManager
 
 class Welcome : Common() {
     private val binding by lazy { ActivityWelcomeBinding.inflate(layoutInflater) }
@@ -19,7 +21,7 @@ class Welcome : Common() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+         val sessionManager = SessionManager(this@Welcome)
         // Get the background color of the root view
         val backgroundColor = (binding.root.background as? ColorDrawable)?.color ?: Color.WHITE
 
@@ -36,6 +38,11 @@ class Welcome : Common() {
                 R.drawable.welcome_2
             )
         )
+
+        if (sessionManager.isLogin) {
+            startActivity(Intent(this@Welcome, MainActivity::class.java))
+            finish()
+        }
 
         binding.viewPager.adapter = SliderAdapter(sliderItems, binding.viewPager) {
             val intent = Intent(this, SelectLanguage::class.java)
