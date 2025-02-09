@@ -14,11 +14,14 @@ import androidx.core.view.WindowInsetsCompat
 import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivityRegister4Binding
+import com.groomers.groomersvendor.viewmodel.MyApplication
 import com.groomers.groomersvendor.viewmodel.RegisterViewModel
 
 class Register4 : Common() {
     private val binding by lazy { ActivityRegister4Binding.inflate(layoutInflater) }
-    private val viewModel: RegisterViewModel by viewModels()
+    private val viewModel by lazy {
+        (application as MyApplication).registerViewModel
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
