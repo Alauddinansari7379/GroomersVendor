@@ -16,13 +16,16 @@ import com.groomers.groomersvendor.databinding.ActivityUploadOwnerIdentityBindin
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.viewmodel.LocationViewModel
+import com.groomers.groomersvendor.viewmodel.MyApplication
 import com.groomers.groomersvendor.viewmodel.RegisterViewModel
 import java.io.File
 
 class UploadOwnerIdentity : Common() {
     private val binding by lazy { ActivityUploadOwnerIdentityBinding.inflate(layoutInflater) }
     private var selectedImagePath: String? = null
-    private val viewModel: RegisterViewModel by viewModels()
+    private val viewModel by lazy {
+        (application as MyApplication).registerViewModel
+    }
     private val locationViewModel: LocationViewModel by viewModels()
     private val context = this@UploadOwnerIdentity
 
@@ -88,14 +91,21 @@ class UploadOwnerIdentity : Common() {
     }
 
     private fun setupSpinners() {
-        locationViewModel.modelState.observe(context) { stateResponse ->
-            stateResponse?.result?.let { stateList ->
-                val state = listOf("Select State") + stateList.map { it.name }
-                val cityAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, state)
+
+        val zipCodeList = listOf("Select id proof","Passport",
+                "National Identity Card (if applicable)",
+                "Driver’s License",
+                "Voter ID Card",
+                "Social Security Card (USA) / Aadhaar Card (India) / Similar National ID",
+                "Birth Certificate",
+                "Government Employee ID",
+                "PAN Card (India) / Taxpayer Identification Number (TIN)",
+                "Student ID (for academic purposes)",
+                "Work Permit / Residence Card (for non-citizens in some countries)")
+                val cityAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, zipCodeList)
                 cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.spinnerIdProof.adapter = cityAdapter
-            }
-        }
+
     }
 
     private fun getFilePathFromUri(uri: Uri): String? {

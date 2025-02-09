@@ -61,7 +61,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                 val response = apiService.registerUser(
                     name, mobile, email, password, passwordConfirmation, role, businessName,
                     "4", aboutBusiness, "7", address, city, zipcode, idproofType,
-                    services, latitude, longitude,"23","23", shopAgreement
+                    services, latitude, longitude,"23","23","45","username" ,shopAgreement
                 )
 
                 _isLoading.postValue(false) // Hide loading state

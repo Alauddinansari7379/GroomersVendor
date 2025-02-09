@@ -12,12 +12,16 @@ import com.groomers.groomersvendor.databinding.ActivityYourAddressBinding
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.viewmodel.LocationViewModel
+import com.groomers.groomersvendor.viewmodel.MyApplication
 import com.groomers.groomersvendor.viewmodel.RegisterViewModel
 
 class YourAddress : Common() {
     private val binding by lazy { ActivityYourAddressBinding.inflate(layoutInflater) }
-    private val viewModel: RegisterViewModel by viewModels()
+//    private val viewModel: RegisterViewModel by viewModels()
     private val locationViewModel: LocationViewModel by viewModels()
+    private val viewModel by lazy {
+        (application as MyApplication).registerViewModel
+    }
 
     private val context = this@YourAddress
     override fun onCreate(savedInstanceState: Bundle?) {
