@@ -15,11 +15,14 @@ import com.groomers.groomersvendor.databinding.ActivityRegister2Binding
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.viewmodel.CategoryViewModel
+import com.groomers.groomersvendor.viewmodel.MyApplication
 import com.groomers.groomersvendor.viewmodel.RegisterViewModel
 
 class Register2 : Common() {
     private val binding by lazy { ActivityRegister2Binding.inflate(layoutInflater) }
-    private val viewModel: RegisterViewModel by viewModels()
+    private val viewModel by lazy {
+        (application as MyApplication).registerViewModel
+    }
     private val categoryViewModel: CategoryViewModel by viewModels()
     private val context = this@Register2
     override fun onCreate(savedInstanceState: Bundle?) {

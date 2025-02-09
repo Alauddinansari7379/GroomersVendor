@@ -76,6 +76,8 @@ dependencies {
     implementation ("androidx.cardview:cardview:1.0.0")
     //glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    //SweetAlert
+    implementation ("com.github.f0ris.sweetalert:library:1.6.2")
 
 
 }

@@ -7,11 +7,14 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivityAboutYourCredentialsBinding
+import com.groomers.groomersvendor.viewmodel.MyApplication
 import com.groomers.groomersvendor.viewmodel.RegisterViewModel
 
 class AboutYourCredentials : AppCompatActivity() {
     private val binding by lazy { ActivityAboutYourCredentialsBinding.inflate(layoutInflater) }
-    private val viewModel: RegisterViewModel by viewModels()
+    private val viewModel by lazy {
+        (application as MyApplication).registerViewModel
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
