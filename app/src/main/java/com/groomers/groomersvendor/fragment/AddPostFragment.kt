@@ -33,6 +33,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     private lateinit var addPost: Button
     private lateinit var alreadyAdded: Button
 
+
     private var selectedImageUri: Uri? = null
 
     // Define image picker activity result launcher
