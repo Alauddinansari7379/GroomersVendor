@@ -11,7 +11,6 @@ import android.widget.LinearLayout
 import androidx.appcompat.widget.LinearLayoutCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.groomers.groomersvendor.R
-import com.groomers.groomersvendor.activity.ManageSlots
 import com.groomers.groomersvendor.activity.OrderLists
 import com.groomers.groomersvendor.activity.Settings
 import com.groomers.groomersvendor.databinding.FragmentProfileBinding
@@ -32,10 +31,6 @@ class ProfileFragment : Fragment() {
             binding = FragmentProfileBinding.bind(view)
             binding.btnFloating.setOnClickListener {
                 startActivity(Intent(requireContext(),Settings::class.java))
-            }
-
-            binding.cardCreateSlot.setOnClickListener {
-                startActivity(Intent(requireContext(),ManageSlots::class.java))
             }
     }
 

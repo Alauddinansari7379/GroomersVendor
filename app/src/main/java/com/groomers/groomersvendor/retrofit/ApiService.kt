@@ -4,7 +4,6 @@ import ModelLogin
 import com.groomers.groomersvendor.model.modelcategory.ModelCategory
 import com.groomers.groomersvendor.model.modelcity.ModelCity
 import com.groomers.groomersvendor.model.modelregister.ModelRegister
-import com.groomers.groomersvendor.model.modelslot.ModelSlot
 import com.groomers.groomersvendor.model.modelstate.ModelState
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -42,8 +41,6 @@ interface ApiService {
         @Query("longitude") longitude: String,
         @Query("country") country: String,  // New field added
         @Query("state") state: String,      // New field added
-        @Query("slot_interval") slot_interval: String,      // New field added
-        @Query("username") username: String,      // New field added
         @Part shopAgreement: MultipartBody.Part  // For file upload
     ): Response<ModelRegister>
 
@@ -54,12 +51,5 @@ interface ApiService {
     suspend fun getState(): Response<ModelState>
     @GET("getCategory")
     suspend fun getCategory(): Response<ModelCategory>
-
-    @POST("create_slot")
-    suspend fun createSlot(
-        @Query("start_time") start_time : String,
-        @Query("end_time") end_time : String,
-        @Query("day") day : String
-    ): Response<ModelSlot>
 
 }

@@ -7,14 +7,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.databinding.ActivityAboutBinding
-import com.groomers.groomersvendor.viewmodel.MyApplication
 import com.groomers.groomersvendor.viewmodel.RegisterViewModel
 
 class About : Common() {
     private val binding by lazy { ActivityAboutBinding.inflate(layoutInflater) }
-    private val viewModel by lazy {
-        (application as MyApplication).registerViewModel
-    }
+    private val viewModel: RegisterViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)

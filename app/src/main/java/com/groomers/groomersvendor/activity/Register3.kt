@@ -11,7 +11,6 @@ import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.databinding.ActivityRegister3Binding
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
-import com.groomers.groomersvendor.viewmodel.MyApplication
 import com.groomers.groomersvendor.viewmodel.RegisterViewModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -21,11 +20,7 @@ import java.io.File
 class Register3 : Common() {
 
     private val binding by lazy { ActivityRegister3Binding.inflate(layoutInflater) }
-//    private lateinit var viewModel: RegisterViewModel
-private val viewModel by lazy {
-    (application as MyApplication).registerViewModel
-}
-
+    private lateinit var viewModel: RegisterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +32,7 @@ private val viewModel by lazy {
         // Update the status bar color to match the background color
         updateStatusBarColor(backgroundColor)
         // Initialize ViewModel
-//        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
-
+        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
 
         // Retrieve data from intent
         val businessCategory = viewModel.businessCategory ?: ""
