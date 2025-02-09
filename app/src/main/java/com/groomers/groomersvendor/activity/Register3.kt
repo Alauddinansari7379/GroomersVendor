@@ -35,16 +35,16 @@ class Register3 : Common() {
         viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
 
         // Retrieve data from intent
-        val businessCategory = intent.getStringExtra("category") ?: ""
-        val businessName = intent.getStringExtra("businessName") ?: ""
-        val name = intent.getStringExtra("yourName") ?: ""
-        val mobile = intent.getStringExtra("phoneNO") ?: ""
-        val email = intent.getStringExtra("email") ?: ""
-        val password = intent.getStringExtra("password") ?: ""
-        val teamSize = intent.getStringExtra("teamSize") ?: ""
-        val city = intent.getStringExtra("SELECTED_CITY") ?: ""
-        val zipcode = intent.getStringExtra("SELECTED_ZIP") ?: ""
-        val idproofImagePath = intent.getStringExtra("imagePath") ?: ""
+        val businessCategory = viewModel.businessCategory ?: ""
+        val businessName = viewModel.businessName ?: ""
+        val name = viewModel.yourName ?: ""
+        val mobile = viewModel.mobile ?: ""
+        val email = viewModel.email ?: ""
+        val password = viewModel.password ?: ""
+        val teamSize = viewModel.teamSize ?: ""
+        val city = viewModel.city ?: ""
+        val zipcode = viewModel.zipcode ?: ""
+        val idproofImagePath = viewModel.idProofImagePath ?: ""
 
         // Convert image path to MultipartBody.Part
         val shopAgreement = prepareFilePart("shop_agreement", idproofImagePath)

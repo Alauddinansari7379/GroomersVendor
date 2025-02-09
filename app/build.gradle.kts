@@ -74,6 +74,8 @@ dependencies {
     implementation ("com.airbnb.android:lottie:6.1.0")
     //cardview
     implementation ("androidx.cardview:cardview:1.0.0")
+    //glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
 
 }

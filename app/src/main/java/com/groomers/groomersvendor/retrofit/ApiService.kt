@@ -1,9 +1,13 @@
 package com.groomers.groomersvendor.retrofit
 
 import ModelLogin
+import com.groomers.groomersvendor.model.modelcategory.ModelCategory
+import com.groomers.groomersvendor.model.modelcity.ModelCity
 import com.groomers.groomersvendor.model.modelregister.ModelRegister
+import com.groomers.groomersvendor.model.modelstate.ModelState
 import okhttp3.MultipartBody
 import retrofit2.Response
+import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -39,5 +43,13 @@ interface ApiService {
         @Query("state") state: String,      // New field added
         @Part shopAgreement: MultipartBody.Part  // For file upload
     ): Response<ModelRegister>
+
+    @POST("city")
+    suspend fun getCity(): Response<ModelCity>
+
+    @POST("state")
+    suspend fun getState(): Response<ModelState>
+    @GET("getCategory")
+    suspend fun getCategory(): Response<ModelCategory>
 
 }

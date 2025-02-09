@@ -6,31 +6,42 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.activity.viewModels
 import com.groomers.groomersvendor.Common
-import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivityYourAddressBinding
+import com.groomers.groomersvendor.helper.CustomLoader
+import com.groomers.groomersvendor.retrofit.ApiServiceProvider
+import com.groomers.groomersvendor.viewmodel.LocationViewModel
+import com.groomers.groomersvendor.viewmodel.RegisterViewModel
 
 class YourAddress : Common() {
     private val binding by lazy { ActivityYourAddressBinding.inflate(layoutInflater) }
+    private val viewModel: RegisterViewModel by viewModels()
+    private val locationViewModel: LocationViewModel by viewModels()
+
+    private val context = this@YourAddress
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val category = intent.getStringExtra("category")
-        val businessName = intent.getStringExtra("businessName")
-        val yourName = intent.getStringExtra("yourName")
-        val phoneNO = intent.getStringExtra("phoneNO")
-        val userId = intent.getStringExtra("userId")
-        val email = intent.getStringExtra("email")
-        val password = intent.getStringExtra("password")
-        val teamSize = intent.getStringExtra("teamSize")
-
         val backgroundColor = (binding.root.background as? ColorDrawable)?.color ?: Color.WHITE
         updateStatusBarColor(backgroundColor)
+        val apiService = ApiServiceProvider.getApiService()
+        locationViewModel.getCity(apiService)
+        // Observe isLoading to show/hide progress
+        locationViewModel.isLoading.observe(context) { isLoading ->
+            if (isLoading) {
+                CustomLoader.showLoaderDialog(context)
+            } else {
+                CustomLoader.hideLoaderDialog()
+            }
+        }
+        // Observe error message if login fails
+        locationViewModel.errorMessage.observe(context) { errorMessage ->
+            if (errorMessage.isNotEmpty()) {
+                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+            }
+        }
 
         binding.btnContinue.setOnClickListener {
             val selectedCity = binding.spinnerCity.selectedItem.toString()
@@ -38,6 +49,12 @@ class YourAddress : Common() {
             val address1 = binding.etAddress1.text.toString()
             val address2 = binding.etAddress2.text.toString()
             val mapUrl = binding.etMapUrl.text.toString()
+            viewModel.city = selectedCity
+            viewModel.zipcode = selectedZip
+            viewModel.address1 = address1
+            viewModel.address2 = address2
+            viewModel.mapUrl = mapUrl
+
             if (address1.isEmpty()) {
                 binding.etAddress1.error = "Please enter address 1"
                 binding.etAddress1.requestFocus()
@@ -64,28 +81,22 @@ class YourAddress : Common() {
                 return@setOnClickListener
             }
 
-
             val intent = Intent(this@YourAddress, UploadOwnerIdentity::class.java)
-            intent.putExtra("SELECTED_CITY", selectedCity)
-            intent.putExtra("SELECTED_ZIP", selectedZip)
-            intent.putExtra("category", category)
-            intent.putExtra("businessName", businessName)
-            intent.putExtra("yourName", yourName)
-            intent.putExtra("phoneNO", phoneNO)
-            intent.putExtra("userId", userId)
-            intent.putExtra("email", email)
-            intent.putExtra("password", password)
-            intent.putExtra("teamSize", teamSize)
             startActivity(intent)
         }
         setupSpinners()
     }
 
     private fun setupSpinners() {
-        val cityList = listOf("Select City", "Calgary", "Toronto", "Vancouver")
-        val cityAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, cityList)
-        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerCity.adapter = cityAdapter
+        locationViewModel.modelCity.observe(context) { cityResponse ->
+            cityResponse?.result?.let { cityList ->
+                val cities = listOf("Select City") + cityList.map { it.city }
+                val cityAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, cities)
+                cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spinnerCity.adapter = cityAdapter
+            }
+        }
+
 
 // Populate ZIP code spinner
         val zipCodeList = listOf("Select ZIP Code", "746477", "376", "366")

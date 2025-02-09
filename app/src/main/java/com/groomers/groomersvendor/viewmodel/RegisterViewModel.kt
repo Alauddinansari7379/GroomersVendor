@@ -10,7 +10,33 @@ import com.groomers.groomersvendor.model.modelregister.ModelRegister
 import com.groomers.groomersvendor.retrofit.ApiService
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
+
 class RegisterViewModel(application: Application) : AndroidViewModel(application) {
+    var name: String? =null
+    var yourName: String? =null
+   var mobile: String? =null
+   var email: String? =null
+   var password: String? =null
+   var userId: String? =null
+   var passwordConfirmation: String? =null
+   var role: String? =null
+   var businessName: String? =null
+   var businessCategory: String? =null
+   var aboutBusiness: String? =null
+   var teamSize: String? =null
+   var address1: String? =null
+   var address2: String? =null
+   var mapUrl: String? =null
+   var city: String? =null
+   var zipcode: String? =null
+   var idProofImagePath: String? =null
+   var idproofType: String? =null
+   var services: String? =null
+   var latitude: String? =null
+   var longitude: String? =null
+   var country: String? =null
+   var state: String? =null
+   var shopAgreement : String? =null
 
     private val _modelRegister = MutableLiveData<ModelRegister>()
     val modelRegister: LiveData<ModelRegister> = _modelRegister

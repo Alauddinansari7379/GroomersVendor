@@ -4,15 +4,17 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.databinding.ActivityAboutBinding
+import com.groomers.groomersvendor.viewmodel.RegisterViewModel
 
 class About : Common() {
     private val binding by lazy { ActivityAboutBinding.inflate(layoutInflater) }
+    private val viewModel: RegisterViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val category = intent.getStringExtra("category")
         // Get the background color of the root view
         val backgroundColor = (binding.root.background as? ColorDrawable)?.color ?: Color.WHITE
 
@@ -23,6 +25,9 @@ class About : Common() {
             val businessName = binding.etBusinessName.text.toString()
             val yourName = binding.etYourName.text.toString()
             val phoneNO = binding.etPhoneNo.text.toString()
+            viewModel.businessName = businessName
+            viewModel.yourName = yourName
+            viewModel.mobile = phoneNO
 
             if (businessName.isEmpty()) {
                 binding.etBusinessName.error = "Please enter your business name"
@@ -40,10 +45,6 @@ class About : Common() {
             return@setOnClickListener
         }
             val intent = Intent(this, AboutYourCredentials::class.java)
-            intent.putExtra("category", category)
-            intent.putExtra("businessName", businessName)
-            intent.putExtra("yourName", yourName)
-            intent.putExtra("phoneNO", phoneNO)
             startActivity(intent)
         }
 
