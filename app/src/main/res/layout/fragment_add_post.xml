@@ -9,34 +9,258 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="vertical">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAddImage"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/border_bg"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/sf_bold"
-            android:gravity="center"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="@string/upload_your_photo"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:text="@string/select_your_service"
+             />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/editTextTitle"
+        <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/corner_edt"
-            android:fontFamily="@font/sf_regular"
-            android:hint="@string/post_title"
-            android:inputType="textCapWords"
-            android:padding="10dp"
-            android:textColorHint="@color/black"
-            android:textSize="16sp" />
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/card_background"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/hair_cutting">
+
+                </androidx.appcompat.widget.AppCompatImageView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_regular"
+                        android:text="Hair Cutting"
+                        android:textAlignment="center"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
+                android:background="@drawable/card_background"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/body_message">
+
+                </androidx.appcompat.widget.AppCompatImageView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_regular"
+                        android:text="Body massage"
+                        android:textAlignment="center"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/card_background"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/pet_img">
+
+                </androidx.appcompat.widget.AppCompatImageView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_regular"
+                        android:text="Pet Service"
+                        android:textAlignment="center"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/card_background"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/hair_cutting">
+
+                </androidx.appcompat.widget.AppCompatImageView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_regular"
+                        android:text="Makeup Service"
+                        android:textAlignment="center"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
+                android:background="@drawable/card_background"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/teeth">
+
+                </androidx.appcompat.widget.AppCompatImageView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_regular"
+                        android:text="Teeth Cleaning"
+                        android:textAlignment="center"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/card_background"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/service">
+
+                </androidx.appcompat.widget.AppCompatImageView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_regular"
+                        android:text="more...."
+                        android:textAlignment="center"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/editTextDescription"
@@ -46,147 +270,394 @@
             android:background="@drawable/corner_edt"
             android:fontFamily="@font/sf_regular"
             android:gravity="top|start"
-            android:hint="@string/post_description"
+            android:hint="Service description"
             android:inputType="textMultiLine"
             android:minHeight="140dp"
             android:padding="10dp"
             android:textColorHint="@color/black"
             android:textSize="16sp" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf_bold"
+            android:text="Select Service Images"
+            />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageViewPreview"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:id="@+id/layout_root"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/layoutchoise"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/doted_corner">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewPreview"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnAddImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="2dp"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/layoutCamera"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="1"
+
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/circle"
+                        android:backgroundTint="@color/mainColor"
+                        android:gravity="center">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/camera"
+                            android:backgroundTint="@color/white" />
+
+                    </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Camera">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutGallery"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/circle"
+                        android:backgroundTint="@color/mainColor"
+                        android:gravity="center">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/ic_menu_gallery"
+                            android:backgroundTint="@color/white" />
+
+                    </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gallery">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="sans-serif-light"
+                android:text="Click to Choose Service Image"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
             android:layout_marginTop="10dp"
-            android:scaleType="centerCrop"
-            android:visibility="gone" />
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_bold"
+                    android:text="Enter Price">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center"
+                    android:textColor="#E91E63"
+                    android:text="*">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:weightSum="1"
+                android:layout_marginStart="5dp"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_bold"
+                    android:text="Service Time">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+            </LinearLayout>
+
+        </LinearLayout>
 
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/edtFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/corner"
+                android:hint="Enter Price"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textSize="15dp">
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/edtMiddelName"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/corner"
+                android:hint="Select Service time"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textSize="15dp">
+
+            </EditText>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_bold"
-                android:text="@string/item_price"
-                android:textColor="@color/black" />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/border_bg"
-                android:fontFamily="@font/sf_regular"
-                android:hint="@string/_100"
-                android:inputType="textCapWords"
-                android:padding="10dp"
-                android:textColorHint="@color/black"
-                android:textSize="16sp" />
+                android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/sf_bold"
-                android:text="@string/quantity"
-                android:textColor="@color/black" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_bold"
+                    android:text="@string/service_type">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/Quantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                </androidx.appcompat.widget.AppCompatTextView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center"
+                    android:textColor="#E91E63"
+                    android:text="*">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/border_bg"
-                android:fontFamily="@font/sf_regular"
-                android:hint="@string/_2"
-                android:inputType="textCapWords"
-                android:padding="10dp"
-                android:textColorHint="@color/black"
-                android:textSize="16sp" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                android:weightSum="1"
+                android:layout_marginStart="5dp"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_bold"
+                    android:text="Date">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+            </LinearLayout>
+
+        </LinearLayout>
 
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:layout_marginTop="10dp">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_bold"
-                android:text="@string/item_time"
-                android:textColor="@color/black" />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+            <Spinner
+                android:id="@+id/spinnerServiceType"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
                 android:layout_weight="1"
-                android:background="@drawable/border_bg"
-                android:fontFamily="@font/sf_regular"
-                android:hint="@string/_10pm"
-                android:inputType="textCapWords"
-                android:padding="10dp"
-                android:textColorHint="@color/black"
-                android:textSize="16sp" />
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/corner_edt" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/sf_bold"
-                android:text="@string/item_date"
-                android:textColor="@color/black" />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/corner"
+                android:hint="Select Service Date"
+                android:inputType="text"
+                android:enabled="false"
+                android:padding="10dp"
+                android:textSize="15dp">
+
+            </androidx.appcompat.widget.AppCompatEditText>
+
+        </LinearLayout>  <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_bold"
+                    android:text="@string/category">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center"
+                    android:textColor="#E91E63"
+                    android:text="*">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:weightSum="1"
+                android:layout_marginStart="5dp"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_bold"
+                    android:text="@string/slot_time">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <Spinner
+                android:id="@+id/spinnerCategory"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/corner_edt" />
+
+
+            <EditText
+                android:id="@+id/editTextSlotTime"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="2dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/corner"
+                android:hint="Select Your Date"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textSize="15dp">
+
+            </EditText>
+
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/border_bg"
-                android:fontFamily="@font/sf_regular"
-                android:hint="@string/_10_jun"
-                android:inputType="textCapWords"
-                android:padding="10dp"
-                android:textColorHint="@color/black"
-                android:textSize="16sp" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                android:fontFamily="@font/sf_bold"
+                android:text="@string/address">
 
+            </androidx.appcompat.widget.AppCompatTextView>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/sf_bold"
-            android:text="@string/service_type"
-            android:textColor="@color/black" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#E91E63"
+                android:text="*">
 
-        <Spinner
-            android:id="@+id/spinnerServiceType"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/corner_edt" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/sf_bold"
-            android:text="@string/address"
-            android:textColor="@color/black" />
+            </androidx.appcompat.widget.AppCompatTextView>
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/editTextAddress"
@@ -198,43 +669,6 @@
             android:inputType="textMultiLine"
             android:padding="10dp"
             android:textSize="16sp" />
-
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/sf_bold"
-            android:text="@string/category"
-            android:textColor="@color/black" />
-
-        <Spinner
-            android:id="@+id/spinnerCategory"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/corner_edt" />
-
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/sf_bold"
-            android:text="@string/slot_time"
-            android:textColor="@color/black" />
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/editTextSlotTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/corner_edt"
-            android:focusable="false"
-            android:hint="@string/select_date"
-            android:inputType="none"
-            android:padding="10dp"
-            android:textSize="16sp" />
-
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAddPost"
@@ -265,7 +699,7 @@
             android:background="@drawable/gradient_button"
             android:fontFamily="@font/sf_regular"
             android:gravity="center"
-            android:text="@string/already_added"
+            android:text="@string/service_list"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="14sp"

@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,11 +24,12 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
 
     private lateinit var editTextTitle: EditText
     private lateinit var editTextDescription: EditText
-    private lateinit var btnAddImage: TextView
+    private lateinit var btnAddImage: LinearLayout
     private lateinit var imageViewPreview: ImageView
     private lateinit var spinnerServiceType: Spinner
     private lateinit var spinnerCategory: Spinner
     private lateinit var editTextSlotTime: EditText
+    private lateinit var date: EditText
     private lateinit var addPost: Button
     private lateinit var alreadyAdded: Button
 
@@ -50,7 +52,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
         super.onViewCreated(view, savedInstanceState)
 
         // Initialize views
-        editTextTitle = view.findViewById(R.id.editTextTitle)
+        //editTextTitle = view.findViewById(R.id.editTextTitle)
         editTextDescription = view.findViewById(R.id.editTextDescription)
         btnAddImage = view.findViewById(R.id.btnAddImage)
         imageViewPreview = view.findViewById(R.id.imageViewPreview)
@@ -59,6 +61,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
         editTextSlotTime = view.findViewById(R.id.editTextSlotTime)
         addPost = view.findViewById(R.id.btnAddPost)
         alreadyAdded = view.findViewById(R.id.btnAlreadyAdded)
+        date = view.findViewById(R.id.date)
 
         // Button click to add image
         btnAddImage.setOnClickListener {
@@ -70,6 +73,10 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
 
         // Set up calendar selection for slot time
         editTextSlotTime.setOnClickListener {
+            openDatePickerDialog()
+        }
+
+        date.setOnClickListener {
             openDatePickerDialog()
         }
         addPost.setOnClickListener {
