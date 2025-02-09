@@ -108,7 +108,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan"
+            />
     </application>
 
 </manifest>
