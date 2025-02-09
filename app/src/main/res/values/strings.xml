@@ -257,5 +257,6 @@
     <string name="already_added">Already added</string>
     <string name="service_list">Service List</string>
     <string name="enter_map_url">Enter map url</string>
+    <string name="select_your_service">Select Your Service</string>
 
 </resources>
