@@ -5,6 +5,7 @@ import com.groomers.groomersvendor.model.modelcategory.ModelCategory
 import com.groomers.groomersvendor.model.modelcity.ModelCity
 import com.groomers.groomersvendor.model.modelcreateservice.ModelCreateService
 import com.groomers.groomersvendor.model.modelregister.ModelRegister
+import com.groomers.groomersvendor.model.modelservice.ModelService
 import com.groomers.groomersvendor.model.modelslot.ModelSlot
 import com.groomers.groomersvendor.model.modelstate.ModelState
 import okhttp3.MultipartBody
@@ -56,6 +57,11 @@ interface ApiService {
     suspend fun getState(): Response<ModelState>
     @GET("getCategory")
     suspend fun getCategory(): Response<ModelCategory>
+
+    @POST("getPostAll")
+    suspend fun getServiceList(
+        @Header("Authorization") authorization: String
+    ): Response<ModelService>
 
     @POST("create_slot")
     suspend fun createSlot(
