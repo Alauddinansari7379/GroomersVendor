@@ -63,6 +63,8 @@ interface ApiService {
         @Query("end_time") end_time : String,
         @Query("day") day : String
     ): Response<ModelSlot>
+
+
     @Multipart
     @POST("CreateServicePost")
     suspend fun createServicePost(
