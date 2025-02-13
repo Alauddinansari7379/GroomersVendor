@@ -6,10 +6,16 @@ import androidx.lifecycle.*
 
 import com.groomers.groomersvendor.retrofit.ApiService
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(application: Application) : AndroidViewModel(application) {
-    private val sessionManager = SessionManager(application)
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val apiService: ApiService,
+    application: Application,
+    private val sessionManager: SessionManager
+) : AndroidViewModel(application)  {
 
     private val _modelLogin = MutableLiveData<ModelLogin?>()
     val modelLogin: LiveData<ModelLogin?> = _modelLogin
@@ -20,7 +26,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun login(apiService: ApiService, email: String, password: String) {
+    fun login( email: String, password: String) {
         _isLoading.postValue(true)
 
         viewModelScope.launch {

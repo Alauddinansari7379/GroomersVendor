@@ -9,18 +9,23 @@ import com.groomers.groomersvendor.MainActivity
 import com.groomers.groomersvendor.databinding.ActivityLoginBinding
 import com.groomers.groomersvendor.helper.AppProgressBar
 import com.groomers.groomersvendor.helper.CustomLoader
+import com.groomers.groomersvendor.retrofit.ApiService
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.viewmodel.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class Login : AppCompatActivity() {
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
     private val context = this@Login
     private val viewModel: LoginViewModel by viewModels()
-
+    @Inject
+    lateinit var apiService: ApiService
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val apiService = ApiServiceProvider.getApiService()
+
 
         with(binding) {
             btnLogin.setOnClickListener {
@@ -40,7 +45,7 @@ class Login : AppCompatActivity() {
                 }
 
                 // If both fields are non-empty, proceed with login
-                viewModel.login(apiService, email, password)
+                viewModel.login(email, password)
             }
 
             // Observe isLoading to show/hide progress

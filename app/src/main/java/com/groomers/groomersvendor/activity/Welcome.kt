@@ -13,15 +13,19 @@ import com.groomers.groomersvendor.adapter.SliderAdapter
 import com.groomers.groomersvendor.databinding.ActivityWelcomeBinding
 import com.groomers.groomersvendor.model.SliderItem
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class Welcome : Common() {
     private val binding by lazy { ActivityWelcomeBinding.inflate(layoutInflater) }
-
+    @Inject
+    lateinit var sessionManager: SessionManager
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-         val sessionManager = SessionManager(this@Welcome)
+
         // Get the background color of the root view
         val backgroundColor = (binding.root.background as? ColorDrawable)?.color ?: Color.WHITE
 

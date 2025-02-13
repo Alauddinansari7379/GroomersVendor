@@ -3,6 +3,7 @@ package com.groomers.groomersvendor.retrofit
 import ModelLogin
 import com.groomers.groomersvendor.model.modelcategory.ModelCategory
 import com.groomers.groomersvendor.model.modelcity.ModelCity
+import com.groomers.groomersvendor.model.modelcreateservice.ModelCreateService
 import com.groomers.groomersvendor.model.modelregister.ModelRegister
 import com.groomers.groomersvendor.model.modelslot.ModelSlot
 import com.groomers.groomersvendor.model.modelstate.ModelState
@@ -61,5 +62,20 @@ interface ApiService {
         @Query("end_time") end_time : String,
         @Query("day") day : String
     ): Response<ModelSlot>
+    @Multipart
+    @GET("CreateServicePost")
+    suspend fun createServicePost(
+        @Query("serviceName") serviceName: String,
+        @Query("description") description: String,
+        @Query("price") price: String,
+        @Query("time") time: String,
+        @Query("serviceType") serviceType: String,
+        @Query("date") date: String,
+        @Query("category") category: String,
+        @Query("slot_time") slot_time: String,
+        @Query("address") address: String,
+        @Query("user_type") user_type: String,
+        @Part images: List<MultipartBody.Part>
+    ): Response<ModelCreateService>
 
 }

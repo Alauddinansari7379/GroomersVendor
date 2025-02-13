@@ -82,6 +82,8 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                 _isLoading.postValue(false)
                 _errorMessage.postValue("Exception: ${e.localizedMessage}")
                 Log.e("RegisterViewModel", "Error: ${e.message}")
+            } finally {
+                _isLoading.postValue(false)
             }
         }
     }

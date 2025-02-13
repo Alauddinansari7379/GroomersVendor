@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.dagger.hilt.android")
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -78,6 +80,9 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     //SweetAlert
     implementation ("com.github.f0ris.sweetalert:library:1.6.2")
+    //dependency injection
+    implementation ("com.google.dagger:hilt-android:2.50")
+    kapt ("com.google.dagger:hilt-compiler:2.50")
 
 
 }
