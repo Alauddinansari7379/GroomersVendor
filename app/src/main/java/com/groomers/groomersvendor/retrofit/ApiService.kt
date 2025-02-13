@@ -10,6 +10,7 @@ import com.groomers.groomersvendor.model.modelstate.ModelState
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -63,8 +64,9 @@ interface ApiService {
         @Query("day") day : String
     ): Response<ModelSlot>
     @Multipart
-    @GET("CreateServicePost")
+    @POST("CreateServicePost")
     suspend fun createServicePost(
+        @Header("Authorization") authorization: String,
         @Query("serviceName") serviceName: String,
         @Query("description") description: String,
         @Query("price") price: String,

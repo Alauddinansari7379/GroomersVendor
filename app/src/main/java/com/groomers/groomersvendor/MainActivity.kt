@@ -7,6 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.groomers.groomersvendor.databinding.ActivityMainBinding
+import com.groomers.groomersvendor.fragment.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,6 +21,10 @@ class MainActivity : Common() {
         val backgroundColor = (binding.root.background as? ColorDrawable)?.color ?: Color.WHITE
         // Update the status bar color to match the background color
         updateStatusBarColor(backgroundColor)
+        val openFragment = intent.getStringExtra("openFragment")
+        if (openFragment == "HomeFragment") {
+            openHomeFragment()
+        }
         bottomNav = binding.bottomNavigationView
         // Set up the NavHostFragment and NavController
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.hostFragment) as NavHostFragment
@@ -37,5 +42,11 @@ class MainActivity : Common() {
                 else -> getString(R.string.shop_profile)
             }
         }
+    }
+    private fun openHomeFragment() {
+        val homeFragment = HomeFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.hostFragment, homeFragment)
+            .commit()
     }
 }

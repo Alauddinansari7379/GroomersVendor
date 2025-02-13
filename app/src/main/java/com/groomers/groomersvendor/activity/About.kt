@@ -4,11 +4,9 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.activity.viewModels
 import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.databinding.ActivityAboutBinding
 import com.groomers.groomersvendor.viewmodel.MyApplication
-import com.groomers.groomersvendor.viewmodel.RegisterViewModel
 
 class About : Common() {
     private val binding by lazy { ActivityAboutBinding.inflate(layoutInflater) }

@@ -34,7 +34,7 @@ class CreateServiceViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    public fun createService( apiService: ApiService,
+    public fun createService(token : String, apiService: ApiService,
         serviceName: String,
         description: String,
         price: String,
@@ -50,7 +50,7 @@ class CreateServiceViewModel(
         viewModelScope.launch {
             _isLoading.postValue(true)
             try {
-                val response = apiService.createServicePost(
+                val response = apiService.createServicePost(token,
                     serviceName,
                     description,
                     price,

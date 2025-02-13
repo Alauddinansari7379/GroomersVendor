@@ -1,9 +1,12 @@
 package com.groomers.groomersvendor.fragment
 
 import android.app.DatePickerDialog
+import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,12 +24,15 @@ import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.activity.AddServiceDetails
 import com.groomers.groomersvendor.activity.ServiceList
 import com.groomers.groomersvendor.databinding.FragmentAddPostBinding
+import com.groomers.groomersvendor.helper.UploadRequestBody
 import com.groomers.groomersvendor.viewmodel.MyApplication
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.util.Calendar
 
 @AndroidEntryPoint
@@ -38,7 +44,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     private val viewModel by lazy {
         (requireActivity().application as MyApplication).createServiceViewModel
     }
-
+    private val parts: MutableList<MultipartBody.Part> = mutableListOf()
     // Define image picker activity result launcher
     private val pickImageLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
@@ -46,11 +52,48 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
                 selectedImageUri = it
                 binding.imageViewPreview.setImageURI(it)
                 val imagePart = createMultipartFromUri(it)
-                viewModel.images = listOf(imagePart)
+//                viewModel.images = listOf(imagePart)
+                handleImageSelection(selectedImageUri!!)
                 binding.imageViewPreview.visibility = View.VISIBLE
             }
         }
+    fun handleImageSelection(uri: Uri) {
+        val imagePart = createMultipartFromUri(requireContext(), uri)
+        if (imagePart != null) {
+             parts.add(imagePart)
+            viewModel.images = parts
+        }
+    }
+    private fun createMultipartFromUri(context: Context, uri: Uri): MultipartBody.Part? {
+        return try {
+            val contentResolver = context.contentResolver
+            val parcelFileDescriptor = contentResolver.openFileDescriptor(uri, "r", null) ?: return null
+            val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+            val file = File(context.cacheDir, contentResolver.getFileName(uri)) // Ensure filename uniqueness
+            val outputStream = FileOutputStream(file)
 
+            inputStream.copyTo(outputStream)
+            outputStream.close()
+            inputStream.close()
+
+            val body = UploadRequestBody(file, "image", context)
+            MultipartBody.Part.createFormData("image[]", file.name, body) // Use "image[]" for multiple uploads
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+    private fun ContentResolver.getFileName(uri: Uri): String {
+        var name = "temp_image"
+        val cursor = query(uri, null, null, null, null)
+        cursor?.use {
+            val nameIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            if (nameIndex != -1 && it.moveToFirst()) {
+                name = it.getString(nameIndex)
+            }
+        }
+        return name
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -90,9 +133,36 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
             val selectedServiceType = binding.spinnerServiceType.selectedItem.toString()
             viewModel.category = selectedCategory
             viewModel.serviceType = selectedServiceType
-            if (selectedCategory == "Select category") {
-                Toast.makeText(requireContext(), "Please select a category", Toast.LENGTH_SHORT)
-                    .show()
+
+
+
+            viewModel.description = binding.editTextDescription.text.toString()
+            viewModel.price = binding.edPrice.text.toString()
+            viewModel.address = binding.editTextAddress.text.toString()
+            viewModel.time = binding.edtServiceTime.text.toString()
+            viewModel.date = binding.date.text.toString()
+            viewModel.slot_time = binding.editTextSlotTime.text.toString()
+
+
+
+
+            if (viewModel.description!!.isEmpty()) {
+                binding.editTextDescription.error = "Please enter description"
+                binding.editTextDescription.requestFocus()
+                return@setOnClickListener
+            }
+            if (viewModel.images.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "Please select service image", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (viewModel.price!!.isEmpty()) {
+                binding.edPrice.error = "Please enter price"
+                binding.edPrice.requestFocus()
+                return@setOnClickListener
+            }
+            if (viewModel.time!!.isEmpty()) {
+                binding.edtServiceTime.error = "Please enter service time"
+                binding.edtServiceTime.requestFocus()
                 return@setOnClickListener
             }
             if (selectedServiceType == "Select service type") {
@@ -100,11 +170,28 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
                     .show()
                 return@setOnClickListener
             }
-            viewModel.description = binding.editTextDescription.text.toString()
-            viewModel.price = binding.edPrice.text.toString()
-            viewModel.address = binding.editTextAddress.text.toString()
-            viewModel.time = binding.edtServiceTime.text.toString()
-            viewModel.slot_time = binding.editTextSlotTime.text.toString()
+            if (viewModel.date!!.isEmpty()) {
+                binding.date.error = "Please enter service date"
+                binding.date.requestFocus()
+                return@setOnClickListener
+            }
+            if (selectedCategory == "Select category") {
+                Toast.makeText(requireContext(), "Please select a category", Toast.LENGTH_SHORT)
+                    .show()
+                return@setOnClickListener
+            }
+
+
+            if (viewModel.slot_time!!.isEmpty()) {
+                binding.editTextSlotTime.error = "Please enter your date"
+                binding.editTextSlotTime.requestFocus()
+                return@setOnClickListener
+            }
+            if (viewModel.address!!.isEmpty()) {
+                binding.editTextAddress.error = "Please enter address"
+                binding.editTextAddress.requestFocus()
+                return@setOnClickListener
+            }
             val intent = Intent(requireContext(), AddServiceDetails::class.java)
             startActivity(intent)
         }
@@ -146,13 +233,14 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
             requireContext(),
             { _, selectedYear, selectedMonth, selectedDay ->
                 // Set selected date in EditText
-                val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                val selectedDate = "$selectedYear/${selectedMonth + 1}/$selectedDay"
                 binding.editTextSlotTime.setText(selectedDate)
             },
             year, month, day
         )
         datePickerDialog.show()
     }
+
     private fun openDatePickerDialog1() {
         // Get current date
         val calendar = Calendar.getInstance()
@@ -165,14 +253,15 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
             requireContext(),
             { _, selectedYear, selectedMonth, selectedDay ->
                 // Set selected date in EditText
-                val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                val selectedDate = "$selectedYear/${selectedMonth + 1}/$selectedDay"
                 binding.date.setText(selectedDate)
-                viewModel.date =selectedDate
+                viewModel.date = selectedDate
             },
             year, month, day
         )
         datePickerDialog.show()
     }
+
     private fun createMultipartFromUri(uri: Uri): MultipartBody.Part {
         val contentResolver = requireContext().contentResolver
         val inputStream = contentResolver.openInputStream(uri)
