@@ -55,7 +55,7 @@ class CreateServiceViewModel(
         viewModelScope.launch {
             _isLoading.postValue(true)
             try {
-                val response = apiService.createServicePost(token,
+                val response = apiService.createServicePost("Bearer$token",
                     serviceName,
                     description,
                     price,
@@ -109,7 +109,7 @@ class CreateServiceViewModel(
         viewModelScope.launch {
             _isLoading.postValue(true)
             try {
-                val response = apiService.updateServicePost(token,
+                val response = apiService.updateServicePost("Bearer$token",
                     serviceName,
                     description,
                     price,
