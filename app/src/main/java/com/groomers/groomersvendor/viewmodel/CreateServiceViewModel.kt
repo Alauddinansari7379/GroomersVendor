@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.groomers.groomersvendor.model.modelcreateservice.ModelCreateService
+import com.groomers.groomersvendor.model.modelcreateservice.ModelCreateServiceX
 import com.groomers.groomersvendor.retrofit.ApiService
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -28,10 +28,10 @@ class CreateServiceViewModel(
     var imageUrl: String? = null
     var editFlag: String? = null
 
-    var images: List<MultipartBody.Part>? = null
+    lateinit var image: MultipartBody.Part
 
-    private val _modelCreateService = MutableLiveData<ModelCreateService?>()
-    val modelCreateService: LiveData<ModelCreateService?> = _modelCreateService
+    private val _modelCreateService = MutableLiveData<ModelCreateServiceX?>()
+    val modelCreateService: LiveData<ModelCreateServiceX?> = _modelCreateService
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -50,7 +50,7 @@ class CreateServiceViewModel(
         slot_time: String,
         address: String,
         user_type: String,
-        images: List<MultipartBody.Part>
+        image: MultipartBody.Part
     ) {
         viewModelScope.launch {
             _isLoading.postValue(true)
@@ -61,12 +61,12 @@ class CreateServiceViewModel(
                     price,
                     time,
                     serviceType,
-                    date,
+                    "2025-02-12",
                     category,
                     slot_time,
                     address,
                     user_type,
-                    images
+                    image
                 )
                 _isLoading.postValue(false) // Hide loading state
 
@@ -93,7 +93,8 @@ class CreateServiceViewModel(
     }
 
 
-    fun updateService(token : String, apiService: ApiService,
+    fun updateService(
+        token: String, apiService: ApiService,
         serviceName: String,
         description: String,
         price: String,
@@ -104,7 +105,7 @@ class CreateServiceViewModel(
         slot_time: String,
         address: String,
         user_type: String,
-        images: List<MultipartBody.Part>
+        image: MultipartBody.Part
     ) {
         viewModelScope.launch {
             _isLoading.postValue(true)
@@ -120,7 +121,7 @@ class CreateServiceViewModel(
                     slot_time,
                     address,
                     user_type,
-                    images
+                    image
                 )
                 _isLoading.postValue(false) // Hide loading state
 

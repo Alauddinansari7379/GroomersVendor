@@ -59,7 +59,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     private val viewModel by lazy {
         (requireActivity().application as MyApplication).createServiceViewModel
     }
-    private val parts: MutableList<MultipartBody.Part> = mutableListOf()
+     lateinit var  parts: MultipartBody.Part
 
     // Define image picker activity result launcher
     private val pickImageLauncher =
@@ -77,8 +77,8 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     private fun handleImageSelection(uri: Uri) {
         val imagePart = createMultipartFromUri(requireContext(), uri)
         if (imagePart != null) {
-            parts.add(imagePart)
-            viewModel.images = parts
+            //parts.add(imagePart)
+            viewModel.image = imagePart
         }
     }
 
@@ -100,7 +100,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
 
             val body = UploadRequestBody(file, "image", context)
             MultipartBody.Part.createFormData(
-                "image[]",
+                "image",
                 file.name,
                 body
             ) // Use "image[]" for multiple uploads
@@ -191,7 +191,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
                 binding.editTextDescription.requestFocus()
                 return@setOnClickListener
             }
-            if (viewModel.images.isNullOrEmpty()) {
+            if (viewModel.image.toString().isEmpty()) {
                 Toast.makeText(requireContext(), "Please select service image", Toast.LENGTH_SHORT)
                     .show()
                 return@setOnClickListener
@@ -278,7 +278,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
                     binding.editTextAddress.setText(viewModel.address)
 
                     Glide.with(requireContext())
-                        .load("https://groomers.co.in/public/uploads/" + viewModel.images)
+                        .load("https://groomers.co.in/public/uploads/" + viewModel.image)
                         .into(binding.imageViewPreview)
 
 
@@ -363,6 +363,6 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
             }
 
             val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
-            return MultipartBody.Part.createFormData("images", file.name, requestBody)
+            return MultipartBody.Part.createFormData("image", file.name, requestBody)
         }
     }

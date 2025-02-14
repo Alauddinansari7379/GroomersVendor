@@ -1,7 +1,7 @@
 package com.groomers.groomersvendor.model.modelcreateservice
 
-data class ModelCreateService(
+data class ModelCreateServiceX(
     val message: String,
-    val result: Result,
+    val result: ResultX,
     val status: Int
 )

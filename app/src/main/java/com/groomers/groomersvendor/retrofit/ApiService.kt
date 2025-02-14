@@ -3,7 +3,7 @@ package com.groomers.groomersvendor.retrofit
 import ModelLogin
 import com.groomers.groomersvendor.model.modelcategory.ModelCategory
 import com.groomers.groomersvendor.model.modelcity.ModelCity
-import com.groomers.groomersvendor.model.modelcreateservice.ModelCreateService
+import com.groomers.groomersvendor.model.modelcreateservice.ModelCreateServiceX
 import com.groomers.groomersvendor.model.modeldeleteservice.ModelDeleteService
 import com.groomers.groomersvendor.model.modelregister.ModelRegister
 import com.groomers.groomersvendor.model.modelservice.ModelService
@@ -87,8 +87,8 @@ interface ApiService {
         @Query("slot_time") slot_time: String,
         @Query("address") address: String,
         @Query("user_type") user_type: String,
-        @Part images: List<MultipartBody.Part>
-    ): Response<ModelCreateService>
+        @Part image: MultipartBody.Part
+    ): Response<ModelCreateServiceX>
      @Multipart
     @POST("updatePost")
     suspend fun updateServicePost(
@@ -103,8 +103,8 @@ interface ApiService {
         @Query("slot_time") slot_time: String,
         @Query("address") address: String,
         @Query("user_type") user_type: String,
-        @Part images: List<MultipartBody.Part>
-    ): Response<ModelCreateService>
+        @Part image: MultipartBody.Part
+    ): Response<ModelCreateServiceX>
 
     @POST("deletePost")
     suspend fun deleteService(
