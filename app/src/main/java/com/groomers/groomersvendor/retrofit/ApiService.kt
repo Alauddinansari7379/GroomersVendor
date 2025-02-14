@@ -4,8 +4,10 @@ import ModelLogin
 import com.groomers.groomersvendor.model.modelcategory.ModelCategory
 import com.groomers.groomersvendor.model.modelcity.ModelCity
 import com.groomers.groomersvendor.model.modelcreateservice.ModelCreateService
+import com.groomers.groomersvendor.model.modeldeleteservice.ModelDeleteService
 import com.groomers.groomersvendor.model.modelregister.ModelRegister
 import com.groomers.groomersvendor.model.modelservice.ModelService
+import com.groomers.groomersvendor.model.modelsingleservice.ModelSingleService
 import com.groomers.groomersvendor.model.modelslot.ModelSlot
 import com.groomers.groomersvendor.model.modelstate.ModelState
 import okhttp3.MultipartBody
@@ -87,5 +89,32 @@ interface ApiService {
         @Query("user_type") user_type: String,
         @Part images: List<MultipartBody.Part>
     ): Response<ModelCreateService>
+     @Multipart
+    @POST("updatePost")
+    suspend fun updateServicePost(
+        @Header("Authorization") authorization: String,
+        @Query("serviceName") serviceName: String,
+        @Query("description") description: String,
+        @Query("price") price: String,
+        @Query("time") time: String,
+        @Query("serviceType") serviceType: String,
+        @Query("date") date: String,
+        @Query("category") category: String,
+        @Query("slot_time") slot_time: String,
+        @Query("address") address: String,
+        @Query("user_type") user_type: String,
+        @Part images: List<MultipartBody.Part>
+    ): Response<ModelCreateService>
 
+    @POST("deletePost")
+    suspend fun deleteService(
+        @Header("Authorization") authorization: String,
+        @Query("id") id: String
+    ): Response<ModelDeleteService>
+
+    @POST("getSinglePost")
+    suspend fun getSingleService(
+        @Header("Authorization") authorization: String,
+        @Query("id") id: String
+    ): Response<ModelSingleService>
 }

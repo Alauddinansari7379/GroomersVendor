@@ -1,5 +1,6 @@
 package com.groomers.groomersvendor.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -28,6 +29,7 @@ class AddServiceDetails : AppCompatActivity() {
     lateinit var sessionManager: SessionManager
     private val context = this@AddServiceDetails
     private val binding by lazy { ActivityAddServiceDetailsBinding.inflate(layoutInflater) }
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -38,6 +40,16 @@ class AddServiceDetails : AppCompatActivity() {
         val time = viewModel.time ?: ""
         val category = viewModel.category ?: ""
         val price = viewModel.price ?: ""
+        val serviceName = viewModel.serviceName ?: ""
+        val userType = viewModel.user_type ?: ""
+        val editFlag = viewModel.editFlag ?: ""
+        if (serviceName.isNotEmpty() && userType.isNotEmpty()) {
+            binding.etServiceName.setText(serviceName)
+            binding.etUserType.setText(userType)
+        }
+        if (editFlag.isNotEmpty()){
+            binding.btnContinue3.text = "Update"
+        }
 
         binding.btnContinue3.setOnClickListener {
             val serviceName = binding.etServiceName.text.toString()
@@ -66,20 +78,39 @@ class AddServiceDetails : AppCompatActivity() {
             binding.etDuration.requestFocus()
             return@setOnClickListener
         }
-            viewModel.createService(sessionManager.accessToken!!,
-                apiService,
-                serviceName,
-                description,
-                price,
-                time,
-                serviceType,
-                date,
-                category,
-                slotTime,
-                address,
-                userType,
-                images
-            )
+            if (editFlag.isNotEmpty()){
+                viewModel.updateService(
+                    sessionManager.accessToken!!,
+                    apiService,
+                    serviceName,
+                    description,
+                    price,
+                    time,
+                    serviceType,
+                    date,
+                    category,
+                    slotTime,
+                    address,
+                    userType,
+                    images
+                )
+            }else {
+                viewModel.createService(
+                    sessionManager.accessToken!!,
+                    apiService,
+                    serviceName,
+                    description,
+                    price,
+                    time,
+                    serviceType,
+                    date,
+                    category,
+                    slotTime,
+                    address,
+                    userType,
+                    images
+                )
+            }
         }
         // Observe success response
         viewModel.modelCreateService.observe(this, Observer { response ->

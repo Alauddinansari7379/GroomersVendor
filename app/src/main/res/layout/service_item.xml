@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -96,11 +97,11 @@
                             </androidx.appcompat.widget.AppCompatTextView>
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/serviceName"
+                                android:id="@+id/tvServiceName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="testio2"
+                                android:text=""
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -127,6 +128,7 @@
                             </androidx.appcompat.widget.AppCompatTextView>
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvServiceType"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -139,8 +141,12 @@
                             </androidx.appcompat.widget.AppCompatTextView>
 
                             <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/btnEdit"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:focusable="true"
                                 android:src="@drawable/edit" />
                         </LinearLayout>
 
@@ -170,11 +176,11 @@
                             </androidx.appcompat.widget.AppCompatTextView>
 
                             <androidx.appcompat.widget.AppCompatTextView
-                               android:id="@+id/tvDescription"
+                                android:id="@+id/tvDescription"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Test"
+                                android:text=""
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -231,7 +237,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Type- "
+                                android:text="User type- "
                                 android:textColor="@color/main_Color_Dark"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -239,7 +245,7 @@
                             </androidx.appcompat.widget.AppCompatTextView>
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/serviceType"
+                                android:id="@+id/tvUserType"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
@@ -270,6 +276,7 @@
                             </androidx.appcompat.widget.AppCompatTextView>
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvPrice"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
@@ -321,9 +328,13 @@
                             </androidx.appcompat.widget.AppCompatTextView>
 
                             <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/btnDelete"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_marginEnd="10dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:focusable="true"
                                 android:src="@drawable/bin" />
                         </LinearLayout>
 

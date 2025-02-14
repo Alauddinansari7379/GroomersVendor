@@ -23,6 +23,11 @@ class CreateServiceViewModel(
     var slot_time: String? = null
     var address: String? = null
     var user_type: String? = null
+    var discount: String? = null
+    var serviceDuration: String? = null
+    var imageUrl: String? = null
+    var editFlag: String? = null
+
     var images: List<MultipartBody.Part>? = null
 
     private val _modelCreateService = MutableLiveData<ModelCreateService?>()
@@ -34,7 +39,7 @@ class CreateServiceViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    public fun createService(token : String, apiService: ApiService,
+    fun createService(token : String, apiService: ApiService,
         serviceName: String,
         description: String,
         price: String,
@@ -51,6 +56,60 @@ class CreateServiceViewModel(
             _isLoading.postValue(true)
             try {
                 val response = apiService.createServicePost(token,
+                    serviceName,
+                    description,
+                    price,
+                    time,
+                    serviceType,
+                    date,
+                    category,
+                    slot_time,
+                    address,
+                    user_type,
+                    images
+                )
+                _isLoading.postValue(false) // Hide loading state
+
+                if (response.isSuccessful) {
+                    if (response.body()?.status == 1) {
+                        _modelCreateService.postValue(response.body())
+                    } else {
+                        _errorMessage.postValue("Error: ${response.message()}")
+                        _isLoading.postValue(false)
+
+                    }
+                } else {
+                    _errorMessage.postValue("Error: ${response.message()}")
+                    _isLoading.postValue(false)
+                }
+            } catch (e: Exception) {
+                _isLoading.postValue(false)
+                _errorMessage.postValue("Exception: ${e.localizedMessage}")
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
+
+    }
+
+
+    fun updateService(token : String, apiService: ApiService,
+        serviceName: String,
+        description: String,
+        price: String,
+        time: String,
+        serviceType: String,
+        date: String,
+        category: String,
+        slot_time: String,
+        address: String,
+        user_type: String,
+        images: List<MultipartBody.Part>
+    ) {
+        viewModelScope.launch {
+            _isLoading.postValue(true)
+            try {
+                val response = apiService.updateServicePost(token,
                     serviceName,
                     description,
                     price,

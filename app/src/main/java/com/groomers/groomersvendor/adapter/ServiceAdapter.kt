@@ -1,12 +1,15 @@
 package com.groomers.groomersvendor.adapter
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.groomers.groomersvendor.MainActivity
 import com.groomers.groomersvendor.databinding.ServiceItemBinding
 import com.groomers.groomersvendor.model.modelservice.Result
 
-class ServiceAdapter(private val serviceList: List<Result>) : RecyclerView.Adapter<ServiceAdapter.ServiceViewMode>() {
+class ServiceAdapter(private val serviceList: List<Result>,private val deleteService: DeleteService) : RecyclerView.Adapter<ServiceAdapter.ServiceViewMode>() {
     inner class ServiceViewMode(val binding : ServiceItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ServiceViewMode {
@@ -16,13 +19,30 @@ class ServiceAdapter(private val serviceList: List<Result>) : RecyclerView.Adapt
 
     override fun getItemCount(): Int = serviceList.size
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ServiceViewMode, position: Int) {
         with(serviceList[position]){
-            holder.binding.serviceName.text = serviceName
+            holder.binding.tvServiceName.text = serviceName
             holder.binding.slotTime.text = slot_time
-            holder.binding.serviceType.text = serviceType
+            holder.binding.tvServiceType.text = serviceType
             holder.binding.tvDescription.text = description
+            holder.binding.tvPrice.text = price.toString()
+            holder.binding.tvUserType.text = user_type
+            holder.binding.btnDelete.setOnClickListener {
+                deleteService.deleteService(id.toString())
+            }
+            holder.binding.btnEdit.setOnClickListener {
+                val context = holder.itemView.context
+                val intent = Intent(context, MainActivity::class.java)
+                intent.putExtra("openFragment", "AddPostFragment")
+                intent.putExtra("id", id.toString())
+                context.startActivity(intent)
+            }
         }
 
     }
+}
+
+interface DeleteService{
+    fun deleteService(id : String)
 }

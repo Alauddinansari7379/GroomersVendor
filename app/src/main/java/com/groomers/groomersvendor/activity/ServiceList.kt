@@ -5,47 +5,86 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import com.groomers.groomersvendor.adapter.DeleteService
 import com.groomers.groomersvendor.adapter.ServiceAdapter
 import com.groomers.groomersvendor.databinding.ActivityServiceListBinding
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import com.groomers.groomersvendor.viewmodel.ServiceViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 @AndroidEntryPoint
-class ServiceList : AppCompatActivity() {
+class ServiceList : AppCompatActivity(), DeleteService {
     private val viewModel: ServiceViewModel by viewModels()
+
     @Inject
     lateinit var sessionManager: SessionManager
 
-private val binding by lazy { ActivityServiceListBinding.inflate(layoutInflater) }
+    private val binding by lazy { ActivityServiceListBinding.inflate(layoutInflater) }
+    private lateinit var serviceAdapter: ServiceAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        viewModel.getServiceList(sessionManager.accessToken!!)
-        // Observe loading state
-        viewModel.isLoading.observe(this, Observer { isLoading ->
-            if (isLoading) {
-                CustomLoader.showLoaderDialog(this@ServiceList)
-            } else {
-                CustomLoader.hideLoaderDialog()
+
+        setupRecyclerView()
+        observeViewModel()
+
+        sessionManager.accessToken?.let { token ->
+            lifecycleScope.launch {
+                viewModel.getServiceList(token)
             }
-        })
+        } ?: run {
+            Toast.makeText(this, "Error: Missing Token", Toast.LENGTH_LONG).show()
+        }
+    }
 
-        // Observe error message
-        viewModel.errorMessage.observe(this, Observer { errorMessage ->
+    private fun setupRecyclerView() {
+        serviceAdapter = ServiceAdapter(emptyList(), this)
+        binding.rvService.adapter = serviceAdapter
+    }
+
+    private fun observeViewModel() {
+        viewModel.isLoading.observe(this) { isLoading ->
+            if (isLoading) CustomLoader.showLoaderDialog(this@ServiceList)
+            else CustomLoader.hideLoaderDialog()
+        }
+
+        viewModel.errorMessage.observe(this) { errorMessage ->
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-        })
+        }
 
-        // Observe success response
-        viewModel.modelService.observe(this, Observer { response ->
-            binding.rvService.apply {
-                if (response != null) {
-                    adapter = ServiceAdapter(response.result)
+        viewModel.modelService.observe(this) { response ->
+            response?.result?.let { services ->
+                binding.rvService.apply {
+                    adapter = ServiceAdapter(services,this@ServiceList)
+                }
+            } ?: run {
+                Toast.makeText(this, "No data available", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        viewModel.modelDeleteService.observe(this) { isDeleted ->
+            if (isDeleted!!.status == 1) {
+                Toast.makeText(this, "Service deleted successfully", Toast.LENGTH_SHORT).show()
+                sessionManager.accessToken?.let { token ->
+                    lifecycleScope.launch {
+                        viewModel.getServiceList(token) // Refresh list after deletion
+                    }
                 }
             }
+        }
+    }
 
-        })
-
+    override fun deleteService(id: String) {
+        sessionManager.accessToken?.let { token ->
+            lifecycleScope.launch {
+                viewModel.deleteService(token, id)
+            }
+        } ?: run {
+            Toast.makeText(this, "Error: Missing Token", Toast.LENGTH_LONG).show()
+        }
     }
 }
