@@ -9,8 +9,10 @@ import com.groomers.groomersvendor.model.modelslot.ModelSlot
 import com.groomers.groomersvendor.retrofit.ApiService
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 
-class SlotViewModel (application: Application) : AndroidViewModel(application) {
+class SlotViewModel(application: Application) : AndroidViewModel(application) {
     private val sessionManager = SessionManager(application)
 
     private val _modelSlot = MutableLiveData<ModelSlot?>()
@@ -22,27 +24,31 @@ class SlotViewModel (application: Application) : AndroidViewModel(application) {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun createSlot(apiService: ApiService, startTime: String, endTime: String,day : String) {
+    fun createSlot(apiService: ApiService, startTime: String, endTime: String, day: String) {
         _isLoading.postValue(true)
 
         viewModelScope.launch {
             try {
-                val response = apiService.createSlot(startTime, endTime,day)
+                val response = apiService.createSlot(startTime, endTime, day)
+                _isLoading.postValue(false)
 
-                if (response.isSuccessful && response.body() != null) {
-                    val responseBody = response.body()
-                    if (responseBody?.status == 1) {
-                        _modelSlot.postValue(responseBody)
-                        _errorMessage.postValue(responseBody.message)
-                    } else {
-                        _errorMessage.postValue("Something went wrong!")
-                    }
+                if (response.isSuccessful) {
+                    response.body()?.let { responseBody ->
+                        if (responseBody.status == 1) {
+                            _modelSlot.postValue(responseBody)
+                        } else {
+                            _errorMessage.postValue(responseBody.message ?: "Something went wrong!")
+                        }
+                    } ?: _errorMessage.postValue("Unexpected response from the server.")
                 } else {
-                    _errorMessage.postValue("Failed: ${response.message()}")
+                    _errorMessage.postValue("Failed to create slot. Please try again.")
                 }
+            } catch (e: IOException) {
+                _errorMessage.postValue("No internet connection. Please check your network.")
+            } catch (e: HttpException) {
+                _errorMessage.postValue("Server error. Please try again later.")
             } catch (e: Exception) {
-                _errorMessage.postValue("Error: ${e.message}")
-                e.printStackTrace()
+                _errorMessage.postValue("Something went wrong. Please try again.")
             } finally {
                 _isLoading.postValue(false)
             }

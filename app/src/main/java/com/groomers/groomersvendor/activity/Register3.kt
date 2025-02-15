@@ -6,13 +6,11 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.databinding.ActivityRegister3Binding
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.viewmodel.MyApplication
-import com.groomers.groomersvendor.viewmodel.RegisterViewModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -60,7 +58,7 @@ private val viewModel by lazy {
         binding.btnContinue3.setOnClickListener {
             if (validateBusinessHours()) {
                 // Make the API call to register the user
-                registerUser(name, mobile, email, password, teamSize, businessName, businessCategory, city, zipcode, shopAgreement)
+                registerUser(name, mobile, email, password, teamSize, businessName, businessCategory, city, zipcode, shopAgreement,businessName)
             } else {
                 Toast.makeText(this, "Please select at least one working day.", Toast.LENGTH_SHORT).show()
             }
@@ -105,7 +103,8 @@ private val viewModel by lazy {
     private fun registerUser(
         name: String, mobile: String, email: String, password: String, teamSize: String,
         businessName: String, businessCategory: String, city: String, zipcode: String,
-        shopAgreement: MultipartBody.Part
+        shopAgreement: MultipartBody.Part,
+        businessName1: String
     ) {
 
         val apiService = ApiServiceProvider.getApiService() // Initialize ApiService
@@ -114,7 +113,7 @@ private val viewModel by lazy {
             name, mobile, email, password, password, // passwordConfirmation
             "vendor", businessName, businessCategory, "Best shop in town",
             teamSize, "123 Street", city, zipcode, "Aadhar", "Haircut, Spa",
-            "40.7128", "-74.0060", shopAgreement
+            "40.7128", "-74.0060", shopAgreement,"1",businessName
         )
     }
 }

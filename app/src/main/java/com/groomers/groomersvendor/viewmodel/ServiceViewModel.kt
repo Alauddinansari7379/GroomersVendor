@@ -11,12 +11,15 @@ import com.groomers.groomersvendor.model.modelsingleservice.ModelSingleService
 import com.groomers.groomersvendor.retrofit.ApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okio.IOException
+import retrofit2.HttpException
 import javax.inject.Inject
 @HiltViewModel
-class ServiceViewModel@Inject constructor(
+class ServiceViewModel @Inject constructor(
     private val apiService: ApiService,
     application: Application
-) : AndroidViewModel(application)  {
+) : AndroidViewModel(application) {
+
     private val _modelService = MutableLiveData<ModelService>()
     val modelService: LiveData<ModelService?> = _modelService
 
@@ -34,80 +37,95 @@ class ServiceViewModel@Inject constructor(
 
     fun getServiceList(accessToken: String) {
         _isLoading.postValue(true)
-
         viewModelScope.launch {
             try {
                 val response = apiService.getServiceList("Bearer $accessToken")
-
-                if (response.isSuccessful && response.body() != null) {
-                    if (response.body()?.status ==1) {
-                        _modelService.postValue(response.body())
-                    }else{
-                        _errorMessage.postValue("Error: ${response.message()}")
-                        _isLoading.postValue(false)
-
-                    }
-                } else {
-                    _errorMessage.postValue("Error: ${response.message()}")
-                }
-            } catch (e: Exception) {
-                _errorMessage.postValue("Error: ${e.message}")
-                e.printStackTrace()
-            } finally {
                 _isLoading.postValue(false)
-            }
-        }
-    }
-    fun deleteService(accessToken: String,id : String) {
-        _isLoading.postValue(true)
 
-        viewModelScope.launch {
-            try {
-                val response = apiService.deleteService("Bearer $accessToken",id)
-
-                if (response.isSuccessful && response.body() != null) {
-                    if (response.body()?.status ==1) {
-                        _modelDeleteService.postValue(response.body())
-                        _errorMessage.postValue(response.message())
-                    }else{
-                        _errorMessage.postValue("Error: ${response.message()}")
-                        _isLoading.postValue(false)
-
+                if (response.isSuccessful) {
+                    response.body()?.let { body ->
+                        if (body.status == 1) {
+                            _modelService.postValue(body)
+                        } else {
+                            _errorMessage.postValue(body.message ?: "Failed to fetch services. Please try again.")
+                        }
+                    } ?: run {
+                        _errorMessage.postValue("Unexpected response from the server.")
                     }
                 } else {
-                    _errorMessage.postValue("Error: ${response.message()}")
+                    _errorMessage.postValue("Failed to load services. Please try again later.")
                 }
+            } catch (e: IOException) {
+                _errorMessage.postValue("No internet connection. Please check your network.")
+            } catch (e: HttpException) {
+                _errorMessage.postValue("Server error. Please try again later.")
             } catch (e: Exception) {
-                _errorMessage.postValue("Error: ${e.message}")
-                e.printStackTrace()
+                _errorMessage.postValue("Something went wrong. Please try again.")
             } finally {
                 _isLoading.postValue(false)
             }
         }
     }
 
-    fun getSingleService(accessToken: String,id : String) {
+    fun deleteService(accessToken: String, id: String) {
         _isLoading.postValue(true)
-
         viewModelScope.launch {
             try {
-                val response = apiService.getSingleService("Bearer $accessToken",id)
+                val response = apiService.deleteService("Bearer $accessToken", id)
+                _isLoading.postValue(false)
 
-                if (response.isSuccessful && response.body() != null) {
-                    if (response.body()?.status ==1) {
-                        _modelSingleService.postValue(response.body())
-                        _errorMessage.postValue(response.message())
-                    }else{
-                        _errorMessage.postValue("Error: ${response.message()}")
-                        _isLoading.postValue(false)
-
+                if (response.isSuccessful) {
+                    response.body()?.let { body ->
+                        if (body.status == 1) {
+                            _modelDeleteService.postValue(body)
+                            _errorMessage.postValue("Service deleted successfully.")
+                        } else {
+                            _errorMessage.postValue(body.message ?: "Failed to delete service.")
+                        }
+                    } ?: run {
+                        _errorMessage.postValue("Unexpected response from the server.")
                     }
                 } else {
-                    _errorMessage.postValue("Error: ${response.message()}")
+                    _errorMessage.postValue("Failed to delete service. Please try again.")
                 }
+            } catch (e: IOException) {
+                _errorMessage.postValue("No internet connection. Please check your network.")
+            } catch (e: HttpException) {
+                _errorMessage.postValue("Server error. Please try again later.")
             } catch (e: Exception) {
-                _errorMessage.postValue("Error: ${e.message}")
-                e.printStackTrace()
+                _errorMessage.postValue("Something went wrong. Please try again.")
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
+    }
+
+    fun getSingleService(accessToken: String, id: String) {
+        _isLoading.postValue(true)
+        viewModelScope.launch {
+            try {
+                val response = apiService.getSingleService("Bearer $accessToken", id)
+                _isLoading.postValue(false)
+
+                if (response.isSuccessful) {
+                    response.body()?.let { body ->
+                        if (body.status == 1) {
+                            _modelSingleService.postValue(body)
+                        } else {
+                            _errorMessage.postValue(body.message ?: "Service details not found.")
+                        }
+                    } ?: run {
+                        _errorMessage.postValue("Unexpected response from the server.")
+                    }
+                } else {
+                    _errorMessage.postValue("Failed to load service details. Please try again.")
+                }
+            } catch (e: IOException) {
+                _errorMessage.postValue("No internet connection. Please check your network.")
+            } catch (e: HttpException) {
+                _errorMessage.postValue("Server error. Please try again later.")
+            } catch (e: Exception) {
+                _errorMessage.postValue("Something went wrong. Please try again.")
             } finally {
                 _isLoading.postValue(false)
             }

@@ -9,6 +9,8 @@ import com.groomers.groomersvendor.model.modelcreateservice.ModelCreateService
 import com.groomers.groomersvendor.retrofit.ApiService
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
+import okio.IOException
+import retrofit2.HttpException
 
 class CreateServiceViewModel(
     application: Application
@@ -39,7 +41,9 @@ class CreateServiceViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun createService(token : String, apiService: ApiService,
+    fun createService(
+        token: String,
+        apiService: ApiService,
         serviceName: String,
         description: String,
         price: String,
@@ -55,45 +59,47 @@ class CreateServiceViewModel(
         viewModelScope.launch {
             _isLoading.postValue(true)
             try {
-                val response = apiService.createServicePost("Bearer$token",
+                val response = apiService.createServicePost(
+                    "Bearer $token",
                     serviceName,
                     description,
                     price,
-                    time,
-                    serviceType,
+                    time="34",
+                    serviceType="dkdk kd",
                     date,
                     category,
-                    slot_time,
+                    slot_time="34",
                     address,
                     user_type,
                     images
                 )
-                _isLoading.postValue(false) // Hide loading state
 
                 if (response.isSuccessful) {
-                    if (response.body()?.status == 1) {
-                        _modelCreateService.postValue(response.body())
-                    } else {
-                        _errorMessage.postValue("Error: ${response.message()}")
-                        _isLoading.postValue(false)
-
-                    }
+                    response.body()?.let {
+                        if (it.status == 1) {
+                            _modelCreateService.postValue(it)
+                        } else {
+                            _errorMessage.postValue("Service creation failed. Please try again.")
+                        }
+                    } ?: _errorMessage.postValue("Unexpected response from server.")
                 } else {
-                    _errorMessage.postValue("Error: ${response.message()}")
-                    _isLoading.postValue(false)
+                    _errorMessage.postValue("Error ${response.code()}: ${response.message()}")
                 }
+            } catch (e: IOException) {
+                _errorMessage.postValue("Network error. Please check your internet connection.")
+            } catch (e: HttpException) {
+                _errorMessage.postValue("Server error: ${e.message()}")
             } catch (e: Exception) {
-                _isLoading.postValue(false)
-                _errorMessage.postValue("Exception: ${e.localizedMessage}")
+                _errorMessage.postValue("Unexpected error: ${e.localizedMessage}")
             } finally {
                 _isLoading.postValue(false)
             }
         }
-
     }
 
-
-    fun updateService(token : String, apiService: ApiService,
+    fun updateService(
+        token: String,
+        apiService: ApiService,
         serviceName: String,
         description: String,
         price: String,
@@ -109,7 +115,8 @@ class CreateServiceViewModel(
         viewModelScope.launch {
             _isLoading.postValue(true)
             try {
-                val response = apiService.updateServicePost("Bearer$token",
+                val response = apiService.updateServicePost(
+                    "Bearer $token",
                     serviceName,
                     description,
                     price,
@@ -122,27 +129,28 @@ class CreateServiceViewModel(
                     user_type,
                     images
                 )
-                _isLoading.postValue(false) // Hide loading state
 
                 if (response.isSuccessful) {
-                    if (response.body()?.status == 1) {
-                        _modelCreateService.postValue(response.body())
-                    } else {
-                        _errorMessage.postValue("Error: ${response.message()}")
-                        _isLoading.postValue(false)
-
-                    }
+                    response.body()?.let {
+                        if (it.status == 1) {
+                            _modelCreateService.postValue(it)
+                        } else {
+                            _errorMessage.postValue("Service update failed. Please try again.")
+                        }
+                    } ?: _errorMessage.postValue("Unexpected response from server.")
                 } else {
-                    _errorMessage.postValue("Error: ${response.message()}")
-                    _isLoading.postValue(false)
+                    _errorMessage.postValue("Error ${response.code()}: ${response.message()}")
                 }
+            } catch (e: IOException) {
+                _errorMessage.postValue("Network error. Please check your internet connection.")
+            } catch (e: HttpException) {
+                _errorMessage.postValue("Server error: ${e.message()}")
             } catch (e: Exception) {
-                _isLoading.postValue(false)
-                _errorMessage.postValue("Exception: ${e.localizedMessage}")
+                _errorMessage.postValue("Unexpected error: ${e.localizedMessage}")
             } finally {
                 _isLoading.postValue(false)
             }
         }
-
     }
+
 }

@@ -49,7 +49,8 @@ interface ApiService {
         @Query("state") state: String,      // New field added
         @Query("slot_interval") slot_interval: String,      // New field added
         @Query("username") username: String,      // New field added
-        @Part shopAgreement: MultipartBody.Part  // For file upload
+        @Part shopAgreement: MultipartBody.Part,
+        @Query("language") language: String // For file upload
     ): Response<ModelRegister>
 
     @POST("city")
@@ -87,7 +88,8 @@ interface ApiService {
         @Query("slot_time") slot_time: String,
         @Query("address") address: String,
         @Query("user_type") user_type: String,
-        @Part images: List<MultipartBody.Part>
+        @Part image: List<MultipartBody.Part>
+//        @Part image:MultipartBody.Part
     ): Response<ModelCreateService>
      @Multipart
     @POST("updatePost")
@@ -103,7 +105,7 @@ interface ApiService {
         @Query("slot_time") slot_time: String,
         @Query("address") address: String,
         @Query("user_type") user_type: String,
-        @Part images: List<MultipartBody.Part>
+        @Part image: List<MultipartBody.Part>
     ): Response<ModelCreateService>
 
     @POST("deletePost")

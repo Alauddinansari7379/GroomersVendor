@@ -13,7 +13,6 @@ import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivitySelectLanguageBinding
 import java.util.Locale
-
 class SelectLanguage : Common() {
     private val binding by lazy { ActivitySelectLanguageBinding.inflate(layoutInflater) }
 
@@ -27,44 +26,43 @@ class SelectLanguage : Common() {
         // Update the status bar color to match the background color
         updateStatusBarColor(backgroundColor)
 
-        // Load the saved language
-        loadSavedLanguage()
+        // Load and apply the saved language
+        val savedLanguage = loadSavedLanguage()
+        highlightSelectedButton(savedLanguage)
 
         // Language selection button listeners
-        binding.btnEnglish.setOnClickListener {
-            changeLanguage("en", binding.btnEnglish)
-        }
-
-        binding.btnHindi.setOnClickListener {
-            changeLanguage("hi", binding.btnHindi)
-        }
-
-        binding.btnKannada.setOnClickListener {
-            changeLanguage("kn", binding.btnKannada)
-        }
+        binding.btnEnglish.setOnClickListener { changeLanguage("en", binding.btnEnglish) }
+        binding.btnHindi.setOnClickListener { changeLanguage("hi", binding.btnHindi) }
+        binding.btnKannada.setOnClickListener { changeLanguage("kn", binding.btnKannada) }
 
         binding.btnContinue.setOnClickListener {
-            // Proceed to the next activity
-            startActivity(Intent(this@SelectLanguage, Login::class.java))
+            if (isLanguageSelected()) {
+                // Proceed to the next activity
+                startActivity(Intent(this@SelectLanguage, Login::class.java))
+            } else {
+                showToast("Please select a language before continuing.")
+            }
         }
     }
 
     private fun changeLanguage(languageCode: String, selectedButton: Button) {
+        if (languageCode.isBlank()) {
+            showToast("Invalid language selection.")
+            return
+        }
+
         // Set the app's locale to the selected language
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
         val config = resources.configuration
         config.setLocale(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
+        createConfigurationContext(config) // Ensures the configuration is properly applied
 
-        // Save the selected language to shared preferences
+        // Save the selected language
         saveSelectedLanguage(languageCode)
 
-        // Update button backgrounds: Reset all buttons first
-        resetButtonBackgrounds()
-
-        // Change the background color of the selected button
-        selectedButton.setBackgroundDrawable(resources.getDrawable(R.drawable.selected_bg)) // Green, for example
+        // Update button backgrounds
+        highlightSelectedButton(languageCode)
 
         // Notify the user
         showToast("Language changed to ${getLanguageName(languageCode)}")
@@ -72,21 +70,12 @@ class SelectLanguage : Common() {
 
     private fun saveSelectedLanguage(languageCode: String) {
         val sharedPreferences: SharedPreferences = getSharedPreferences("LanguagePrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("SelectedLanguage", languageCode)
-        editor.apply()
+        sharedPreferences.edit().putString("SelectedLanguage", languageCode).apply()
     }
 
-    private fun loadSavedLanguage() {
+    private fun loadSavedLanguage(): String {
         val sharedPreferences: SharedPreferences = getSharedPreferences("LanguagePrefs", Context.MODE_PRIVATE)
-        val languageCode = sharedPreferences.getString("SelectedLanguage", "en") ?: "en"
-
-        // Apply the saved language
-        val locale = Locale(languageCode)
-        Locale.setDefault(locale)
-        val config = resources.configuration
-        config.setLocale(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
+        return sharedPreferences.getString("SelectedLanguage", "en") ?: "en"
     }
 
     private fun getLanguageName(languageCode: String): String {
@@ -102,11 +91,24 @@ class SelectLanguage : Common() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
+    private fun isLanguageSelected(): Boolean {
+        val selectedLanguage = loadSavedLanguage()
+        return selectedLanguage.isNotEmpty() && selectedLanguage in listOf("en", "hi", "kn")
+    }
+
+    private fun highlightSelectedButton(languageCode: String) {
+        resetButtonBackgrounds()
+        when (languageCode) {
+            "en" -> binding.btnEnglish.setBackgroundResource(R.drawable.selected_bg)
+            "hi" -> binding.btnHindi.setBackgroundResource(R.drawable.selected_bg)
+            "kn" -> binding.btnKannada.setBackgroundResource(R.drawable.selected_bg)
+        }
+    }
+
     // Reset the background color of all language buttons
-    @SuppressLint("UseCompatLoadingForDrawables")
     private fun resetButtonBackgrounds() {
-        binding.btnEnglish.setBackgroundDrawable(resources.getDrawable(R.drawable.button_background))
-        binding.btnHindi.setBackgroundDrawable(resources.getDrawable(R.drawable.button_background))
-        binding.btnKannada.setBackgroundDrawable(resources.getDrawable(R.drawable.button_background))
+        binding.btnEnglish.setBackgroundResource(R.drawable.button_background)
+        binding.btnHindi.setBackgroundResource(R.drawable.button_background)
+        binding.btnKannada.setBackgroundResource(R.drawable.button_background)
     }
 }
