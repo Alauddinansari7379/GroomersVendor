@@ -34,7 +34,7 @@ class AddServiceDetails : AppCompatActivity() {
         val date = viewModel.date ?: ""
         val description = viewModel.description ?: ""
         val serviceType = viewModel.serviceType ?: ""
-        val image = viewModel.image
+        val image = viewModel.images
         val time = viewModel.time ?: ""
         val category = viewModel.category ?: ""
         val price = viewModel.price ?: ""
@@ -90,7 +90,7 @@ class AddServiceDetails : AppCompatActivity() {
                     slotTime,
                     address,
                     userType,
-                    image
+                    image!!
                 )
             }else {
                 viewModel.createService(
@@ -106,7 +106,7 @@ class AddServiceDetails : AppCompatActivity() {
                     slotTime,
                     address,
                     userType,
-                    image
+                    image!!
                 )
             }
         }

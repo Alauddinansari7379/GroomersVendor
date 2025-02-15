@@ -62,7 +62,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     private val viewModel by lazy {
         (requireActivity().application as MyApplication).createServiceViewModel
     }
-    private val parts: MutableList<MultipartBody.Part> = mutableListOf()
+    lateinit var parts: MultipartBody.Part
 
     private var imageUri: Uri? = null
 
@@ -188,7 +188,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
                 "Please enter a description"
             )
 
-            viewModel.images.isNullOrEmpty() -> showError("Please select a service image")
+            viewModel.images.toString().isNullOrEmpty() -> showError("Please select a service image")
             viewModel.price.isNullOrEmpty() -> showErrorField(
                 binding.edPrice,
                 "Please enter a price"
@@ -211,24 +211,37 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     }
 
     private fun handleImageSelection(uri: Uri) {
-        createMultipartFromUri(uri)?.let {
-            parts.add(it)
+        createMultipartFromUri(requireContext(),uri)?.let {
+            //parts.add(it)
+            parts=it
             viewModel.images = parts
         }
     }
 
-    private fun createMultipartFromUri(uri: Uri): MultipartBody.Part? {
+    private fun createMultipartFromUri(context: Context, uri: Uri): MultipartBody.Part? {
         return try {
-            val contentResolver = requireContext().contentResolver
-            val file = File(requireContext().cacheDir, contentResolver.getFileName(uri))
-            contentResolver.openInputStream(uri)?.use { input ->
-                file.outputStream().use { output -> input.copyTo(output) }
-            }
+            val contentResolver = context.contentResolver
+            val parcelFileDescriptor =
+                contentResolver.openFileDescriptor(uri, "r", null) ?: return null
+            val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+            val file = File(
+                context.cacheDir,
+                contentResolver.getFileName(uri)
+            ) // Ensure filename uniqueness
+            val outputStream = FileOutputStream(file)
 
-            val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
-            MultipartBody.Part.createFormData("images", file.name, requestBody)
+            inputStream.copyTo(outputStream)
+            outputStream.close()
+            inputStream.close()
+
+            val body = UploadRequestBody(file, "image", context)
+            MultipartBody.Part.createFormData(
+                "image",
+                file.name,
+                body
+            ) // Use "image[]" for multiple uploads
         } catch (e: Exception) {
-            showError("Image selection failed: ${e.message}")
+            e.printStackTrace()
             null
         }
     }
