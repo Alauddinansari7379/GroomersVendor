@@ -39,13 +39,17 @@ import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import com.groomers.groomersvendor.viewmodel.MyApplication
 import com.groomers.groomersvendor.viewmodel.ServiceViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.net.HttpURLConnection
+import java.net.URL
 import java.util.Calendar
 import javax.inject.Inject
 
@@ -71,7 +75,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
             if (success) {
                 imageUri?.let {
                     binding.imageViewPreview.setImageURI(it)
-                    handleImageSelection(it)
+                    handleImageSelection1(it)
                     binding.imageViewPreview.visibility = View.VISIBLE
                 }
             } else {
@@ -217,6 +221,13 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
             viewModel.images = parts
         }
     }
+    private fun handleImageSelection1(uri: Uri) {
+        createMultipartFromUri1(requireContext(),uri)?.let {
+            //parts.add(it)
+            parts=it
+            viewModel.images = parts
+        }
+    }
 
     private fun createMultipartFromUri(context: Context, uri: Uri): MultipartBody.Part? {
         return try {
@@ -294,9 +305,14 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
                 binding.date.setText(viewModel.date)
                 binding.editTextAddress.setText(viewModel.address)
 
+                val imageUrl = "https://groomers.co.in/public/uploads/${viewModel.imageUrl}"
+
                 Glide.with(requireContext())
-                    .load("https://groomers.co.in/public/uploads/${viewModel.imageUrl}")
+                    .load(imageUrl)
                     .into(binding.imageViewPreview)
+
+                // Download the image and convert it to MultipartBody
+                downloadImageAndConvertToMultipart(imageUrl)
             }
         }
     }
@@ -321,4 +337,61 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun createMultipartFromUri1(context: Context, uri: Uri): MultipartBody.Part? {
+        return try {
+            val contentResolver = context.contentResolver
+            val inputStream = contentResolver.openInputStream(uri) ?: return null
+            val file = File(context.cacheDir, "upload_${System.currentTimeMillis()}.jpg")
+
+            file.outputStream().use { outputStream ->
+                inputStream.copyTo(outputStream)
+            }
+            inputStream.close()
+
+            val requestBody = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData("image", file.name, requestBody)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+    private fun downloadImageAndConvertToMultipart(imageUrl: String) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val url = URL(imageUrl)
+                val connection = url.openConnection() as HttpURLConnection
+                connection.connect()
+
+                if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+                    val inputStream = connection.inputStream
+                    val file = File(requireContext().cacheDir, "downloaded_image.jpg")
+                    val outputStream = FileOutputStream(file)
+
+                    inputStream.use { input ->
+                        outputStream.use { output ->
+                            input.copyTo(output)
+                        }
+                    }
+
+                    val requestBody = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                    val multipartBody = MultipartBody.Part.createFormData("image", file.name, requestBody)
+
+                    withContext(Dispatchers.Main) {
+                        viewModel.images = multipartBody
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        showError("Failed to download image")
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                withContext(Dispatchers.Main) {
+                    showError("Error downloading image: ${e.localizedMessage}")
+                }
+            }
+        }
+    }
+
 }

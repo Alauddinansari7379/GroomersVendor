@@ -110,7 +110,8 @@ class CreateServiceViewModel(
         slot_time: String,
         address: String,
         user_type: String,
-        image: MultipartBody.Part
+        image: MultipartBody.Part,
+        id : String
     ) {
         viewModelScope.launch {
             _isLoading.postValue(true)
@@ -127,7 +128,8 @@ class CreateServiceViewModel(
                     slot_time,
                     address,
                     user_type,
-                    image
+                    image,
+                    id
                 )
 
                 if (response.isSuccessful) {

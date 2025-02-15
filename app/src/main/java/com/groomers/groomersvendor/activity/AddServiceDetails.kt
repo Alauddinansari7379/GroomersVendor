@@ -7,11 +7,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.groomers.groomersvendor.MainActivity
+import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivityAddServiceDetailsBinding
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.retrofit.ApiService
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import com.groomers.groomersvendor.viewmodel.MyApplication
+
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -90,7 +92,8 @@ class AddServiceDetails : AppCompatActivity() {
                     slotTime,
                     address,
                     userType,
-                    image!!
+                    image!!,
+                    editFlag
                 )
             }else {
                 viewModel.createService(
@@ -113,6 +116,7 @@ class AddServiceDetails : AppCompatActivity() {
         // Observe success response
         viewModel.modelCreateService.observe(this, Observer { response ->
             // Handle success - Show success message or navigate to another screen
+            clearViewModelData()
             Toast.makeText(this, "Service added Successfully.", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("openFragment", "HomeFragment") // Pass a flag
@@ -133,4 +137,23 @@ class AddServiceDetails : AppCompatActivity() {
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
         })
     }
+
+    private fun clearViewModelData() {
+        viewModel.apply {
+            category = ""
+            serviceType = ""
+            description = ""
+            price = ""
+            address = ""
+            time = ""
+            date = ""
+            slot_time = ""
+            serviceName = ""
+            user_type = ""
+            imageUrl = null
+            images = null
+            editFlag = ""
+        }
+    }
+
 }

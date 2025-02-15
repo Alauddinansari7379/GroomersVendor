@@ -105,7 +105,8 @@ interface ApiService {
         @Query("slot_time") slot_time: String,
         @Query("address") address: String,
         @Query("user_type") user_type: String,
-        @Part image: MultipartBody.Part
+        @Part image: MultipartBody.Part,
+        @Query("id") id : String
     ): Response<ModelCreateServiceX>
 
     @POST("deletePost")
