@@ -7,9 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.groomers.groomersvendor.MainActivity
-import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivityAddServiceDetailsBinding
-import com.groomers.groomersvendor.fragment.HomeFragment
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.retrofit.ApiService
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
@@ -36,7 +34,7 @@ class AddServiceDetails : AppCompatActivity() {
         val date = viewModel.date ?: ""
         val description = viewModel.description ?: ""
         val serviceType = viewModel.serviceType ?: ""
-        val images = viewModel.images ?: emptyList()
+        val image = viewModel.image
         val time = viewModel.time ?: ""
         val category = viewModel.category ?: ""
         val price = viewModel.price ?: ""
@@ -92,7 +90,7 @@ class AddServiceDetails : AppCompatActivity() {
                     slotTime,
                     address,
                     userType,
-                    images
+                    image
                 )
             }else {
                 viewModel.createService(
@@ -108,7 +106,7 @@ class AddServiceDetails : AppCompatActivity() {
                     slotTime,
                     address,
                     userType,
-                    images
+                    image
                 )
             }
         }
