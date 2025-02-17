@@ -6,36 +6,31 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.activity.AddServiceDetails
 import com.groomers.groomersvendor.activity.ServiceList
-import com.groomers.groomersvendor.adapter.ServiceAdapter
+import com.groomers.groomersvendor.adapter.AdapterServices
+import com.groomers.groomersvendor.adapter.AdapterServices.Companion.serviceName
+import com.groomers.groomersvendor.adapter.OthersCategoryAdapter
 import com.groomers.groomersvendor.databinding.FragmentAddPostBinding
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.helper.UploadRequestBody
+import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
+import com.groomers.groomersvendor.viewmodel.CategoryViewModel
 import com.groomers.groomersvendor.viewmodel.MyApplication
 import com.groomers.groomersvendor.viewmodel.ServiceViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,8 +50,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddPostFragment : Fragment(R.layout.fragment_add_post) {
-    private var _binding: FragmentAddPostBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentAddPostBinding
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -68,7 +62,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     }
     lateinit var parts: MultipartBody.Part
 
-    private var imageUri: Uri? = null
+    private lateinit var imageUri: Uri
 
     private val takePictureLauncher =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
@@ -97,8 +91,9 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View = FragmentAddPostBinding.inflate(inflater, container, false).also {
-        _binding = it
+        binding = it
     }.root
+    private val categoryViewModel: CategoryViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -114,36 +109,9 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
                 }
             } ?: showError("Error: Missing Token")
         }
-        binding.llHaircut.setOnClickListener {
-            selectService = true
-            binding.llHaircut.background =
-                ContextCompat.getDrawable(requireContext(), R.drawable.selected_card)
-        }
-        binding.llPet.setOnClickListener {
-            selectService = true
-            binding.llPet.background =
-                ContextCompat.getDrawable(requireContext(), R.drawable.selected_card)
-        }
-        binding.llmMakeup.setOnClickListener {
-            selectService = true
-            binding.llmMakeup.background =
-                ContextCompat.getDrawable(requireContext(), R.drawable.selected_card)
-        }
-        binding.llbodyMassage.setOnClickListener {
-            selectService = true
-            binding.llbodyMassage.background =
-                ContextCompat.getDrawable(requireContext(), R.drawable.selected_card)
-        }
-        binding.llteeth.setOnClickListener {
-            selectService = true
-            binding.llteeth.background =
-                ContextCompat.getDrawable(requireContext(), R.drawable.selected_card)
-        }
-        binding.llMore.setOnClickListener {
-            selectService = true
-            binding.llMore.background =
-                ContextCompat.getDrawable(requireContext(), R.drawable.selected_card)
-        }
+        val apiService = ApiServiceProvider.getApiService()
+        categoryViewModel.getCategory(apiService)
+
 
         binding.layoutGallery.setOnClickListener { pickImageLauncher.launch("image/*") }
         binding.layoutCamera.setOnClickListener {
@@ -158,8 +126,24 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
         binding.btnAlreadyAdded.setOnClickListener {
             startActivity(Intent(requireContext(), ServiceList::class.java))
         }
+        // Observe error message if login fails
+        categoryViewModel.errorMessage.observe(requireActivity()) { errorMessage ->
+            if (errorMessage.isNotEmpty()) {
+                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        categoryViewModel.modelCategory.observe(requireActivity()) { modelCategory ->
+            binding.rvService.apply {
+                adapter = OthersCategoryAdapter(modelCategory.result, requireContext())
+            }
+            val gridLayoutManager = GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
+            binding.rvService.layoutManager = gridLayoutManager
+            binding.rvService.adapter = AdapterServices(modelCategory.result, requireContext())
+
+        }
     }
-    private fun createImageUri(): Uri? {
+    private fun createImageUri(): Uri {
         val file = File(requireContext().cacheDir, "captured_image.jpg")
 
         // Ensure the cache directory exists
@@ -175,7 +159,8 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     }
 
     private fun validateAndProceed() {
-        if (!selectService) {
+        viewModel.serviceType=serviceName
+        if (serviceName.isEmpty()) {
             showError("Please select a service before proceeding!")
             return
         }
@@ -335,7 +320,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding
     }
 
     private fun createMultipartFromUri1(context: Context, uri: Uri): MultipartBody.Part? {

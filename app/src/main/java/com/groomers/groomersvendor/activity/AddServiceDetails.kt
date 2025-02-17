@@ -3,6 +3,7 @@ package com.groomers.groomersvendor.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -25,10 +26,12 @@ class AddServiceDetails : AppCompatActivity() {
 
     @Inject
     lateinit var apiService: ApiService
+
     @Inject
     lateinit var sessionManager: SessionManager
     private val context = this@AddServiceDetails
     private val binding by lazy { ActivityAddServiceDetailsBinding.inflate(layoutInflater) }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,22 +50,22 @@ class AddServiceDetails : AppCompatActivity() {
             binding.etServiceName.setText(serviceName)
             binding.etUserType.setText(userType)
         }
-        if (editFlag.isNotEmpty()){
+        if (editFlag.isNotEmpty()) {
             binding.btnContinue3.text = "Update"
         }
 
         binding.btnContinue3.setOnClickListener {
             val serviceName = binding.etServiceName.text.toString()
-            val userType = binding.etUserType.text.toString()
+            val userType = binding.spinnerUserType.selectedItem.toString()
             val address = viewModel.address ?: ""
             val slotTime = viewModel.slot_time ?: ""
             val discount = binding.etDiscount.text.toString()
             val serviceDuration = binding.etDuration.text.toString()
-            if (userType.isEmpty()) {
-                binding.etUserType.error = "Please enter user type"
-                binding.etUserType.requestFocus()
-                return@setOnClickListener
-            }
+//            if (userType.isEmpty()) {
+////                binding.etUserType.error = "Select user type"
+////                binding.etUserType.requestFocus()
+//                return@setOnClickListener
+//            }
             if (serviceName.isEmpty()) {
                 binding.etServiceName.error = "Please enter service name"
                 binding.etServiceName.requestFocus()
@@ -74,11 +77,11 @@ class AddServiceDetails : AppCompatActivity() {
                 return@setOnClickListener
             }
             if (serviceDuration.isEmpty()) {
-            binding.etDuration.error = "Please enter service duration"
-            binding.etDuration.requestFocus()
-            return@setOnClickListener
-        }
-            if (editFlag.isNotEmpty()){
+                binding.etDuration.error = "Please enter service duration"
+                binding.etDuration.requestFocus()
+                return@setOnClickListener
+            }
+            if (editFlag.isNotEmpty()) {
                 viewModel.updateService(
                     sessionManager.accessToken!!,
                     apiService,
@@ -95,7 +98,7 @@ class AddServiceDetails : AppCompatActivity() {
                     image!!,
                     editFlag
                 )
-            }else {
+            } else {
                 viewModel.createService(
                     sessionManager.accessToken!!,
                     apiService,
@@ -136,6 +139,16 @@ class AddServiceDetails : AppCompatActivity() {
         viewModel.errorMessage.observe(this, Observer { errorMessage ->
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
         })
+        setupSpinners()
+    }
+
+    private fun setupSpinners() {
+// Populate ZIP code spinner
+        val userType = listOf("Male", "Female", "Pet")
+        val zipCodeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, userType)
+        zipCodeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerUserType.adapter = zipCodeAdapter
+
     }
 
     private fun clearViewModelData() {

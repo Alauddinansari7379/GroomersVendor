@@ -110,13 +110,26 @@
                 android:fontFamily="@font/sf_bold"
                 android:text="City"
                 android:textColor="#000000" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/enter_city">
 
-            <!-- City Spinner -->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_bold"
+                    android:paddingVertical="8dp" />
+            </com.google.android.material.textfield.TextInputLayout>
             <Spinner
                 android:id="@+id/spinnerCity"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="16dp"
+                android:visibility="gone"
                 android:background="@drawable/corner_edt" />
 
             <!-- Zip Code Label -->
@@ -125,14 +138,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/sf_bold"
-                android:text="Zip Code"
+                android:text="@string/zip_code"
                 android:textColor="#000000" />
 
-            <!-- Zip Code Spinner -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/enter_zipcode">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtZipCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_bold"
+                    android:paddingVertical="8dp" />
+            </com.google.android.material.textfield.TextInputLayout>
             <Spinner
                 android:id="@+id/spinnerZip"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:visibility="gone"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/corner_edt" />
 
@@ -148,6 +175,15 @@
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent">
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/imgLocation"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="end"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/location_new">
+
+        </androidx.constraintlayout.utils.widget.ImageFilterView>
 
         <!-- Continue Button -->
         <androidx.appcompat.widget.AppCompatButton

@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.groomers.groomersvendor.activity.About
 import com.groomers.groomersvendor.databinding.CategoryCell1Binding
 import com.groomers.groomersvendor.model.modelcategory.Result
+import com.groomers.groomersvendor.viewmodel.MyApplication
 
 class CategoryAdapter(private val categoryList : List<Result>, val context : Context):RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(){
     inner class CategoryViewHolder(val binding : CategoryCell1Binding) : ViewHolder(binding.root)
@@ -18,7 +19,6 @@ class CategoryAdapter(private val categoryList : List<Result>, val context : Con
         val binding = CategoryCell1Binding.inflate(LayoutInflater.from(parent.context),parent,false)
         return CategoryViewHolder(binding);
     }
-
     override fun getItemCount(): Int = categoryList.size
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {

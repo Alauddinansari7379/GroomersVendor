@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.groomers.groomersvendor.adapter.DeleteService
 import com.groomers.groomersvendor.adapter.ServiceAdapter
 import com.groomers.groomersvendor.databinding.ActivityServiceListBinding
@@ -15,6 +16,7 @@ import com.groomers.groomersvendor.viewmodel.ServiceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class ServiceList : AppCompatActivity(), DeleteService {
     private val viewModel: ServiceViewModel by viewModels()
@@ -42,7 +44,7 @@ class ServiceList : AppCompatActivity(), DeleteService {
     }
 
     private fun setupRecyclerView() {
-        serviceAdapter = ServiceAdapter(emptyList(), this)
+        serviceAdapter = ServiceAdapter(this,emptyList(), this)
         binding.rvService.adapter = serviceAdapter
     }
 
@@ -59,7 +61,7 @@ class ServiceList : AppCompatActivity(), DeleteService {
         viewModel.modelService.observe(this) { response ->
             response?.result?.let { services ->
                 binding.rvService.apply {
-                    adapter = ServiceAdapter(services,this@ServiceList)
+                    adapter = ServiceAdapter(this@ServiceList,services, this@ServiceList)
                 }
             } ?: run {
                 Toast.makeText(this, "No data available", Toast.LENGTH_SHORT).show()
@@ -79,12 +81,26 @@ class ServiceList : AppCompatActivity(), DeleteService {
     }
 
     override fun deleteService(id: String) {
-        sessionManager.accessToken?.let { token ->
-            lifecycleScope.launch {
-                viewModel.deleteService(token, id)
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText("Are you sure want to Delete?")
+            .setCancelText("No")
+            .setConfirmText("Yes")
+            .showCancelButton(true)
+            .setConfirmClickListener { sDialog ->
+                sDialog.cancel()
+                sessionManager.accessToken?.let { token ->
+                    lifecycleScope.launch {
+                        viewModel.deleteService(token, id)
+                    }
+                } ?: run {
+                    Toast.makeText(this, "Error: Missing Token", Toast.LENGTH_LONG).show()
+                }
             }
-        } ?: run {
-            Toast.makeText(this, "Error: Missing Token", Toast.LENGTH_LONG).show()
-        }
+            .setCancelClickListener { sDialog ->
+                sDialog.cancel()
+            }
+            .show()
+
+
     }
 }

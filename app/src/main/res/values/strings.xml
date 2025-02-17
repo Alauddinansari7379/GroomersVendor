@@ -258,5 +258,7 @@
     <string name="service_list">Service List</string>
     <string name="enter_map_url">Enter map url</string>
     <string name="create_slot">Create slot</string>
+    <string name="enter_city">Enter City</string>
+    <string name="enter_zipcode">Enter ZipCode</string>
 
 </resources>
