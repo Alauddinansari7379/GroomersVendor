@@ -379,4 +379,5 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
         }
     }
 
+
 }

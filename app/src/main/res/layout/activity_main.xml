@@ -82,6 +82,9 @@
                 app:menu="@menu/bottom_menu"
                 app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior">
 
+                <include
+                    android:id="@+id/includeNoInternet"
+                    layout="@layout/no_internet_layout" />
             </com.google.android.material.bottomnavigation.BottomNavigationView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,12 @@ class SessionManager(context: Context) {
             prefs.edit().putString(ACCESS_TOKEN, value).apply()
         }
 
+    var imageUrl: String?
+        get() = prefs.getString(IMAGE_URL, null)
+        set(value) {
+            prefs.edit().putString(IMAGE_URL, value).apply()
+        }
+
     var isLogin: Boolean
         get() = prefs.getBoolean(IS_LOGIN, false)
         set(value) {
@@ -25,5 +31,6 @@ class SessionManager(context: Context) {
     companion object {
         private const val ACCESS_TOKEN = "ACCESS_TOKEN"
         private const val IS_LOGIN = "IS_LOGIN"
+        private const val IMAGE_URL = "IMAGE_URL"
     }
 }

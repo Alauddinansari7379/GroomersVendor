@@ -29,7 +29,6 @@ class CreateServiceViewModel(
     var serviceDuration: String? = null
     var imageUrl: String? = null
     var editFlag: String? = null
-
     var images: MultipartBody.Part? = null
 
     private val _modelCreateService = MutableLiveData<ModelCreateServiceX>()

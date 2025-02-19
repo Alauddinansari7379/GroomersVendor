@@ -1,6 +1,8 @@
 package com.groomers.groomersvendor.retrofit
 
 import ModelLogin
+import com.groomers.groomersvendor.model.modelAccept.ModelAccept
+import com.groomers.groomersvendor.model.modelGetBooking.ModelGetBooking
 import com.groomers.groomersvendor.model.modelcategory.ModelCategory
 import com.groomers.groomersvendor.model.modelcity.ModelCity
 import com.groomers.groomersvendor.model.modelcreateservice.ModelCreateServiceX
@@ -25,6 +27,7 @@ interface ApiService {
         @Query("email") email: String,
         @Query("password") password: String
     ): Response<ModelLogin>
+
     @Multipart
     @POST("register")
     suspend fun registerUser(
@@ -58,6 +61,7 @@ interface ApiService {
 
     @POST("state")
     suspend fun getState(): Response<ModelState>
+
     @GET("getCategory")
     suspend fun getCategory(): Response<ModelCategory>
 
@@ -68,9 +72,9 @@ interface ApiService {
 
     @POST("create_slot")
     suspend fun createSlot(
-        @Query("start_time") start_time : String,
-        @Query("end_time") end_time : String,
-        @Query("day") day : String
+        @Query("start_time") start_time: String,
+        @Query("end_time") end_time: String,
+        @Query("day") day: String
     ): Response<ModelSlot>
 
 
@@ -89,9 +93,10 @@ interface ApiService {
         @Query("address") address: String,
         @Query("user_type") user_type: String,
 //        @Part image: List<MultipartBody.Part>
-        @Part image:MultipartBody.Part
+        @Part image: MultipartBody.Part
     ): Response<ModelCreateServiceX>
-     @Multipart
+
+    @Multipart
     @POST("updatePost")
     suspend fun updateServicePost(
         @Header("Authorization") authorization: String,
@@ -106,7 +111,7 @@ interface ApiService {
         @Query("address") address: String,
         @Query("user_type") user_type: String,
         @Part image: MultipartBody.Part,
-        @Query("id") id : String
+        @Query("id") id: String
     ): Response<ModelCreateServiceX>
 
     @POST("deletePost")
@@ -120,4 +125,17 @@ interface ApiService {
         @Header("Authorization") authorization: String,
         @Query("id") id: String
     ): Response<ModelSingleService>
+
+    @POST("acceptBooking")
+    suspend fun acceptBooking(
+        @Header("Authorization") authorization: String,
+        @Query("booking_id") booking_id: String,
+        @Query("slug") slug: String
+    ): Response<ModelAccept>
+
+
+    @GET("getBookings")
+    suspend fun getBookings(
+        @Header("Authorization") authorization: String
+    ): Response<ModelGetBooking>
 }
