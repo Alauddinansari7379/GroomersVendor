@@ -18,7 +18,7 @@ class About : Common() {
         setContentView(binding.root)
         // Get the background color of the root view
         val backgroundColor = (binding.root.background as? ColorDrawable)?.color ?: Color.WHITE
-
+//customer open kroo ok
 
         // Update the status bar color to match the background color
         updateStatusBarColor(backgroundColor)

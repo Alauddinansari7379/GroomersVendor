@@ -11,8 +11,10 @@ import com.groomers.groomersvendor.model.modelregister.ModelRegister
 import com.groomers.groomersvendor.model.modelservice.ModelService
 import com.groomers.groomersvendor.model.modelsingleservice.ModelSingleService
 import com.groomers.groomersvendor.model.modelslot.ModelSlot
+import com.groomers.groomersvendor.model.modelslotlist.ModelSlotList
 import com.groomers.groomersvendor.model.modelstate.ModelState
 import okhttp3.MultipartBody
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -138,4 +140,11 @@ interface ApiService {
     suspend fun getBookings(
         @Header("Authorization") authorization: String
     ): Response<ModelGetBooking>
+
+
+    @POST("get_slot")
+    fun getTimeSlot(
+        @Query("doctor_id") doctorid: String?,
+        @Query("day") day: String?,
+    ): Response<ModelSlotList>
 }
