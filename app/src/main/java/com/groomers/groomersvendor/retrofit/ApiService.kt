@@ -142,9 +142,9 @@ interface ApiService {
     ): Response<ModelGetBooking>
 
 
-    @POST("get_slot")
-    fun getTimeSlot(
-        @Query("doctor_id") doctorid: String?,
+    @POST("getSlot")
+    suspend fun getTimeSlot(
+        @Header("Authorization") authorization: String,
         @Query("day") day: String?,
     ): Response<ModelSlotList>
 }

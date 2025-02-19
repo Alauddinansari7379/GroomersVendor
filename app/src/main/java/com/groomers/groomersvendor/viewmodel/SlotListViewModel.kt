@@ -29,34 +29,36 @@ class SlotListViewModel @Inject constructor(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun getSlotList(token: String) {
+    fun getSlotList(day : String) {
+//        val token = sessionManager.accessToken
+        val token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2dyb29tZXJzLmNvLmluL2FwaS9sb2dpbiIsImlhdCI6MTczOTMwMTI2MSwiZXhwIjoxNzQwNTk3MjYxLCJuYmYiOjE3MzkzMDEyNjEsImp0aSI6InpyOHZJczZTbGM1eUVmV3YiLCJzdWIiOiIyIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.2fGKO7wprOxav7f2i2lpOT1TTlQUOI-ikjApNaiNkgU"
+        if (token.isNullOrEmpty()) {
+            _errorMessage.postValue("Authentication error: Please log in again.")
+            return
+        }
+
         _isLoading.postValue(true)
 
         viewModelScope.launch {
             try {
-                val response = apiService.getTimeSlot("Bearer $token", "4")
+                val response = apiService.getTimeSlot("Bearer $token", day)
 
                 if (response.isSuccessful && response.body() != null) {
                     val responseBody = response.body()
                     if (responseBody?.status == 1) {
                         _modelSlotList.postValue(responseBody)
-
                     } else {
-                        _errorMessage.postValue("Incorrect email or password. Please try again.")
+                        _errorMessage.postValue("No available slots. Please check again later.")
                     }
                 } else {
-                    val errorBody = response.errorBody()?.string()
-                    val errorMessage = parseErrorMessage(response.code(), errorBody)
-                    _errorMessage.postValue(errorMessage)
+                    _errorMessage.postValue(parseErrorMessage(response.code(), response.errorBody()?.string()))
                 }
             } catch (e: IOException) {
-                // Network-related error (e.g., no internet connection)
                 _errorMessage.postValue("No internet connection. Please check your network and try again.")
             } catch (e: HttpException) {
-                // Handle HTTP-specific errors
                 _errorMessage.postValue("Server error (${e.code()}): Unable to process your request. Please try again later.")
             } catch (e: Exception) {
-                _errorMessage.postValue("Something went wrong. Please try again later.")
+                _errorMessage.postValue("An unexpected error occurred. Please try again.")
             } finally {
                 _isLoading.postValue(false)
             }
@@ -66,11 +68,11 @@ class SlotListViewModel @Inject constructor(
     private fun parseErrorMessage(statusCode: Int, errorBody: String?): String {
         return when (statusCode) {
             400 -> "Invalid request. Please check your input."
-            401 -> "Unauthorized access. Please check your email and password."
-            403 -> "Your account is restricted. Contact support for assistance."
-            404 -> "Server not found. Please try again later."
-            500 -> "Internal server error. Please try again later."
-            else -> errorBody ?: "Unexpected error occurred. Please try again."
+            401 -> "Session expired. Please log in again."
+            403 -> "Access denied. Contact support if you believe this is an error."
+            404 -> "Requested data not found. Please try again later."
+            500 -> "Our servers are currently experiencing issues. Please try again later."
+            else -> errorBody ?: "An error occurred. Please try again."
         }
     }
 }
