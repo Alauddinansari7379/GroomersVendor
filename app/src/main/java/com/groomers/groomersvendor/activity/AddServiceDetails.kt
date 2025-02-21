@@ -1,6 +1,7 @@
 package com.groomers.groomersvendor.activity
 
 import android.annotation.SuppressLint
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -52,6 +53,18 @@ class AddServiceDetails : AppCompatActivity() {
         }
         if (editFlag.isNotEmpty()) {
             binding.btnContinue3.text = "Update"
+        }
+
+        binding.etDuration.setOnClickListener {
+            val timePickerDialog = TimePickerDialog(
+                this,
+                { _, hourOfDay, minute ->
+                    val formattedTime = String.format("%02d:%02d", hourOfDay, minute)
+                    binding.etDuration.setText(formattedTime)
+                },
+                0, 0, true // Default time is 00:00 and uses 24-hour format
+            )
+            timePickerDialog.show()
         }
 
         binding.btnContinue3.setOnClickListener {

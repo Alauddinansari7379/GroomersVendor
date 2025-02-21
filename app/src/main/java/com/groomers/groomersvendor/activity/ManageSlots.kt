@@ -55,7 +55,7 @@ class ManageSlots : AppCompatActivity() {
         binding = ActivityManageSlotsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        setupSpinners()
         var view = layoutInflater.inflate(R.layout.time_picker_dialog, null)
         binding.imgBack.setOnClickListener {
             onBackPressed()
@@ -73,9 +73,22 @@ class ManageSlots : AppCompatActivity() {
         dayList.add(ModelDay("Saturday", "6"))
         dayList.add(ModelDay("Sunday", "7"))
 
+
+
+
+
+
+
+
+
+
+
+
+
+
         val apiService = ApiServiceProvider.getApiService()
 
-        viewModel.createSlot(apiService, startTime, endTime, dayId)
+
         // Observe isLoading to show/hide progress
         viewModel.isLoading.observe(context) { isLoading ->
             if (isLoading) {
@@ -265,6 +278,17 @@ class ManageSlots : AppCompatActivity() {
         }
     }
 
+    private fun setupSpinners() {
+        val serviceList = listOf("Select service","Haircut & Styling"," Beard Trimming & Shaping","Hair Coloring","Head Massage","Hair Spa","Dandruff Treatment","Shaving & Beard Styling","Facial & Cleanup","Face Bleach","Anti-Tan Treatment","Acne Treatment")
+        val serviceAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, serviceList)
+        serviceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerService.adapter = serviceAdapter
 
+        val quantityList = listOf("Select quantity","0","1","2","3","4","5","6","7","8","9")
+        val quantityAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, quantityList)
+        quantityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerQty.adapter = quantityAdapter
+
+    }
 
 }

@@ -26,10 +26,13 @@ class SlotViewModel(application: Application) : AndroidViewModel(application) {
 
     fun createSlot(apiService: ApiService, startTime: String, endTime: String, day: String) {
         _isLoading.postValue(true)
-
+        var token = ""
+        if (sessionManager.accessToken != null) {
+            token = sessionManager.accessToken!!
+        }
         viewModelScope.launch {
             try {
-                val response = apiService.createSlot(startTime, endTime, day)
+                val response = apiService.createSlot("Bearer $token", startTime, endTime, day)
                 _isLoading.postValue(false)
 
                 if (response.isSuccessful) {

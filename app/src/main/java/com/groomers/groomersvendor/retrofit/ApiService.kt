@@ -74,6 +74,7 @@ interface ApiService {
 
     @POST("create_slot")
     suspend fun createSlot(
+        @Header("Authorization") authorization: String,
         @Query("start_time") start_time: String,
         @Query("end_time") end_time: String,
         @Query("day") day: String

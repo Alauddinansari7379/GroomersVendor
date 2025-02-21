@@ -188,10 +188,10 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
                 "Please enter a service date"
             )
 
-            viewModel.address.isNullOrEmpty() -> showErrorField(
-                binding.editTextAddress,
-                "Please enter an address"
-            )
+//            viewModel.address.isNullOrEmpty() -> showErrorField(
+//                binding.editTextAddress,
+//                "Please enter an address"
+//            )
 
             else -> {
                 startActivity(Intent(requireContext(), AddServiceDetails::class.java))
