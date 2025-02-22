@@ -1,7 +1,6 @@
 package com.groomers.groomersvendor.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.bumptech.glide.Glide
 import com.groomers.groomersvendor.R
-import com.groomers.groomersvendor.activity.About
 import com.groomers.groomersvendor.databinding.BookingItemBinding
 import com.groomers.groomersvendor.model.modelGetBooking.Result
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
@@ -78,7 +75,13 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
                         layoutAccept.visibility = View.GONE
                     }
                 }
+                btnAccept.setOnClickListener {
+                   accept.accept(id.toString())
+                }
 
+                btnReject.setOnClickListener {
+                   accept.reject(id.toString())
+                }
 
                 //                card.setOnClickListener {
 //                    val intent = Intent(context, About::class.java)
@@ -92,6 +95,7 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
 
     interface Accept {
         fun accept(bookingId: String)
+        fun reject(bookingId: String)
 
     }
 }
