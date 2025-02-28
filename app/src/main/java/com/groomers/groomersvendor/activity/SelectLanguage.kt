@@ -12,9 +12,15 @@ import android.widget.Toast
 import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivitySelectLanguageBinding
+import com.groomers.groomersvendor.sharedpreferences.SessionManager
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
+import javax.inject.Inject
+@AndroidEntryPoint
 class SelectLanguage : Common() {
     private val binding by lazy { ActivitySelectLanguageBinding.inflate(layoutInflater) }
+    @Inject
+    lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,13 +28,16 @@ class SelectLanguage : Common() {
 
         // Get the background color of the root view
         val backgroundColor = (binding.root.background as? ColorDrawable)?.color ?: Color.WHITE
-
-        // Update the status bar color to match the background color
         updateStatusBarColor(backgroundColor)
 
-        // Load and apply the saved language
-        val savedLanguage = loadSavedLanguage()
-        highlightSelectedButton(savedLanguage)
+        // Check if language is already selected, if yes, skip this screen
+        if (!sessionManager.selectedLanguage.isNullOrEmpty()) {
+            navigateToNextScreen()
+            return
+        }
+
+        // Highlight saved language if available
+        sessionManager.selectedLanguage?.let { highlightSelectedButton(it) }
 
         // Language selection button listeners
         binding.btnEnglish.setOnClickListener { changeLanguage("en", binding.btnEnglish) }
@@ -37,8 +46,7 @@ class SelectLanguage : Common() {
 
         binding.btnContinue.setOnClickListener {
             if (isLanguageSelected()) {
-                // Proceed to the next activity
-                startActivity(Intent(this@SelectLanguage, Login::class.java))
+                navigateToNextScreen()
             } else {
                 showToast("Please select a language before continuing.")
             }
@@ -51,49 +59,20 @@ class SelectLanguage : Common() {
             return
         }
 
-        // Set the app's locale to the selected language
-        val locale = Locale(languageCode)
-        Locale.setDefault(locale)
-        val config = resources.configuration
-        config.setLocale(locale)
-        createConfigurationContext(config) // Ensures the configuration is properly applied
+        // Save the selected language in SessionManager
+        sessionManager.selectedLanguage = languageCode
 
-        // Save the selected language
-        saveSelectedLanguage(languageCode)
-
-        // Update button backgrounds
+        // Update UI to reflect selection
         highlightSelectedButton(languageCode)
-
-        // Notify the user
-        showToast("Language changed to ${getLanguageName(languageCode)}")
     }
 
-    private fun saveSelectedLanguage(languageCode: String) {
-        val sharedPreferences: SharedPreferences = getSharedPreferences("LanguagePrefs", Context.MODE_PRIVATE)
-        sharedPreferences.edit().putString("SelectedLanguage", languageCode).apply()
-    }
-
-    private fun loadSavedLanguage(): String {
-        val sharedPreferences: SharedPreferences = getSharedPreferences("LanguagePrefs", Context.MODE_PRIVATE)
-        return sharedPreferences.getString("SelectedLanguage", "en") ?: "en"
-    }
-
-    private fun getLanguageName(languageCode: String): String {
-        return when (languageCode) {
-            "en" -> "English"
-            "hi" -> "Hindi"
-            "kn" -> "Kannada"
-            else -> "Unknown"
-        }
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    private fun navigateToNextScreen() {
+        startActivity(Intent(this@SelectLanguage, Login::class.java))
+        finish()
     }
 
     private fun isLanguageSelected(): Boolean {
-        val selectedLanguage = loadSavedLanguage()
-        return selectedLanguage.isNotEmpty() && selectedLanguage in listOf("en", "hi", "kn")
+        return !sessionManager.selectedLanguage.isNullOrEmpty()
     }
 
     private fun highlightSelectedButton(languageCode: String) {
@@ -105,10 +84,13 @@ class SelectLanguage : Common() {
         }
     }
 
-    // Reset the background color of all language buttons
     private fun resetButtonBackgrounds() {
         binding.btnEnglish.setBackgroundResource(R.drawable.button_background)
         binding.btnHindi.setBackgroundResource(R.drawable.button_background)
         binding.btnKannada.setBackgroundResource(R.drawable.button_background)
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

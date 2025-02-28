@@ -73,11 +73,6 @@ class MySlot : AppCompatActivity() {
 
 
 
-
-
-
-
-
         // Observe error message if login fails
         viewModel.errorMessage.observe(this@MySlot) { errorMessage ->
             if (errorMessage.isNotEmpty()) {

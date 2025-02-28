@@ -85,7 +85,7 @@ class UploadOwnerIdentity : Common() {
             }
 
 
-            val intent = Intent(this@UploadOwnerIdentity, Register3::class.java)
+            val intent = Intent(this@UploadOwnerIdentity, BankInformation::class.java)
             startActivity(intent)
         }
     }

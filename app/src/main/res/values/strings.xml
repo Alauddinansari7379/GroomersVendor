@@ -260,5 +260,12 @@
     <string name="create_slot">Create slot</string>
     <string name="enter_city">Enter City</string>
     <string name="enter_zipcode">Enter ZipCode</string>
+    <string name="branch_name">Branch Name</string>
+    <string name="ifsc_code">IFSC Code</string>
+    <string name="account_number">Account Number</string>
+    <string name="account_holder_name">Account Holder Name</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="add_your_band_information">Add your band information</string>
+    <string name="enter_bank_details">Enter bank details</string>
 
 </resources>

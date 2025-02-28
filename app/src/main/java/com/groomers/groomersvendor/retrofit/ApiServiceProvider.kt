@@ -9,6 +9,7 @@ class ApiServiceProvider {
 
     companion object {
         private const val BASE_URL = "https://groomers.co.in/api/"
+        const val IMAGE_URL = "https://groomers.co.in/public/uploads/"
 
 
         fun getApiService(): ApiService {

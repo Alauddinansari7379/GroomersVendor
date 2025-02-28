@@ -263,7 +263,7 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
     private fun askPermission() {
         ActivityCompat.requestPermissions(
             requireActivity(),
-            arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
             REQUEST_CODE
         )
     }

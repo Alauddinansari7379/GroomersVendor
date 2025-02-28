@@ -1,25 +1,17 @@
 package com.groomers.groomersvendor.fragment
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
 import com.groomers.groomersvendor.R
-import com.groomers.groomersvendor.activity.OrderDetail
-import com.groomers.groomersvendor.activity.OrderLists
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 
 class OrderListFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

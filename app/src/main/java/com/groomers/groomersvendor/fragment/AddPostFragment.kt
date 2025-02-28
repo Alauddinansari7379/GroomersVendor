@@ -290,7 +290,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
                 binding.date.setText(viewModel.date)
                 binding.editTextAddress.setText(viewModel.address)
 
-                val imageUrl = "https://groomers.co.in/public/uploads/${viewModel.imageUrl}"
+                val imageUrl = "${ApiServiceProvider.IMAGE_URL}${viewModel.imageUrl}"
 
                 Glide.with(requireContext())
                     .load(imageUrl)
