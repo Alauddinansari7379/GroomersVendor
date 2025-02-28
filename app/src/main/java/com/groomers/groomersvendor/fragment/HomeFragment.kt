@@ -178,7 +178,7 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
         val sdf = SimpleDateFormat("MMMM", Locale.getDefault())
         val sdfY = SimpleDateFormat("yyyy", Locale.getDefault())
         binding.tvMonth.text = sdf.format(calendar.time) // Update month title
-        binding.tvYear.text = sdfY.format(calendar.time) // Update month title
+        binding.tvYear.text = sdfY.format(calendar.time) // Update Year title
 
         val dates = getDatesForMonth(calendar) // Fetch dates for the selected month
         val today = Calendar.getInstance() // Get today's date
@@ -283,5 +283,21 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
             }
             .show()
 
+    }
+
+    override fun reject(bookingId: String) {
+        SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
+            .setTitleText("Are you sure want to Reject?")
+            .setCancelText("No")
+            .setConfirmText("Yes")
+            .showCancelButton(true)
+            .setConfirmClickListener { sDialog ->
+                sDialog.cancel()
+                makeAcceptBookingAPICall(bookingId, "rejected")
+            }
+            .setCancelClickListener { sDialog ->
+                sDialog.cancel()
+            }
+            .show()
     }
 }

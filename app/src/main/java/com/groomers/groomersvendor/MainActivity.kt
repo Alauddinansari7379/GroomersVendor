@@ -80,14 +80,14 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
     }
     private fun showNoInternetLayout(message: String, color: Int) {
         checkNotNull(binding.includeNoInternet)
-        binding.includeNoInternet.layoutNoInternetMain.setVisibility(View.VISIBLE)
+        binding.includeNoInternet.layoutNoInternetMain.visibility = View.VISIBLE
         binding.includeNoInternet.layoutNoInternetMain.setBackgroundColor(
             ContextCompat.getColor(
                 this,
                 color
             )
         )
-        binding.includeNoInternet.tvNoInternetMessage.setText(message)
+        binding.includeNoInternet.tvNoInternetMessage.text = message
 
         // Apply the Slide-in animation from bottom
         val slideIn: Animation = AnimationUtils.loadAnimation(this, R.anim.slide_in_up)
@@ -107,7 +107,7 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
                 // Slide-out animation when hiding the layout
                 val slideOut: Animation = AnimationUtils.loadAnimation(this, R.anim.slide_out_down)
                 binding.includeNoInternet.layoutNoInternetMain.startAnimation(slideOut)
-                binding.includeNoInternet.layoutNoInternetMain.setVisibility(View.GONE)
+                binding.includeNoInternet.layoutNoInternetMain.visibility = View.GONE
             }, 1000) // Hide after 3 seconds
         } else {
             binding.includeNoInternet.imageView.setImageDrawable(
