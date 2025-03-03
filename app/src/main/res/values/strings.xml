@@ -265,7 +265,7 @@
     <string name="account_number">Account Number</string>
     <string name="account_holder_name">Account Holder Name</string>
     <string name="bank_name">Bank Name</string>
-    <string name="add_your_band_information">Add your band information</string>
+    <string name="add_your_bank_information">Add your bank information</string>
     <string name="enter_bank_details">Enter bank details</string>
 
 </resources>

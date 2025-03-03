@@ -1,7 +1,8 @@
 package com.groomers.groomersvendor.model.modelGetBooking
 
 data class Result(
-    val address: String,
+    val error:String,
+    val address: Any,
     val comments: Any,
     val created_at: String,
     val customerName: String,
@@ -15,7 +16,7 @@ data class Result(
     val id: Int,
     val image: String,
     val mobile: String,
-    val notes: Any,
+    val notes: String,
     val payment_mode: Int,
     val payment_name: String,
     val price: Int,

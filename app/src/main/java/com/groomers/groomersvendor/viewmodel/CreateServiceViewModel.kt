@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.groomers.groomersvendor.model.modelcreateservice.ModelCreateServiceX
+
 import com.groomers.groomersvendor.retrofit.ApiService
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -31,7 +32,7 @@ class CreateServiceViewModel(
     var editFlag: String? = null
     var images: MultipartBody.Part? = null
 
-    private val _modelCreateService = MutableLiveData<ModelCreateServiceX>()
+     val _modelCreateService = MutableLiveData<ModelCreateServiceX?>()
     val modelCreateService: LiveData<ModelCreateServiceX?> = _modelCreateService
 
     private val _errorMessage = MutableLiveData<String>()
@@ -153,5 +154,7 @@ class CreateServiceViewModel(
             }
         }
     }
-
+    fun clearServiceData() {
+        _modelCreateService.value = null
+    }
 }

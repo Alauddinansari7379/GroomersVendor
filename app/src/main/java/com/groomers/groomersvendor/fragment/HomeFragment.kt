@@ -45,9 +45,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), AdapterBooking.Accept {
-    private var fusedLocationProviderClient: FusedLocationProviderClient? = null
-    private val REQUEST_CODE = 100
-    private lateinit var currentLocation: TextView
+
 
     lateinit var binding: FragmentHomeBinding
     private val calendar = Calendar.getInstance()
@@ -74,15 +72,13 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        fusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(requireContext())
-        getLastLocation()
+
         // Get the background color of the fragment's root view
         val backgroundColor = (view.background as? ColorDrawable)?.color ?: Color.WHITE
 
         // Update the status bar color to match the background color
         (activity as? Common)?.updateStatusBarColor(backgroundColor)
-        makeGetBookingAPICall()
+        makeGetBookingAPICall(getCurrentDate())
         with(binding) {
 
             updateCalendar()
@@ -101,11 +97,11 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
 
     }
 
-    private fun makeGetBookingAPICall() {
+    private fun makeGetBookingAPICall(date : String) {
         val apiService = ApiServiceProvider.getApiService()
         sessionManager.accessToken?.let { token ->
             lifecycleScope.launch {
-                bookingViewModel.getBooking(apiService, token)
+                bookingViewModel.getBooking(apiService, "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2dyb29tZXJzLmNvLmluL2FwaS9sb2dpbiIsImlhdCI6MTc0MDgxNDEzOSwiZXhwIjoyMzYyODk0MTM5LCJuYmYiOjE3NDA4MTQxMzksImp0aSI6Imx5YmdVMXBBZmVSdFZqOUYiLCJzdWIiOiI0MiIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.riltZ36eLz7qO3hMZCsCtb--x1YxO3x44tHtnZW0DpI",date)
             }
         } ?: run {
             Toast.makeText(requireContext(), "Error: Missing Token", Toast.LENGTH_LONG).show()
@@ -157,7 +153,7 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
         }
         acceptBookingViewModel.modelAccept.observe(requireActivity()) { response ->
             Toast.makeText(context, response.message, Toast.LENGTH_SHORT).show()
-            makeGetBookingAPICall()
+            makeGetBookingAPICall("")
         }
     }
 
@@ -185,8 +181,8 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
 
         // Create adapter with a click listener
         val adapter = CalendarAdapter(dates, today) { selectedDate ->
-            Toast.makeText(requireContext(), "Selected Date: $selectedDate", Toast.LENGTH_SHORT)
-                .show()
+
+            makeGetBookingAPICall(selectedDate)
         }
         binding.recyclerView.adapter = adapter
 
@@ -197,76 +193,21 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
 
         // Scroll to the current date in the center
         val todayPosition = adapter.getTodayPosition()
+
         binding.recyclerView.post {
             layoutManager.scrollToPositionWithOffset(todayPosition, binding.recyclerView.width / 2)
         }
     }
 
 
-    @SuppressLint("SetTextI18n", "LogNotTimber")
-    private fun getLastLocation() {
-        if (ContextCompat.checkSelfPermission(
-                requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            fusedLocationProviderClient!!.lastLocation
-                .addOnSuccessListener { location ->
-                    if (location != null && isAdded) {
-                        try {
-                            val geocoder = Geocoder(requireActivity(), Locale.getDefault())
-                            val addresses =
-                                geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                            Log.e(
-                                ContentValues.TAG,
-                                "addresses[0].latitude: ${addresses?.get(0)?.latitude}"
-                            )
-                            Log.e(
-                                ContentValues.TAG,
-                                "addresses[0].longitude: ${addresses?.get(0)?.longitude}"
-                            )
 
-                            addresses?.get(0)?.getAddressLine(0)
-
-                            val locality = addresses?.get(0)?.locality
-                            val countryName = addresses?.get(0)?.countryName
-                            val countryCode = addresses?.get(0)?.countryCode
-                            val postalCode = addresses?.get(0)?.postalCode.toString()
-                            val subLocality = addresses?.get(0)?.subLocality
-                            val subAdminArea = addresses?.get(0)?.subAdminArea
-                            // currentAddress = "$subLocality, $locality, $countryName"
-                            postalCodeNew = postalCode
-
-                            // Update location text
-                            binding.tvLocation.text = addresses?.get(0)?.getAddressLine(0)
-
-                            Log.e(ContentValues.TAG, "locality: $locality")
-                            Log.e(ContentValues.TAG, "countryName: $countryName")
-                            Log.e(ContentValues.TAG, "countryCode: $countryCode")
-                            Log.e(ContentValues.TAG, "postalCode: $postalCode")
-                            Log.e(ContentValues.TAG, "subLocality: $subLocality")
-                            Log.e(ContentValues.TAG, "subAdminArea: $subAdminArea")
-                        } catch (e: IOException) {
-                            e.printStackTrace()
-                        }
-                    }
-                }
-        } else {
-            askPermission()
-        }
-    }
 
 
     companion object {
         var postalCodeNew = ""
     }
 
-    private fun askPermission() {
-        ActivityCompat.requestPermissions(
-            requireActivity(),
-            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-            REQUEST_CODE
-        )
-    }
+
 
     override fun accept(bookingId: String) {
         SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
@@ -299,5 +240,10 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
                 sDialog.cancel()
             }
             .show()
+    }
+
+    fun getCurrentDate(): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return sdf.format(Date())
     }
 }

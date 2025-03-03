@@ -52,10 +52,18 @@ interface ApiService {
         @Query("longitude") longitude: String,
         @Query("country") country: String,  // New field added
         @Query("state") state: String,      // New field added
-        @Query("slot_interval") slot_interval: String,      // New field added
+//        @Query("slot_interval") slot_interval: String,      // New field added
         @Query("username") username: String,      // New field added
         @Part shopAgreement: MultipartBody.Part,
-        @Query("language") language: String // For file upload
+        @Part idproofimage: MultipartBody.Part,
+        @Query("language") language: String,
+        @Query("AccountName") AccountName: String,
+        @Query("AccountNumber") AccountNumber: String,
+        @Query("BankName") BankName: String,
+        @Query("ifsc_code") ifsc_code: String,
+        @Query("BranchName") BranchName: String,
+        @Query("mapUrl") mapUrl: String,
+
     ): Response<ModelRegister>
 
     @POST("city")
@@ -139,7 +147,8 @@ interface ApiService {
 
     @GET("getBookings")
     suspend fun getBookings(
-        @Header("Authorization") authorization: String
+        @Header("Authorization") authorization: String,
+        @Query("date") date : String
     ): Response<ModelGetBooking>
 
 

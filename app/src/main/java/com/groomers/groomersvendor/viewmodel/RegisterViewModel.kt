@@ -63,7 +63,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                 val response = apiService.registerUser(
                     name, mobile, email, password, passwordConfirmation, role, businessName,
                     "4", aboutBusiness, "7", address, city, zipcode, idproofType,
-                    services, latitude, longitude, "23", "23", "45", userName, shopAgreement,language
+                    services, latitude, longitude, "23", "23", userName,shopAgreement, shopAgreement,language,"Account Name","73893674637","SBI","IFSC0001234","Branch","MapUrl"
                 )
 
                 if (response.isSuccessful) {

@@ -50,7 +50,7 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
                 tvGender.text = user_type
                 tvStartTime.text = start_time
                 tvEndTime.text = end_time
-                tvAddress.text = address
+//                tvAddress.text = address.toString()
                 tvDescription.text = description
                 tvRating.text = rating.toString()
 

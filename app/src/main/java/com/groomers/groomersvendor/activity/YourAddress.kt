@@ -89,11 +89,11 @@ class YourAddress : Common() {
                 binding.etAddress2.requestFocus()
                 return@setOnClickListener
             }
-            if (mapUrl.isEmpty()) {
-                binding.etMapUrl.error = "Please enter map url"
-                binding.etMapUrl.requestFocus()
-                return@setOnClickListener
-            }
+//            if (mapUrl.isEmpty()) {
+//                binding.etMapUrl.error = "Please enter map url"
+//                binding.etMapUrl.requestFocus()
+//                return@setOnClickListener
+//            }
 
             if (selectedCity == "Select City") {
                 Toast.makeText(this, "Please select a city", Toast.LENGTH_SHORT).show()

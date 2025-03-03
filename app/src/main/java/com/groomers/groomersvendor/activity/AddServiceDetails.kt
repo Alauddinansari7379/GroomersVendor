@@ -14,11 +14,11 @@ import com.groomers.groomersvendor.databinding.ActivityAddServiceDetailsBinding
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.retrofit.ApiService
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
+import com.groomers.groomersvendor.viewmodel.CreateServiceViewModel
 import com.groomers.groomersvendor.viewmodel.MyApplication
 
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-
 @AndroidEntryPoint
 class AddServiceDetails : AppCompatActivity() {
     private val viewModel by lazy {
@@ -30,55 +30,63 @@ class AddServiceDetails : AppCompatActivity() {
 
     @Inject
     lateinit var sessionManager: SessionManager
-    private val context = this@AddServiceDetails
+
     private val binding by lazy { ActivityAddServiceDetailsBinding.inflate(layoutInflater) }
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val date = viewModel.date ?: ""
-        val description = viewModel.description ?: ""
-        val serviceType = viewModel.serviceType ?: ""
-        val image = viewModel.images
-        val time = viewModel.time ?: ""
-        val category = viewModel.category ?: ""
-        val price = viewModel.price ?: ""
-        val serviceName = viewModel.serviceName ?: ""
-        val userType = viewModel.user_type ?: ""
-        val editFlag = viewModel.editFlag ?: ""
-        if (serviceName.isNotEmpty() && userType.isNotEmpty()) {
-            binding.etServiceName.setText(serviceName)
-            binding.etUserType.setText(userType)
-        }
-        if (editFlag.isNotEmpty()) {
-            binding.btnContinue3.text = "Update"
-        }
 
+        setupInitialValues()
+        setupSpinners()
+        setupClickListeners()
+        observeViewModel()
+    }
+
+    private fun setupInitialValues() {
+        viewModel.apply {
+            binding.etServiceName.setText(serviceName)
+            binding.etDiscount.setText(price)
+            binding.etDuration.setText(time)
+
+            if (!editFlag.isNullOrEmpty()) {
+                binding.btnContinue3.text = "Update"
+            }
+        }
+    }
+
+    private fun setupSpinners() {
+        val userTypeList = listOf("Male", "Female", "Pet")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, userTypeList)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerUserType.adapter = adapter
+
+        // Set selected user type
+        val selectedIndex = userTypeList.indexOf(viewModel.user_type)
+        if (selectedIndex != -1) {
+            binding.spinnerUserType.setSelection(selectedIndex)
+        }
+    }
+
+    private fun setupClickListeners() {
         binding.etDuration.setOnClickListener {
-            val timePickerDialog = TimePickerDialog(
+            TimePickerDialog(
                 this,
                 { _, hourOfDay, minute ->
                     val formattedTime = String.format("%02d:%02d", hourOfDay, minute)
                     binding.etDuration.setText(formattedTime)
                 },
-                0, 0, true // Default time is 00:00 and uses 24-hour format
-            )
-            timePickerDialog.show()
+                0, 0, true
+            ).show()
         }
 
         binding.btnContinue3.setOnClickListener {
-            val serviceName = binding.etServiceName.text.toString()
+            val serviceName = binding.etServiceName.text.toString().trim()
             val userType = binding.spinnerUserType.selectedItem.toString()
-            val address = viewModel.address ?: ""
-            val slotTime = viewModel.slot_time ?: ""
-            val discount = binding.etDiscount.text.toString()
-            val serviceDuration = binding.etDuration.text.toString()
-//            if (userType.isEmpty()) {
-////                binding.etUserType.error = "Select user type"
-////                binding.etUserType.requestFocus()
-//                return@setOnClickListener
-//            }
+            val discount = binding.etDiscount.text.toString().trim()
+            val serviceDuration = binding.etDuration.text.toString().trim()
+
             if (serviceName.isEmpty()) {
                 binding.etServiceName.error = "Please enter service name"
                 binding.etServiceName.requestFocus()
@@ -94,74 +102,49 @@ class AddServiceDetails : AppCompatActivity() {
                 binding.etDuration.requestFocus()
                 return@setOnClickListener
             }
-            if (editFlag.isNotEmpty()) {
-                viewModel.updateService(
-                    sessionManager.accessToken!!,
-                    apiService,
-                    serviceName,
-                    description,
-                    price,
-                    time,
-                    serviceType,
-                    date,
-                    category,
-                    slotTime,
-                    address,
-                    userType,
-                    image!!,
-                    editFlag
-                )
-            } else {
-                viewModel.createService(
-                    sessionManager.accessToken!!,
-                    apiService,
-                    serviceName,
-                    description,
-                    price,
-                    time,
-                    serviceType,
-                    date,
-                    category,
-                    slotTime,
-                    address,
-                    userType,
-                    image!!
-                )
+
+            // Perform create or update action
+            sessionManager.accessToken?.let { token ->
+                viewModel.images?.let { imageList ->
+                    if (!viewModel.editFlag.isNullOrEmpty()) {
+                        viewModel.updateService(
+                            token, apiService, serviceName, viewModel.description ?: "",
+                            viewModel.price ?: "", viewModel.time ?: "", viewModel.serviceType ?: "",
+                            viewModel.date ?: "", viewModel.category ?: "", viewModel.slot_time ?: "",
+                            viewModel.address ?: "", userType, imageList, viewModel.editFlag!!
+                        )
+                    } else {
+                        viewModel.createService(
+                            token, apiService, serviceName, viewModel.description ?: "",
+                            viewModel.price ?: "", viewModel.time ?: "", viewModel.serviceType ?: "",
+                            viewModel.date ?: "", viewModel.category ?: "", viewModel.slot_time ?: "",
+                            viewModel.address ?: "", userType, imageList
+                        )
+                    }
+                }
             }
         }
-        // Observe success response
-        viewModel.modelCreateService.observe(this, Observer { response ->
-            // Handle success - Show success message or navigate to another screen
-            clearViewModelData()
-            Toast.makeText(this, "Service added Successfully.", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("openFragment", "HomeFragment") // Pass a flag
-            startActivity(intent)
-            finish()
-        })
-        // Observe loading state
-        viewModel.isLoading.observe(this, Observer { isLoading ->
-            if (isLoading) {
-                CustomLoader.showLoaderDialog(this@AddServiceDetails)
-            } else {
-                CustomLoader.hideLoaderDialog()
-            }
-        })
-
-        // Observe error message
-        viewModel.errorMessage.observe(this, Observer { errorMessage ->
-            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-        })
-        setupSpinners()
     }
 
-    private fun setupSpinners() {
-// Populate ZIP code spinner
-        val userType = listOf("Male", "Female", "Pet")
-        val zipCodeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, userType)
-        zipCodeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerUserType.adapter = zipCodeAdapter
+    private fun observeViewModel() {
+        viewModel.modelCreateService.observe(this) {
+            clearViewModelData()
+            Toast.makeText(this, "Service added successfully.", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MainActivity::class.java).apply {
+                putExtra("openFragment", "HomeFragment")
+            }
+            startActivity(intent)
+            finish()
+        }
 
+        viewModel.isLoading.observe(this) { isLoading ->
+            if (isLoading) CustomLoader.showLoaderDialog(this)
+            else CustomLoader.hideLoaderDialog()
+        }
+
+        viewModel.errorMessage.observe(this) { errorMessage ->
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun clearViewModelData() {
@@ -179,7 +162,9 @@ class AddServiceDetails : AppCompatActivity() {
             imageUrl = null
             images = null
             editFlag = ""
+//            if (this is CreateServiceViewModel) {
+//                clearServiceData()
+//            }
         }
     }
-
 }

@@ -13,6 +13,7 @@ class About : Common() {
     private val viewModel by lazy {
         (application as MyApplication).registerViewModel
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -35,15 +36,19 @@ class About : Common() {
                 return@setOnClickListener
             }
             if (yourName.isEmpty()) {
-            binding.etYourName.error = "Please enter your name"
-            binding.etYourName.requestFocus()
-            return@setOnClickListener
-        }
+                binding.etYourName.error = "Please enter your name"
+                binding.etYourName.requestFocus()
+                return@setOnClickListener
+            }
             if (phoneNO.isEmpty()) {
-            binding.etPhoneNo.error = "Please enter your phone no"
-            binding.etPhoneNo.requestFocus()
-            return@setOnClickListener
-        }
+                binding.etPhoneNo.error = "Please enter your phone no"
+                binding.etPhoneNo.requestFocus()
+                return@setOnClickListener
+            } else if (phoneNO.length < 10) {
+                binding.etPhoneNo.error = "Please enter valid phone no"
+                binding.etPhoneNo.requestFocus()
+                return@setOnClickListener
+            }
             val intent = Intent(this, AboutYourCredentials::class.java)
             startActivity(intent)
         }

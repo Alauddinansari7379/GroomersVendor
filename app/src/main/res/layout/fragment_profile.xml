@@ -37,8 +37,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:strokeColor="@android:color/black"
-                    app:strokeWidth="2dp">
+                    >
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -109,8 +108,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/name_text"
-                            app:strokeColor="@android:color/black"
-                            app:strokeWidth="2dp">
+                            >
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
@@ -220,8 +218,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/header_card"
-                    app:strokeColor="@android:color/black"
-                    app:strokeWidth="2dp">
+                    >
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -280,8 +277,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/card_create_slot"
-                    app:strokeColor="@android:color/black"
-                    app:strokeWidth="2dp">
+                    >
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:id="@+id/llSlotlist"
@@ -341,8 +337,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/card_slot_list"
-                    app:strokeColor="@android:color/black"
-                    app:strokeWidth="2dp">
+                    >
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -401,8 +396,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/card_finance_center"
-                    app:strokeColor="@android:color/black"
-                    app:strokeWidth="2dp">
+                    >
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -460,8 +454,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/card_social_post"
-                    app:strokeColor="@android:color/black"
-                    app:strokeWidth="2dp">
+                   >
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -816,8 +809,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/header_card"
-                        app:strokeColor="@android:color/black"
-                        app:strokeWidth="2dp">
+                        >
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"

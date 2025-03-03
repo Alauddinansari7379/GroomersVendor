@@ -59,11 +59,11 @@ class BankInformation : AppCompatActivity() {
             binding.etIFSC.error = "IFSC code cannot be empty"
             binding.etIFSC.requestFocus()
             return false
-        } else if (!ifscPattern.matches(ifscCode)) {
+        }/* else if (!ifscPattern.matches(ifscCode)) {
             binding.etIFSC.error = "Enter a valid IFSC code (e.g., SBIN0001234)"
             binding.etIFSC.requestFocus()
             return false
-        }
+        }*/
 
         if (branchName.isEmpty()) {
             binding.etBranchName.error = "Branch name cannot be empty"

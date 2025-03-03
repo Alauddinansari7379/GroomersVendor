@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E9E4E4"
     tools:context=".fragment.FinanceFragment">
     <ScrollView
         android:id="@+id/scrollView2"
@@ -315,15 +316,13 @@
                 android:textSize="12sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
-    <!-- Subscription Card -->
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@android:color/white"
         app:cardCornerRadius="12dp"
-        app:strokeColor="@color/black"
-        app:strokeWidth="2dp"
         app:cardElevation="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

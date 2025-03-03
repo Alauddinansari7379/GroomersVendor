@@ -9,5 +9,5 @@
     <!-- Add shadow-like elevation using stroke -->
     <stroke
         android:width="2dp"
-        android:color="@color/black" /> <!-- Light gray border for subtle shadow effect -->
+        android:color="@color/white" /> <!-- Light gray border for subtle shadow effect -->
 </shape>

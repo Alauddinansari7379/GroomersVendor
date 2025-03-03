@@ -22,11 +22,11 @@ class GetBookingViewModel(application: Application) : AndroidViewModel(applicati
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun getBooking(apiService: ApiService,accessToken: String) {
+    fun getBooking(apiService: ApiService,accessToken: String,date : String) {
         _isLoading.postValue(true)
         viewModelScope.launch {
             try {
-                val response = apiService.getBookings("Bearer $accessToken")
+                val response = apiService.getBookings("Bearer $accessToken", date)
 
                 if (response.isSuccessful) {
                     response.body()?.let { responseBody ->
