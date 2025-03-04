@@ -74,8 +74,8 @@ class UploadOwnerIdentity : Common() {
         binding.btnContinue.setOnClickListener {
             val selectedIdProof = binding.spinnerIdProof.selectedItem.toString()
 
-            if (selectedIdProof == "Select City") {
-                Toast.makeText(this, "Please select a city", Toast.LENGTH_SHORT).show()
+            if (selectedIdProof == "Select id proof") {
+                Toast.makeText(this, "Please select a id proof", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 

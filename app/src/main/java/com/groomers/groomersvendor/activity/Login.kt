@@ -33,7 +33,7 @@ class Login : AppCompatActivity() {
                 val password = binding.etPassword.text.toString()
 
                 if (email.isEmpty()) {
-                    binding.etEmail.error = "Please enter your email"
+                    binding.etEmail.error = "Please enter your email or username"
                     binding.etEmail.requestFocus()
                     return@setOnClickListener
                 }

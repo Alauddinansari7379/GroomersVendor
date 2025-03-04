@@ -85,7 +85,9 @@ interface ApiService {
         @Header("Authorization") authorization: String,
         @Query("start_time") start_time: String,
         @Query("end_time") end_time: String,
-        @Query("day") day: String
+        @Query("day") day: String,
+        @Query("forService") forService: String,
+        @Query("quantity") quantity: String
     ): Response<ModelSlot>
 
 

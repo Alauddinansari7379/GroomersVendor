@@ -16,10 +16,15 @@ class BankInformation : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.btnContinue3.setOnClickListener {
+        binding.btnContinue.setOnClickListener {
             if (validateInputs()) {
                 startActivity(Intent(this@BankInformation, Register3::class.java))
             }
+        }
+        binding.btnSkip.setOnClickListener {
+
+                startActivity(Intent(this@BankInformation, Register3::class.java))
+
         }
     }
 

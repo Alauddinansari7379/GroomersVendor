@@ -52,6 +52,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatEditText
@@ -336,6 +337,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:visibility="gone"
         android:background="@drawable/fab_btn_corners"
         android:backgroundTint="@color/black"
         android:gravity="center_vertical"

@@ -19,6 +19,7 @@ import com.groomers.groomersvendor.viewmodel.MyApplication
 
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class AddServiceDetails : AppCompatActivity() {
     private val viewModel by lazy {
@@ -87,11 +88,11 @@ class AddServiceDetails : AppCompatActivity() {
             val discount = binding.etDiscount.text.toString().trim()
             val serviceDuration = binding.etDuration.text.toString().trim()
 
-            if (serviceName.isEmpty()) {
-                binding.etServiceName.error = "Please enter service name"
-                binding.etServiceName.requestFocus()
-                return@setOnClickListener
-            }
+//            if (serviceName.isEmpty()) {
+//                binding.etServiceName.error = "Please enter service name"
+//                binding.etServiceName.requestFocus()
+//                return@setOnClickListener
+//            }
             if (discount.isEmpty()) {
                 binding.etDiscount.error = "Please enter discount"
                 binding.etDiscount.requestFocus()
@@ -108,17 +109,36 @@ class AddServiceDetails : AppCompatActivity() {
                 viewModel.images?.let { imageList ->
                     if (!viewModel.editFlag.isNullOrEmpty()) {
                         viewModel.updateService(
-                            token, apiService, serviceName, viewModel.description ?: "",
-                            viewModel.price ?: "", viewModel.time ?: "", viewModel.serviceType ?: "",
-                            viewModel.date ?: "", viewModel.category ?: "", viewModel.slot_time ?: "",
-                            viewModel.address ?: "", userType, imageList, viewModel.editFlag!!
+                            token,
+                            apiService,
+                            serviceName,
+                            viewModel.description ?: "",
+                            viewModel.price ?: "",
+                            viewModel.time ?: "",
+                            viewModel.serviceType ?: "",
+                            viewModel.date ?: "",
+                            viewModel.category ?: "",
+                            viewModel.slot_time ?: "",
+                            viewModel.address ?: "",
+                            userType,
+                            imageList,
+                            viewModel.editFlag!!
                         )
                     } else {
                         viewModel.createService(
-                            token, apiService, serviceName, viewModel.description ?: "",
-                            viewModel.price ?: "", viewModel.time ?: "", viewModel.serviceType ?: "",
-                            viewModel.date ?: "", viewModel.category ?: "", viewModel.slot_time ?: "",
-                            viewModel.address ?: "", userType, imageList
+                            token,
+                            apiService,
+                            serviceName,
+                            viewModel.description ?: "",
+                            viewModel.price ?: "",
+                            viewModel.time ?: "",
+                            viewModel.serviceType ?: "",
+                            viewModel.date ?: "",
+                            viewModel.category ?: "",
+                            viewModel.slot_time ?: "",
+                            viewModel.address ?: "",
+                            userType,
+                            imageList
                         )
                     }
                 }
@@ -128,7 +148,8 @@ class AddServiceDetails : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.modelCreateService.observe(this) {
-            clearViewModelData()
+//            clearViewModelData()
+
             Toast.makeText(this, "Service added successfully.", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, MainActivity::class.java).apply {
                 putExtra("openFragment", "HomeFragment")
@@ -138,8 +159,10 @@ class AddServiceDetails : AppCompatActivity() {
         }
 
         viewModel.isLoading.observe(this) { isLoading ->
-            if (isLoading) CustomLoader.showLoaderDialog(this)
-            else CustomLoader.hideLoaderDialog()
+            if (isLoading) {
+                CustomLoader.showLoaderDialog(this)
+                viewModel.clearServiceData()
+            } else CustomLoader.hideLoaderDialog()
         }
 
         viewModel.errorMessage.observe(this) { errorMessage ->

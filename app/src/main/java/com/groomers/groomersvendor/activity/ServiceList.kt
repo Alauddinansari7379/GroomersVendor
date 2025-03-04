@@ -41,6 +41,9 @@ class ServiceList : AppCompatActivity(), DeleteService {
         } ?: run {
             Toast.makeText(this, "Error: Missing Token", Toast.LENGTH_LONG).show()
         }
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun setupRecyclerView() {

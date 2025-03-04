@@ -24,7 +24,7 @@ class SlotViewModel(application: Application) : AndroidViewModel(application) {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun createSlot(apiService: ApiService, startTime: String, endTime: String, day: String) {
+    fun createSlot(apiService: ApiService, startTime: String, endTime: String, day:String,service : String,qty : String ) {
         _isLoading.postValue(true)
         var token = ""
         if (sessionManager.accessToken != null) {
@@ -32,7 +32,7 @@ class SlotViewModel(application: Application) : AndroidViewModel(application) {
         }
         viewModelScope.launch {
             try {
-                val response = apiService.createSlot("Bearer $token", startTime, endTime, day)
+                val response = apiService.createSlot("Bearer $token", startTime, endTime, day,service,qty)
                 _isLoading.postValue(false)
 
                 if (response.isSuccessful) {

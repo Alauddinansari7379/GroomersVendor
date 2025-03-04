@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:scrollbars="none">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -11,19 +11,33 @@
         android:layout_margin="10dp"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/sf_bold"
-            android:text="Select Your service" />
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/sf_bold"
+                android:text="Select Your service" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btnAlreadyAdded"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/list" />
+        </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvService"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="10dp"
+            android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager">
 
         </androidx.recyclerview.widget.RecyclerView>
@@ -249,8 +263,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:visibility="gone">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -275,12 +289,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:visibility="gone"
             android:background="@drawable/corner_edt"
             android:hint="@string/address"
             android:inputType="textMultiLine"
             android:padding="10dp"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAddPost"
@@ -300,22 +314,6 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnAlreadyAdded"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/gradient_button"
-            android:fontFamily="@font/sf_regular"
-            android:gravity="center"
-            android:text="@string/service_list"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textStyle="bold" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 

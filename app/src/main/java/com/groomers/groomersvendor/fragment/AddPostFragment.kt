@@ -102,6 +102,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
 
         if (!postId.isNullOrEmpty()) {
             viewModel.editFlag = postId
+            binding.btnAddPost.text = "Update"
             sessionManager.accessToken?.let { token ->
                 lifecycleScope.launch {
                     viewModelService.getSingleService(token, postId)
@@ -159,7 +160,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     }
 
     private fun validateAndProceed() {
-        viewModel.serviceType=serviceName
+        viewModel.serviceName=serviceName
         if (serviceName.isEmpty()) {
             showError("Please select a service before proceeding!")
             return

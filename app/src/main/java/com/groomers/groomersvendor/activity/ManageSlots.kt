@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -20,6 +21,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.groomers.groomersvendor.MainActivity
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivityManageSlotsBinding
 import com.groomers.groomersvendor.helper.CustomLoader
@@ -103,6 +105,10 @@ class ManageSlots : AppCompatActivity() {
                 Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
             }
         }
+        // Observe the result of the login attempt
+        viewModel.modelSlot.observe(context) { modelSlot ->
+            Toast.makeText(this@ManageSlots,"Slot create successfully",Toast.LENGTH_SHORT).show()
+        }
 
         binding.spinnerDay.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
@@ -165,10 +171,42 @@ class ManageSlots : AppCompatActivity() {
 
         binding.btnCreate.setOnClickListener {
             val endT = binding.tvStartTime.text.toString().replace(":", "").toString()
+            val selectedService = binding.spinnerService.selectedItem.toString()
+            val selectedQty= binding.spinnerQty.selectedItem.toString()
             if (endT == "000000"
             ) {
                 SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                     .setTitleText("The session slabs must be within the time limit of the clinic timings")
+                    .setConfirmText("Ok")
+                    .showCancelButton(true)
+                    .setConfirmClickListener { sDialog ->
+                        sDialog.cancel()
+
+                    }
+                    .setCancelClickListener { sDialog ->
+                        sDialog.cancel()
+                    }
+                    .show()
+                return@setOnClickListener
+            }
+            if (selectedService == "Select service") {
+                SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Please select the service")
+                    .setConfirmText("Ok")
+                    .showCancelButton(true)
+                    .setConfirmClickListener { sDialog ->
+                        sDialog.cancel()
+
+                    }
+                    .setCancelClickListener { sDialog ->
+                        sDialog.cancel()
+                    }
+                    .show()
+                return@setOnClickListener
+            }
+            if (selectedQty == "Select quantity") {
+                SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Please select the quantity")
                     .setConfirmText("Ok")
                     .showCancelButton(true)
                     .setConfirmClickListener { sDialog ->
@@ -201,7 +239,7 @@ class ManageSlots : AppCompatActivity() {
 
             } else {
 
-                viewModel.createSlot(apiService, startTime, endTime,dayId)
+                viewModel.createSlot(apiService, startTime, endTime,dayId,selectedService,selectedQty)
             }
         }
     }
