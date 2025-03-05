@@ -57,4 +57,8 @@ class SlotViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+    fun clearData() {
+        _modelSlot.value = null
+    }
 }

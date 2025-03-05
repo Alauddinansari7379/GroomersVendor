@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okio.IOException
 import retrofit2.HttpException
+import retrofit2.Response
 import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
@@ -18,6 +19,7 @@ class LoginViewModel @Inject constructor(
     private val sessionManager: SessionManager
 ) : AndroidViewModel(application)  {
 
+    private lateinit var response: Response<ModelLogin>
     private val _modelLogin = MutableLiveData<ModelLogin?>()
     val modelLogin: LiveData<ModelLogin?> = _modelLogin
 
@@ -32,7 +34,11 @@ class LoginViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val response = apiService.login(email, password)
+                if (email.contains("@gmail.com")) {
+                     response = apiService.login(email, password,"vendor")
+                }else{
+                    response = apiService.loginWithUsername(email,password,"vendor")
+                }
 
                 if (response.isSuccessful && response.body() != null) {
                     val responseBody = response.body()

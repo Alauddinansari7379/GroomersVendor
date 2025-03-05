@@ -13,6 +13,7 @@ import com.groomers.groomersvendor.model.modelsingleservice.ModelSingleService
 import com.groomers.groomersvendor.model.modelslot.ModelSlot
 import com.groomers.groomersvendor.model.modelslotlist.ModelSlotList
 import com.groomers.groomersvendor.model.modelstate.ModelState
+import com.groomers.groomersvendor.model.modelupdateservice.ModelUpdateService
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Response
@@ -27,7 +28,14 @@ interface ApiService {
     @POST("login")
     suspend fun login(
         @Query("email") email: String,
-        @Query("password") password: String
+        @Query("password") password: String,
+        @Query("role") role: String
+    ): Response<ModelLogin>
+ @POST("login")
+    suspend fun loginWithUsername(
+        @Query("username") username: String,
+        @Query("password") password: String,
+        @Query("role") role: String
     ): Response<ModelLogin>
 
     @Multipart
@@ -125,7 +133,7 @@ interface ApiService {
         @Query("user_type") user_type: String,
         @Part image: MultipartBody.Part,
         @Query("id") id: String
-    ): Response<ModelCreateServiceX>
+    ): Response<ModelUpdateService>
 
     @POST("deletePost")
     suspend fun deleteService(

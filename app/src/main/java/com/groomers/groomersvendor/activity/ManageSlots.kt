@@ -3,9 +3,6 @@ package com.groomers.groomersvendor.activity
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.ContentValues
-import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -21,13 +18,11 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.groomers.groomersvendor.MainActivity
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivityManageSlotsBinding
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.model.ModelDay
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
-import com.groomers.groomersvendor.viewmodel.LoginViewModel
 import com.groomers.groomersvendor.viewmodel.SlotViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -48,7 +43,7 @@ class ManageSlots : AppCompatActivity() {
     private var startTime = "00:00:00"
     var dayList = ArrayList<ModelDay>()
 
-
+    var quantity = 1
     private var endTime = "00:00:00"
 
     @SuppressLint("LogNotTimber")
@@ -85,6 +80,21 @@ class ManageSlots : AppCompatActivity() {
 
 
 
+        binding.btnPlus.setOnClickListener {
+            quantity++
+            binding.tvQuantity.text = quantity.toString()
+        }
+
+        binding.btnMinus.setOnClickListener {
+            if (quantity > 1) { // Prevents negative values
+                quantity--
+                binding.tvQuantity.text = quantity.toString()
+            }
+        }
+
+
+
+
 
 
 
@@ -107,7 +117,11 @@ class ManageSlots : AppCompatActivity() {
         }
         // Observe the result of the login attempt
         viewModel.modelSlot.observe(context) { modelSlot ->
-            Toast.makeText(this@ManageSlots,"Slot create successfully",Toast.LENGTH_SHORT).show()
+            if (modelSlot!=null && modelSlot.status == 1) {
+                Toast.makeText(this@ManageSlots, "Slot create successfully", Toast.LENGTH_SHORT)
+                    .show()
+                finish()
+            }
         }
 
         binding.spinnerDay.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -172,7 +186,7 @@ class ManageSlots : AppCompatActivity() {
         binding.btnCreate.setOnClickListener {
             val endT = binding.tvStartTime.text.toString().replace(":", "").toString()
             val selectedService = binding.spinnerService.selectedItem.toString()
-            val selectedQty= binding.spinnerQty.selectedItem.toString()
+
             if (endT == "000000"
             ) {
                 SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
@@ -204,21 +218,7 @@ class ManageSlots : AppCompatActivity() {
                     .show()
                 return@setOnClickListener
             }
-            if (selectedQty == "Select quantity") {
-                SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                    .setTitleText("Please select the quantity")
-                    .setConfirmText("Ok")
-                    .showCancelButton(true)
-                    .setConfirmClickListener { sDialog ->
-                        sDialog.cancel()
 
-                    }
-                    .setCancelClickListener { sDialog ->
-                        sDialog.cancel()
-                    }
-                    .show()
-                return@setOnClickListener
-            }
 
 
             val endT1 = binding.tvEndTime.text.toString().replace(":", "").toString()
@@ -239,7 +239,7 @@ class ManageSlots : AppCompatActivity() {
 
             } else {
 
-                viewModel.createSlot(apiService, startTime, endTime,dayId,selectedService,selectedQty)
+                viewModel.createSlot(apiService, startTime, endTime,dayId,selectedService,quantity.toString())
             }
         }
     }
@@ -325,8 +325,12 @@ class ManageSlots : AppCompatActivity() {
         val quantityList = listOf("Select quantity","0","1","2","3","4","5","6","7","8","9")
         val quantityAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, quantityList)
         quantityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerQty.adapter = quantityAdapter
+//        binding.spinnerQty.adapter = quantityAdapter
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.clearData()
+    }
 }

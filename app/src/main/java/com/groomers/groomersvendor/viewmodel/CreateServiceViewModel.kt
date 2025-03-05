@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.groomers.groomersvendor.model.modelcreateservice.ModelCreateServiceX
+import com.groomers.groomersvendor.model.modelupdateservice.ModelUpdateService
 
 import com.groomers.groomersvendor.retrofit.ApiService
 import kotlinx.coroutines.launch
@@ -33,12 +34,14 @@ class CreateServiceViewModel(
     var images: MultipartBody.Part? = null
 
      val _modelCreateService = MutableLiveData<ModelCreateServiceX?>()
+     val _modelUpdateService = MutableLiveData<ModelUpdateService?>()
     val modelCreateService: LiveData<ModelCreateServiceX?> = _modelCreateService
+    val modelUpdateService: LiveData<ModelUpdateService?> = _modelUpdateService
 
-    private val _errorMessage = MutableLiveData<String>()
+    val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    private val _isLoading = MutableLiveData<Boolean>()
+    val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
     fun createService(
@@ -135,7 +138,7 @@ class CreateServiceViewModel(
                 if (response.isSuccessful) {
                     response.body()?.let {
                         if (it.status == 1) {
-                            _modelCreateService.postValue(it)
+                            _modelUpdateService.postValue(it)
                         } else {
                             _errorMessage.postValue("Service update failed. Please try again.")
                         }
@@ -156,5 +159,6 @@ class CreateServiceViewModel(
     }
     fun clearServiceData() {
         _modelCreateService.value = null
+        _modelUpdateService.value = null
     }
 }

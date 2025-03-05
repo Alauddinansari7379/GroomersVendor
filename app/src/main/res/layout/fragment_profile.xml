@@ -31,7 +31,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/profile_card"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -61,6 +61,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
+                            android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/profile_image">
@@ -89,6 +90,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
+                            android:visibility="gone"
                             android:fontFamily="@font/sf_bold"
                             android:text="@string/ash"
                             android:textColor="@android:color/black"
@@ -103,6 +105,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
+                            android:visibility="gone"
                             app:cardCornerRadius="10dp"
                             app:cardElevation="16dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -393,6 +396,7 @@
                     android:layout_marginBottom="16dp"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="4dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/card_finance_center"
@@ -451,6 +455,7 @@
                     android:layout_marginTop="16dp"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="4dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/card_social_post"
@@ -506,6 +511,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:visibility="gone"
                     android:background="@drawable/card_background"
 
                     android:orientation="vertical"
@@ -626,6 +632,7 @@
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             android:orientation="horizontal">
 
                             <androidx.appcompat.widget.AppCompatButton
@@ -668,6 +675,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
+                        android:visibility="gone"
                         android:background="@drawable/card_background"
                         android:orientation="vertical"
                         android:padding="16dp">
@@ -749,6 +757,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
+                        android:visibility="gone"
                         android:layout_marginBottom="8dp"
                         android:fontFamily="@font/sf_bold"
                         android:text="@string/booksy_library"
@@ -760,6 +769,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/card_background"
                         android:elevation="2dp"
+                        android:visibility="gone"
                         android:orientation="horizontal"
                         android:padding="16dp">
 

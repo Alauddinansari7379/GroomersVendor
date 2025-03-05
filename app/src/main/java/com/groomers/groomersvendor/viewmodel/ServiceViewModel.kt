@@ -23,7 +23,7 @@ class ServiceViewModel @Inject constructor(
     private val _modelService = MutableLiveData<ModelService>()
     val modelService: LiveData<ModelService?> = _modelService
 
-    private val _modelDeleteService = MutableLiveData<ModelDeleteService>()
+    private val _modelDeleteService = MutableLiveData<ModelDeleteService?>()
     val modelDeleteService: LiveData<ModelDeleteService?> = _modelDeleteService
 
     private val _modelSingleService = MutableLiveData<ModelSingleService>()
@@ -131,4 +131,5 @@ class ServiceViewModel @Inject constructor(
             }
         }
     }
+
 }

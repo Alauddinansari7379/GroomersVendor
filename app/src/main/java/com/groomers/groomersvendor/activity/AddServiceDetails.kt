@@ -147,47 +147,49 @@ class AddServiceDetails : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.modelCreateService.observe(this) {
-//            clearViewModelData()
-
-            Toast.makeText(this, "Service added successfully.", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java).apply {
-                putExtra("openFragment", "HomeFragment")
+        viewModel.modelCreateService.observe(this) { result ->
+            if (result != null && result.status == 1) {
+                Toast.makeText(this, "Service added successfully.", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MainActivity::class.java).apply {
+                    putExtra("openFragment", "HomeFragment")
+                }
+                startActivity(intent)
+                finish()
             }
-            startActivity(intent)
-            finish()
         }
+
+        viewModel.modelUpdateService.observe(this) { result ->
+            if (result != null && result.status == 1) {
+                Toast.makeText(this, "Service updated     successfully.", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MainActivity::class.java).apply {
+                    putExtra("openFragment", "HomeFragment")
+                }
+                startActivity(intent)
+                finish()
+            }
+        }
+
+
 
         viewModel.isLoading.observe(this) { isLoading ->
             if (isLoading) {
                 CustomLoader.showLoaderDialog(this)
-                viewModel.clearServiceData()
-            } else CustomLoader.hideLoaderDialog()
+            } else {
+                CustomLoader.hideLoaderDialog()
+
+            }
         }
 
         viewModel.errorMessage.observe(this) { errorMessage ->
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
         }
     }
-
-    private fun clearViewModelData() {
-        viewModel.apply {
-            category = ""
-            serviceType = ""
-            description = ""
-            price = ""
-            address = ""
-            time = ""
-            date = ""
-            slot_time = ""
-            serviceName = ""
-            user_type = ""
-            imageUrl = null
-            images = null
-            editFlag = ""
-//            if (this is CreateServiceViewModel) {
-//                clearServiceData()
-//            }
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.clearServiceData()
+        viewModel.modelCreateService.removeObservers(this)
+        viewModel.isLoading.removeObservers(this)
+        viewModel.errorMessage.removeObservers(this)
     }
+
 }

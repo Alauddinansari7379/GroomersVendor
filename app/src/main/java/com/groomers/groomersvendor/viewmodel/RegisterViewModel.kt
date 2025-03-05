@@ -40,8 +40,8 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
    var state: String? =null
    var shopAgreement : String? =null
 
-    private val _modelRegister = MutableLiveData<ModelRegister>()
-    val modelRegister: LiveData<ModelRegister> = _modelRegister
+    private val _modelRegister = MutableLiveData<ModelRegister?>()
+    val modelRegister: MutableLiveData<ModelRegister?> = _modelRegister
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -92,7 +92,11 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
             } finally {
                 _isLoading.postValue(false) // Hide loading state
             }
-        }
-    }
 
+        }
+
+    }
+    fun clearRegisterData() {
+        _modelRegister.value = null
+    }
 }

@@ -80,11 +80,13 @@ private val viewModel by lazy {
 
         // Observe success response
         viewModel.modelRegister.observe(this, Observer { response ->
-            // Handle success - Show success message or navigate to another screen
-            Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
-            // Navigate to the next screen if needed
-            startActivity(Intent(this@Register3,RegisterSuccess::class.java))
-            finish()
+            if (response != null && response.status == 1) {
+                // Handle success - Show success message or navigate to another screen
+                Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+                // Navigate to the next screen if needed
+                startActivity(Intent(this@Register3, RegisterSuccess::class.java))
+                finish()
+            }
         })
     }
 
@@ -115,5 +117,10 @@ private val viewModel by lazy {
             teamSize, "123 Street", city, zipcode, "Aadhar", "Haircut, Spa",
             "40.7128", "-74.0060", shopAgreement,"1",businessName
         )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.clearRegisterData()
     }
 }
