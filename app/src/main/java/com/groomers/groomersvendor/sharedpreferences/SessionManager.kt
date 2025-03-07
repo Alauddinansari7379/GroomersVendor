@@ -39,11 +39,16 @@ class SessionManager(context: Context) {
         set(value) {
             prefs.edit().putString(SELECTED_LANGUAGE, value).apply()
         }
-
+    var profilePictureUrl: String?
+        get() = prefs.getString(PROFILE_PICTURE_URL, null)
+        set(value) {
+            prefs.edit().putString(PROFILE_PICTURE_URL, value).apply()
+        }
     companion object {
         private const val ACCESS_TOKEN = "ACCESS_TOKEN"
         private const val IS_LOGIN = "IS_LOGIN"
         private const val IMAGE_URL = "IMAGE_URL"
         private const val SELECTED_LANGUAGE = "SELECTED_LANGUAGE"
+        private const val PROFILE_PICTURE_URL = "PROFILE_PICTURE_URL"
     }
 }

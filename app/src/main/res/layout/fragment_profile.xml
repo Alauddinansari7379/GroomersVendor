@@ -46,7 +46,7 @@
 
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/profile_image"
+                            android:id="@+id/userProfile"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:layout_marginBottom="8dp"
@@ -54,7 +54,43 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+                        <ImageView
+                            android:id="@+id/cameraBtn"
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_height="@dimen/_25sdp"
+                            android:background="@drawable/bg_reound_white"
+                            android:elevation="@dimen/_10sdp"
+                            android:padding="@dimen/_6sdp"
+                            android:src="@drawable/ic_baseline_edit_24"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="@+id/userProfile"
+                            app:layout_constraintEnd_toEndOf="@+id/userProfile"
+                            app:layout_constraintStart_toStartOf="@+id/userProfile"
+                            app:layout_constraintTop_toBottomOf="@+id/userProfile"
+                            app:tint="#324754" />
 
+                        <LinearLayout
+                            android:id="@+id/layoutBtnUpload"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/cameraBtn">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnUpload"
+                                android:layout_width="wrap_content"
+                                android:layout_height="35dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:text="Save"
+                                android:textColor="@color/white"
+                                android:textSize="10sp">
+
+                            </com.google.android.material.button.MaterialButton>
+                        </LinearLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/store_badge"
@@ -64,7 +100,7 @@
                             android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/profile_image">
+                            app:layout_constraintTop_toBottomOf="@id/userProfile">
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/store_badge_text"

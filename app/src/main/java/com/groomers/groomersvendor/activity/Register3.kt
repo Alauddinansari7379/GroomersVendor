@@ -75,7 +75,11 @@ private val viewModel by lazy {
 
         // Observe error message
         viewModel.errorMessage.observe(this, Observer { errorMessage ->
-            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+
+            if (errorMessage!=null) {
+                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+            }
+
         })
 
         // Observe success response
@@ -84,7 +88,9 @@ private val viewModel by lazy {
                 // Handle success - Show success message or navigate to another screen
                 Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
                 // Navigate to the next screen if needed
-                startActivity(Intent(this@Register3, RegisterSuccess::class.java))
+                val intent = Intent(this@Register3, RegisterSuccess::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
                 finish()
             }
         })
@@ -121,6 +127,11 @@ private val viewModel by lazy {
 
     override fun onDestroy() {
         super.onDestroy()
+        viewModel.clearRegisterData()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
         viewModel.clearRegisterData()
     }
 }

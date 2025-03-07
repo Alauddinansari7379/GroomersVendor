@@ -160,7 +160,7 @@ class AddServiceDetails : AppCompatActivity() {
 
         viewModel.modelUpdateService.observe(this) { result ->
             if (result != null && result.status == 1) {
-                Toast.makeText(this, "Service updated     successfully.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Service updated successfully.", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java).apply {
                     putExtra("openFragment", "HomeFragment")
                 }

@@ -12,6 +12,7 @@ import okio.IOException
 import retrofit2.HttpException
 import retrofit2.Response
 import javax.inject.Inject
+
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val apiService: ApiService,
@@ -34,10 +35,10 @@ class LoginViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                if (email.contains("@gmail.com")) {
-                     response = apiService.login(email, password,"vendor")
+                response = if (isValidEmail(email)) {
+                    apiService.login(email, password,"vendor")
                 }else{
-                    response = apiService.loginWithUsername(email,password,"vendor")
+                    apiService.loginWithUsername(email,password,"vendor")
                 }
 
                 if (response.isSuccessful && response.body() != null) {
@@ -58,7 +59,7 @@ class LoginViewModel @Inject constructor(
                 // Network-related error (e.g., no internet connection)
                 _errorMessage.postValue("No internet connection. Please check your network and try again.")
             } catch (e: HttpException) {
-                // Handle HTTP-specific errors
+
                 _errorMessage.postValue("Server error (${e.code()}): Unable to process your request. Please try again later.")
             } catch (e: Exception) {
                 _errorMessage.postValue("Something went wrong. Please try again later.")
@@ -89,5 +90,8 @@ class LoginViewModel @Inject constructor(
 
     fun logout() {
         sessionManager.clearSession()
+    }
+    private fun isValidEmail(input: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(input).matches()
     }
 }

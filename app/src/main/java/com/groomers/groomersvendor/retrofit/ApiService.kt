@@ -13,6 +13,7 @@ import com.groomers.groomersvendor.model.modelsingleservice.ModelSingleService
 import com.groomers.groomersvendor.model.modelslot.ModelSlot
 import com.groomers.groomersvendor.model.modelslotlist.ModelSlotList
 import com.groomers.groomersvendor.model.modelstate.ModelState
+import com.groomers.groomersvendor.model.modelupdateprfphoto.ModelUpdateProfPhoto
 import com.groomers.groomersvendor.model.modelupdateservice.ModelUpdateService
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -167,4 +168,12 @@ interface ApiService {
         @Header("Authorization") authorization: String,
         @Query("day") day: String?,
     ): Response<ModelSlotList>
+
+
+    @Multipart
+    @POST("profile_picture")
+    suspend fun uploadProfilePicture(
+        @Header("Authorization") authorization: String,
+        @Part image: MultipartBody.Part
+    ): Response<ModelUpdateProfPhoto>
 }

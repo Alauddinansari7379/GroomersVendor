@@ -101,7 +101,7 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
         val apiService = ApiServiceProvider.getApiService()
         sessionManager.accessToken?.let { token ->
             lifecycleScope.launch {
-                bookingViewModel.getBooking(apiService, "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2dyb29tZXJzLmNvLmluL2FwaS9sb2dpbiIsImlhdCI6MTc0MDgxNDEzOSwiZXhwIjoyMzYyODk0MTM5LCJuYmYiOjE3NDA4MTQxMzksImp0aSI6Imx5YmdVMXBBZmVSdFZqOUYiLCJzdWIiOiI0MiIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.riltZ36eLz7qO3hMZCsCtb--x1YxO3x44tHtnZW0DpI",date)
+                bookingViewModel.getBooking(apiService,token,date)
             }
         } ?: run {
             Toast.makeText(requireContext(), "Error: Missing Token", Toast.LENGTH_LONG).show()

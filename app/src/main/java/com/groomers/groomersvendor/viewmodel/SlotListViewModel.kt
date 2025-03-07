@@ -30,8 +30,7 @@ class SlotListViewModel @Inject constructor(
     val isLoading: LiveData<Boolean> = _isLoading
 
     fun getSlotList(day : String) {
-//        val token = sessionManager.accessToken
-        val token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2dyb29tZXJzLmNvLmluL2FwaS9sb2dpbiIsImlhdCI6MTczOTMwMTI2MSwiZXhwIjoxNzQwNTk3MjYxLCJuYmYiOjE3MzkzMDEyNjEsImp0aSI6InpyOHZJczZTbGM1eUVmV3YiLCJzdWIiOiIyIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.2fGKO7wprOxav7f2i2lpOT1TTlQUOI-ikjApNaiNkgU"
+        val token = sessionManager.accessToken
         if (token.isNullOrEmpty()) {
             _errorMessage.postValue("Authentication error: Please log in again.")
             return
