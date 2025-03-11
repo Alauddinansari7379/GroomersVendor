@@ -3,10 +3,12 @@ package com.groomers.groomersvendor.retrofit
 import ModelLogin
 import com.groomers.groomersvendor.model.modelAccept.ModelAccept
 import com.groomers.groomersvendor.model.modelGetBooking.ModelGetBooking
+import com.groomers.groomersvendor.model.modeladdhelp.ModelAddHelp
 import com.groomers.groomersvendor.model.modelcategory.ModelCategory
 import com.groomers.groomersvendor.model.modelcity.ModelCity
 import com.groomers.groomersvendor.model.modelcreateservice.ModelCreateServiceX
 import com.groomers.groomersvendor.model.modeldeleteservice.ModelDeleteService
+import com.groomers.groomersvendor.model.modelhelplist.ModelHelpList
 import com.groomers.groomersvendor.model.modelregister.ModelRegister
 import com.groomers.groomersvendor.model.modelservice.ModelService
 import com.groomers.groomersvendor.model.modelsingleservice.ModelSingleService
@@ -16,7 +18,6 @@ import com.groomers.groomersvendor.model.modelstate.ModelState
 import com.groomers.groomersvendor.model.modelupdateprfphoto.ModelUpdateProfPhoto
 import com.groomers.groomersvendor.model.modelupdateservice.ModelUpdateService
 import okhttp3.MultipartBody
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -59,10 +60,10 @@ interface ApiService {
         @Query("services") services: String,
         @Query("latitude") latitude: String,
         @Query("longitude") longitude: String,
-        @Query("country") country: String,  // New field added
-        @Query("state") state: String,      // New field added
+        @Query("country") country: String,
+        @Query("state") state: String,
 //        @Query("slot_interval") slot_interval: String,      // New field added
-        @Query("username") username: String,      // New field added
+        @Query("username") username: String,
         @Part shopAgreement: MultipartBody.Part,
         @Part idproofimage: MultipartBody.Part,
         @Query("language") language: String,
@@ -169,6 +170,11 @@ interface ApiService {
         @Query("day") day: String?,
     ): Response<ModelSlotList>
 
+    @GET("getQuery")
+    suspend fun getHelpList(
+        @Header("Authorization") authorization: String
+    ): Response<ModelHelpList>
+
 
     @Multipart
     @POST("profile_picture")
@@ -176,4 +182,15 @@ interface ApiService {
         @Header("Authorization") authorization: String,
         @Part image: MultipartBody.Part
     ): Response<ModelUpdateProfPhoto>
+
+    @Multipart
+    @POST("addHelp")
+    suspend fun addHelp(
+        @Header("Authorization") authorization: String,
+        @Query("name") name : String,
+        @Query("mobile") mobile : String,
+        @Query("query") query : String,
+        @Query("description") description : String,
+        @Part image: MultipartBody.Part
+    ): Response<ModelAddHelp>
 }

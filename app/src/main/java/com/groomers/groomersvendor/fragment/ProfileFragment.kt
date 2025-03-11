@@ -1,7 +1,9 @@
 package com.groomers.groomersvendor.fragment
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -19,6 +21,7 @@ import com.groomers.groomersvendor.activity.ManageSlots
 import com.groomers.groomersvendor.activity.MySlot
 import com.groomers.groomersvendor.activity.Settings
 import com.groomers.groomersvendor.databinding.FragmentProfileBinding
+import com.groomers.groomersvendor.helper.Toastic
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import com.groomers.groomersvendor.viewmodel.ProfileViewModel
@@ -86,10 +89,21 @@ class ProfileFragment : Fragment() {
                 .show()
         }
 
+        binding.shareProfileButton.setOnClickListener {
+            shareApp()
+        }
+
         profileViewModel.uploadResult.observe(viewLifecycleOwner) { message ->
             binding.progressBar.visibility = if (message == "Uploading...") View.VISIBLE else View.GONE
             message?.let {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                Toastic.toastic(
+                    context = requireActivity(),
+                    message = it,
+                    duration = Toastic.LENGTH_SHORT,
+                    type = Toastic.SUCCESS,
+                    isIconAnimated = true,
+                    textColor = if (false) Color.BLUE else null,
+                ).show()
             }
         }
     }
@@ -142,7 +156,18 @@ class ProfileFragment : Fragment() {
     companion object {
         const val REQUEST_CODE_IMAGE = 101
     }
-
+    private fun shareApp() {
+        val appPackageName = getAppPackageName(requireContext())
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_SUBJECT, "Check out this app!")
+            putExtra(Intent.EXTRA_TEXT, "Hey, check out this amazing app: https://play.google.com/store/apps/details?id=$appPackageName")
+        }
+        startActivity(Intent.createChooser(shareIntent, "Share via"))
+    }
+    fun getAppPackageName(context: Context): String {
+        return context.packageName
+    }
     override fun onDestroy() {
         super.onDestroy()
         profileViewModel.clearRegisterData()

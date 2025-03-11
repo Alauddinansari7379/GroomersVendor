@@ -267,5 +267,7 @@
     <string name="bank_name">Bank Name</string>
     <string name="add_your_bank_information">Add your bank information</string>
     <string name="enter_bank_details">Enter bank details</string>
+    <string name="help_list">Help list</string>
+    <string name="query">Query</string>
 
 </resources>

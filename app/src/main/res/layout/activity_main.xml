@@ -14,7 +14,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_gravity="center"
-                android:background="@color/mainColor"
+                android:background="@color/white"
                 android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
                     android:layout_marginEnd="15dp"
                     android:fontFamily="@font/sf_bold"
                     android:text="@string/dashboard"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="end">
 
-                    <androidx.appcompat.widget.AppCompatImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imgLan"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
@@ -47,7 +47,7 @@
                         app:layout_constraintEnd_toEndOf="@+id/toolBar"
                         app:layout_constraintTop_toTopOf="parent">
 
-                    </androidx.appcompat.widget.AppCompatImageView>
+                    </de.hdodenhof.circleimageview.CircleImageView>
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
 

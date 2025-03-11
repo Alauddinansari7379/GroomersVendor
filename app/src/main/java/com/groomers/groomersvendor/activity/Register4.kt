@@ -6,16 +6,9 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.RadioButton
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.groomers.groomersvendor.Common
-import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivityRegister4Binding
 import com.groomers.groomersvendor.viewmodel.MyApplication
-import com.groomers.groomersvendor.viewmodel.RegisterViewModel
 
 class Register4 : Common() {
     private val binding by lazy { ActivityRegister4Binding.inflate(layoutInflater) }

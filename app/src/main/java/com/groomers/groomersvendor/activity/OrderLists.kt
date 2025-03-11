@@ -1,6 +1,7 @@
 package com.groomers.groomersvendor.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -10,6 +11,7 @@ import com.groomers.groomersvendor.adapter.DeleteService
 import com.groomers.groomersvendor.adapter.ServiceAdapter
 import com.groomers.groomersvendor.databinding.ActivityOrderListsBinding
 import com.groomers.groomersvendor.helper.CustomLoader
+import com.groomers.groomersvendor.helper.Toastic
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import com.groomers.groomersvendor.viewmodel.ServiceViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,7 +38,14 @@ class OrderLists : AppCompatActivity(),DeleteService {
                 viewModel.getServiceList(token)
             }
         } ?: run {
-            Toast.makeText(this, "Error: Missing Token", Toast.LENGTH_LONG).show()
+            Toastic.toastic(
+                context = this@OrderLists,
+                message = "Missing Token.",
+                duration = Toastic.LENGTH_SHORT,
+                type = Toastic.ERROR,
+                isIconAnimated = true,
+                textColor = if (false) Color.BLUE else null,
+            ).show()
         }
 
     }
@@ -61,13 +70,27 @@ class OrderLists : AppCompatActivity(),DeleteService {
                     adapter = ServiceAdapter(this@OrderLists,services, this@OrderLists)
                 }
             } ?: run {
-                Toast.makeText(this, "No data available", Toast.LENGTH_SHORT).show()
+                 Toastic.toastic(
+                    context = this@OrderLists,
+                    message = "No data available",
+                    duration = Toastic.LENGTH_SHORT,
+                    type = Toastic.INFO,
+                    isIconAnimated = true,
+                    textColor = if (false) Color.BLUE else null,
+                ).show()
             }
         }
 
         viewModel.modelDeleteService.observe(this) { isDeleted ->
             if (isDeleted!!.status == 1) {
-                Toast.makeText(this, "Service deleted successfully", Toast.LENGTH_SHORT).show()
+                Toastic.toastic(
+                    context = this@OrderLists,
+                    message = "Service deleted successfully",
+                    duration = Toastic.LENGTH_SHORT,
+                    type = Toastic.SUCCESS,
+                    isIconAnimated = true,
+                    textColor = if (false) Color.BLUE else null,
+                ).show()
                 sessionManager.accessToken?.let { token ->
                     lifecycleScope.launch {
                         viewModel.getServiceList(token) // Refresh list after deletion

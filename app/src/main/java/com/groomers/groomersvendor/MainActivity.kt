@@ -14,10 +14,14 @@ import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.groomers.groomersvendor.databinding.ActivityMainBinding
 import com.groomers.groomersvendor.helper.NetworkChangeReceiver
+import com.groomers.groomersvendor.retrofit.ApiServiceProvider
+import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -26,6 +30,8 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var wasPreviouslyConnected = true
     private val networkChangeReceiver = NetworkChangeReceiver()
+    @Inject
+    lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +63,11 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
         if (!openFragment.isNullOrEmpty() && id.isNotEmpty()) {
             openFragment(openFragment, id)
         }
+
+        Glide.with(this)
+            .load(ApiServiceProvider.IMAGE_URL+sessionManager.profilePictureUrl)
+            .placeholder(R.drawable.user) // Use a default placeholder
+            .into(binding.imgLan)
     }
 
     override fun onNetworkStatusChanged(isConnected: Boolean) {

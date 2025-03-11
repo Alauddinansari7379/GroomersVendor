@@ -1,5 +1,6 @@
 package com.groomers.groomersvendor.activity
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.groomers.groomersvendor.adapter.AdapterSlotsList
 import com.groomers.groomersvendor.databinding.ActivityMySlotBinding
 import com.groomers.groomersvendor.helper.CustomLoader
+import com.groomers.groomersvendor.helper.Toastic
 import com.groomers.groomersvendor.model.ModelDay
 import com.groomers.groomersvendor.model.modelslotlist.ModelSlotList
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
@@ -46,8 +48,14 @@ class MySlot : AppCompatActivity() {
                 viewModel.getSlotList("1")
             }
         } ?: run {
-            Toast.makeText(this@MySlot, "Error: Missing Token", Toast.LENGTH_LONG).show()
-        }
+            Toastic.toastic(
+                context = this,
+                message = "Missing Token.",
+                duration = Toastic.LENGTH_SHORT,
+                type = Toastic.ERROR,
+                isIconAnimated = true,
+                textColor = if (false) Color.BLUE else null,
+            ).show()        }
         // Observe isLoading to show/hide progress
         viewModel.isLoading.observe(this@MySlot) { isLoading ->
             if (isLoading) {
@@ -67,7 +75,14 @@ class MySlot : AppCompatActivity() {
             val adapter = AdapterSlotsList(this@MySlot, safeModelSlotList)
             binding.rvManageSlot.adapter = adapter
             if (safeModelSlotList.result.isEmpty()) {
-                Toast.makeText(this@MySlot, "No slots available", Toast.LENGTH_SHORT).show()
+                Toastic.toastic(
+                    context = this@MySlot,
+                    message = "No slots available",
+                    duration = Toastic.LENGTH_SHORT,
+                    type = Toastic.INFO,
+                    isIconAnimated = true,
+                    textColor = if (false) Color.BLUE else null,
+                ).show()
             }
         }
 
@@ -76,7 +91,14 @@ class MySlot : AppCompatActivity() {
         // Observe error message if login fails
         viewModel.errorMessage.observe(this@MySlot) { errorMessage ->
             if (errorMessage.isNotEmpty()) {
-                Toast.makeText(this@MySlot, errorMessage, Toast.LENGTH_SHORT).show()
+                Toastic.toastic(
+                    context = this@MySlot,
+                    message = errorMessage,
+                    duration = Toastic.LENGTH_SHORT,
+                    type = Toastic.ERROR,
+                    isIconAnimated = true,
+                    textColor = if (false) Color.BLUE else null,
+                ).show()
             }
         }
 

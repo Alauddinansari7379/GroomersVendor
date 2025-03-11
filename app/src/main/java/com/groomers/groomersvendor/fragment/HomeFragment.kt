@@ -1,42 +1,31 @@
 package com.groomers.groomersvendor.fragment
 
 import CalendarAdapter
-import android.Manifest
-import android.annotation.SuppressLint
-import android.content.ContentValues
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.location.Geocoder
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.adapter.AdapterBooking
 import com.groomers.groomersvendor.databinding.FragmentHomeBinding
 import com.groomers.groomersvendor.helper.CustomLoader
+import com.groomers.groomersvendor.helper.Toastic
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import com.groomers.groomersvendor.viewmodel.AcceptBookingViewModel
 import com.groomers.groomersvendor.viewmodel.GetBookingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -102,10 +91,17 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
         sessionManager.accessToken?.let { token ->
             lifecycleScope.launch {
                 bookingViewModel.getBooking(apiService,token,date)
+//                bookingViewModel.getBooking(apiService,"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2dyb29tZXJzLmNvLmluL2FwaS9sb2dpbiIsImlhdCI6MTc0MDgxNDEzOSwiZXhwIjoyMzYyODk0MTM5LCJuYmYiOjE3NDA4MTQxMzksImp0aSI6Imx5YmdVMXBBZmVSdFZqOUYiLCJzdWIiOiI0MiIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.riltZ36eLz7qO3hMZCsCtb--x1YxO3x44tHtnZW0DpI",date)
             }
         } ?: run {
-            Toast.makeText(requireContext(), "Error: Missing Token", Toast.LENGTH_LONG).show()
-        }
+            Toastic.toastic(
+                context = requireActivity(),
+                message = "Missing Token.",
+                duration = Toastic.LENGTH_SHORT,
+                type = Toastic.ERROR,
+                isIconAnimated = true,
+                textColor = if (false) Color.BLUE else null,
+            ).show()        }
         // Observe isLoading to show/hide progress
         bookingViewModel.isLoading.observe(requireActivity()) { isLoading ->
             if (isLoading) {
@@ -135,7 +131,14 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
                 acceptBookingViewModel.acceptBooking(apiService, token, bookingId, slug)
             }
         } ?: run {
-            Toast.makeText(requireContext(), "Error: Missing Token", Toast.LENGTH_LONG).show()
+             Toastic.toastic(
+                context = requireActivity(),
+                message = "Missing Token.",
+                duration = Toastic.LENGTH_SHORT,
+                type = Toastic.ERROR,
+                isIconAnimated = true,
+                textColor = if (false) Color.BLUE else null,
+            ).show()
         }
         // Observe isLoading to show/hide progress
         acceptBookingViewModel.isLoading.observe(requireActivity()) { isLoading ->
@@ -152,7 +155,14 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
             }
         }
         acceptBookingViewModel.modelAccept.observe(requireActivity()) { response ->
-            Toast.makeText(context, response.message, Toast.LENGTH_SHORT).show()
+            Toastic.toastic(
+                context = requireActivity(),
+                message = response.message,
+                duration = Toastic.LENGTH_SHORT,
+                type = Toastic.SUCCESS,
+                isIconAnimated = true,
+                textColor = if (false) Color.BLUE else null,
+            ).show()
             makeGetBookingAPICall("")
         }
     }
@@ -198,15 +208,6 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
             layoutManager.scrollToPositionWithOffset(todayPosition, binding.recyclerView.width / 2)
         }
     }
-
-
-
-
-
-    companion object {
-        var postalCodeNew = ""
-    }
-
 
 
     override fun accept(bookingId: String) {

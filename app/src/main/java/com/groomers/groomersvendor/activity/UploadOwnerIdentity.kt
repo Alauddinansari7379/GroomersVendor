@@ -14,10 +14,10 @@ import androidx.activity.viewModels
 import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.databinding.ActivityUploadOwnerIdentityBinding
 import com.groomers.groomersvendor.helper.CustomLoader
+import com.groomers.groomersvendor.helper.Toastic
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.viewmodel.LocationViewModel
 import com.groomers.groomersvendor.viewmodel.MyApplication
-import com.groomers.groomersvendor.viewmodel.RegisterViewModel
 import java.io.File
 
 class UploadOwnerIdentity : Common() {
@@ -75,7 +75,14 @@ class UploadOwnerIdentity : Common() {
             val selectedIdProof = binding.spinnerIdProof.selectedItem.toString()
 
             if (selectedIdProof == "Select id proof") {
-                Toast.makeText(this, "Please select a id proof", Toast.LENGTH_SHORT).show()
+                Toastic.toastic(
+                    context = this@UploadOwnerIdentity,
+                    message = "Please select a id proof",
+                    duration = Toastic.LENGTH_SHORT,
+                    type = Toastic.WARNING,
+                    isIconAnimated = true,
+                    textColor = if (false) Color.BLUE else null,
+                ).show()
                 return@setOnClickListener
             }
 
@@ -83,8 +90,6 @@ class UploadOwnerIdentity : Common() {
                 Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
-
             val intent = Intent(this@UploadOwnerIdentity, BankInformation::class.java)
             startActivity(intent)
         }
@@ -92,19 +97,21 @@ class UploadOwnerIdentity : Common() {
 
     private fun setupSpinners() {
 
-        val zipCodeList = listOf("Select id proof","Passport",
-                "National Identity Card (if applicable)",
-                "Driver’s License",
-                "Voter ID Card",
-                "Social Security Card (USA) / Aadhaar Card (India) / Similar National ID",
-                "Birth Certificate",
-                "Government Employee ID",
-                "PAN Card (India) / Taxpayer Identification Number (TIN)",
-                "Student ID (for academic purposes)",
-                "Work Permit / Residence Card (for non-citizens in some countries)")
-                val cityAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, zipCodeList)
-                cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                binding.spinnerIdProof.adapter = cityAdapter
+        val zipCodeList = listOf(
+            "Select id proof", "Passport",
+            "National Identity Card (if applicable)",
+            "Driver’s License",
+            "Voter ID Card",
+            "Social Security Card (USA) / Aadhaar Card (India) / Similar National ID",
+            "Birth Certificate",
+            "Government Employee ID",
+            "PAN Card (India) / Taxpayer Identification Number (TIN)",
+            "Student ID (for academic purposes)",
+            "Work Permit / Residence Card (for non-citizens in some countries)"
+        )
+        val cityAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, zipCodeList)
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerIdProof.adapter = cityAdapter
 
     }
 

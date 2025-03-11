@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.databinding.ActivityRegister3Binding
 import com.groomers.groomersvendor.helper.CustomLoader
+import com.groomers.groomersvendor.helper.Toastic
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.viewmodel.MyApplication
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -19,24 +20,20 @@ import java.io.File
 class Register3 : Common() {
 
     private val binding by lazy { ActivityRegister3Binding.inflate(layoutInflater) }
-//    private lateinit var viewModel: RegisterViewModel
-private val viewModel by lazy {
-    (application as MyApplication).registerViewModel
-}
 
+    private val viewModel by lazy {
+        (application as MyApplication).registerViewModel
+    }
 
+    private var changeTextColor: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         // Get the background color of the root view
         val backgroundColor = (binding.root.background as? ColorDrawable)?.color ?: Color.WHITE
-
         // Update the status bar color to match the background color
         updateStatusBarColor(backgroundColor)
-        // Initialize ViewModel
-//        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
-
 
         // Retrieve data from intent
         val businessCategory = viewModel.businessCategory ?: ""
@@ -58,9 +55,22 @@ private val viewModel by lazy {
         binding.btnContinue3.setOnClickListener {
             if (validateBusinessHours()) {
                 // Make the API call to register the user
-                registerUser(name, mobile, email, password, teamSize, businessName, businessCategory, city, zipcode, shopAgreement,businessName)
+                registerUser(
+                    name,
+                    mobile,
+                    email,
+                    password,
+                    teamSize,
+                    businessName,
+                    businessCategory,
+                    city,
+                    zipcode,
+                    shopAgreement,
+                    businessName
+                )
             } else {
-                Toast.makeText(this, "Please select at least one working day.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please select at least one working day.", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -76,7 +86,7 @@ private val viewModel by lazy {
         // Observe error message
         viewModel.errorMessage.observe(this, Observer { errorMessage ->
 
-            if (errorMessage!=null) {
+            if (errorMessage != null) {
                 Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
             }
 
@@ -86,7 +96,15 @@ private val viewModel by lazy {
         viewModel.modelRegister.observe(this, Observer { response ->
             if (response != null && response.status == 1) {
                 // Handle success - Show success message or navigate to another screen
-                Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+
+                Toastic.toastic(
+                    context = this@Register3,
+                    message = "Registration Successful",
+                    duration = Toastic.LENGTH_SHORT,
+                    type = Toastic.SUCCESS,
+                    isIconAnimated = true,
+                    textColor = if (changeTextColor) Color.BLUE else null,
+                ).show()
                 // Navigate to the next screen if needed
                 val intent = Intent(this@Register3, RegisterSuccess::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -121,7 +139,7 @@ private val viewModel by lazy {
             name, mobile, email, password, password, // passwordConfirmation
             "vendor", businessName, businessCategory, "Best shop in town",
             teamSize, "123 Street", city, zipcode, "Aadhar", "Haircut, Spa",
-            "40.7128", "-74.0060", shopAgreement,"1",businessName
+            "40.7128", "-74.0060", shopAgreement, "1", businessName
         )
     }
 

@@ -23,6 +23,12 @@
         android:theme="@style/Theme.GroomersVendor"
         tools:targetApi="31">
         <activity
+            android:name=".activity.HelpList"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddHelp"
+            android:exported="false" />
+        <activity
             android:name=".activity.BankInformation"
             android:exported="false" />
         <activity
@@ -39,9 +45,6 @@
             android:exported="false" />
         <activity
             android:name=".activity.AboutYourCredentials"
-            android:exported="false" />
-        <activity
-            android:name=".activity.Contact"
             android:exported="false" />
         <activity
             android:name=".activity.Marketing"
@@ -72,9 +75,6 @@
             android:exported="false" />
         <activity
             android:name=".activity.SelectLanguage"
-            android:exported="false" />
-        <activity
-            android:name=".activity.Welcome2"
             android:exported="false" />
         <activity
             android:name=".activity.Welcome"

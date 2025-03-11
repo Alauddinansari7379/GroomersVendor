@@ -3,20 +3,18 @@ package com.groomers.groomersvendor.activity
 import android.annotation.SuppressLint
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.groomers.groomersvendor.MainActivity
-import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivityAddServiceDetailsBinding
 import com.groomers.groomersvendor.helper.CustomLoader
+import com.groomers.groomersvendor.helper.Toastic
 import com.groomers.groomersvendor.retrofit.ApiService
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
-import com.groomers.groomersvendor.viewmodel.CreateServiceViewModel
 import com.groomers.groomersvendor.viewmodel.MyApplication
-
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -48,7 +46,7 @@ class AddServiceDetails : AppCompatActivity() {
     private fun setupInitialValues() {
         viewModel.apply {
             binding.etServiceName.setText(serviceName)
-            binding.etDiscount.setText(price)
+            binding.etDiscount.setText(discount)
             binding.etDuration.setText(time)
 
             if (!editFlag.isNullOrEmpty()) {
@@ -149,7 +147,14 @@ class AddServiceDetails : AppCompatActivity() {
     private fun observeViewModel() {
         viewModel.modelCreateService.observe(this) { result ->
             if (result != null && result.status == 1) {
-                Toast.makeText(this, "Service added successfully.", Toast.LENGTH_SHORT).show()
+                Toastic.toastic(
+                    context = this@AddServiceDetails,
+                    message = "Service added successfully.",
+                    duration = Toastic.LENGTH_SHORT,
+                    type = Toastic.SUCCESS,
+                    isIconAnimated = true,
+                    textColor = if (false) Color.BLUE else null,
+                ).show()
                 val intent = Intent(this, MainActivity::class.java).apply {
                     putExtra("openFragment", "HomeFragment")
                 }
@@ -160,7 +165,14 @@ class AddServiceDetails : AppCompatActivity() {
 
         viewModel.modelUpdateService.observe(this) { result ->
             if (result != null && result.status == 1) {
-                Toast.makeText(this, "Service updated successfully.", Toast.LENGTH_SHORT).show()
+                Toastic.toastic(
+                    context = this@AddServiceDetails,
+                    message = "Service updated successfully.",
+                    duration = Toastic.LENGTH_SHORT,
+                    type = Toastic.SUCCESS,
+                    isIconAnimated = true,
+                    textColor = if (false) Color.BLUE else null,
+                ).show()
                 val intent = Intent(this, MainActivity::class.java).apply {
                     putExtra("openFragment", "HomeFragment")
                 }

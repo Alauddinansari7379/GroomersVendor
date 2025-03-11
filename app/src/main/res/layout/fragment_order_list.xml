@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:text="Marketing"
         android:textSize="16sp"
+        android:visibility="gone"
         android:fontFamily="@font/sf_bold"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,6 +28,7 @@
         android:layout_height="24dp"
         android:src="@drawable/bar"
         app:tint="@color/mainColor"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 

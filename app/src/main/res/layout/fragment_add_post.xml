@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:scrollbars="none">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -178,6 +178,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -226,7 +227,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="15dp">
 
             <EditText
                 android:id="@+id/edPrice"
@@ -235,7 +236,7 @@
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/corner"
-                android:hint="Enter Price"
+                android:hint="Price starting from"
                 android:inputType="number"
                 android:padding="10dp"
                 android:textSize="15dp">
@@ -259,7 +260,319 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <Spinner
+                android:id="@+id/spinnerUserType"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/corner_edt" />
+            <EditText
+                android:id="@+id/etDiscount"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/corner"
+                android:hint="Enter discount"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textSize="15dp">
 
+            </EditText>
+        </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Service Duration">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_bold"
+                android:paddingVertical="8dp"
+                android:focusable="false"
+                android:clickable="true"
+                android:inputType="none"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:backgroundTint="#E3E8E7"
+                android:elevation="5dp"
+                app:cardCornerRadius="15dp"
+
+                >
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnStartTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/mainColor"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="Start duration"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white" />
+
+
+                        <Button
+                            android:id="@+id/btnEndTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/mainColor"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="End duration"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutDateFromDilog"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvStartTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="00:00:00"
+                            android:textColor="@color/black" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvEndTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="00:00:00"
+                            android:textColor="@color/black" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:visibility="gone">
+
+                        <Button
+                            android:id="@+id/btnDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="45dp"
+                            android:layout_marginEnd="45dp"
+                            android:backgroundTint="@color/mainColor"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="Date"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white" />
+
+                    </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:textStyle="bold"
+                        android:text="Select Day"
+                        android:textColor="@color/black" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/corner">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spinnerDay"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp">
+
+                            </androidx.appcompat.widget.AppCompatSpinner>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            >
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <!-- Minus Button -->
+                                <Button
+                                    android:id="@+id/btnMinus"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="−"
+                                    android:background="@android:color/darker_gray"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="18sp"/>
+
+                                <!-- Quantity TextView -->
+                                <TextView
+                                    android:id="@+id/tvQuantity"
+                                    android:layout_width="50dp"
+                                    android:layout_height="40dp"
+                                    android:gravity="center"
+                                    android:text="1"
+                                    android:textSize="18sp"
+                                    android:background="@android:color/white"
+                                    android:layout_marginHorizontal="5dp"
+                                    android:textColor="@android:color/black"
+                                    android:padding="5dp"/>
+
+                                <!-- Plus Button -->
+                                <Button
+                                    android:id="@+id/btnPlus"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="+"
+                                    android:background="@android:color/holo_blue_dark"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="18sp"/>
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:visibility="gone"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:textSize="14sp"
+                            android:text="01-02-2023"
+                            android:textColor="@color/black" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/corner">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spinnerService"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp">
+
+                            </androidx.appcompat.widget.AppCompatSpinner>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+
+                        <Button
+                            android:id="@+id/btnCreate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:visibility="gone"
+                            android:text="Create"
+                            android:textAllCaps="false" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

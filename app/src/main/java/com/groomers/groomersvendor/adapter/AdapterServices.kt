@@ -14,7 +14,7 @@ import com.groomers.groomersvendor.databinding.SingleRowServicesBinding
 import com.groomers.groomersvendor.model.modelcategory.Result
 import com.groomers.groomersvendor.viewmodel.MyApplication
 
-class AdapterServices(private val categoryList: List<Result>, val context: Context) : RecyclerView.Adapter<AdapterServices.CategoryViewHolder>() {
+class AdapterServices(private var categoryList: List<Result>, val context: Context) : RecyclerView.Adapter<AdapterServices.CategoryViewHolder>() {
 
     private var selectedPosition = -1 // No item selected initially
 
@@ -51,5 +51,10 @@ class AdapterServices(private val categoryList: List<Result>, val context: Conte
     }
     companion object{
         var serviceName=""
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(newList: List<Result>) {
+        categoryList = newList
+        notifyDataSetChanged()
     }
 }

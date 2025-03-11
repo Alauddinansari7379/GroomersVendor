@@ -21,6 +21,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivityManageSlotsBinding
 import com.groomers.groomersvendor.helper.CustomLoader
+import com.groomers.groomersvendor.helper.Toastic
 import com.groomers.groomersvendor.model.ModelDay
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.viewmodel.SlotViewModel
@@ -118,8 +119,14 @@ class ManageSlots : AppCompatActivity() {
         // Observe the result of the login attempt
         viewModel.modelSlot.observe(context) { modelSlot ->
             if (modelSlot!=null && modelSlot.status == 1) {
-                Toast.makeText(this@ManageSlots, "Slot create successfully", Toast.LENGTH_SHORT)
-                    .show()
+                Toastic.toastic(
+                    context = this@ManageSlots,
+                    message = "Slot create successfully",
+                    duration = Toastic.LENGTH_SHORT,
+                    type = Toastic.SUCCESS,
+                    isIconAnimated = true,
+                    textColor = if (false) Color.BLUE else null,
+                ).show()
                 finish()
             }
         }
@@ -245,7 +252,7 @@ class ManageSlots : AppCompatActivity() {
     }
 
 
-    @SuppressLint("SetTextI18n", "LogNotTimber")
+    @SuppressLint("SetTextI18n", "LogNotTimber", "DefaultLocale")
     private fun startTime() {
         val view = layoutInflater.inflate(R.layout.time_picker_dialog, null)
         val dialog = Dialog(this)
@@ -321,11 +328,6 @@ class ManageSlots : AppCompatActivity() {
         val serviceAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, serviceList)
         serviceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerService.adapter = serviceAdapter
-
-        val quantityList = listOf("Select quantity","0","1","2","3","4","5","6","7","8","9")
-        val quantityAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, quantityList)
-        quantityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        binding.spinnerQty.adapter = quantityAdapter
 
     }
 

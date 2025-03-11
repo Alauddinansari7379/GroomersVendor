@@ -2,8 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#E9E4E4"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E9E4E4">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -36,8 +36,7 @@
                     app:cardElevation="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    >
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -54,6 +53,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
                         <ImageView
                             android:id="@+id/cameraBtn"
                             android:layout_width="@dimen/_25sdp"
@@ -74,8 +74,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:visibility="gone"
                             android:orientation="horizontal"
+                            android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/cameraBtn">
 
@@ -126,11 +126,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:visibility="gone"
                             android:fontFamily="@font/sf_bold"
                             android:text="@string/ash"
                             android:textColor="@android:color/black"
                             android:textSize="16sp"
+                            android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/store_badge" />
@@ -146,8 +146,7 @@
                             app:cardElevation="16dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/name_text"
-                            >
+                            app:layout_constraintTop_toBottomOf="@id/name_text">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
@@ -207,22 +206,21 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                       >
+                        android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/add_cover_button"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
-                            android:textSize="12sp"
                             android:layout_marginTop="16dp"
                             android:layout_marginEnd="8dp"
                             android:background="@drawable/button_border"
                             android:drawablePadding="5dp"
                             android:text="View on groomers"
                             android:textColor="@color/black"
-                            app:layout_constraintStart_toStartOf="parent"
+                            android:textSize="12sp"
                             app:layout_constraintEnd_toStartOf="@id/share_profile_button"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintWidth_percent="0.48" /> <!-- Ensures both buttons share space -->
 
@@ -232,12 +230,12 @@
                             android:layout_height="40dp"
                             android:layout_marginTop="16dp"
                             android:layout_marginEnd="16dp"
-                            android:textSize="12sp"
                             android:background="@drawable/button_border"
                             android:drawableEnd="@drawable/scan"
-                            android:text="@string/share_profile"
                             android:drawablePadding="5dp"
+                            android:text="@string/share_profile"
                             android:textColor="@color/black"
+                            android:textSize="12sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/add_cover_button"
                             app:layout_constraintTop_toTopOf="parent"
@@ -256,8 +254,7 @@
                     app:cardElevation="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/header_card"
-                    >
+                    app:layout_constraintTop_toBottomOf="@id/header_card">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -296,6 +293,7 @@
                                 android:textSize="14sp" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
+
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
@@ -315,8 +313,7 @@
                     app:cardElevation="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/card_create_slot"
-                    >
+                    app:layout_constraintTop_toBottomOf="@id/card_create_slot">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:id="@+id/llSlotlist"
@@ -356,6 +353,7 @@
                                 android:textSize="14sp" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
+
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
@@ -375,8 +373,7 @@
                     app:cardElevation="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/card_slot_list"
-                    >
+                    app:layout_constraintTop_toBottomOf="@id/card_slot_list">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -414,6 +411,7 @@
                                 android:textSize="14sp" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
+
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
@@ -425,18 +423,16 @@
 
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_social_post"
+                    android:id="@+id/cardHelpList"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="4dp"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/card_finance_center"
-                    >
+                    app:layout_constraintTop_toBottomOf="@id/card_finance_center">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -447,7 +443,8 @@
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/share" />
+                            android:src="@drawable/baseline_help_24"
+                            android:tint="@color/mainColor" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="0dp"
@@ -461,7 +458,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/sf_bold"
-                                android:text="@string/create_a_social_post"
+                                android:text="Help list"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -469,11 +466,12 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/sf_regular"
-                                android:text="@string/use_social_post_creator_to_keep_yourself_busy"
+                                android:text="See all the help list"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="14sp" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
+
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
@@ -489,13 +487,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:visibility="gone"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="4dp"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/card_social_post"
-                   >
+                    app:layout_constraintTop_toBottomOf="@id/cardHelpList">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -533,6 +530,7 @@
                                 android:textSize="14sp" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
+
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
@@ -547,11 +545,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:visibility="gone"
                     android:background="@drawable/card_background"
-
                     android:orientation="vertical"
+
                     android:padding="16dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/card_transaction_summary">
@@ -668,8 +666,8 @@
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:visibility="gone">
 
                             <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/tab_today"
@@ -711,10 +709,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:visibility="gone"
                         android:background="@drawable/card_background"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        android:visibility="gone">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="wrap_content"
@@ -793,21 +791,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:visibility="gone"
                         android:layout_marginBottom="8dp"
                         android:fontFamily="@font/sf_bold"
                         android:text="@string/booksy_library"
                         android:textColor="@android:color/black"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:visibility="gone" />
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/card_background"
                         android:elevation="2dp"
-                        android:visibility="gone"
                         android:orientation="horizontal"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        android:visibility="gone">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="48dp"
@@ -837,6 +835,7 @@
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="12sp" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
+
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
@@ -844,6 +843,7 @@
                             android:contentDescription="@string/finance_center_icon"
                             android:src="@drawable/arrow_right" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
+
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cardLogout"
                         android:layout_width="match_parent"
@@ -854,8 +854,7 @@
                         app:cardElevation="4dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/header_card"
-                        >
+                        app:layout_constraintTop_toBottomOf="@id/header_card">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
@@ -894,6 +893,7 @@
                                     android:textSize="14sp" />
 
                             </androidx.appcompat.widget.LinearLayoutCompat>
+
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
@@ -926,19 +926,19 @@
         android:id="@+id/btnFloating"
         android:layout_width="150dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/black"
         android:clickable="true"
-        android:textColor="@color/white"
-         android:focusable="true"
+        android:focusable="true"
         android:foregroundGravity="center"
         android:gravity="center"
         android:text="@string/settings"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="11sp"
         app:icon="@drawable/settings"
         app:iconSize="20dp"
-        android:layout_marginEnd="10dp"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -947,5 +947,5 @@
     </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
 
 
- </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
