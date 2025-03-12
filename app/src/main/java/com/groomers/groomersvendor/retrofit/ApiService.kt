@@ -1,6 +1,5 @@
 package com.groomers.groomersvendor.retrofit
 
-import ModelLogin
 import com.groomers.groomersvendor.model.modelAccept.ModelAccept
 import com.groomers.groomersvendor.model.modelGetBooking.ModelGetBooking
 import com.groomers.groomersvendor.model.modeladdhelp.ModelAddHelp
@@ -9,6 +8,7 @@ import com.groomers.groomersvendor.model.modelcity.ModelCity
 import com.groomers.groomersvendor.model.modelcreateservice.ModelCreateServiceX
 import com.groomers.groomersvendor.model.modeldeleteservice.ModelDeleteService
 import com.groomers.groomersvendor.model.modelhelplist.ModelHelpList
+import com.groomers.groomersvendor.model.modellogin.ModelLogin
 import com.groomers.groomersvendor.model.modelregister.ModelRegister
 import com.groomers.groomersvendor.model.modelservice.ModelService
 import com.groomers.groomersvendor.model.modelsingleservice.ModelSingleService
@@ -179,6 +179,13 @@ interface ApiService {
     @Multipart
     @POST("profile_picture")
     suspend fun uploadProfilePicture(
+        @Header("Authorization") authorization: String,
+        @Part image: MultipartBody.Part
+    ): Response<ModelUpdateProfPhoto>
+
+    @Multipart
+    @POST("profile_picture")
+    suspend fun uploadCoverPicture(
         @Header("Authorization") authorization: String,
         @Part image: MultipartBody.Part
     ): Response<ModelUpdateProfPhoto>

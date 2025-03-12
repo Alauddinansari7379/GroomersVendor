@@ -75,6 +75,40 @@ class ProfileViewModel @Inject constructor(
             "Error processing response"
         }
     }
+
+    fun uploadCoverPicture(file: File) {
+        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+        val body = MultipartBody.Part.createFormData("image", file.name, requestFile)
+
+        viewModelScope.launch {
+            _uploadResult.postValue("Uploading...")
+            try {
+                val response = apiService.uploadCoverPicture("Bearer ${sessionManager.accessToken}",body)
+
+                if (response.isSuccessful && response.body() != null) {
+                    val responseBody = response.body()!!
+                    if (responseBody.status == 1) {
+                        val newProfileUrl = responseBody.result.profile_picture // Assuming API returns the updated URL
+
+                        // Store new profile picture URL in session
+                        sessionManager.coverPictureUrl = newProfileUrl
+                        _uploadResult.postValue(responseBody.message)
+                    } else {
+                        _uploadResult.postValue("Error: ${responseBody.message}")
+                    }
+                } else {
+                    _uploadResult.postValue(parseErrorMessage(response))
+                }
+            } catch (e: IOException) {
+                _uploadResult.postValue("No internet connection. Please try again.")
+            } catch (e: HttpException) {
+                _uploadResult.postValue("Server error (${e.code()}): ${e.message()}")
+            } catch (e: Exception) {
+                _uploadResult.postValue(e.localizedMessage ?: "An unexpected error occurred")
+            }
+        }
+    }
+
     fun clearRegisterData() {
         _uploadResult.value = null
     }

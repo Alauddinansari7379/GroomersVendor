@@ -1,8 +1,8 @@
 package com.groomers.groomersvendor.viewmodel
 
-import ModelLogin
 import android.app.Application
 import androidx.lifecycle.*
+import com.groomers.groomersvendor.model.modellogin.ModelLogin
 
 import com.groomers.groomersvendor.retrofit.ApiService
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
@@ -47,6 +47,7 @@ class LoginViewModel @Inject constructor(
                         _modelLogin.postValue(responseBody)
                         sessionManager.accessToken = responseBody!!.access_token
                         sessionManager.isLogin = true
+                        sessionManager.userName = responseBody.user.name
                     } else {
                         _errorMessage.postValue("Incorrect email or password. Please try again.")
                     }
@@ -80,17 +81,6 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun getStoredToken(): String? {
-        return sessionManager.accessToken
-    }
-
-    fun checkLoginStatus(): Boolean {
-        return sessionManager.isLogin
-    }
-
-    fun logout() {
-        sessionManager.clearSession()
-    }
     private fun isValidEmail(input: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(input).matches()
     }

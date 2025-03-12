@@ -1,5 +1,4 @@
 package com.groomers.groomersvendor.fragment
-
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -66,14 +65,14 @@ import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
 import androidx.core.graphics.drawable.toDrawable
+import com.groomers.groomersvendor.adapter.DaysAdapter
 
 @AndroidEntryPoint
-class AddPostFragment : Fragment(R.layout.fragment_add_post) {
+class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     private lateinit var binding: FragmentAddPostBinding
 
     @Inject
     lateinit var sessionManager: SessionManager
-    private var selectService: Boolean = false
     var selectedDate = ""
     var userType: String = ""
     var mydilaog: Dialog? = null
@@ -84,6 +83,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     }
     lateinit var parts: MultipartBody.Part
     private val slotViewModel: SlotViewModel by viewModels()
+    lateinit var daysAdapter: DaysAdapter
 
     private lateinit var imageUri: Uri
     var quantity = 1
@@ -111,8 +111,6 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
                 binding.imageViewPreview.setImageURI(it)
                 handleImageSelection(it)
                 binding.imageViewPreview.visibility = View.VISIBLE
-//                binding.textImageSelected.text = "Image selected successfully ✅"
-//                binding.textImageSelected.visibility = View.VISIBLE
             }
         }
 
@@ -142,17 +140,33 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
         dayList.add(ModelDay("Friday", "5"))
         dayList.add(ModelDay("Saturday", "6"))
         dayList.add(ModelDay("Sunday", "7"))
-
+        val selectedDays = linkedSetOf<ModelDay>()
         binding.spinnerDay.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
-                if (dayList.size > 0) {
+                if (dayList.isNotEmpty()) {
                     dayId = dayList[i].id.toString()
+                    val selectedDay = dayList[i]
+                    if (selectedDays.add(selectedDay)) {
+                        daysAdapter.updateList(selectedDays.toMutableList())
+                    } else {
+                        Toast.makeText(requireContext(), "${selectedDay.day} is already selected", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
 
             override fun onNothingSelected(adapterView: AdapterView<*>?) {}
         }
 
+
+         daysAdapter = DaysAdapter(requireContext(),
+            selectedDays.toMutableList()
+        ) { removedDay ->
+            selectedDays.remove(removedDay) // Remove from list
+            daysAdapter.updateList(selectedDays.toMutableList()) // Update RecyclerView
+        }
+
+
+        binding.rvHorizontalList.adapter = daysAdapter
         binding.spinnerDay.adapter =
             ArrayAdapter<ModelDay>(requireContext(), android.R.layout.simple_list_item_1, dayList)
 
@@ -327,109 +341,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
         )
     }
 
-//    private fun validateAndProceed() {
-//        val endT = binding.tvStartTime.text.toString().replace(":", "").toString()
-//        val selectedService = binding.spinnerService.selectedItem.toString()
-//        viewModel.serviceName=serviceName
-//        if (endT == "000000"
-//        ) {
-//            SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
-//                .setTitleText("The session slabs must be within the time limit of the clinic timings")
-//                .setConfirmText("Ok")
-//                .showCancelButton(true)
-//                .setConfirmClickListener { sDialog ->
-//                    sDialog.cancel()
-//
-//                }
-//                .setCancelClickListener { sDialog ->
-//                    sDialog.cancel()
-//                }
-//                .show()
-//            return
-//        }
-//        if (selectedService == "Select service") {
-//            SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
-//                .setTitleText("Please select the service")
-//                .setConfirmText("Ok")
-//                .showCancelButton(true)
-//                .setConfirmClickListener { sDialog ->
-//                    sDialog.cancel()
-//
-//                }
-//                .setCancelClickListener { sDialog ->
-//                    sDialog.cancel()
-//                }
-//                .show()
-//            return
-//        }
-//
-//
-//
-//        val endT1 = binding.tvEndTime.text.toString().replace(":", "").toString()
-//        if (endT1 == "000000"
-//        ) {
-//            SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
-//                .setTitleText("The session slabs must be within the time limit of the clinic timings")
-//                .setConfirmText("Ok")
-//                .showCancelButton(true)
-//                .setConfirmClickListener { sDialog ->
-//                    sDialog.cancel()
-//                }
-//                .setCancelClickListener { sDialog ->
-//                    sDialog.cancel()
-//                }
-//                .show()
-//            return
-//
-//        }
-//        userType = binding.spinnerUserType.selectedItem.toString()
-//        val discount = binding.etDiscount.text.toString().trim()
-//        val serviceDuration = binding.etDuration.text.toString().trim()
-//
-//        if (discount.isEmpty()) {
-//            binding.etDiscount.error = "Please enter discount"
-//            binding.etDiscount.requestFocus()
-//            return
-//        }
-//        if (serviceDuration.isEmpty()) {
-//            binding.etDuration.error = "Please enter service duration"
-//            binding.etDuration.requestFocus()
-//            return
-//        }
-//        if (serviceName.isEmpty()) {
-//            showError("Please select a service before proceeding!")
-//            return
-//        }
-//        viewModel.apply {
-//            description = binding.editTextDescription.text.toString().trim()
-//            price = binding.edPrice.text.toString().trim()
-//            address = binding.editTextAddress.text.toString().trim()
-//            date = binding.date.text.toString().trim()
-//        }
-//
-//        when {
-//            viewModel.description.isNullOrEmpty() -> showErrorField(
-//                binding.editTextDescription,
-//                "Please enter a description"
-//            )
-//
-//            viewModel.images.toString().isNullOrEmpty() -> showError("Please select a service image")
-//            viewModel.price.isNullOrEmpty() -> showErrorField(
-//                binding.edPrice,
-//                "Please enter a price"
-//            )
-//
-//            viewModel.date.isNullOrEmpty() -> showErrorField(
-//                binding.date,
-//                "Please enter a service date"
-//            )
-//
-//
-//            else -> {
-//                slotViewModel.createSlot(ApiServiceProvider.getApiService(), startTime, endTime,dayId,selectedService,quantity.toString())
-//            }
-//        }
-//    }
+
 
     private fun validateAndProceed() {
         viewModel.serviceName = serviceName

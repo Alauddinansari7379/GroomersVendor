@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:scrollbars="none">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -540,6 +541,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/corner">
 
@@ -551,7 +553,19 @@
                             </androidx.appcompat.widget.AppCompatSpinner>
                         </LinearLayout>
 
+
                     </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvHorizontalList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/days_row"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginStart="10dp"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

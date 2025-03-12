@@ -7,10 +7,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:layout_marginTop="10dp"
         android:elevation="8dp"
-        app:cardCornerRadius="8dp"
-        android:layout_margin="10dp">
+        app:cardCornerRadius="8dp">
 
         <LinearLayout
             android:id="@+id/serviceItem111"
@@ -25,8 +25,7 @@
                 android:layout_height="80dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:scaleType="centerCrop"
-               />
+                android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="0dp"
@@ -48,12 +47,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/mobile_number"
                     android:textSize="14sp" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvQuery"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/query"
                     android:textSize="14sp" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvDescription"
                     android:layout_width="wrap_content"
@@ -61,8 +62,6 @@
                     android:text="@string/description"
                     android:textSize="14sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -27,7 +27,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
     private lateinit var bottomNav: BottomNavigationView
-    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    internal val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var wasPreviouslyConnected = true
     private val networkChangeReceiver = NetworkChangeReceiver()
     @Inject

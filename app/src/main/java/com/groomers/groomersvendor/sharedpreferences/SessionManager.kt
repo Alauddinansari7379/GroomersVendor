@@ -17,6 +17,11 @@ class SessionManager(context: Context) {
         set(value) {
             prefs.edit().putString(IMAGE_URL, value).apply()
         }
+    var userName: String?
+        get() = prefs.getString(USERNAME, null)
+        set(value) {
+            prefs.edit().putString(USERNAME, value).apply()
+        }
 
     var isLogin: Boolean
         get() = prefs.getBoolean(IS_LOGIN, false)
@@ -44,11 +49,19 @@ class SessionManager(context: Context) {
         set(value) {
             prefs.edit().putString(PROFILE_PICTURE_URL, value).apply()
         }
+
+    var coverPictureUrl: String?
+        get() = prefs.getString(COVER_PICTURE_URL, null)
+        set(value) {
+            prefs.edit().putString(COVER_PICTURE_URL, value).apply()
+        }
     companion object {
         private const val ACCESS_TOKEN = "ACCESS_TOKEN"
         private const val IS_LOGIN = "IS_LOGIN"
         private const val IMAGE_URL = "IMAGE_URL"
         private const val SELECTED_LANGUAGE = "SELECTED_LANGUAGE"
         private const val PROFILE_PICTURE_URL = "PROFILE_PICTURE_URL"
+        private const val COVER_PICTURE_URL = "COVER_PICTURE_URL"
+        private const val USERNAME = "USERNAME"
     }
 }

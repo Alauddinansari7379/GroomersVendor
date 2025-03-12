@@ -20,18 +20,17 @@ class AdapterHelpList(private var categoryList : List<Result>, val context : Con
     override fun getItemCount(): Int = categoryList.size
 
     override fun onBindViewHolder(holder: PopularViewHolder, position: Int) {
-//        with(categoryList[position]) {
-//            holder.binding.tvName.text = serviceName
-//            holder.binding.tvDescription.text = description
-//            Glide.with(context)
-//                .load("https://groomers.co.in/public/uploads/" + image)
-//                .into(holder.binding.ivServiceImage)
-//            holder.binding.btnBook.setOnClickListener {
-////                val intent = Intent(context, About::class.java)
-////                context.startActivity(intent)
-//                booking.booking()
-//            }
-//        }
+        with(categoryList[position]) {
+            holder.binding.tvName.text = name
+            holder.binding.tvQuery.text = query
+            holder.binding.tvMobile.text = mobile.toString()
+            holder.binding.tvDescription.text = description
+            Glide.with(context)
+                .load("https://groomers.co.in/public/uploads/" + image)
+                .into(holder.binding.ivHelpImage)
+
+
+        }
 
     }
     @SuppressLint("NotifyDataSetChanged")

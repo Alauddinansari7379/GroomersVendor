@@ -1,6 +1,5 @@
 package com.groomers.groomersvendor.viewmodel
 
-import ModelLogin
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
