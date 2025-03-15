@@ -2,6 +2,7 @@ package com.groomers.groomersvendor.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.groomers.groomersvendor.model.ModelGetVendor.ModelGetVendor
 import com.groomers.groomersvendor.model.modellogin.ModelLogin
 
 import com.groomers.groomersvendor.retrofit.ApiService
@@ -12,16 +13,17 @@ import okio.IOException
 import retrofit2.HttpException
 import retrofit2.Response
 import javax.inject.Inject
+
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+class GetVendorViewModel @Inject constructor(
     private val apiService: ApiService,
     application: Application,
     private val sessionManager: SessionManager
-) : AndroidViewModel(application)  {
+) : AndroidViewModel(application) {
 
-    private lateinit var response: Response<ModelLogin>
-    private val _modelLogin = MutableLiveData<ModelLogin?>()
-    val modelLogin: LiveData<ModelLogin?> = _modelLogin
+    private lateinit var response: Response<ModelGetVendor>
+    private val _modelGetVendor = MutableLiveData<ModelGetVendor?>()
+    val modelGetVendor: LiveData<ModelGetVendor?> = _modelGetVendor
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -29,33 +31,39 @@ class LoginViewModel @Inject constructor(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun login(email: String, password: String) {
+    fun getVendor() {
         _isLoading.postValue(true)
-
+        val token = sessionManager.accessToken
+        if (token.isNullOrEmpty()) {
+            _errorMessage.postValue("Authentication error: Please log in again.")
+            return
+        }
         viewModelScope.launch {
             try {
-                response = if (isValidEmail(email)) {
-                    apiService.login(email, password,"vendor")
-                }else{
-                    apiService.login(email, password,"vendor")
+                response= apiService.getVendor("Bearer $token")
+                val responseBody = response.body()
+                if (!responseBody?.result.isNullOrEmpty()) {
+                    _modelGetVendor.postValue(responseBody)
+                    for (i in responseBody!!.result) {
+                        sessionManager.name = i.name
+                        sessionManager.role = i.role
+                        sessionManager.mobile = i.mobile
+                        sessionManager.email = i.email
+                        sessionManager.businessName = i.businessName
+                        sessionManager.coverImage = i.vendorCoverImage.toString()
+                        sessionManager.teamSize = i.teamSize
+                        sessionManager.address = i.address
+                        sessionManager.isBank = i.IsBank.toString()
+                        sessionManager.accountNumber = i.AccountNumber
+                        sessionManager.accountName = i.AccountName
+                        sessionManager.bankName = i.BankName
+                        sessionManager.ifscCode = i.ifsc_code
+                        sessionManager.branchName = i.BranchName
+                        sessionManager.profilePictureUrl = i.profile_picture
+                        sessionManager.coverPictureUrl = i.vendorCoverImage
 
-//                    apiService.loginWithUsername(email,password,"vendor")
-                }
-
-                if (response.isSuccessful && response.body() != null) {
-                    val responseBody = response.body()
-                    if (!responseBody?.access_token.isNullOrEmpty()) {
-                        _modelLogin.postValue(responseBody)
-                        sessionManager.accessToken = responseBody!!.access_token
-                        sessionManager.isLogin = true
-                        sessionManager.userName = responseBody.user.name
-                    } else {
-                        _errorMessage.postValue("Incorrect email or password. Please try again.")
                     }
-                } else {
-                    val errorBody = response.errorBody()?.string()
-                    val errorMessage = parseErrorMessage(response.code(), errorBody)
-                    _errorMessage.postValue(errorMessage)
+
                 }
             } catch (e: IOException) {
                 // Network-related error (e.g., no internet connection)
@@ -82,7 +90,4 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun isValidEmail(input: String): Boolean {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(input).matches()
-    }
 }

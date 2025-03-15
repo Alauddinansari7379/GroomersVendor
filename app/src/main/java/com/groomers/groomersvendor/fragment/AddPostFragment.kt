@@ -116,7 +116,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View = FragmentAddPostBinding.inflate(inflater, container, false).also {
+    ): View? = FragmentAddPostBinding.inflate(inflater, container, false).also {
         binding = it
     }.root
 
@@ -131,6 +131,8 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         observeViewModel1()
         setupClickListeners()
 
+        Log.e("BankName",sessionManager.bankName.toString())
+
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
         selectedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         dayList.add(ModelDay("Monday", "1"))
@@ -142,7 +144,11 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         dayList.add(ModelDay("Sunday", "7"))
         val selectedDays = linkedSetOf<ModelDay>()
         binding.spinnerDay.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
+            override fun onItemSelected(adapterView: AdapterView<*>, view: View?, i: Int, l: Long) {
+                if (view == null) {
+                    return
+                }
+
                 if (dayList.isNotEmpty()) {
                     dayId = dayList[i].id.toString()
                     val selectedDay = dayList[i]
@@ -154,11 +160,14 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                 }
             }
 
-            override fun onNothingSelected(adapterView: AdapterView<*>?) {}
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {
+
+            }
         }
 
 
-         daysAdapter = DaysAdapter(requireContext(),
+
+        daysAdapter = DaysAdapter(requireContext(),
             selectedDays.toMutableList()
         ) { removedDay ->
             selectedDays.remove(removedDay) // Remove from list
@@ -415,11 +424,11 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             return
         }
 
-        // Step 11: Validate Selected Service
-        if (selectedService == "Select service") {
-            showWarningDialog("Please select the service")
-            return
-        }
+//        // Step 11: Validate Selected Service
+//        if (selectedService == "Select service") {
+//            showWarningDialog("Please select the service")
+//            return
+//        }
 
         // Proceed with API call
         slotViewModel.createSlot(
@@ -427,7 +436,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             startTimeFormatted,
             endTimeFormatted,
             dayId,
-            selectedService,
+            serviceName,
             quantity.toString()
         )
     }

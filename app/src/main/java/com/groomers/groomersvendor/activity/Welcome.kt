@@ -69,9 +69,9 @@ class Welcome : Common() {
                     currentPage = 0 // Reset to the first slide if needed
                 }
                 binding.viewPager.setCurrentItem(currentPage, true)
-                handler.postDelayed(this, 5000) // Repeat every 5 seconds
+                handler.postDelayed(this, 2000) // Repeat every 5 seconds
             }
-        }, 5000) // Initial delay
+        }, 2000) // Initial delay
     }
 
     override fun onDestroy() {

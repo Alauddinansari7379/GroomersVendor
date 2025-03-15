@@ -1,5 +1,6 @@
 package com.groomers.groomersvendor.retrofit
 
+import com.groomers.groomersvendor.model.ModelGetVendor.ModelGetVendor
 import com.groomers.groomersvendor.model.modelAccept.ModelAccept
 import com.groomers.groomersvendor.model.modelGetBooking.ModelGetBooking
 import com.groomers.groomersvendor.model.modeladdhelp.ModelAddHelp
@@ -200,4 +201,19 @@ interface ApiService {
         @Query("description") description : String,
         @Part image: MultipartBody.Part
     ): Response<ModelAddHelp>
+
+    @POST("getUser")
+    suspend fun getVendor(
+        @Header("Authorization") authorization: String,
+     ): Response<ModelGetVendor>
+
+    @POST("addBank")
+    suspend fun addBank(
+        @Header("Authorization") authorization: String,
+        @Query("AccountName") AccountName : String,
+        @Query("AccountNumber") AccountNumber : String,
+        @Query("BankName") BankName : String,
+        @Query("ifsc_code") ifsc_code : String,
+        @Query("BranchName") BranchName : String,
+        ): Response<ModelGetVendor>
 }

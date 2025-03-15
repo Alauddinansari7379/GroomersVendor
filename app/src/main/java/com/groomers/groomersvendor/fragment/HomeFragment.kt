@@ -4,6 +4,7 @@ import CalendarAdapter
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,7 +61,7 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
         }
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
+        Log.e("AccessToken", sessionManager.accessToken.toString())
 
         // Get the background color of the fragment's root view
         val backgroundColor = (view.background as? ColorDrawable)?.color ?: Color.WHITE
@@ -86,11 +87,11 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
 
     }
 
-    private fun makeGetBookingAPICall(date : String) {
+    private fun makeGetBookingAPICall(date: String) {
         val apiService = ApiServiceProvider.getApiService()
         sessionManager.accessToken?.let { token ->
             lifecycleScope.launch {
-                bookingViewModel.getBooking(apiService,token,date)
+                bookingViewModel.getBooking(apiService, token, date)
 //                bookingViewModel.getBooking(apiService,"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2dyb29tZXJzLmNvLmluL2FwaS9sb2dpbiIsImlhdCI6MTc0MDgxNDEzOSwiZXhwIjoyMzYyODk0MTM5LCJuYmYiOjE3NDA4MTQxMzksImp0aSI6Imx5YmdVMXBBZmVSdFZqOUYiLCJzdWIiOiI0MiIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.riltZ36eLz7qO3hMZCsCtb--x1YxO3x44tHtnZW0DpI",date)
             }
         } ?: run {
@@ -101,7 +102,8 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
                 type = Toastic.ERROR,
                 isIconAnimated = true,
                 textColor = if (false) Color.BLUE else null,
-            ).show()        }
+            ).show()
+        }
         // Observe isLoading to show/hide progress
         bookingViewModel.isLoading.observe(requireActivity()) { isLoading ->
             if (isLoading) {
@@ -131,7 +133,7 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
                 acceptBookingViewModel.acceptBooking(apiService, token, bookingId, slug)
             }
         } ?: run {
-             Toastic.toastic(
+            Toastic.toastic(
                 context = requireActivity(),
                 message = "Missing Token.",
                 duration = Toastic.LENGTH_SHORT,

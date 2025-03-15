@@ -113,7 +113,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/card_background"
-
+                android:visibility="gone"
                 android:orientation="vertical"
                 android:padding="16dp"
                 app:layout_constraintEnd_toEndOf="parent"

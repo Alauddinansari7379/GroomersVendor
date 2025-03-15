@@ -474,19 +474,19 @@
                                     android:layout_width="40dp"
                                     android:layout_height="40dp"
                                     android:text="−"
-                                    android:background="@android:color/darker_gray"
+                                    android:background="@drawable/corner"
                                     android:textColor="@android:color/white"
                                     android:textSize="18sp"/>
 
                                 <!-- Quantity TextView -->
                                 <TextView
                                     android:id="@+id/tvQuantity"
-                                    android:layout_width="50dp"
+                                    android:layout_width="40dp"
                                     android:layout_height="40dp"
                                     android:gravity="center"
                                     android:text="1"
                                     android:textSize="18sp"
-                                    android:background="@android:color/white"
+                                    android:background="@drawable/corner"
                                     android:layout_marginHorizontal="5dp"
                                     android:textColor="@android:color/black"
                                     android:padding="5dp"/>
@@ -494,10 +494,10 @@
                                 <!-- Plus Button -->
                                 <Button
                                     android:id="@+id/btnPlus"
-                                    android:layout_width="40dp"
+                                    android:layout_width="45dp"
                                     android:layout_height="40dp"
                                     android:text="+"
-                                    android:background="@android:color/holo_blue_dark"
+                                    android:background="@drawable/corner"
                                     android:textColor="@android:color/white"
                                     android:textSize="18sp"/>
                             </LinearLayout>
@@ -534,6 +534,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:orientation="horizontal">
                         <LinearLayout
                             android:layout_width="match_parent"

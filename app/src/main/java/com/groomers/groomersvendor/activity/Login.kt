@@ -11,6 +11,7 @@ import com.groomers.groomersvendor.helper.AppProgressBar
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.retrofit.ApiService
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
+import com.groomers.groomersvendor.viewmodel.GetVendorViewModel
 import com.groomers.groomersvendor.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -20,6 +21,7 @@ class Login : AppCompatActivity() {
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
     private val context = this@Login
     private val viewModel: LoginViewModel by viewModels()
+    private val viewModelGetVendor: GetVendorViewModel by viewModels()
     @Inject
     lateinit var apiService: ApiService
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +62,7 @@ class Login : AppCompatActivity() {
             // Observe the result of the login attempt
             viewModel.modelLogin.observe(context) { modelLogin ->
                 modelLogin?.let {
+                    viewModelGetVendor.getVendor()
                     // If login is successful, navigate to MainActivity
                     startActivity(Intent(context, MainActivity::class.java))
                     finish()
