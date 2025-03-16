@@ -11,8 +11,9 @@ import com.groomers.groomersvendor.activity.BankInformation
 import com.groomers.groomersvendor.databinding.FragmentFinanceBinding
 import com.groomers.groomersvendor.databinding.FragmentProfileBinding
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-
+@AndroidEntryPoint
 class FinanceFragment : Fragment() {
     private lateinit var binding: FragmentFinanceBinding
 

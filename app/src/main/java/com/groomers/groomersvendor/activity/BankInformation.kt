@@ -2,12 +2,20 @@ package com.groomers.groomersvendor.activity
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.groomers.groomersvendor.databinding.ActivityBankInformationBinding
+import com.groomers.groomersvendor.viewmodel.AddBankViewModel
+import com.groomers.groomersvendor.viewmodel.GetVendorViewModel
+import com.groomers.groomersvendor.viewmodel.MyApplication
 
 class BankInformation : AppCompatActivity() {
     private val binding by lazy { ActivityBankInformationBinding.inflate(layoutInflater) }
+    private val viewModel: AddBankViewModel by viewModels()
 
+    private val viewModelRegister by lazy {
+        (application as MyApplication).registerViewModel
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -30,6 +38,7 @@ class BankInformation : AppCompatActivity() {
         val accountNumber = binding.etAccountNumber.text.toString().trim()
         val ifscCode = binding.etIFSC.text.toString().trim()
         val branchName = binding.etBranchName.text.toString().trim()
+        viewModelRegister.services
 
         // Regex pattern for IFSC Code (4 letters + 7 numbers)
         val ifscPattern = Regex("^[A-Z]{4}0[A-Z0-9]{6}$")
@@ -71,8 +80,9 @@ class BankInformation : AppCompatActivity() {
             binding.etBranchName.requestFocus()
             return false
         }
-
+        viewModel.addBank(accountHolderName,accountNumber,bankName,ifscCode,branchName )
         return true
+
     }
 
 }
