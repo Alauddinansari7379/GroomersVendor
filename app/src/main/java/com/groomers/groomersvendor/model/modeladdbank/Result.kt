@@ -1,10 +1,10 @@
-package com.groomers.groomersvendor.model.modelupdateprfphoto
+package com.groomers.groomersvendor.model.modeladdbank
 
 data class Result(
-    val AccountName: Any,
-    val AccountNumber: Any,
-    val BankName: Any,
-    val BranchName: Any,
+    val AccountName: String,
+    val AccountNumber: String,
+    val BankName: String,
+    val BranchName: String,
     val IsBank: Int,
     val aboutBusiness: String,
     val address: String,
@@ -17,12 +17,12 @@ data class Result(
     val earnings: Any,
     val id: Int,
     val idproofType: String,
-    val idproofimage: Any,
-    val ifsc_code: Any,
+    val idproofimage: String,
+    val ifsc_code: String,
     val is_recommended: Any,
     val latitude: String,
     val longitude: String,
-    val mapUrl: Any,
+    val mapUrl: String,
     val membership: Any,
     val no_of_ratings: Any,
     val overall_ratings: Any,

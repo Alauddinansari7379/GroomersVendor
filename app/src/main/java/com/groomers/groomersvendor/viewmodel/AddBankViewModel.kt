@@ -6,24 +6,26 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.groomers.groomersvendor.model.ModelGetVendor.ModelGetVendor
+import com.groomers.groomersvendor.model.modeladdbank.ModelAddBank
 import com.groomers.groomersvendor.model.modeladdhelp.ModelAddHelp
 import com.groomers.groomersvendor.model.modelhelplist.ModelHelpList
 import com.groomers.groomersvendor.retrofit.ApiService
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
-
+@HiltViewModel
 class AddBankViewModel@Inject constructor(
     private val apiService: ApiService,
     application: Application,
     private val sessionManager: SessionManager
 ) : AndroidViewModel(application) {
 
-    private val _modelAddBank = MutableLiveData<ModelGetVendor?>()
-    val modelAddBank: LiveData<ModelGetVendor?> = _modelAddBank
+    private val _modelAddBank = MutableLiveData<ModelAddBank?>()
+    val modelAddBank: LiveData<ModelAddBank?> = _modelAddBank
 
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
@@ -43,6 +45,7 @@ class AddBankViewModel@Inject constructor(
                     val responseBody = response.body()
                     if (responseBody!!.status == 1) {
                         _modelAddBank.postValue(responseBody)
+                        sessionManager.isBank ="1"
                     } else {
                         _errorMessage.postValue(responseBody.message ?: "Something went wrong. Please try again.")
                     }

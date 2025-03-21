@@ -3,6 +3,7 @@ package com.groomers.groomersvendor.retrofit
 import com.groomers.groomersvendor.model.ModelGetVendor.ModelGetVendor
 import com.groomers.groomersvendor.model.modelAccept.ModelAccept
 import com.groomers.groomersvendor.model.modelGetBooking.ModelGetBooking
+import com.groomers.groomersvendor.model.modeladdbank.ModelAddBank
 import com.groomers.groomersvendor.model.modeladdhelp.ModelAddHelp
 import com.groomers.groomersvendor.model.modelcategory.ModelCategory
 import com.groomers.groomersvendor.model.modelcity.ModelCity
@@ -215,5 +216,5 @@ interface ApiService {
         @Query("BankName") BankName : String,
         @Query("ifsc_code") ifsc_code : String,
         @Query("BranchName") BranchName : String,
-        ): Response<ModelGetVendor>
+        ): Response<ModelAddBank>
 }

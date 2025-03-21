@@ -88,7 +88,7 @@ class ProfileViewModel @Inject constructor(
                 if (response.isSuccessful && response.body() != null) {
                     val responseBody = response.body()!!
                     if (responseBody.status == 1) {
-                        val newProfileUrl = responseBody.result.profile_picture // Assuming API returns the updated URL
+                        val newProfileUrl = responseBody.result.vendorCoverImage // Assuming API returns the updated URL
 
                         // Store new profile picture URL in session
                         sessionManager.coverPictureUrl = newProfileUrl

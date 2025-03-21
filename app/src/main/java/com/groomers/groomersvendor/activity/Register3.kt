@@ -46,6 +46,11 @@ class Register3 : Common() {
         val city = viewModel.city ?: ""
         val zipcode = viewModel.zipcode ?: ""
         val idproofImagePath = viewModel.idProofImagePath ?: ""
+        val accountName = viewModel.accountName ?: ""
+        val accountNo = viewModel.accountNo ?: ""
+        val bankName = viewModel.bankName ?: ""
+        val ifsc = viewModel.ifsc ?: ""
+        val branchName = viewModel.branchName ?: ""
 
         // Convert image path to MultipartBody.Part
         val shopAgreement = prepareFilePart("shop_agreement", idproofImagePath)
@@ -66,7 +71,12 @@ class Register3 : Common() {
                     city,
                     zipcode,
                     shopAgreement,
-                    businessName
+                    businessName,
+                    accountName,
+                    accountNo,
+                    bankName,
+                    ifsc,
+                    branchName
                 )
             } else {
                 Toast.makeText(this, "Please select at least one working day.", Toast.LENGTH_SHORT)
@@ -130,7 +140,12 @@ class Register3 : Common() {
         name: String, mobile: String, email: String, password: String, teamSize: String,
         businessName: String, businessCategory: String, city: String, zipcode: String,
         shopAgreement: MultipartBody.Part,
-        businessName1: String
+        businessName1: String,
+        accountName: String,
+        accountNo: String,
+        bankName: String,
+        ifsc: String,
+        branchName: String
     ) {
 
         val apiService = ApiServiceProvider.getApiService() // Initialize ApiService
@@ -139,7 +154,7 @@ class Register3 : Common() {
             name, mobile, email, password, password, // passwordConfirmation
             "vendor", businessName, businessCategory, "Best shop in town",
             teamSize, "123 Street", city, zipcode, "Aadhar", "Haircut, Spa",
-            "40.7128", "-74.0060", shopAgreement, "1", businessName
+            "40.7128", "-74.0060", shopAgreement, "1", businessName,accountName,accountNo,bankName,ifsc,branchName
         )
     }
 

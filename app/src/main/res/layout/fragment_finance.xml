@@ -92,16 +92,17 @@
                             android:padding="8dp"
                             android:layout_marginEnd="8dp"/>
 
-                        <!-- Actions Button -->
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/actionsButton"
-                            android:layout_width="wrap_content"
+
+                        <Spinner
+                            android:id="@+id/spinnerAction"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
                             android:layout_height="40dp"
-                            android:text="Actions ▼"
-                            android:background="@drawable/border"
-                            android:backgroundTint="@android:color/white"
-                            android:textColor="@android:color/black"
-                            android:padding="8dp"/>
+                            android:padding="10dp"
+                            android:gravity="center"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="16dp"
+                            android:background="@drawable/corner_edt" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -253,14 +254,9 @@
                         android:layout_height="40dp"
                         android:layout_marginEnd="8dp"
                         android:background="@drawable/tab_unselected"
-                        android:text="@string/january" />
+                        android:text="Month" />
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/tab_year"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:background="@drawable/tab_unselected"
-                        android:text="@string/_2025" />
+
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </HorizontalScrollView>
 
@@ -287,18 +283,19 @@
                     android:textSize="14sp" />
 
 
-                <View
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@color/light_gray" />
+                    android:layout_height="200dp" />
 
 
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:columnCount="2"
-                    android:rowCount="3">
+                    android:rowCount="3"
+                    android:visibility="gone">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"

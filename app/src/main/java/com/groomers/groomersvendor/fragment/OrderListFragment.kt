@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.activity.AddHelp
+import com.groomers.groomersvendor.activity.CreateInstaTemplate
 import com.groomers.groomersvendor.databinding.FragmentOrderListBinding
 
 
@@ -24,6 +25,9 @@ class OrderListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentOrderListBinding.bind(view)
+        binding.llInstagram.setOnClickListener {
+startActivity(Intent(requireContext(),CreateInstaTemplate::class.java))
+        }
         binding.cardGetHelp.setOnClickListener {
             startActivity(Intent(requireContext(), AddHelp::class.java))
         }

@@ -2,33 +2,39 @@ package com.groomers.groomersvendor.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.groomers.groomersvendor.R
-import com.groomers.groomersvendor.activity.About
 import com.groomers.groomersvendor.databinding.SingleRowServicesBinding
 import com.groomers.groomersvendor.model.modelcategory.Result
-import com.groomers.groomersvendor.viewmodel.MyApplication
 
-class AdapterServices(private var categoryList: List<Result>, val context: Context) : RecyclerView.Adapter<AdapterServices.CategoryViewHolder>() {
+class AdapterServices(private var categoryList: List<Result>, val context: Context) :
+    RecyclerView.Adapter<AdapterServices.CategoryViewHolder>() {
 
     private var selectedPosition = -1 // No item selected initially
+    private var selectedServiceName = "" // No item selected initially
 
-    inner class CategoryViewHolder(val binding: SingleRowServicesBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class CategoryViewHolder(val binding: SingleRowServicesBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        val binding = SingleRowServicesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            SingleRowServicesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CategoryViewHolder(binding)
     }
 
     override fun getItemCount(): Int = categoryList.size
 
-    override fun onBindViewHolder(holder: CategoryViewHolder, @SuppressLint("RecyclerView") position: Int) {
+    override fun onBindViewHolder(
+        holder: CategoryViewHolder,
+        @SuppressLint("RecyclerView") position: Int
+    ) {
         with(categoryList[position]) {
+            if (selectedServiceName.isNotEmpty()){
+                selectedPosition = categoryList.indexOfFirst { it.category_name == serviceName }
+            }
             holder.binding.tvName.text = category_name
             Glide.with(context)
                 .load("https://groomers.co.in/public/uploads/" + category_image)
@@ -45,16 +51,30 @@ class AdapterServices(private var categoryList: List<Result>, val context: Conte
             holder.binding.llHaircut.setOnClickListener {
                 selectedPosition = position
                 notifyDataSetChanged()
-                serviceName=categoryList[position].category_name
+                serviceName = categoryList[position].category_name
             }
         }
     }
-    companion object{
-        var serviceName=""
+
+    companion object {
+        var serviceName = ""
     }
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newList: List<Result>) {
-        categoryList = newList
+
+    fun selectedItem(serviceName: String) {
+        selectedServiceName = serviceName
+        selectedPosition = categoryList.indexOfFirst { it.category_name == serviceName }
         notifyDataSetChanged()
     }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(newList: List<Result>, selectedCategory: String) {
+        categoryList = newList
+        selectedPosition = categoryList.indexOfFirst { it.category_name == selectedCategory }
+
+
+            notifyDataSetChanged()
+
+    }
+
 }

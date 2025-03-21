@@ -67,6 +67,17 @@ class YourAddress : Common() {
             }
         }
         getLastLocation()
+        binding.btnReset.setOnClickListener {
+            binding.etAddress1.text?.clear()
+            binding.etAddress2.text?.clear()
+            binding.edtCity.text?.clear()
+            binding.edtZipCode.text?.clear()
+            binding.etMapUrl.text?.clear()
+
+            // Reset spinners to default selection
+            binding.spinnerCity.setSelection(0)
+            binding.spinnerZip.setSelection(0)
+        }
         binding.btnContinue.setOnClickListener {
             val selectedCity = binding.edtCity.text.toString()
             val selectedZip = binding.edtZipCode.text.toString()

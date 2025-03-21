@@ -66,9 +66,11 @@ import java.util.Locale
 import javax.inject.Inject
 import androidx.core.graphics.drawable.toDrawable
 import com.groomers.groomersvendor.adapter.DaysAdapter
+import com.groomers.groomersvendor.model.modelcategory.Result
 
 @AndroidEntryPoint
 class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
+    private lateinit var categoryList: List<Result>
     private lateinit var binding: FragmentAddPostBinding
 
     @Inject
@@ -91,6 +93,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     private var endTime = "00:00:00"
     private var startTime = "00:00:00"
     var dayId = ""
+    private lateinit var adapterServices:AdapterServices
 
     private val takePictureLauncher =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
@@ -125,6 +128,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapterServices=AdapterServices(emptyList(),requireContext())
         val postId = arguments?.getString("postId")
         setupSpinners()
         setupSpinners1()
@@ -230,17 +234,9 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                 binding.tvQuantity.text = quantity.toString()
             }
         }
-        if (!postId.isNullOrEmpty()) {
-            viewModel.editFlag = postId
-            binding.btnAddPost.text = "Update"
-            sessionManager.accessToken?.let { token ->
-                lifecycleScope.launch {
-                    viewModelService.getSingleService(token, postId)
-                    observeViewModel()
-                }
-            } ?: showError("Error: Missing Token")
-        }
         categoryViewModel.getCategory(ApiServiceProvider.getApiService())
+
+
 
 
         binding.layoutGallery.setOnClickListener { pickImageLauncher.launch("image/*") }
@@ -271,7 +267,17 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                 GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
             binding.rvService.layoutManager = gridLayoutManager
             binding.rvService.adapter = AdapterServices(modelCategory.result, requireContext())
-
+            categoryList = modelCategory.result
+            if (!postId.isNullOrEmpty()) {
+                viewModel.editFlag = postId
+                binding.btnAddPost.text = "Update"
+                sessionManager.accessToken?.let { token ->
+                    lifecycleScope.launch {
+                        viewModelService.getSingleService(token, postId)
+                        observeViewModel()
+                    }
+                } ?: showError("Error: Missing Token")
+            }
         }
 
 
@@ -558,6 +564,10 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                 binding.edPrice.setText(viewModel.price)
                 binding.date.setText(viewModel.date)
                 binding.editTextAddress.setText(viewModel.address)
+                adapterServices.updateData(categoryList,viewModel.serviceName.toString())
+                AdapterServices(categoryList,requireContext())
+                binding.rvService.adapter = adapterServices
+
 
                 val imageUrl = "${ApiServiceProvider.IMAGE_URL}${viewModel.imageUrl}"
 
