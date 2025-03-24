@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:scrollbars="none">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -179,8 +179,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:visibility="gone"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -265,15 +265,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
+
             <Spinner
                 android:id="@+id/spinnerUserType"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
                 android:layout_height="40dp"
-                android:padding="10dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/corner_edt" />
+                android:layout_weight="1"
+                android:background="@drawable/corner_edt"
+                android:padding="10dp" />
+
             <EditText
                 android:id="@+id/etDiscount"
                 android:layout_width="match_parent"
@@ -288,6 +290,7 @@
 
             </EditText>
         </LinearLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
@@ -299,12 +302,13 @@
                 android:id="@+id/etDuration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_bold"
-                android:paddingVertical="8dp"
-                android:focusable="false"
                 android:clickable="true"
-                android:inputType="none"/>
+                android:focusable="false"
+                android:fontFamily="@font/sf_bold"
+                android:inputType="none"
+                android:paddingVertical="8dp" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -423,25 +427,28 @@
                             android:textColor="@color/white" />
 
                     </LinearLayout>
+
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
-                        android:textStyle="bold"
                         android:text="Select Day"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
                             android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/corner">
 
@@ -453,60 +460,57 @@
                             </androidx.appcompat.widget.AppCompatSpinner>
 
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
                             android:layout_marginTop="10dp"
-                            android:layout_weight="1"
-                            >
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:gravity="center_vertical">
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
 
                                 <!-- Minus Button -->
                                 <Button
                                     android:id="@+id/btnMinus"
                                     android:layout_width="40dp"
                                     android:layout_height="40dp"
-                                    android:text="−"
                                     android:background="@drawable/corner"
+                                    android:text="−"
                                     android:textColor="@android:color/white"
-                                    android:textSize="18sp"/>
+                                    android:textSize="18sp" />
 
                                 <!-- Quantity TextView -->
                                 <TextView
                                     android:id="@+id/tvQuantity"
                                     android:layout_width="40dp"
                                     android:layout_height="40dp"
-                                    android:gravity="center"
-                                    android:text="1"
-                                    android:textSize="18sp"
-                                    android:background="@drawable/corner"
                                     android:layout_marginHorizontal="5dp"
+                                    android:background="@drawable/corner"
+                                    android:gravity="center"
+                                    android:padding="5dp"
+                                    android:text="1"
                                     android:textColor="@android:color/black"
-                                    android:padding="5dp"/>
+                                    android:textSize="18sp" />
 
                                 <!-- Plus Button -->
                                 <Button
                                     android:id="@+id/btnPlus"
                                     android:layout_width="45dp"
                                     android:layout_height="40dp"
-                                    android:text="+"
                                     android:background="@drawable/corner"
+                                    android:text="+"
                                     android:textColor="@android:color/white"
-                                    android:textSize="18sp"/>
+                                    android:textSize="18sp" />
                             </LinearLayout>
 
                         </LinearLayout>
                     </LinearLayout>
-
-
-
 
 
                     <LinearLayout
@@ -523,25 +527,27 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
-                            android:visibility="gone"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:textSize="14sp"
                             android:text="01-02-2023"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
                             android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/corner">
@@ -556,17 +562,19 @@
 
 
                     </LinearLayout>
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvHorizontalList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal"
                         android:overScrollMode="never"
                         android:scrollbars="none"
-                        android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/days_row"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginStart="10dp"/>
+                        tools:listitem="@layout/days_row" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -580,14 +588,15 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
-                            android:visibility="gone"
                             android:text="Create"
-                            android:textAllCaps="false" />
+                            android:textAllCaps="false"
+                            android:visibility="gone" />
 
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
