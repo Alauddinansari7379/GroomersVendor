@@ -39,7 +39,7 @@ class CalendarAdapter(
                 tvDate.setTextColor(Color.WHITE)
                 tvDay.setTextColor(Color.WHITE)
                 layoutMain.setBackgroundColor(
-                    ContextCompat.getColor(root.context, R.color.main_Color_Dark)
+                    ContextCompat.getColor(root.context, R.color.mainColor)
                 )
             } else {
                 tvDate.setTextColor(Color.BLACK)

@@ -145,7 +145,7 @@ class BankInformation : AppCompatActivity() {
             return false
         }
         if (isFromFinance) {
-            viewModel.addBank(accountHolderName, accountNumber, bankName, ifscCode, branchName)
+            viewModel.addBank(accountHolderName, accountNumber, bankName, ifscCode, branchName,binding.etUPI.text.toString())
             return false
         }
         return true

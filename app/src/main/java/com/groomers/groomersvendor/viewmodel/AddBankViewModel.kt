@@ -33,13 +33,13 @@ class AddBankViewModel@Inject constructor(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun addBank(accountName : String, accountNo : String,bankName : String,ifsc : String,branch : String) {
+    fun addBank(accountName : String, accountNo : String,bankName : String,ifsc : String,branch : String,upi:String) {
 
         _isLoading.postValue(true)
 
         viewModelScope.launch {
             try {
-                val response = apiService.addBank("Bearer ${sessionManager.accessToken}", accountName, accountNo, bankName,ifsc, branch)
+                val response = apiService.addBank("Bearer ${sessionManager.accessToken}", accountName, accountNo, bankName,ifsc, branch,upi)
 
                 if (response.isSuccessful && response.body() != null) {
                     val responseBody = response.body()

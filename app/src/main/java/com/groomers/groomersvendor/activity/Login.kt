@@ -81,7 +81,7 @@ class Login : AppCompatActivity() {
             }
 
             tvForget.setOnClickListener {
-                startActivity(Intent(context, ForgetPassword::class.java))
+               // startActivity(Intent(context, ForgetPassword::class.java))
             }
         }
     }

@@ -132,6 +132,23 @@
             android:inputType="textCapWords"
             android:paddingVertical="8dp" />
     </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Enter UPI (Optional)"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etUPI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/sf_regular"
+            android:inputType="textCapWords"
+            android:paddingVertical="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

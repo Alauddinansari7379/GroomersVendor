@@ -49,6 +49,7 @@ class LoginViewModel @Inject constructor(
                         sessionManager.accessToken = responseBody!!.access_token
                         sessionManager.isLogin = true
                         sessionManager.userName = responseBody.user.name
+                        sessionManager.onlineOffline = responseBody.user.VendorStatus.toString()
                     } else {
                         _errorMessage.postValue("Incorrect email or password. Please try again.")
                     }

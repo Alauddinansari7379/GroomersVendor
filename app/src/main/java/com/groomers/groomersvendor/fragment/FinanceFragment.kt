@@ -57,28 +57,28 @@ class FinanceFragment : Fragment() {
             }
 
             // Show Weekly Revenue Data
-            tabWeek.setOnClickListener {
-                tabWeek.setBackgroundResource(R.drawable.tab_selected)
-                tabToday.setBackgroundResource(R.drawable.tab_unselected)
-                tabMonth.setBackgroundResource(R.drawable.tab_unselected)
-                setupChart(binding.lineChart, "week")
-            }
+//            tabWeek.setOnClickListener {
+//                tabWeek.setBackgroundResource(R.drawable.tab_selected)
+//                tabToday.setBackgroundResource(R.drawable.tab_unselected)
+//                tabMonth.setBackgroundResource(R.drawable.tab_unselected)
+//                setupChart(binding.lineChart, "week")
+//            }
 
             // Show Today's Revenue Data
-            tabToday.setOnClickListener {
-                tabToday.setBackgroundResource(R.drawable.tab_selected)
-                tabWeek.setBackgroundResource(R.drawable.tab_unselected)
-                tabMonth.setBackgroundResource(R.drawable.tab_unselected)
-                setupChart(binding.lineChart, "today")
-            }
+//            tabToday.setOnClickListener {
+//                tabToday.setBackgroundResource(R.drawable.tab_selected)
+//                tabWeek.setBackgroundResource(R.drawable.tab_unselected)
+//                tabMonth.setBackgroundResource(R.drawable.tab_unselected)
+//                setupChart(binding.lineChart, "today")
+//            }
 
             // Show Monthly Revenue Data
-            tabMonth.setOnClickListener {
-                tabMonth.setBackgroundResource(R.drawable.tab_selected)
-                tabWeek.setBackgroundResource(R.drawable.tab_unselected)
-                tabToday.setBackgroundResource(R.drawable.tab_unselected)
-                setupChart(binding.lineChart, "month")
-            }
+//            tabMonth.setOnClickListener {
+//                tabMonth.setBackgroundResource(R.drawable.tab_selected)
+//                tabWeek.setBackgroundResource(R.drawable.tab_unselected)
+//                tabToday.setBackgroundResource(R.drawable.tab_unselected)
+//                setupChart(binding.lineChart, "month")
+//            }
         }
     }
 

@@ -1,6 +1,7 @@
 package com.groomers.groomersvendor
 
 
+import android.annotation.SuppressLint
 import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -14,13 +15,21 @@ import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.groomers.groomersvendor.databinding.ActivityMainBinding
+import com.groomers.groomersvendor.helper.AppProgressBar
 import com.groomers.groomersvendor.helper.NetworkChangeReceiver
+import com.groomers.groomersvendor.helper.Toastic
+import com.groomers.groomersvendor.model.modeladdbank.ModelAddBank
+import com.groomers.groomersvendor.retrofit.ApiClient
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import javax.inject.Inject
 
 
@@ -30,9 +39,10 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
     internal val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var wasPreviouslyConnected = true
     private val networkChangeReceiver = NetworkChangeReceiver()
+
     @Inject
     lateinit var sessionManager: SessionManager
-
+    var count2 = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -42,7 +52,8 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
 
         bottomNav = binding.bottomNavigationView
         // Set up the NavHostFragment and NavController
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.hostFragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.hostFragment) as NavHostFragment
         val navController = navHostFragment.navController
         // Attach the BottomNavigationView to the NavController
         bottomNav.setupWithNavController(navController)
@@ -64,19 +75,55 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
             openFragment(openFragment, id)
         }
 
-        Glide.with(this)
-            .load(ApiServiceProvider.IMAGE_URL+sessionManager.profilePictureUrl)
+        Glide.with(this).load(ApiServiceProvider.IMAGE_URL + sessionManager.profilePictureUrl)
             .placeholder(R.drawable.user) // Use a default placeholder
             .into(binding.imgLan)
+
+        if (sessionManager.onlineOffline.toString().toInt() == 1) {
+            binding.btnOnline.visibility = View.VISIBLE
+            binding.btnOffline.visibility = View.GONE
+        } else {
+            binding.btnOnline.visibility = View.GONE
+            binding.btnOffline.visibility = View.VISIBLE
+        }
+        binding.btnOnline.setOnClickListener {
+            SweetAlertDialog(
+                this,
+                SweetAlertDialog.WARNING_TYPE
+            ).setTitleText("Are you sure want to Offline?").setCancelText("No")
+                .setConfirmText("Yes").showCancelButton(true).setConfirmClickListener { sDialog ->
+                    sDialog.cancel()
+                    apiCallOnlineOffline("0")
+
+                }.setCancelClickListener { sDialog ->
+                    sDialog.cancel()
+                }.show()
+        }
+
+        binding.btnOffline.setOnClickListener {
+            SweetAlertDialog(
+                this,
+                SweetAlertDialog.WARNING_TYPE
+            ).setTitleText("Are you sure want to Online?").setCancelText("No").setConfirmText("Yes")
+                .showCancelButton(true).setConfirmClickListener { sDialog ->
+                    sDialog.cancel()
+                    apiCallOnlineOffline("1")
+
+                }.setCancelClickListener { sDialog ->
+                    sDialog.cancel()
+                }.show()
+        }
     }
 
     override fun onNetworkStatusChanged(isConnected: Boolean) {
-         updateInternetStatus(isConnected)
+        updateInternetStatus(isConnected)
     }
+
     private fun networkChangeReceiver() {
         val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         registerReceiver(networkChangeReceiver, filter)
     }
+
     private fun updateInternetStatus(isConnected: Boolean) {
         if (isConnected && !wasPreviouslyConnected) {
             // Show "Connected" message only if previously disconnected
@@ -89,13 +136,13 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
         // Update the previous connection status
         wasPreviouslyConnected = isConnected
     }
+
     private fun showNoInternetLayout(message: String, color: Int) {
         checkNotNull(binding.includeNoInternet)
         binding.includeNoInternet.layoutNoInternetMain.visibility = View.VISIBLE
         binding.includeNoInternet.layoutNoInternetMain.setBackgroundColor(
             ContextCompat.getColor(
-                this,
-                color
+                this, color
             )
         )
         binding.includeNoInternet.tvNoInternetMessage.text = message
@@ -109,8 +156,7 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
             // Set the image drawable for the connection icon
             binding.includeNoInternet.imageView.setImageDrawable(
                 ContextCompat.getDrawable(
-                    this,
-                    R.drawable.connections
+                    this, R.drawable.connections
                 )
             )
 
@@ -123,11 +169,107 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
         } else {
             binding.includeNoInternet.imageView.setImageDrawable(
                 ContextCompat.getDrawable(
-                    this,
-                    R.drawable.network_signal
+                    this, R.drawable.network_signal
                 )
             )
         }
+    }
+
+    private fun apiCallOnlineOffline(statues: String) {
+        AppProgressBar.showLoaderDialog(this)
+
+        ApiClient.apiService.onlineOffline("Bearer ${sessionManager.accessToken}", statues)
+            .enqueue(object : Callback<ModelAddBank> {
+                @SuppressLint("LogNotTimber")
+                override fun onResponse(
+                    call: Call<ModelAddBank>, response: Response<ModelAddBank>
+                ) {
+                    try {
+                        if (response.code() == 200) {
+                            count2 = 0
+                            AppProgressBar.hideLoaderDialog()
+                            if (statues == "0") {
+                                sessionManager.onlineOffline = "0"
+                                binding.btnOnline.visibility = View.GONE
+                                binding.btnOffline.visibility = View.VISIBLE
+                                Toastic.toastic(
+                                    context = this@MainActivity,
+                                    message = "Now you are Offline !",
+                                    duration = Toastic.LENGTH_SHORT,
+                                    type = Toastic.SUCCESS,
+                                    isIconAnimated = true,
+                                    textColor = if (false) Color.BLUE else null,
+                                ).show()
+                            } else {
+                                sessionManager.onlineOffline = "1"
+                                binding.btnOnline.visibility = View.VISIBLE
+                                binding.btnOffline.visibility = View.GONE
+                                Toastic.toastic(
+                                    context = this@MainActivity,
+                                    message = "Now you are Online !",
+                                    duration = Toastic.LENGTH_SHORT,
+                                    type = Toastic.SUCCESS,
+                                    isIconAnimated = true,
+                                    textColor = if (false) Color.BLUE else null,
+                                ).show()
+                            }
+
+                        } else if (response.code() == 500) {
+                            Toastic.toastic(
+                                context = this@MainActivity,
+                                message = "Server Error",
+                                duration = Toastic.LENGTH_SHORT,
+                                type = Toastic.ERROR,
+                                isIconAnimated = true,
+                                textColor = if (false) Color.BLUE else null,
+                            ).show()
+                            AppProgressBar.hideLoaderDialog()
+
+                        } else {
+                            Toastic.toastic(
+                                context = this@MainActivity,
+                                message = "Something went wrong",
+                                duration = Toastic.LENGTH_SHORT,
+                                type = Toastic.ERROR,
+                                isIconAnimated = true,
+                                textColor = if (false) Color.BLUE else null,
+                            ).show()
+                            AppProgressBar.hideLoaderDialog()
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        Toastic.toastic(
+                            context = this@MainActivity,
+                            message = "Something went wrong",
+                            duration = Toastic.LENGTH_SHORT,
+                            type = Toastic.ERROR,
+                            isIconAnimated = true,
+                            textColor = if (false) Color.BLUE else null,
+                        ).show()
+                    }
+
+
+                }
+
+                override fun onFailure(call: Call<ModelAddBank>, t: Throwable) {
+                    count2++
+                    if (count2 <= 3) {
+                        apiCallOnlineOffline(statues)
+                    } else {
+                        Toastic.toastic(
+                            context = this@MainActivity,
+                            message = "Something went wrong",
+                            duration = Toastic.LENGTH_SHORT,
+                            type = Toastic.ERROR,
+                            isIconAnimated = true,
+                            textColor = if (false) Color.BLUE else null,
+                        ).show()
+                    }
+                    AppProgressBar.hideLoaderDialog()
+
+                }
+
+            })
     }
 
     override fun onPause() {
@@ -139,8 +281,10 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
         super.onResume()
         networkChangeReceiver();
     }
+
     private fun openFragment(fragmentTag: String, postId: String) {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.hostFragment) as? NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.hostFragment) as? NavHostFragment
         val navController = navHostFragment?.navController
 
         if (navController == null) {

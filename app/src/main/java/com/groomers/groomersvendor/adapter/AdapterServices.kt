@@ -50,6 +50,7 @@ class AdapterServices(private var categoryList: List<Result>, val context: Conte
 
             holder.binding.llHaircut.setOnClickListener {
                 selectedPosition = position
+                serviceId = categoryList[position].id.toString()
                 notifyDataSetChanged()
                 serviceName = categoryList[position].category_name
             }
@@ -58,6 +59,7 @@ class AdapterServices(private var categoryList: List<Result>, val context: Conte
 
     companion object {
         var serviceName = ""
+        var serviceId = ""
     }
 
     fun selectedItem(serviceName: String) {

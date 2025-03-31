@@ -135,6 +135,11 @@ class SessionManager(context: Context) {
         set(value) {
             prefs.edit().putString(BRANCH_NAME, value).apply()
         }
+    var onlineOffline: String?
+        get() = prefs.getString(ONLINE, "")
+        set(value) {
+            prefs.edit().putString(ONLINE, value).apply()
+        }
     companion object {
         private const val ACCESS_TOKEN = "ACCESS_TOKEN"
         private const val IS_LOGIN = "IS_LOGIN"
@@ -157,5 +162,6 @@ class SessionManager(context: Context) {
         private const val BANK_NAME = "BANK_NAME"
         private const val IFSC_CODE = "IFSC_CODE"
         private const val BRANCH_NAME = "BRANCH_NAME"
+        private const val ONLINE = "ONLINE"
     }
 }

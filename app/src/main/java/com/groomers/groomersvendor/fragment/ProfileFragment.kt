@@ -87,7 +87,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.llSlotlist.setOnClickListener {
-            startActivity(Intent(requireContext(), MySlot::class.java))
+          //  startActivity(Intent(requireContext(), MySlot::class.java))
         }
 
         binding.cameraBtn.setOnClickListener {

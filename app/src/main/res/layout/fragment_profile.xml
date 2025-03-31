@@ -190,6 +190,7 @@
                     app:cardElevation="4dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/header_card">
@@ -266,7 +267,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:contentDescription="@string/finance_center_icon"
-                            android:src="@drawable/check_list" />
+                            android:src="@drawable/business_meeting" />
 
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -281,14 +282,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/sf_bold"
-                                android:text="Slot List"
+                                android:text="Review"
                                 android:textSize="14sp" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/sf_regular"
-                                android:text="Open your created slot list."
+                                android:text="Check reviews of your shop of Groomers"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="14sp" />
 
@@ -341,14 +342,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/sf_bold"
-                                android:text="@string/finance_center"
+                                android:text="Last Week Sales"
                                 android:textSize="14sp" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/sf_regular"
-                                android:text="@string/all_booksy_payments_settings_in_one_place"
+                                android:text="View sales trends"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="14sp" />
 
@@ -387,7 +388,7 @@
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/baseline_help_24"
+                            android:src="@drawable/network_signal"
                             android:tint="@color/mainColor" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -402,7 +403,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/sf_bold"
-                                android:text="Help list"
+                                android:text="Contact us"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -410,7 +411,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/sf_regular"
-                                android:text="See all the help list"
+                                android:text="Contact with us"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="14sp" />
 
@@ -794,8 +795,7 @@
                         android:id="@+id/cardLogout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
+                         android:layout_marginBottom="16dp"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="4dp"
                         android:layout_marginStart="16dp"
@@ -874,6 +874,7 @@
         android:id="@+id/btnFloating"
         android:layout_width="150dp"
         android:layout_height="50dp"
+        android:visibility="gone"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/black"

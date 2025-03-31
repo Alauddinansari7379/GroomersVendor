@@ -20,6 +20,7 @@ import com.groomers.groomersvendor.model.modelstate.ModelState
 import com.groomers.groomersvendor.model.modelupdateprfphoto.ModelUpdateProfPhoto
 import com.groomers.groomersvendor.model.modelupdateservice.ModelUpdateService
 import okhttp3.MultipartBody
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -99,7 +100,8 @@ interface ApiService {
         @Query("end_time") end_time: String,
         @Query("day") day: String,
         @Query("forService") forService: String,
-        @Query("quantity") quantity: String
+        @Query("quantity") quantity: String,
+        @Query("service_id") service_id: String
     ): Response<ModelSlot>
 
 
@@ -216,5 +218,13 @@ interface ApiService {
         @Query("BankName") BankName : String,
         @Query("ifsc_code") ifsc_code : String,
         @Query("BranchName") BranchName : String,
+        @Query("UPI") upi : String,
         ): Response<ModelAddBank>
+
+
+    @POST("vendorStatus")
+     fun onlineOffline(
+        @Header("Authorization") authorization: String,
+        @Query("vendorStatus") vendorStatus: String,
+    ): Call<ModelAddBank>
 }

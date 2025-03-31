@@ -35,7 +35,42 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:gravity="end">
+
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnOnline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="Online"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center"
+                        android:textColor="@color/white"
+                        android:textAllCaps="false"
+                        android:background="@drawable/corner"
+                        android:visibility="gone"
+                        android:textSize="11sp"
+                        android:backgroundTint="@color/Green"
+                        >
+
+                    </androidx.appcompat.widget.AppCompatButton>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnOffline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="Offline"
+                        android:visibility="gone"
+                        android:layout_gravity="center"
+                        android:background="@drawable/corner"
+                        android:layout_marginEnd="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="11sp"
+                        android:backgroundTint="@color/Red"
+                        >
+
+                    </androidx.appcompat.widget.AppCompatButton>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imgLan"

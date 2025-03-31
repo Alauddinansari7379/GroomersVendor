@@ -246,7 +246,7 @@ class ManageSlots : AppCompatActivity() {
 
             } else {
 
-                viewModel.createSlot(apiService, startTime, endTime,dayId,selectedService,quantity.toString())
+                viewModel.createSlot(apiService, startTime, endTime,dayId,selectedService,quantity.toString(),"")
             }
         }
     }
