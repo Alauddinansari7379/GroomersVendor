@@ -36,7 +36,8 @@ interface ApiService {
         @Query("password") password: String,
         @Query("role") role: String
     ): Response<ModelLogin>
- @POST("login")
+
+    @POST("login")
     suspend fun loginWithUsername(
         @Query("username") username: String,
         @Query("password") password: String,
@@ -77,7 +78,7 @@ interface ApiService {
         @Query("BranchName") BranchName: String,
         @Query("mapUrl") mapUrl: String,
 
-    ): Response<ModelRegister>
+        ): Response<ModelRegister>
 
     @POST("city")
     suspend fun getCity(): Response<ModelCity>
@@ -164,7 +165,7 @@ interface ApiService {
     @GET("getBookings")
     suspend fun getBookings(
         @Header("Authorization") authorization: String,
-        @Query("date") date : String
+        @Query("date") date: String
     ): Response<ModelGetBooking>
 
 
@@ -198,32 +199,32 @@ interface ApiService {
     @POST("addHelp")
     suspend fun addHelp(
         @Header("Authorization") authorization: String,
-        @Query("name") name : String,
-        @Query("mobile") mobile : String,
-        @Query("query") query : String,
-        @Query("description") description : String,
+        @Query("name") name: String,
+        @Query("mobile") mobile: String,
+        @Query("query") query: String,
+        @Query("description") description: String,
         @Part image: MultipartBody.Part
     ): Response<ModelAddHelp>
 
     @POST("getUser")
     suspend fun getVendor(
         @Header("Authorization") authorization: String,
-     ): Response<ModelGetVendor>
+    ): Response<ModelGetVendor>
 
     @POST("addBank")
     suspend fun addBank(
         @Header("Authorization") authorization: String,
-        @Query("AccountName") AccountName : String,
-        @Query("AccountNumber") AccountNumber : String,
-        @Query("BankName") BankName : String,
-        @Query("ifsc_code") ifsc_code : String,
-        @Query("BranchName") BranchName : String,
-        @Query("UPI") upi : String,
-        ): Response<ModelAddBank>
+        @Query("AccountName") AccountName: String,
+        @Query("AccountNumber") AccountNumber: String,
+        @Query("BankName") BankName: String,
+        @Query("ifsc_code") ifsc_code: String,
+        @Query("BranchName") BranchName: String,
+        @Query("UPI") upi: String,
+    ): Response<ModelAddBank>
 
 
     @POST("vendorStatus")
-     fun onlineOffline(
+    fun onlineOffline(
         @Header("Authorization") authorization: String,
         @Query("vendorStatus") vendorStatus: String,
     ): Call<ModelAddBank>

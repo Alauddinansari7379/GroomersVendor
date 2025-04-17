@@ -57,7 +57,8 @@ class CreateServiceViewModel(
         slot_time: String,
         address: String,
         user_type: String,
-        images: MultipartBody.Part
+        images: MultipartBody.Part,
+        servideType: String,
     ) {
         viewModelScope.launch {
             _isLoading.postValue(true)
@@ -68,7 +69,7 @@ class CreateServiceViewModel(
                     description,
                     price,
                     time="34",
-                    serviceType="dkdk kd",
+                    servideType,
                     date,
                     category,
                     slot_time="34",

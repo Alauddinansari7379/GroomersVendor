@@ -94,7 +94,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     private var endTime = "00:00:00"
     private var startTime = "00:00:00"
     var dayId = ""
-    var serviceNameNew = ""
     private lateinit var adapterServices:AdapterServices
 
     private val takePictureLauncher =
@@ -249,8 +248,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
         binding.date.setOnClickListener { openDatePickerDialog() }
 
-        binding.btnAddPost.setOnClickListener {
-            validateAndProceed() }
+        binding.btnAddPost.setOnClickListener { validateAndProceed() }
 
         binding.btnAlreadyAdded.setOnClickListener {
             startActivity(Intent(requireContext(), ServiceList::class.java))
@@ -334,12 +332,25 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                                 viewModel.slot_time ?: "",
                                 viewModel.address ?: "",
                                 userType,
-                                imageList
+                                imageList,
+                                serviceId
+
                             )
                         }
                     }
                 }
 
+            }else{
+                if (modelSlot != null) {
+                    Toastic.toastic(
+                        context = requireContext(),
+                        message = modelSlot.message,
+                        duration = Toastic.LENGTH_SHORT,
+                        type = Toastic.ERROR,
+                        isIconAnimated = true,
+                        textColor = if (false) Color.BLUE else null,
+                    ).show()
+                }
             }
         }
     }
@@ -362,8 +373,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
 
     private fun validateAndProceed() {
-        serviceNameNew = binding.etServiceName.text.toString()
-        viewModel.serviceName = serviceNameNew
+        viewModel.serviceName = serviceName
         val startTimeFormatted = binding.tvStartTime.text.toString().replace(":", "")
         val endTimeFormatted = binding.tvEndTime.text.toString().replace(":", "")
         val selectedService = binding.spinnerService.selectedItem.toString()
@@ -381,11 +391,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         viewModel.description = binding.editTextDescription.text.toString().trim()
         if (viewModel.description.isNullOrEmpty()) {
             showErrorField1(binding.editTextDescription, "Please enter a description")
-            return
-        }
-
-        if (viewModel.serviceName.isNullOrEmpty()) {
-            showErrorField1(binding.etServiceName, "Please enter a Service name")
             return
         }
 
@@ -451,9 +456,9 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             startTimeFormatted,
             endTimeFormatted,
             dayId,
-            serviceNameNew,
+            serviceName,
             quantity.toString(),
-            serviceId,
+            serviceId
         )
     }
 

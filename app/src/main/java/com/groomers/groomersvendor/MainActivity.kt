@@ -79,13 +79,16 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
             .placeholder(R.drawable.user) // Use a default placeholder
             .into(binding.imgLan)
 
-        if (sessionManager.onlineOffline.toString().toInt() == 1) {
+        val status = sessionManager.onlineOffline?.toString()?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
+
+        if (status == 1) {
             binding.btnOnline.visibility = View.VISIBLE
             binding.btnOffline.visibility = View.GONE
         } else {
             binding.btnOnline.visibility = View.GONE
             binding.btnOffline.visibility = View.VISIBLE
         }
+
         binding.btnOnline.setOnClickListener {
             SweetAlertDialog(
                 this,

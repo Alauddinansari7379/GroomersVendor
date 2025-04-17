@@ -136,7 +136,8 @@ class AddServiceDetails : AppCompatActivity() {
                             viewModel.slot_time ?: "",
                             viewModel.address ?: "",
                             userType,
-                            imageList
+                            imageList,
+                            ""
                         )
                     }
                 }
