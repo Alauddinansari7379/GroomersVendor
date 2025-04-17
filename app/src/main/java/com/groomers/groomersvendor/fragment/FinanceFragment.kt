@@ -3,12 +3,12 @@ package com.groomers.groomersvendor.fragment
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
@@ -18,10 +18,10 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.activity.BankInformation
 import com.groomers.groomersvendor.databinding.FragmentFinanceBinding
-import com.groomers.groomersvendor.databinding.FragmentProfileBinding
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class FinanceFragment : Fragment() {
     private lateinit var binding: FragmentFinanceBinding

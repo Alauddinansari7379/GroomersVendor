@@ -73,6 +73,8 @@ import com.groomers.groomersvendor.model.modelcategory.Result
 class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     private lateinit var categoryList: List<Result>
     private lateinit var binding: FragmentAddPostBinding
+    lateinit var startTimeFormatted: String
+    lateinit var endTimeFormatted: String
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -299,47 +301,16 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         // Observe the result of the login attempt
         slotViewModel.modelSlot.observe(requireActivity()) { modelSlot ->
             if (modelSlot != null && modelSlot.status == 1) {
-                sessionManager.accessToken?.let { token ->
-                    viewModel.images?.let { imageList ->
-                        if (!viewModel.editFlag.isNullOrEmpty()) {
-                            viewModel.updateService(
-                                token,
-                                ApiServiceProvider.getApiService(),
-                                serviceName,
-                                viewModel.description ?: "",
-                                viewModel.price ?: "",
-                                viewModel.time ?: "",
-                                viewModel.serviceType ?: "",
-                                viewModel.date ?: "",
-                                viewModel.category ?: "",
-                                viewModel.slot_time ?: "",
-                                viewModel.address ?: "",
-                                userType,
-                                imageList,
-                                viewModel.editFlag!!
-                            )
-                        } else {
-                            viewModel.createService(
-                                token,
-                                ApiServiceProvider.getApiService(),
-                                serviceName,
-                                viewModel.description ?: "",
-                                viewModel.price ?: "",
-                                viewModel.time ?: "",
-                                viewModel.serviceType ?: "",
-                                viewModel.date ?: "",
-                                viewModel.category ?: "",
-                                viewModel.slot_time ?: "",
-                                viewModel.address ?: "",
-                                userType,
-                                imageList,
-                                serviceId
 
-                            )
-                        }
-                    }
-                }
-
+                Toastic.toastic(
+                    context = requireContext(),
+                    message = "Service added successfully.",
+                    duration = Toastic.LENGTH_SHORT,
+                    type = Toastic.SUCCESS,
+                    isIconAnimated = true,
+                    textColor = if (false) Color.BLUE else null,
+                ).show()
+                resetAllFields()
             }else{
                 if (modelSlot != null) {
                     Toastic.toastic(
@@ -374,8 +345,8 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
     private fun validateAndProceed() {
         viewModel.serviceName = serviceName
-        val startTimeFormatted = binding.tvStartTime.text.toString().replace(":", "")
-        val endTimeFormatted = binding.tvEndTime.text.toString().replace(":", "")
+         startTimeFormatted = binding.tvStartTime.text.toString().replace(":", "")
+         endTimeFormatted = binding.tvEndTime.text.toString().replace(":", "")
         val selectedService = binding.spinnerService.selectedItem.toString()
         userType = binding.spinnerUserType.selectedItem.toString()
         val discount = binding.etDiscount.text.toString().trim()
@@ -450,16 +421,49 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 //            return
 //        }
 
-        // Proceed with API call
-        slotViewModel.createSlot(
-            ApiServiceProvider.getApiService(),
-            startTimeFormatted,
-            endTimeFormatted,
-            dayId,
-            serviceName,
-            quantity.toString(),
-            serviceId
-        )
+
+        sessionManager.accessToken?.let { token ->
+            viewModel.images?.let { imageList ->
+                if (!viewModel.editFlag.isNullOrEmpty()) {
+                    viewModel.updateService(
+                        token,
+                        ApiServiceProvider.getApiService(),
+                        serviceName,
+                        viewModel.description ?: "",
+                        viewModel.price ?: "",
+                        viewModel.time ?: "",
+                        viewModel.serviceType ?: "",
+                        viewModel.date ?: "",
+                        viewModel.category ?: "",
+                        viewModel.slot_time ?: "",
+                        viewModel.address ?: "",
+                        userType,
+                        imageList,
+                        viewModel.editFlag!!
+                    )
+                } else {
+                    viewModel.createService(
+                        token,
+                        ApiServiceProvider.getApiService(),
+                        serviceName,
+                        viewModel.description ?: "",
+                        viewModel.price ?: "",
+                        viewModel.time ?: "",
+                        viewModel.serviceType ?: "",
+                        viewModel.date ?: "",
+                        viewModel.category ?: "",
+                        viewModel.slot_time ?: "",
+                        viewModel.address ?: "",
+                        userType,
+                        imageList,
+                        serviceId
+
+                    )
+                }
+            }
+        }
+
+
     }
 
     // Helper method to show warning dialogs
@@ -490,7 +494,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
     private fun handleImageSelection(uri: Uri) {
         createMultipartFromUri(requireContext(), uri)?.let {
-            //parts.add(it)
             parts = it
             viewModel.images = parts
         }
@@ -498,7 +501,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
     private fun handleImageSelection1(uri: Uri) {
         createMultipartFromUri1(requireContext(), uri)?.let {
-            //parts.add(it)
             parts = it
             viewModel.images = parts
         }
@@ -600,10 +602,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun showErrorField(field: EditText, message: String) {
-        field.error = message
-        field.requestFocus()
-    }
 
     private fun ContentResolver.getFileName(uri: Uri): String {
         return query(uri, null, null, null, null)?.use { cursor ->
@@ -712,7 +710,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
             val formattedHour = String.format("%02d", hourOfDay)
             val formattedMinute = String.format("%02d", minute)
-            val selectedTime = "$formattedHour:$formattedMinute:00" // Ensure "HH:mm:ss" format
+            val selectedTime = "$formattedHour:$formattedMinute:00"
 
             tvTimeTimePicker.text = selectedTime
             binding.tvStartTime.text = selectedTime
@@ -738,17 +736,15 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         dialog.setContentView(view)
         dialog.setCancelable(true)
         dialog.show()
-
         val btnOkTimePicker = view.findViewById<Button>(R.id.btnOkTimePicker)
         val timePicker = view.findViewById<TimePicker>(R.id.timePicker)
         val tvTimeTimePicker = view.findViewById<TextView>(R.id.tvTimeTimePicker)
 
-        timePicker.setIs24HourView(true) // Set to 24-hour format
-
+        timePicker.setIs24HourView(true)
         timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
             val formattedHour = String.format("%02d", hourOfDay)
             val formattedMinute = String.format("%02d", minute)
-            val selectedTime = "$formattedHour:$formattedMinute:00" // Ensure "HH:mm:ss" format
+            val selectedTime = "$formattedHour:$formattedMinute:00"
 
             tvTimeTimePicker.text = selectedTime
             binding.tvEndTime.text = selectedTime
@@ -764,15 +760,10 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
     private fun setupSpinners1() {
         val userTypeList = listOf("Male", "Female", "Pet")
-
-        // Use requireContext() instead of 'this'
         val adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, userTypeList)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
         binding.spinnerUserType.adapter = adapter
-
-        // Set selected user type
         val selectedIndex = userTypeList.indexOf(viewModel.user_type)
         if (selectedIndex != -1) {
             binding.spinnerUserType.setSelection(selectedIndex)
@@ -796,30 +787,43 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     private fun observeViewModel1() {
         viewModel.modelCreateService.observe(requireActivity()) { result ->
             if (result != null && result.status == 1) {
-                Toastic.toastic(
-                    context = requireContext(),
-                    message = "Service added successfully.",
-                    duration = Toastic.LENGTH_SHORT,
-                    type = Toastic.SUCCESS,
-                    isIconAnimated = true,
-                    textColor = if (false) Color.BLUE else null,
-                ).show()
-//                requireActivity().finish()
-                resetAllFields()
+
+                // Proceed with API call
+                slotViewModel.createSlot(
+                    ApiServiceProvider.getApiService(),
+                    startTimeFormatted,
+                    endTimeFormatted,
+                    dayId,
+                    serviceId,
+                    quantity.toString(),
+                    result.result.id.toString()
+                )
+
             }
         }
 
         viewModel.modelUpdateService.observe(requireActivity()) { result ->
             if (result != null && result.status == 1) {
-                Toastic.toastic(
-                    context = requireContext(),
-                    message = "Service updated successfully.",
-                    duration = Toastic.LENGTH_SHORT,
-                    type = Toastic.SUCCESS,
-                    isIconAnimated = true,
-                    textColor = if (false) Color.BLUE else null,
-                ).show()
-                requireActivity().finish()
+//                Toastic.toastic(
+//                    context = requireContext(),
+//                    message = "Service updated successfully.",
+//                    duration = Toastic.LENGTH_SHORT,
+//                    type = Toastic.SUCCESS,
+//                    isIconAnimated = true,
+//                    textColor = if (false) Color.BLUE else null,
+//                ).show()
+//                requireActivity().finish()
+
+                // Proceed with API call
+                slotViewModel.createSlot(
+                    ApiServiceProvider.getApiService(),
+                    startTimeFormatted,
+                    endTimeFormatted,
+                    dayId,
+                    serviceId,
+                    quantity.toString(),
+                    result.result.id.toString()
+                )
             }
         }
 
@@ -839,16 +843,10 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         }
     }
 
-    // Assuming this code is inside your Activity or Fragment
-
-    // Function to reset all fields
     private fun resetAllFields() {
-        setupSpinners()
-        setupSpinners1()
-
         serviceName = ""
         binding.editTextDescription.text?.clear()
-//        binding.imageViewPreview.setImageDrawable(null)
+        binding.imageViewPreview.setImageDrawable(null)
         binding.imageViewPreview.setImageDrawable(Color.TRANSPARENT.toDrawable())
 
         binding.edPrice.text.clear()
@@ -857,11 +855,11 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         binding.etDuration.text?.clear()
         binding.tvStartTime.text = "00:00:00"
         binding.tvEndTime.text = "00:00:00"
-//        binding.spinnerUserType.setSelection(0) // Set to the default position
-//        binding.spinnerDay.setSelection(0) // Set to the default position
-//        binding.spinnerService.setSelection(0) // Set to the default position
-        binding.tvQuantity.text = "1" // Reset to default value
-//        binding.editTextAddress.text?.clear()
+        binding.spinnerUserType.setSelection(0)
+        binding.spinnerDay.setSelection(0)
+        binding.spinnerService.setSelection(0)
+        binding.tvQuantity.text = "1"
+        binding.editTextAddress.text?.clear()
         binding.layoutDateFromDilog.visibility = View.GONE
         binding.btnCreate.visibility = View.GONE
         categoryViewModel.getCategory(ApiServiceProvider.getApiService())
