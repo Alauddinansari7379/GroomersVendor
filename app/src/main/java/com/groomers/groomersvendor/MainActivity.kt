@@ -96,7 +96,7 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
             ).setTitleText("Are you sure want to Offline?").setCancelText("No")
                 .setConfirmText("Yes").showCancelButton(true).setConfirmClickListener { sDialog ->
                     sDialog.cancel()
-                    apiCallOnlineOffline("0")
+                    apiCallOnlineOffline("1")
 
                 }.setCancelClickListener { sDialog ->
                     sDialog.cancel()
@@ -110,7 +110,7 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
             ).setTitleText("Are you sure want to Online?").setCancelText("No").setConfirmText("Yes")
                 .showCancelButton(true).setConfirmClickListener { sDialog ->
                     sDialog.cancel()
-                    apiCallOnlineOffline("1")
+                    apiCallOnlineOffline("0")
 
                 }.setCancelClickListener { sDialog ->
                     sDialog.cancel()
@@ -191,7 +191,7 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
                         if (response.code() == 200) {
                             count2 = 0
                             AppProgressBar.hideLoaderDialog()
-                            if (statues == "0") {
+                            if (statues == "1") {
                                 sessionManager.onlineOffline = "0"
                                 binding.btnOnline.visibility = View.GONE
                                 binding.btnOffline.visibility = View.VISIBLE

@@ -12,11 +12,11 @@ import okio.IOException
 import retrofit2.HttpException
 
 class CategoryViewModel(application: Application) : AndroidViewModel(application) {
-    private val _modelCategory = MutableLiveData<ModelCategory>()
-    val modelCategory: LiveData<ModelCategory> = _modelCategory
+    private val _modelCategory = MutableLiveData<ModelCategory?>()
+    val modelCategory: LiveData<ModelCategory?> = _modelCategory
 
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> = _errorMessage
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> = _errorMessage
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -49,5 +49,9 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
                 _isLoading.postValue(false)
             }
         }
+    }
+    fun clearServiceData() {
+        _modelCategory.value = null
+        _errorMessage.value = null
     }
 }

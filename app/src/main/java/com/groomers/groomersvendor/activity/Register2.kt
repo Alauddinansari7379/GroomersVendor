@@ -46,8 +46,10 @@ class Register2 : Common() {
         }
         // Observe error message if login fails
         categoryViewModel.errorMessage.observe(context) { errorMessage ->
-            if (errorMessage.isNotEmpty()) {
-                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+            if (errorMessage != null) {
+                if (errorMessage.isNotEmpty()) {
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -57,11 +59,11 @@ class Register2 : Common() {
 //        }
         categoryViewModel.modelCategory.observe(context) { modelCategory ->
             binding.rvCategory.apply {
-                adapter = OthersCategoryAdapter(modelCategory.result, context)
+                adapter = OthersCategoryAdapter(modelCategory!!.result, context)
             }
             val gridLayoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
             binding.rvCategory1.layoutManager = gridLayoutManager
-            binding.rvCategory1.adapter = CategoryAdapter(modelCategory.result, context)
+            binding.rvCategory1.adapter = CategoryAdapter(modelCategory!!.result, context)
 
         }
 

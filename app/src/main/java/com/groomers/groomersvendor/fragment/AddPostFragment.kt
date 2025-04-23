@@ -1,4 +1,5 @@
 package com.groomers.groomersvendor.fragment
+
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -94,7 +95,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     private var endTime = "00:00:00"
     private var startTime = "00:00:00"
     var dayId = ""
-    private lateinit var adapterServices:AdapterServices
+    private lateinit var adapterServices: AdapterServices
 
     private val takePictureLauncher =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
@@ -129,14 +130,14 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapterServices=AdapterServices(emptyList(),requireContext())
+        adapterServices = AdapterServices(emptyList(), requireContext())
         val postId = arguments?.getString("postId")
         setupSpinners()
         setupSpinners1()
         observeViewModel1()
         setupClickListeners()
 
-        Log.e("BankName",sessionManager.bankName.toString())
+        Log.e("BankName", sessionManager.bankName.toString())
 
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
         selectedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
@@ -160,7 +161,11 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                     if (selectedDays.add(selectedDay)) {
                         daysAdapter.updateList(selectedDays.toMutableList())
                     } else {
-                        Toast.makeText(requireContext(), "${selectedDay.day} is already selected", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "${selectedDay.day} is already selected",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -172,7 +177,8 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
 
 
-        daysAdapter = DaysAdapter(requireContext(),
+        daysAdapter = DaysAdapter(
+            requireContext(),
             selectedDays.toMutableList()
         ) { removedDay ->
             selectedDays.remove(removedDay) // Remove from list
@@ -255,20 +261,26 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         }
         // Observe error message if login fails
         categoryViewModel.errorMessage.observe(requireActivity()) { errorMessage ->
-            if (errorMessage.isNotEmpty()) {
+            if (errorMessage!= null) {
                 Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
             }
         }
 
         categoryViewModel.modelCategory.observe(requireActivity()) { modelCategory ->
             binding.rvService.apply {
-                adapter = OthersCategoryAdapter(modelCategory.result, requireContext())
+                if (modelCategory != null) {
+                    adapter = OthersCategoryAdapter(modelCategory.result, requireContext())
+                }
             }
             val gridLayoutManager =
                 GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
             binding.rvService.layoutManager = gridLayoutManager
-            binding.rvService.adapter = AdapterServices(modelCategory.result, requireContext())
-            categoryList = modelCategory.result
+            if (modelCategory != null) {
+                binding.rvService.adapter = AdapterServices(modelCategory.result, requireContext())
+            }
+            if (modelCategory != null) {
+                categoryList = modelCategory.result
+            }
             if (!postId.isNullOrEmpty()) {
                 viewModel.editFlag = postId
                 binding.btnAddPost.text = "Update"
@@ -292,8 +304,10 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         }
         // Observe error message if login fails
         viewModel.errorMessage.observe(requireActivity()) { errorMessage ->
-            if (errorMessage.isNotEmpty()) {
-                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+            if (errorMessage != null) {
+                if (errorMessage.isNotEmpty()) {
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                }
             }
         }
         // Observe the result of the login attempt
@@ -340,7 +354,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                     }
                 }
 
-            }else{
+            } else {
                 if (modelSlot != null) {
                     Toastic.toastic(
                         context = requireContext(),
@@ -369,7 +383,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             file
         )
     }
-
 
 
     private fun validateAndProceed() {
@@ -579,8 +592,8 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                 binding.edPrice.setText(viewModel.price)
                 binding.date.setText(viewModel.date)
                 binding.editTextAddress.setText(viewModel.address)
-                adapterServices.updateData(categoryList,viewModel.serviceName.toString())
-                AdapterServices(categoryList,requireContext())
+                adapterServices.updateData(categoryList, viewModel.serviceName.toString())
+                AdapterServices(categoryList, requireContext())
                 binding.rvService.adapter = adapterServices
 
 
@@ -597,7 +610,9 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     }
 
     private fun showError(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        if (message != null) {
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun showErrorField(field: EditText, message: String) {
@@ -835,7 +850,9 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         }
 
         viewModel.errorMessage.observe(requireActivity()) { errorMessage ->
-            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+            if (errorMessage != null) {
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -867,12 +884,15 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         categoryViewModel.getCategory(ApiServiceProvider.getApiService())
 
     }
+
     override fun onDestroy() {
         super.onDestroy()
         viewModel.clearServiceData()
         viewModel.modelCreateService.removeObservers(this)
         viewModel.isLoading.removeObservers(this)
         viewModel.errorMessage.removeObservers(this)
+        categoryViewModel.clearServiceData()
+        slotViewModel.clearData()
     }
 
 }

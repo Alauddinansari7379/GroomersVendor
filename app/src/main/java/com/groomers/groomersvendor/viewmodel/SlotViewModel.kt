@@ -18,8 +18,8 @@ class SlotViewModel(application: Application) : AndroidViewModel(application) {
     private val _modelSlot = MutableLiveData<ModelSlot?>()
     val modelSlot: LiveData<ModelSlot?> = _modelSlot
 
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> = _errorMessage
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> = _errorMessage
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -60,5 +60,6 @@ class SlotViewModel(application: Application) : AndroidViewModel(application) {
 
     fun clearData() {
         _modelSlot.value = null
+        _errorMessage.value = null
     }
 }

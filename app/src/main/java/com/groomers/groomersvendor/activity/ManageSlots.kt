@@ -112,8 +112,10 @@ class ManageSlots : AppCompatActivity() {
         }
         // Observe error message if login fails
         viewModel.errorMessage.observe(context) { errorMessage ->
-            if (errorMessage.isNotEmpty()) {
-                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+            if (errorMessage != null) {
+                if (errorMessage.isNotEmpty()) {
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                }
             }
         }
         // Observe the result of the login attempt

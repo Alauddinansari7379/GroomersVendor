@@ -38,8 +38,8 @@ class CreateServiceViewModel(
     val modelCreateService: LiveData<ModelCreateServiceX?> = _modelCreateService
     val modelUpdateService: LiveData<ModelUpdateService?> = _modelUpdateService
 
-    val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> = _errorMessage
+    val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> = _errorMessage
 
     val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -161,5 +161,6 @@ class CreateServiceViewModel(
     fun clearServiceData() {
         _modelCreateService.value = null
         _modelUpdateService.value = null
+        _errorMessage.value = null
     }
 }
