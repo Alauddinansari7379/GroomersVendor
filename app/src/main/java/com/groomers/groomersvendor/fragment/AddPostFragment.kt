@@ -72,6 +72,11 @@ import com.groomers.groomersvendor.model.modelcategory.Result
 
 @AndroidEntryPoint
 class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
+    val selectedDays = linkedSetOf<ModelDay>()
+    private lateinit var endTimeFormatted: String
+    private lateinit var startTimeFormatted: String
+    private lateinit var discount: String
+    private lateinit var serviceNameNew: String
     private lateinit var categoryList: List<Result>
     private lateinit var binding: FragmentAddPostBinding
 
@@ -148,7 +153,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         dayList.add(ModelDay("Friday", "5"))
         dayList.add(ModelDay("Saturday", "6"))
         dayList.add(ModelDay("Sunday", "7"))
-        val selectedDays = linkedSetOf<ModelDay>()
+
         binding.spinnerDay.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>, view: View?, i: Int, l: Long) {
                 if (view == null) {
@@ -156,16 +161,19 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                 }
 
                 if (dayList.isNotEmpty()) {
-                    dayId = dayList[i].id.toString()
-                    val selectedDay = dayList[i]
-                    if (selectedDays.add(selectedDay)) {
-                        daysAdapter.updateList(selectedDays.toMutableList())
-                    } else {
+                    val modelDay = dayList[i]
+                    dayId = modelDay.id.toString()
+
+                    // Check if it's already selected
+                    if (selectedDays.any { it.id == modelDay.id }) {
                         Toast.makeText(
                             requireContext(),
-                            "${selectedDay.day} is already selected",
+                            "${modelDay.day} is already selected",
                             Toast.LENGTH_SHORT
                         ).show()
+                    } else {
+                        selectedDays.add(modelDay)
+                        daysAdapter.updateList(selectedDays.toMutableList())
                     }
                 }
             }
@@ -177,20 +185,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
 
 
-        daysAdapter = DaysAdapter(
-            requireContext(),
-            selectedDays.toMutableList()
-        ) { removedDay ->
-            selectedDays.remove(removedDay) // Remove from list
-            daysAdapter.updateList(selectedDays.toMutableList()) // Update RecyclerView
-        }
-
-
-        binding.rvHorizontalList.adapter = daysAdapter
-        binding.spinnerDay.adapter =
-            ArrayAdapter<ModelDay>(requireContext(), android.R.layout.simple_list_item_1, dayList)
-
-
+        setDaySpinner()
         binding.tvDate.text = currentDate
 
         mydilaog?.setCanceledOnTouchOutside(false)
@@ -313,47 +308,16 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         // Observe the result of the login attempt
         slotViewModel.modelSlot.observe(requireActivity()) { modelSlot ->
             if (modelSlot != null && modelSlot.status == 1) {
-                sessionManager.accessToken?.let { token ->
-                    viewModel.images?.let { imageList ->
-                        if (!viewModel.editFlag.isNullOrEmpty()) {
-                            viewModel.updateService(
-                                token,
-                                ApiServiceProvider.getApiService(),
-                                serviceName,
-                                viewModel.description ?: "",
-                                viewModel.price ?: "",
-                                viewModel.time ?: "",
-                                viewModel.serviceType ?: "",
-                                viewModel.date ?: "",
-                                viewModel.category ?: "",
-                                viewModel.slot_time ?: "",
-                                viewModel.address ?: "",
-                                userType,
-                                imageList,
-                                viewModel.editFlag!!
-                            )
-                        } else {
-                            viewModel.createService(
-                                token,
-                                ApiServiceProvider.getApiService(),
-                                serviceName,
-                                viewModel.description ?: "",
-                                viewModel.price ?: "",
-                                viewModel.time ?: "",
-                                viewModel.serviceType ?: "",
-                                viewModel.date ?: "",
-                                viewModel.category ?: "",
-                                viewModel.slot_time ?: "",
-                                viewModel.address ?: "",
-                                userType,
-                                imageList,
-                                serviceId
 
-                            )
-                        }
-                    }
-                }
-
+                Toastic.toastic(
+                    context = requireContext(),
+                    message = "Service added successfully.",
+                    duration = Toastic.LENGTH_SHORT,
+                    type = Toastic.SUCCESS,
+                    isIconAnimated = true,
+                    textColor = if (false) Color.BLUE else null,
+                ).show()
+                resetAllFields()
             } else {
                 if (modelSlot != null) {
                     Toastic.toastic(
@@ -387,19 +351,22 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
     private fun validateAndProceed() {
         viewModel.serviceName = serviceName
-        val startTimeFormatted = binding.tvStartTime.text.toString().replace(":", "")
-        val endTimeFormatted = binding.tvEndTime.text.toString().replace(":", "")
+         startTimeFormatted = binding.tvStartTime.text.toString().replace(":", "")
+         endTimeFormatted = binding.tvEndTime.text.toString().replace(":", "")
         val selectedService = binding.spinnerService.selectedItem.toString()
         userType = binding.spinnerUserType.selectedItem.toString()
-        val discount = binding.etDiscount.text.toString().trim()
+        discount = binding.etDiscount.text.toString().trim()
         val serviceDuration = binding.etDuration.text.toString().trim()
-
+         serviceNameNew = binding.etServiceName.text.toString()
         // Step 1: Validate Service Name
         if (viewModel.serviceName.isNullOrEmpty()) {
             showError1("Please select a service before proceeding!")
             return
         }
-
+        if (serviceName.isEmpty()) {
+            showErrorField1(binding.etServiceName, "Please enter Service name")
+            return
+        }
         // Step 2: Validate Description
         viewModel.description = binding.editTextDescription.text.toString().trim()
         if (viewModel.description.isNullOrEmpty()) {
@@ -443,6 +410,8 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         if (serviceDuration.isEmpty()) {
             showErrorField1(binding.etDuration, "Please enter service duration")
             return
+        }else{
+            viewModel.time = serviceDuration
         }
 
         // Step 9: Validate Start Time
@@ -464,15 +433,49 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 //        }
 
         // Proceed with API call
-        slotViewModel.createSlot(
-            ApiServiceProvider.getApiService(),
-            startTimeFormatted,
-            endTimeFormatted,
-            dayId,
-            serviceName,
-            quantity.toString(),
-            serviceId
-        )
+        sessionManager.accessToken?.let { token ->
+            viewModel.images?.let { imageList ->
+                if (!viewModel.editFlag.isNullOrEmpty()) {
+                    viewModel.updateService(
+                        token,
+                        ApiServiceProvider.getApiService(),
+                        serviceNameNew,
+                        viewModel.description ?: "",
+                        viewModel.price ?: "",
+                        viewModel.time ?: "",
+                        viewModel.serviceType ?: "",
+                        viewModel.date ?: "",
+                        viewModel.category ?: "",
+                        viewModel.slot_time ?: "",
+                        viewModel.address ?: "",
+                        userType,
+                        imageList,
+                        viewModel.editFlag!!,
+                        discount
+                    )
+                } else {
+                    viewModel.createService(
+                        token,
+                        ApiServiceProvider.getApiService(),
+                        serviceNameNew,
+                        viewModel.description ?: "",
+                        viewModel.price ?: "",
+                        viewModel.time ?: "",
+                        viewModel.serviceType ?: "",
+                        viewModel.date ?: "",
+                        viewModel.category ?: "",
+                        viewModel.slot_time ?: "",
+                        viewModel.address ?: "",
+                        userType,
+                        imageList,
+                        serviceId,
+                        discount
+
+                    )
+                }
+            }
+        }
+
     }
 
     // Helper method to show warning dialogs
@@ -811,17 +814,21 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     private fun observeViewModel1() {
         viewModel.modelCreateService.observe(requireActivity()) { result ->
             if (result != null && result.status == 1) {
-                Toastic.toastic(
-                    context = requireContext(),
-                    message = "Service added successfully.",
-                    duration = Toastic.LENGTH_SHORT,
-                    type = Toastic.SUCCESS,
-                    isIconAnimated = true,
-                    textColor = if (false) Color.BLUE else null,
-                ).show()
-//                requireActivity().finish()
-                resetAllFields()
-            }
+                for (i in selectedDays) {
+
+                    slotViewModel.createSlot(
+                        ApiServiceProvider.getApiService(),
+                        startTimeFormatted,
+                        endTimeFormatted,
+                        i.id,
+                        serviceId,
+                        quantity.toString(),
+                        result.result.id.toString()
+                    )
+                    Log.i("Slot created","Slot Created")
+                }
+                }
+
         }
 
         viewModel.modelUpdateService.observe(requireActivity()) { result ->
@@ -872,8 +879,11 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         binding.date.text.clear()
         binding.etDiscount.text.clear()
         binding.etDuration.text?.clear()
+        binding.etServiceName.text?.clear()
         binding.tvStartTime.text = "00:00:00"
         binding.tvEndTime.text = "00:00:00"
+        selectedDays.clear()
+        daysAdapter.updateList(selectedDays.toMutableList())
 //        binding.spinnerUserType.setSelection(0) // Set to the default position
 //        binding.spinnerDay.setSelection(0) // Set to the default position
 //        binding.spinnerService.setSelection(0) // Set to the default position
@@ -882,6 +892,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         binding.layoutDateFromDilog.visibility = View.GONE
         binding.btnCreate.visibility = View.GONE
         categoryViewModel.getCategory(ApiServiceProvider.getApiService())
+        setDaySpinner()
 
     }
 
@@ -893,6 +904,23 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         viewModel.errorMessage.removeObservers(this)
         categoryViewModel.clearServiceData()
         slotViewModel.clearData()
+    }
+    fun setDaySpinner()
+    {
+        daysAdapter = DaysAdapter(
+            requireContext(),
+            selectedDays.toMutableList()
+        ) { removedDay ->
+            selectedDays.remove(removedDay) // Remove from list
+            daysAdapter.updateList(selectedDays.toMutableList()) // Update RecyclerView
+        }
+
+
+        binding.rvHorizontalList.adapter = daysAdapter
+        binding.spinnerDay.adapter =
+            ArrayAdapter<ModelDay>(requireContext(), android.R.layout.simple_list_item_1, dayList)
+
+
     }
 
 }

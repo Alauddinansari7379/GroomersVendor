@@ -117,11 +117,11 @@ interface ApiService {
         @Query("serviceType") serviceType: String,
         @Query("date") date: String,
         @Query("category") category: String,
-        @Query("slot_time") slot_time: String,
         @Query("address") address: String,
         @Query("user_type") user_type: String,
 //        @Part image: List<MultipartBody.Part>
-        @Part image: MultipartBody.Part
+        @Part image: MultipartBody.Part,
+        @Query("discount") discount: String,
     ): Response<ModelCreateServiceX>
 
     @Multipart
@@ -135,11 +135,11 @@ interface ApiService {
         @Query("serviceType") serviceType: String,
         @Query("date") date: String,
         @Query("category") category: String,
-        @Query("slot_time") slot_time: String,
         @Query("address") address: String,
         @Query("user_type") user_type: String,
         @Part image: MultipartBody.Part,
-        @Query("id") id: String
+        @Query("id") id: String,
+        @Query("discount") discount: String,
     ): Response<ModelUpdateService>
 
     @POST("deletePost")

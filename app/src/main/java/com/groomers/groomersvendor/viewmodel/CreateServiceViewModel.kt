@@ -59,6 +59,7 @@ class CreateServiceViewModel(
         user_type: String,
         images: MultipartBody.Part,
         servideType: String,
+        discount: String,
     ) {
         viewModelScope.launch {
             _isLoading.postValue(true)
@@ -68,14 +69,14 @@ class CreateServiceViewModel(
                     serviceName,
                     description,
                     price,
-                    time="34",
+                    time,
                     servideType,
                     date,
                     category,
-                    slot_time="34",
                     address,
                     user_type,
-                    images
+                    images,
+                    discount
                 )
 
                 if (response.isSuccessful) {
@@ -115,7 +116,8 @@ class CreateServiceViewModel(
         address: String,
         user_type: String,
         image: MultipartBody.Part,
-        id : String
+        id : String,
+        discount : String,
     ) {
         viewModelScope.launch {
             _isLoading.postValue(true)
@@ -129,11 +131,11 @@ class CreateServiceViewModel(
                     serviceType,
                     date,
                     category,
-                    slot_time,
                     address,
                     user_type,
                     image,
-                    id
+                    id,
+                    discount
                 )
 
                 if (response.isSuccessful) {

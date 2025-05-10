@@ -120,7 +120,8 @@ class AddServiceDetails : AppCompatActivity() {
                             viewModel.address ?: "",
                             userType,
                             imageList,
-                            viewModel.editFlag!!
+                            viewModel.editFlag!!,
+                            discount
                         )
                     } else {
                         viewModel.createService(
@@ -137,7 +138,8 @@ class AddServiceDetails : AppCompatActivity() {
                             viewModel.address ?: "",
                             userType,
                             imageList,
-                            ""
+                            "",
+                            discount
                         )
                     }
                 }
