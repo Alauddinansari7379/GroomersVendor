@@ -226,6 +226,6 @@ interface ApiService {
     @POST("vendorStatus")
     fun onlineOffline(
         @Header("Authorization") authorization: String,
-        @Query("vendorStatus") vendorStatus: String,
+        @Query("VendorStatus") vendorStatus: String,
     ): Call<ModelAddBank>
 }

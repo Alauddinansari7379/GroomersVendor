@@ -96,7 +96,7 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
             ).setTitleText("Are you sure want to Offline?").setCancelText("No")
                 .setConfirmText("Yes").showCancelButton(true).setConfirmClickListener { sDialog ->
                     sDialog.cancel()
-                    apiCallOnlineOffline("1")
+                    apiCallOnlineOffline("0")
 
                 }.setCancelClickListener { sDialog ->
                     sDialog.cancel()
@@ -110,7 +110,7 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
             ).setTitleText("Are you sure want to Online?").setCancelText("No").setConfirmText("Yes")
                 .showCancelButton(true).setConfirmClickListener { sDialog ->
                     sDialog.cancel()
-                    apiCallOnlineOffline("0")
+                    apiCallOnlineOffline("1")
 
                 }.setCancelClickListener { sDialog ->
                     sDialog.cancel()
@@ -192,18 +192,6 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
                             count2 = 0
                             AppProgressBar.hideLoaderDialog()
                             if (statues == "1") {
-                                sessionManager.onlineOffline = "0"
-                                binding.btnOnline.visibility = View.GONE
-                                binding.btnOffline.visibility = View.VISIBLE
-                                Toastic.toastic(
-                                    context = this@MainActivity,
-                                    message = "Now you are Offline !",
-                                    duration = Toastic.LENGTH_SHORT,
-                                    type = Toastic.SUCCESS,
-                                    isIconAnimated = true,
-                                    textColor = if (false) Color.BLUE else null,
-                                ).show()
-                            } else {
                                 sessionManager.onlineOffline = "1"
                                 binding.btnOnline.visibility = View.VISIBLE
                                 binding.btnOffline.visibility = View.GONE
@@ -215,6 +203,19 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
                                     isIconAnimated = true,
                                     textColor = if (false) Color.BLUE else null,
                                 ).show()
+                            } else {
+                                sessionManager.onlineOffline = "0"
+                                binding.btnOnline.visibility = View.GONE
+                                binding.btnOffline.visibility = View.VISIBLE
+                                Toastic.toastic(
+                                    context = this@MainActivity,
+                                    message = "Now you are Offline !",
+                                    duration = Toastic.LENGTH_SHORT,
+                                    type = Toastic.SUCCESS,
+                                    isIconAnimated = true,
+                                    textColor = if (false) Color.BLUE else null,
+                                ).show()
+
                             }
 
                         } else if (response.code() == 500) {

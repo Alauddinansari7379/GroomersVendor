@@ -11,6 +11,7 @@ data class Result(
     val booking_commission: Any,
     val businessCategory: Int,
     val businessName: String,
+    val VendorStatus: String,
     val city: String,
     val country: Int,
     val created_at: String,
