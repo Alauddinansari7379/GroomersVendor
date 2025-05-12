@@ -10,6 +10,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.util.Log
@@ -24,6 +25,7 @@ import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -67,6 +69,7 @@ import java.util.Locale
 import javax.inject.Inject
 import androidx.core.graphics.drawable.toDrawable
 import com.groomers.groomersvendor.adapter.AdapterServices.Companion.serviceId
+import com.groomers.groomersvendor.adapter.CheckboxSpinnerAdapter
 import com.groomers.groomersvendor.adapter.DaysAdapter
 import com.groomers.groomersvendor.model.modelcategory.Result
 
@@ -79,6 +82,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     private lateinit var serviceNameNew: String
     private lateinit var categoryList: List<Result>
     private lateinit var binding: FragmentAddPostBinding
+    var firstTime=false
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -93,6 +97,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     lateinit var parts: MultipartBody.Part
     private val slotViewModel: SlotViewModel by viewModels()
     lateinit var daysAdapter: DaysAdapter
+    val selectedDaysList = mutableListOf<ModelDay>()
 
     private lateinit var imageUri: Uri
     var quantity = 1
@@ -132,6 +137,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
     private val categoryViewModel: CategoryViewModel by viewModels()
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -141,51 +147,14 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         setupSpinners1()
         observeViewModel1()
         setupClickListeners()
-
+        setDayListSpinner()
+        setDaySpinner()
         Log.e("BankName", sessionManager.bankName.toString())
 
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
         selectedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-        dayList.add(ModelDay("Monday", "1"))
-        dayList.add(ModelDay("Tuesday", "2"))
-        dayList.add(ModelDay("Wednesday", "3"))
-        dayList.add(ModelDay("Thursday", "4"))
-        dayList.add(ModelDay("Friday", "5"))
-        dayList.add(ModelDay("Saturday", "6"))
-        dayList.add(ModelDay("Sunday", "7"))
-
-        binding.spinnerDay.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(adapterView: AdapterView<*>, view: View?, i: Int, l: Long) {
-                if (view == null) {
-                    return
-                }
-
-                if (dayList.isNotEmpty()) {
-                    val modelDay = dayList[i]
-                    dayId = modelDay.id.toString()
-
-                    // Check if it's already selected
-                    if (selectedDays.any { it.id == modelDay.id }) {
-                        Toast.makeText(
-                            requireContext(),
-                            "${modelDay.day} is already selected",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        selectedDays.add(modelDay)
-                        daysAdapter.updateList(selectedDays.toMutableList())
-                    }
-                }
-            }
-
-            override fun onNothingSelected(adapterView: AdapterView<*>?) {
-
-            }
-        }
 
 
-
-        setDaySpinner()
         binding.tvDate.text = currentDate
 
         mydilaog?.setCanceledOnTouchOutside(false)
@@ -892,7 +861,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         binding.layoutDateFromDilog.visibility = View.GONE
         binding.btnCreate.visibility = View.GONE
         categoryViewModel.getCategory(ApiServiceProvider.getApiService())
-        setDaySpinner()
+        //setDaySpinner()
 
     }
 
@@ -905,22 +874,72 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         categoryViewModel.clearServiceData()
         slotViewModel.clearData()
     }
-    fun setDaySpinner()
-    {
-        daysAdapter = DaysAdapter(
-            requireContext(),
-            selectedDays.toMutableList()
-        ) { removedDay ->
-            selectedDays.remove(removedDay) // Remove from list
-            daysAdapter.updateList(selectedDays.toMutableList()) // Update RecyclerView
+    private fun setDayListSpinner() {
+        val dayList = mutableListOf(
+            ModelDay("Select All", "0"),
+            ModelDay("Monday", "1"),
+            ModelDay("Tuesday", "2"),
+            ModelDay("Wednesday", "3"),
+            ModelDay("Thursday", "4"),
+            ModelDay("Friday", "5"),
+            ModelDay("Saturday", "6"),
+            ModelDay("Sunday", "7")
+        )
+
+        // ✅ Make sure none are pre-selected
+        dayList.forEach { it.isSelected = false }
+
+        val spinnerAdapter = CheckboxSpinnerAdapter(requireContext(), dayList)
+        binding.spinnerDay.adapter = spinnerAdapter
+
+        binding.spinnerDay.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            @RequiresApi(Build.VERSION_CODES.N)
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedDay = dayList[position]
+
+                if (firstTime) {
+                if (selectedDay.id == "0") { // "Select All"
+                    val notAllSelected = dayList.any { it.id != "0" && !it.isSelected }
+
+                    if (notAllSelected) {
+                        dayList.forEach { it.isSelected = it.id != "0" }
+                        selectedDaysList.clear()
+                        selectedDaysList.addAll(dayList.filter { it.id != "0" })
+                    } else {
+                        dayList.forEach { it.isSelected = false }
+                        selectedDaysList.clear()
+                    }
+                }
+                } else {
+                    selectedDay.isSelected = !selectedDay.isSelected
+                    if (selectedDay.isSelected) {
+                        if (selectedDaysList.none { it.id == selectedDay.id }) {
+                            selectedDaysList.add(selectedDay)
+                        }
+                    } else {
+                        selectedDaysList.removeIf { it.id == selectedDay.id }
+                    }
+
+                    // Unselect "Select All"
+                    dayList.find { it.id == "0" }?.isSelected = false
+                }
+                firstTime=true
+                daysAdapter.updateList(selectedDaysList.toMutableList())
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun setDaySpinner() {
+        // Initialize Adapter for RecyclerView
+        daysAdapter = DaysAdapter(requireContext(), selectedDaysList) { removedDay ->
+            selectedDaysList.removeIf { it.id == removedDay.id } // ✅ safe removal
+            daysAdapter.updateList(selectedDaysList.toMutableList()) // 🔁 Refresh adapter
+        }
 
         binding.rvHorizontalList.adapter = daysAdapter
-        binding.spinnerDay.adapter =
-            ArrayAdapter<ModelDay>(requireContext(), android.R.layout.simple_list_item_1, dayList)
-
-
     }
 
 }

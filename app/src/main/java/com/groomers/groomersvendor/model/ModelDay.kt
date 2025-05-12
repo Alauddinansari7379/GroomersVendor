@@ -1,11 +1,7 @@
 package com.groomers.groomersvendor.model
 
-class ModelDay(
-    val day:String,
-    val id:String
-)
-{
+data class ModelDay(val day: String, val id: String, var isSelected: Boolean = false) {
     override fun toString(): String {
-        return day
+        return day // Ensures the spinner shows just the day name
     }
 }

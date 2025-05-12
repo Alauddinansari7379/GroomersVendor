@@ -456,20 +456,23 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_gravity="center"
                         android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="10dp"
+                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/corner">
 
                             <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinnerDay"
                                 android:layout_width="match_parent"
+                                android:checked="false"
                                 android:layout_height="45dp">
 
                             </androidx.appcompat.widget.AppCompatSpinner>
@@ -480,9 +483,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_weight="1">
+                             android:layout_marginEnd="10dp"
+                            android:layout_weight="2">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -491,37 +493,34 @@
                                 android:orientation="horizontal">
 
                                 <!-- Minus Button -->
-                                <Button
+                                <androidx.appcompat.widget.AppCompatImageView
                                     android:id="@+id/btnMinus"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:background="@drawable/corner"
-                                    android:text="−"
-                                    android:textColor="@android:color/white"
-                                    android:textSize="18sp" />
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:background="@drawable/minus"
+                                    android:backgroundTint="@color/red"
+                                   />
 
                                 <!-- Quantity TextView -->
                                 <TextView
                                     android:id="@+id/tvQuantity"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
                                     android:layout_marginHorizontal="5dp"
                                     android:background="@drawable/corner"
                                     android:gravity="center"
-                                    android:padding="5dp"
-                                    android:text="1"
+                                     android:text="1"
                                     android:textColor="@android:color/black"
-                                    android:textSize="18sp" />
+                                    android:textSize="14sp" />
 
                                 <!-- Plus Button -->
-                                <Button
+                                <androidx.appcompat.widget.AppCompatImageView
                                     android:id="@+id/btnPlus"
-                                    android:layout_width="45dp"
-                                    android:layout_height="40dp"
-                                    android:background="@drawable/corner"
-                                    android:text="+"
-                                    android:textColor="@android:color/white"
-                                    android:textSize="18sp" />
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:background="@drawable/addnew"
+                                    android:backgroundTint="@color/Green"
+                                    />
                             </LinearLayout>
 
                         </LinearLayout>

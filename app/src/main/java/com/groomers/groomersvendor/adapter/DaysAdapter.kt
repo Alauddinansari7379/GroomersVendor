@@ -24,20 +24,19 @@ class DaysAdapter(
 
     override fun onBindViewHolder(holder: DaysViewHolder, position: Int) {
         val selectedDay = selectedDaysList[position]
-
         holder.binding.tvDay.text = selectedDay.day
 
-
         holder.binding.ivClose.setOnClickListener {
-            if (selectedDaysList.size>1) {
-                onDayRemoved(selectedDay)
-            }
+            onDayRemoved(selectedDay) // ✅ Notify parent to handle safe removal
         }
     }
-
 
     fun updateList(newList: MutableList<ModelDay>) {
         selectedDaysList = newList
         notifyDataSetChanged()
     }
 }
+
+
+
+
