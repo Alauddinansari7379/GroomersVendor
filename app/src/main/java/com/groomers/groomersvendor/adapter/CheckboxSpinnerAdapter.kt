@@ -6,14 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.CheckBox
+import android.widget.CheckedTextView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.model.ModelDay
 
 class CheckboxSpinnerAdapter(
     private val context: Context,
-    private var daysList: MutableList<ModelDay>,
-    private val onDaySelectionChanged: (List<ModelDay>) -> Unit // 🔁 callback
+    private var daysList: MutableList<ModelDay>
 ) : ArrayAdapter<ModelDay>(context, R.layout.item_checkbox_spinner, daysList) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -46,6 +47,7 @@ class CheckboxSpinnerAdapter(
             modelDay.isSelected = isChecked
             // Notify the spinner to update the text immediately after checkbox state change
             notifyDataSetChanged()
+
         }
 
         return view
