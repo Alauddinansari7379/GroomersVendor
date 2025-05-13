@@ -97,7 +97,7 @@
     <string name="add_member">Add Member</string>
     <string name="my_profile">My Profile</string>
     <string name="add_post">Add Service</string>
-    <string name="search">Search</string>
+    <string name="search">Search by Customer Name</string>
     <string name="dashboard">Dashboard</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="order_detail">Order Detail</string>
@@ -269,5 +269,6 @@
     <string name="enter_bank_details">Enter bank details</string>
     <string name="help_list">Help list</string>
     <string name="query">Query</string>
+    <string name="no_appointment_found">No appointment Found</string>
 
 </resources>

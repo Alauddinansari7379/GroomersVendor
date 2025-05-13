@@ -9,11 +9,15 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.ehcf.Helper.currency
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.BookingItemBinding
 import com.groomers.groomersvendor.model.modelGetBooking.Result
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import com.squareup.picasso.Picasso
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 
 class AdapterBooking(val bookingList: List<Result>, val context: Context, val accept: Accept) :
     RecyclerView.Adapter<AdapterBooking.BookingViewHolder>() {
@@ -44,30 +48,44 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
 
                 tvServiceName.text = serviceName
                 tvDate.text = date
-                tvPrice.text = "$" + total.toString()
+                tvPrice.text = currency + total.toString()
                 tvCustomerName.text = customerName
                 tvBookingStatues.text = status_name
                 tvGender.text = user_type
                 tvStartTime.text = start_time
                 tvEndTime.text = end_time
-//                tvAddress.text = address.toString()
+                tvAddress.text = address
                 tvDescription.text = description
                 tvRating.text = rating.toString()
 
-
+                @RequiresApi(Build.VERSION_CODES.O)
                 when (slug) {
                     "waiting_for_accept" -> {
                         layoutAccept.visibility = View.VISIBLE
+                        btnAccept.visibility = View.VISIBLE
+                        btnReject.visibility = View.VISIBLE
+                        btnComplete.visibility = View.GONE
                         tvBookingStatues.background.setTint(ContextCompat.getColor(context, R.color.yellow))
                     }
 
                     "accepted" -> {
                         tvBookingStatues.background.setTint(ContextCompat.getColor(context, R.color.green))
-                        layoutAccept.visibility = View.GONE
+                        if (isCurrentTimeGreater(date,end_time)){
+                            layoutAccept.visibility = View.VISIBLE
+                            btnAccept.visibility = View.GONE
+                            btnReject.visibility = View.GONE
+                            btnComplete.visibility = View.VISIBLE
+                        }
+
                     }
 
                     "rejected" -> {
                         tvBookingStatues.background.setTint(ContextCompat.getColor(context, R.color.red))
+                        layoutAccept.visibility = View.GONE
+                    }
+
+                    "completed" -> {
+                        tvBookingStatues.background.setTint(ContextCompat.getColor(context, R.color.green))
                         layoutAccept.visibility = View.GONE
                     }
 
@@ -83,6 +101,10 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
                    accept.reject(id.toString())
                 }
 
+                btnComplete.setOnClickListener {
+                   accept.complete(id.toString())
+                }
+
                 //                card.setOnClickListener {
 //                    val intent = Intent(context, About::class.java)
 //                    context.startActivity(intent)
@@ -96,6 +118,24 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
     interface Accept {
         fun accept(bookingId: String)
         fun reject(bookingId: String)
+        fun complete(bookingId: String)
 
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun isCurrentTimeGreater(dateString: String, endTimeString: String): Boolean {
+        return try {
+            val date = LocalDate.parse(dateString)           // Format: "yyyy-MM-dd"
+            val endTime = LocalTime.parse(endTimeString)     // Format: "HH:mm:ss"
+
+            val endDateTime = LocalDateTime.of(date, endTime)
+            val currentDateTime = LocalDateTime.now()
+
+            currentDateTime.isAfter(endDateTime)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false // Return false if parsing fails
+        }
+    }
+
 }

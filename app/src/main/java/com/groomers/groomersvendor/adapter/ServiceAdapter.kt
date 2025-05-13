@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.ehcf.Helper.currency
 import com.groomers.groomersvendor.MainActivity
 import com.groomers.groomersvendor.activity.OrderDetail
 import com.groomers.groomersvendor.databinding.ServiceItemBinding
@@ -29,7 +30,7 @@ class ServiceAdapter(val context: Context,private val serviceList: List<Result>,
             holder.binding.slotTime.text = slot_time
             holder.binding.tvServiceType.text = serviceType
             holder.binding.tvDescription.text = description
-            holder.binding.tvPrice.text = price.toString()
+            holder.binding.tvPrice.text = currency +price.toString()
             holder.binding.tvUserType.text = user_type
             holder.binding.btnDelete.setOnClickListener {
                 deleteService.deleteService(id.toString())

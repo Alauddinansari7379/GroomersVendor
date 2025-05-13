@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +22,7 @@ import com.groomers.groomersvendor.adapter.AdapterBooking
 import com.groomers.groomersvendor.databinding.FragmentHomeBinding
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.helper.Toastic
+import com.groomers.groomersvendor.model.modelGetBooking.Result
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import com.groomers.groomersvendor.viewmodel.AcceptBookingViewModel
@@ -41,6 +43,7 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
     private val calendar = Calendar.getInstance()
     private val bookingViewModel: GetBookingViewModel by viewModels()
     private val acceptBookingViewModel: AcceptBookingViewModel by viewModels()
+    private lateinit var mainData: ArrayList<Result>
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -92,7 +95,6 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
         sessionManager.accessToken?.let { token ->
             lifecycleScope.launch {
                 bookingViewModel.getBooking(apiService, token, date)
-//                bookingViewModel.getBooking(apiService,"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2dyb29tZXJzLmNvLmluL2FwaS9sb2dpbiIsImlhdCI6MTc0MDgxNDEzOSwiZXhwIjoyMzYyODk0MTM5LCJuYmYiOjE3NDA4MTQxMzksImp0aSI6Imx5YmdVMXBBZmVSdFZqOUYiLCJzdWIiOiI0MiIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.riltZ36eLz7qO3hMZCsCtb--x1YxO3x44tHtnZW0DpI",date)
             }
         } ?: run {
             Toastic.toastic(
@@ -119,10 +121,27 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
             }
         }
         bookingViewModel.modelGetBooking.observe(requireActivity()) { modelCategory ->
-            binding.rvOrderList.apply {
-                adapter = AdapterBooking(modelCategory.result, requireContext(), this@HomeFragment)
-            }
+            mainData = modelCategory.result
+            setRecyclerViewAdapter(mainData)
 
+        }
+        binding.searchView.addTextChangedListener { str ->
+            setRecyclerViewAdapter(mainData.filter {
+                it.customerName != null && it.customerName!!.contains(str.toString(), ignoreCase = true)
+            } as ArrayList<Result>)
+        }
+    }
+    private fun setRecyclerViewAdapter(data: ArrayList<Result>) {
+        binding.rvOrderList.apply {
+            adapter = AdapterBooking(data, requireContext(), this@HomeFragment)
+        }
+
+        if (data.isEmpty()) {
+            binding.tvNoDataFound.visibility = View.VISIBLE
+            binding.rvOrderList.visibility = View.GONE
+        } else {
+            binding.rvOrderList.visibility = View.VISIBLE
+            binding.tvNoDataFound.visibility = View.GONE
         }
     }
 
@@ -211,6 +230,11 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        makeGetBookingAPICall(getCurrentDate())
+
+    }
 
     override fun accept(bookingId: String) {
         SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
@@ -238,6 +262,22 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
             .setConfirmClickListener { sDialog ->
                 sDialog.cancel()
                 makeAcceptBookingAPICall(bookingId, "rejected")
+            }
+            .setCancelClickListener { sDialog ->
+                sDialog.cancel()
+            }
+            .show()
+    }
+
+    override fun complete(bookingId: String) {
+        SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
+            .setTitleText("Are you sure want to Complete?")
+            .setCancelText("No")
+            .setConfirmText("Yes")
+            .showCancelButton(true)
+            .setConfirmClickListener { sDialog ->
+                sDialog.cancel()
+                makeAcceptBookingAPICall(bookingId, "completed")
             }
             .setCancelClickListener { sDialog ->
                 sDialog.cancel()

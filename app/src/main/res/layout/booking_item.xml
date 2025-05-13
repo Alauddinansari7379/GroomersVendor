@@ -41,8 +41,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
+                        android:visibility="gone"
                         android:gravity="start">
 
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnComplete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="20dp"
+                            android:background="@drawable/corner"
+                            android:backgroundTint="@color/green"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="Complete"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnAccept"
                             android:layout_width="wrap_content"
@@ -232,11 +246,17 @@
                     </LinearLayout>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageView"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:scaleType="fitCenter" />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/user"
+                    app:layout_constraintBottom_toBottomOf="@+id/toolBar"
+                    app:layout_constraintEnd_toEndOf="@+id/toolBar"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </de.hdodenhof.circleimageview.CircleImageView>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <LinearLayout

@@ -2,6 +2,8 @@ package com.groomers.groomersvendor.retrofit
 
 import com.groomers.groomersvendor.model.ModelGetVendor.ModelGetVendor
 import com.groomers.groomersvendor.model.modelAccept.ModelAccept
+import com.groomers.groomersvendor.model.modelEarning.ModelEarning
+import com.groomers.groomersvendor.model.modelForgot.ModelForgot
 import com.groomers.groomersvendor.model.modelGetBooking.ModelGetBooking
 import com.groomers.groomersvendor.model.modeladdbank.ModelAddBank
 import com.groomers.groomersvendor.model.modeladdhelp.ModelAddHelp
@@ -228,4 +230,22 @@ interface ApiService {
         @Header("Authorization") authorization: String,
         @Query("VendorStatus") vendorStatus: String,
     ): Call<ModelAddBank>
+
+    @POST("vendor_earning")
+    fun vendorEarning(
+        @Header("Authorization") authorization: String,
+    ): Call<ModelEarning>
+
+    @POST("forgotPassword")
+    fun forgotPassword(
+        @Query("email") email: String,
+        @Query("role") role: String,
+    ): Call<ModelForgot>
+
+    @POST("reset_password")
+    fun resetPassword(
+        @Query("email") email: String,
+        @Query("role") role: String,
+        @Query("password") password: String,
+    ): Call<ModelForgot>
 }

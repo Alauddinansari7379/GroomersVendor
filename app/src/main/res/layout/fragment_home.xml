@@ -90,8 +90,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="10dp"
+                android:textSize="14sp"
                 android:background="@drawable/border"
-                android:drawableEnd="@drawable/baseline_search_24"
                 android:hint="@string/search"
                 android:padding="12dp" />
 
@@ -171,6 +171,17 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNoDataFound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_bold"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_marginTop="15dp"
+            android:text="@string/no_appointment_found"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
     </LinearLayout>
 
 </FrameLayout>

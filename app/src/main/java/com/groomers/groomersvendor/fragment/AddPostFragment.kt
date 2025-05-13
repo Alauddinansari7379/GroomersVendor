@@ -27,6 +27,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -36,13 +37,17 @@ import com.bumptech.glide.Glide
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.activity.ServiceList
 import com.groomers.groomersvendor.adapter.AdapterServices
+import com.groomers.groomersvendor.adapter.AdapterServices.Companion.serviceId
 import com.groomers.groomersvendor.adapter.AdapterServices.Companion.serviceName
+import com.groomers.groomersvendor.adapter.CheckboxSpinnerAdapter
+import com.groomers.groomersvendor.adapter.DaysAdapter
 import com.groomers.groomersvendor.adapter.OthersCategoryAdapter
 import com.groomers.groomersvendor.databinding.FragmentAddPostBinding
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.helper.Toastic
 import com.groomers.groomersvendor.helper.UploadRequestBody
 import com.groomers.groomersvendor.model.ModelDay
+import com.groomers.groomersvendor.model.modelcategory.Result
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import com.groomers.groomersvendor.viewmodel.CategoryViewModel
@@ -63,15 +68,12 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.util.Arrays
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
-import androidx.core.graphics.drawable.toDrawable
-import com.groomers.groomersvendor.adapter.AdapterServices.Companion.serviceId
-import com.groomers.groomersvendor.adapter.CheckboxSpinnerAdapter
-import com.groomers.groomersvendor.adapter.DaysAdapter
-import com.groomers.groomersvendor.model.modelcategory.Result
+
 
 @AndroidEntryPoint
 class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
@@ -564,9 +566,17 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                 binding.edPrice.setText(viewModel.price)
                 binding.date.setText(viewModel.date)
                 binding.editTextAddress.setText(viewModel.address)
+                binding.etServiceName.setText(viewModel.serviceName)
                 adapterServices.updateData(categoryList, viewModel.serviceName.toString())
                 AdapterServices(categoryList, requireContext())
                 binding.rvService.adapter = adapterServices
+
+                val userTypes = arrayOf("Male", "Female", "Pet")
+                val index = listOf(*userTypes).indexOf(service.user_type)
+
+                if (index != -1) {
+                    binding.spinnerUserType.setSelection(index)
+                }
 
 
                 val imageUrl = "${ApiServiceProvider.IMAGE_URL}${viewModel.imageUrl}"

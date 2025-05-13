@@ -2,7 +2,7 @@ package com.groomers.groomersvendor.model.modelGetBooking
 
 data class Result(
     val error:String,
-    val address: Any,
+    val address: String,
     val comments: Any,
     val created_at: String,
     val customerName: String,

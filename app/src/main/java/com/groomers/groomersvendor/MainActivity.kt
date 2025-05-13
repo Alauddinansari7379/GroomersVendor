@@ -13,6 +13,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
@@ -52,8 +53,7 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
 
         bottomNav = binding.bottomNavigationView
         // Set up the NavHostFragment and NavController
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.hostFragment) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.hostFragment) as NavHostFragment
         val navController = navHostFragment.navController
         // Attach the BottomNavigationView to the NavController
         bottomNav.setupWithNavController(navController)
@@ -115,6 +115,14 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
                 }.setCancelClickListener { sDialog ->
                     sDialog.cancel()
                 }.show()
+        }
+        binding.imgLan.setOnClickListener {
+            val navOptions = NavOptions.Builder()
+                .setPopUpTo(R.id.nav_graph, true) // Make sure it's the graph ID
+                .build()
+            navController?.navigate(R.id.profileFragment, null, navOptions)
+
+
         }
     }
 
@@ -305,6 +313,7 @@ class MainActivity : Common(), NetworkChangeReceiver.ConnectivityListener {
             "AddPostFragment" -> navController.navigate(R.id.addPostFragment, bundle)
         }
     }
+
 
 
 }

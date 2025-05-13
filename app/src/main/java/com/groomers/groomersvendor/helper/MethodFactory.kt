@@ -1,34 +1,36 @@
 package com.example.ehcf.Helper
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
+import android.graphics.Color
 import android.media.AudioManager
 import android.media.ToneGenerator
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.*
 import android.util.Log
-import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.groomers.groomersvendor.helper.Toastic
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 
+val  currency="CA$"
+fun progrossDilog(context: Context) {
 
-fun progrossDilog(context: Context){
-
-    var progressDialog: ProgressDialog? =null
+    var progressDialog: ProgressDialog? = null
     progressDialog = ProgressDialog(context)
     progressDialog!!.setMessage("Loading..")
     progressDialog!!.setTitle("Please Wait")
@@ -36,11 +38,13 @@ fun progrossDilog(context: Context){
     progressDialog!!.setCancelable(true)
     progressDialog.show()
 }
+
 fun changeDateFormat4(date: String): String {
     val inf = SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy")
     val out = SimpleDateFormat("dd-MM-yyyy")
     return out.format(inf.parse(date))
 }
+
 fun convertTo12Hour(Time: String): String? {
     var Time = Time
     if (Time.length == 5) {
@@ -61,11 +65,6 @@ fun convertTo12Hour(Time: String): String? {
 @RequiresApi(Build.VERSION_CODES.M)
 
 
-
-
-
-
-
 fun isOnline(context: Context): Boolean {
     val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -78,10 +77,12 @@ fun isOnline(context: Context): Boolean {
                     Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
                     return true
                 }
+
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
                     Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
                     return true
                 }
+
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
                     Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
                     return true
@@ -98,6 +99,7 @@ fun getFinYear(): Int {
     val year: Int = Calendar.getInstance().get(Calendar.YEAR)
     return if (month >= FIRST_FISCAL_MONTH) year else year - 1
 }
+
 fun hideKeyboard(activity: Activity) {
     val imm: InputMethodManager =
         activity.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -110,12 +112,13 @@ fun hideKeyboard(activity: Activity) {
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-fun changeDateFormat(date:String):String{
+fun changeDateFormat(date: String): String {
     val inf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
     val out = SimpleDateFormat("dd/MM/yyyy  hh:mm aa")
     return out.format(inf.parse(date))
 }
-fun changeDateFormat1(date:String):String{
+
+fun changeDateFormat1(date: String): String {
     val inf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
     val out = SimpleDateFormat("dd-MM-yyyy")
     return out.format(inf.parse(date))
@@ -126,12 +129,26 @@ fun changeDateFormatNew(date: String): String {
     val out = SimpleDateFormat("yy/MM/dd")
     return out.format(inf.parse(date))
 }
-    fun changeDateFormat5(date: String): String {
+
+fun changeDateFormat5(date: String): String {
     val inf = SimpleDateFormat("dd-MM-yyyy")
     val out = SimpleDateFormat("yyyy-MM-dd")
     return out.format(inf.parse(date))
 }
-fun changeDateFormat2(date:String):String{
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun changeDateFormat6(input: String): String {
+    return try {
+        val zonedDateTime = ZonedDateTime.parse(input)
+        val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a")
+        zonedDateTime.format(formatter)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        input // return original if formatting fails
+    }
+}
+
+fun changeDateFormat2(date: String): String {
     val inf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
     val out = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
     return out.format(inf.parse(date))
@@ -209,14 +226,29 @@ fun formatToYesterdayOrToday(date: String?): String? {
 }
 
 
- val toneG = ToneGenerator(AudioManager.STREAM_ALARM, 100)
- fun beep(duration: Int) {
+val toneG = ToneGenerator(AudioManager.STREAM_ALARM, 100)
+fun beep(duration: Int) {
     toneG.startTone(ToneGenerator.TONE_DTMF_S, duration)
     val handler = Handler(Looper.getMainLooper())
     handler.postDelayed({
     }, (duration + 500).toLong())
 }
-
+@SuppressLint("WrongConstant")
+fun myToast(context: Context, message: String, success: Boolean) {
+    var int=1
+    if (!success){
+        int=3
+    }
+    Toastic.toastic(
+        context = context,
+        message =message,
+        duration = Toastic.LENGTH_SHORT,
+        type =int,
+        isIconAnimated = true,
+        textColor = if (false) Color.BLUE else null,
+    ).show()
+}
+@RequiresApi(Build.VERSION_CODES.O)
 fun covertTimeToText(dataDate: String): String {
     lateinit var convTime: String
     val prefix = ""
