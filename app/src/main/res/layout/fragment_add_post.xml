@@ -42,11 +42,12 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager">
 
         </androidx.recyclerview.widget.RecyclerView>
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-             android:layout_marginTop="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="16dp"
             android:hint="Enter service name">
 
@@ -334,10 +335,7 @@
                 android:layout_margin="10dp"
                 android:backgroundTint="#E3E8E7"
                 android:elevation="5dp"
-                app:cardCornerRadius="15dp"
-
-                >
-
+                app:cardCornerRadius="15dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -456,24 +454,24 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_marginTop="5dp"
                         android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                             android:layout_marginEnd="10dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/corner">
 
                             <androidx.appcompat.widget.AppCompatSpinner
                                 android:id="@+id/spinnerDay"
                                 android:layout_width="match_parent"
-                                android:checked="false"
-                                android:layout_height="45dp">
+                                android:layout_height="45dp"
+                                android:checked="false">
 
                             </androidx.appcompat.widget.AppCompatSpinner>
 
@@ -483,7 +481,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                             android:layout_marginEnd="10dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_weight="2">
 
                             <LinearLayout
@@ -498,8 +496,7 @@
                                     android:layout_width="25dp"
                                     android:layout_height="25dp"
                                     android:background="@drawable/minus"
-                                    android:backgroundTint="@color/red"
-                                   />
+                                    android:backgroundTint="@color/red" />
 
                                 <!-- Quantity TextView -->
                                 <TextView
@@ -509,7 +506,7 @@
                                     android:layout_marginHorizontal="5dp"
                                     android:background="@drawable/corner"
                                     android:gravity="center"
-                                     android:text="1"
+                                    android:text="1"
                                     android:textColor="@android:color/black"
                                     android:textSize="14sp" />
 
@@ -519,13 +516,23 @@
                                     android:layout_width="25dp"
                                     android:layout_height="25dp"
                                     android:background="@drawable/addnew"
-                                    android:backgroundTint="@color/Green"
-                                    />
+                                    android:backgroundTint="@color/Green" />
                             </LinearLayout>
 
                         </LinearLayout>
                     </LinearLayout>
 
+                    <TextView
+                        android:id="@+id/tvSelectAllDays"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Select All"
+                        android:textColor="@color/Green"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

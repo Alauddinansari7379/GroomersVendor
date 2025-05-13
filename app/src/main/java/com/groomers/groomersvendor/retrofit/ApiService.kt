@@ -104,7 +104,8 @@ interface ApiService {
         @Query("day") day: String,
         @Query("forService") forService: String,
         @Query("quantity") quantity: String,
-        @Query("service_id") service_id: String
+        @Query("service_id") service_id: String,
+        @Query("interval") interval: String
     ): Response<ModelSlot>
 
 

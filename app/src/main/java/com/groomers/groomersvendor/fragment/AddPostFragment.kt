@@ -27,7 +27,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
-import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -37,17 +36,13 @@ import com.bumptech.glide.Glide
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.activity.ServiceList
 import com.groomers.groomersvendor.adapter.AdapterServices
-import com.groomers.groomersvendor.adapter.AdapterServices.Companion.serviceId
 import com.groomers.groomersvendor.adapter.AdapterServices.Companion.serviceName
-import com.groomers.groomersvendor.adapter.CheckboxSpinnerAdapter
-import com.groomers.groomersvendor.adapter.DaysAdapter
 import com.groomers.groomersvendor.adapter.OthersCategoryAdapter
 import com.groomers.groomersvendor.databinding.FragmentAddPostBinding
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.helper.Toastic
 import com.groomers.groomersvendor.helper.UploadRequestBody
 import com.groomers.groomersvendor.model.ModelDay
-import com.groomers.groomersvendor.model.modelcategory.Result
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import com.groomers.groomersvendor.viewmodel.CategoryViewModel
@@ -68,15 +63,18 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.Arrays
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
-
+import androidx.core.graphics.drawable.toDrawable
+import com.groomers.groomersvendor.adapter.AdapterServices.Companion.serviceId
+import com.groomers.groomersvendor.adapter.DaysAdapter
+import com.groomers.groomersvendor.model.modelcategory.Result
 
 @AndroidEntryPoint
 class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
+    private lateinit var serviceDuration: String
     val selectedDays = linkedSetOf<ModelDay>()
     private lateinit var endTimeFormatted: String
     private lateinit var startTimeFormatted: String
@@ -84,7 +82,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     private lateinit var serviceNameNew: String
     private lateinit var categoryList: List<Result>
     private lateinit var binding: FragmentAddPostBinding
-    var firstTime=false
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -99,7 +96,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     lateinit var parts: MultipartBody.Part
     private val slotViewModel: SlotViewModel by viewModels()
     lateinit var daysAdapter: DaysAdapter
-    val selectedDaysList = mutableListOf<ModelDay>()
 
     private lateinit var imageUri: Uri
     var quantity = 1
@@ -139,7 +135,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
     private val categoryViewModel: CategoryViewModel by viewModels()
 
-    @RequiresApi(Build.VERSION_CODES.N)
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -149,14 +145,51 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         setupSpinners1()
         observeViewModel1()
         setupClickListeners()
-        setDayListSpinner()
-        setDaySpinner()
+
         Log.e("BankName", sessionManager.bankName.toString())
 
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
         selectedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        dayList.add(ModelDay("Monday", "1"))
+        dayList.add(ModelDay("Tuesday", "2"))
+        dayList.add(ModelDay("Wednesday", "3"))
+        dayList.add(ModelDay("Thursday", "4"))
+        dayList.add(ModelDay("Friday", "5"))
+        dayList.add(ModelDay("Saturday", "6"))
+        dayList.add(ModelDay("Sunday", "7"))
+
+        binding.spinnerDay.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(adapterView: AdapterView<*>, view: View?, i: Int, l: Long) {
+                if (view == null) {
+                    return
+                }
+
+                if (dayList.isNotEmpty()) {
+                    val modelDay = dayList[i]
+                    dayId = modelDay.id.toString()
+
+                    // Check if it's already selected
+                    if (selectedDays.any { it.id == modelDay.id }) {
+                        Toast.makeText(
+                            requireContext(),
+                            "${modelDay.day} is already selected",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        selectedDays.add(modelDay)
+                        daysAdapter.updateList(selectedDays.toMutableList())
+                    }
+                }
+            }
+
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {
+
+            }
+        }
 
 
+
+        setDaySpinner()
         binding.tvDate.text = currentDate
 
         mydilaog?.setCanceledOnTouchOutside(false)
@@ -227,7 +260,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         }
         // Observe error message if login fails
         categoryViewModel.errorMessage.observe(requireActivity()) { errorMessage ->
-            if (errorMessage!= null) {
+            if (errorMessage != null) {
                 Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
             }
         }
@@ -322,13 +355,14 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
     private fun validateAndProceed() {
         viewModel.serviceName = serviceName
-         startTimeFormatted = binding.tvStartTime.text.toString().replace(":", "")
-         endTimeFormatted = binding.tvEndTime.text.toString().replace(":", "")
+        startTimeFormatted = binding.tvStartTime.text.toString()
+        endTimeFormatted = binding.tvEndTime.text.toString()
         val selectedService = binding.spinnerService.selectedItem.toString()
         userType = binding.spinnerUserType.selectedItem.toString()
         discount = binding.etDiscount.text.toString().trim()
-        val serviceDuration = binding.etDuration.text.toString().trim()
-         serviceNameNew = binding.etServiceName.text.toString()
+        serviceDuration = binding.etDuration.text.toString().trim()
+        serviceDuration= convertIntoMin(serviceDuration)
+        serviceNameNew = binding.etServiceName.text.toString()
         // Step 1: Validate Service Name
         if (viewModel.serviceName.isNullOrEmpty()) {
             showError1("Please select a service before proceeding!")
@@ -381,7 +415,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         if (serviceDuration.isEmpty()) {
             showErrorField1(binding.etDuration, "Please enter service duration")
             return
-        }else{
+        } else {
             viewModel.time = serviceDuration
         }
 
@@ -447,6 +481,25 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             }
         }
 
+    }
+
+    private fun convertIntoMin(serviceDuration: String): String {
+        // Split the time into hours and minutes
+        var totalMinutes = ""
+        val timeParts = serviceDuration.split(":")
+        if (timeParts.size == 2) {
+            val hours = timeParts[0].toIntOrNull() ?: 0 // Convert the hour part to an integer
+            val minutes = timeParts[1].toIntOrNull() ?: 0 // Convert the minute part to an integer
+
+            // Convert to total minutes
+            totalMinutes = ((hours * 60) + minutes).toString()
+            // Use totalMinutes as needed
+            Log.d("Time Conversion", "Total minutes: $totalMinutes")
+        } else {
+            // Handle invalid time format
+            Log.e("Time Conversion", "Invalid time format: $serviceDuration")
+        }
+        return totalMinutes
     }
 
     // Helper method to show warning dialogs
@@ -566,17 +619,9 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                 binding.edPrice.setText(viewModel.price)
                 binding.date.setText(viewModel.date)
                 binding.editTextAddress.setText(viewModel.address)
-                binding.etServiceName.setText(viewModel.serviceName)
                 adapterServices.updateData(categoryList, viewModel.serviceName.toString())
                 AdapterServices(categoryList, requireContext())
                 binding.rvService.adapter = adapterServices
-
-                val userTypes = arrayOf("Male", "Female", "Pet")
-                val index = listOf(*userTypes).indexOf(service.user_type)
-
-                if (index != -1) {
-                    binding.spinnerUserType.setSelection(index)
-                }
 
 
                 val imageUrl = "${ApiServiceProvider.IMAGE_URL}${viewModel.imageUrl}"
@@ -802,11 +847,11 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                         i.id,
                         serviceId,
                         quantity.toString(),
-                        result.result.id.toString()
+                        result.result.id.toString(), serviceDuration
                     )
-                    Log.i("Slot created","Slot Created")
+                    Log.i("Slot created", "Slot Created")
                 }
-                }
+            }
 
         }
 
@@ -845,6 +890,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     // Assuming this code is inside your Activity or Fragment
 
     // Function to reset all fields
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun resetAllFields() {
         setupSpinners()
         setupSpinners1()
@@ -871,7 +917,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         binding.layoutDateFromDilog.visibility = View.GONE
         binding.btnCreate.visibility = View.GONE
         categoryViewModel.getCategory(ApiServiceProvider.getApiService())
-        //setDaySpinner()
+        setDaySpinner()
 
     }
 
@@ -884,72 +930,59 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         categoryViewModel.clearServiceData()
         slotViewModel.clearData()
     }
-    private fun setDayListSpinner() {
-        val dayList = mutableListOf(
-            ModelDay("Select All", "0"),
-            ModelDay("Monday", "1"),
-            ModelDay("Tuesday", "2"),
-            ModelDay("Wednesday", "3"),
-            ModelDay("Thursday", "4"),
-            ModelDay("Friday", "5"),
-            ModelDay("Saturday", "6"),
-            ModelDay("Sunday", "7")
-        )
 
-        // ✅ Make sure none are pre-selected
-        dayList.forEach { it.isSelected = false }
-
-        val spinnerAdapter = CheckboxSpinnerAdapter(requireContext(), dayList)
-        binding.spinnerDay.adapter = spinnerAdapter
-
-        binding.spinnerDay.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            @RequiresApi(Build.VERSION_CODES.N)
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val selectedDay = dayList[position]
-
-                if (firstTime) {
-                if (selectedDay.id == "0") { // "Select All"
-                    val notAllSelected = dayList.any { it.id != "0" && !it.isSelected }
-
-                    if (notAllSelected) {
-                        dayList.forEach { it.isSelected = it.id != "0" }
-                        selectedDaysList.clear()
-                        selectedDaysList.addAll(dayList.filter { it.id != "0" })
-                    } else {
-                        dayList.forEach { it.isSelected = false }
-                        selectedDaysList.clear()
-                    }
-                }
-                } else {
-                    selectedDay.isSelected = !selectedDay.isSelected
-                    if (selectedDay.isSelected) {
-                        if (selectedDaysList.none { it.id == selectedDay.id }) {
-                            selectedDaysList.add(selectedDay)
-                        }
-                    } else {
-                        selectedDaysList.removeIf { it.id == selectedDay.id }
-                    }
-
-                    // Unselect "Select All"
-                    dayList.find { it.id == "0" }?.isSelected = false
-                }
-                firstTime=true
-                daysAdapter.updateList(selectedDaysList.toMutableList())
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-
-    }
-
-    @RequiresApi(Build.VERSION_CODES.N)
-    private fun setDaySpinner() {
-        // Initialize Adapter for RecyclerView
-        daysAdapter = DaysAdapter(requireContext(), selectedDaysList) { removedDay ->
-            selectedDaysList.removeIf { it.id == removedDay.id } // ✅ safe removal
-            daysAdapter.updateList(selectedDaysList.toMutableList()) // 🔁 Refresh adapter
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun setDaySpinner() {
+        // Initialize the adapter with selectedDays
+        daysAdapter = DaysAdapter(
+            requireContext(),
+            selectedDays.toMutableList()
+        ) { removedDay ->
+            selectedDays.remove(removedDay) // Remove from list
+            daysAdapter.updateList(selectedDays.toMutableList()) // Update RecyclerView
         }
 
         binding.rvHorizontalList.adapter = daysAdapter
+        binding.spinnerDay.adapter =
+            ArrayAdapter<ModelDay>(requireContext(), android.R.layout.simple_list_item_1, dayList)
+
+        // Set up the Select All / Clear All toggle functionality
+        binding.tvSelectAllDays.setOnClickListener {
+            if (binding.tvSelectAllDays.text == "Select All") {
+                // Select all days
+                selectedDays.clear()
+                selectedDays.addAll(dayList)  // Assuming dayList contains all available days
+                daysAdapter.updateList(selectedDays.toMutableList()) // Update RecyclerView
+
+                // Change the button text to "Clear All" and set the color
+                binding.tvSelectAllDays.text = "Clear All"
+                binding.tvSelectAllDays.setTextColor(
+                    resources.getColor(
+                        android.R.color.holo_red_dark,
+                        null
+                    )
+                ) // Red color for "Clear All"
+            } else {
+                // Clear all selections but keep one day selected
+                val firstDay =
+                    dayList.firstOrNull() // Get the first day or any default day you want selected
+                selectedDays.clear()
+                if (firstDay != null) {
+                    selectedDays.add(firstDay)  // Select only the first day
+                }
+                daysAdapter.updateList(selectedDays.toMutableList()) // Update RecyclerView
+
+                // Change the button text back to "Select All" and set the color
+                binding.tvSelectAllDays.text = "Select All"
+                binding.tvSelectAllDays.setTextColor(
+                    resources.getColor(
+                        android.R.color.holo_green_dark,
+                        null
+                    )
+                ) // Green color for "Select All"
+            }
+        }
     }
+
 
 }
