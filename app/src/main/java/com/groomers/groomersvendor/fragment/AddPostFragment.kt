@@ -361,7 +361,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         userType = binding.spinnerUserType.selectedItem.toString()
         discount = binding.etDiscount.text.toString().trim()
         serviceDuration = binding.etDuration.text.toString().trim()
-        serviceDuration= convertIntoMin(serviceDuration)
+        serviceDuration = convertIntoMin(serviceDuration)
         serviceNameNew = binding.etServiceName.text.toString()
         // Step 1: Validate Service Name
         if (viewModel.serviceName.isNullOrEmpty()) {
