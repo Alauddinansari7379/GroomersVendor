@@ -254,6 +254,8 @@ class FinanceFragment : Fragment() {
                         selectTab(binding.tabWeek)
                         binding.recyclerView.visibility = View.GONE
                         binding.lineChart.visibility = View.VISIBLE
+                        binding.tvNoDataFound.visibility = View.GONE
+
                     }
 
                     "Month" -> {
@@ -261,6 +263,7 @@ class FinanceFragment : Fragment() {
                         selectTab(binding.tabMonth)
                         binding.recyclerView.visibility = View.GONE
                         binding.lineChart.visibility = View.VISIBLE
+                        binding.tvNoDataFound.visibility = View.GONE
                     }
                 }
             }
@@ -270,7 +273,7 @@ class FinanceFragment : Fragment() {
     }
 
     private fun apiCallFinanceData() {
-      //  AppProgressBar.showLoaderDialog(requireContext())
+        //  AppProgressBar.showLoaderDialog(requireContext())
         ApiClient.apiService.vendorEarning(
             "Bearer ${sessionManager.accessToken}",
         )
@@ -285,13 +288,22 @@ class FinanceFragment : Fragment() {
                             404 -> myToast(requireContext(), "Something went wrong", false)
                             500 -> myToast(requireContext(), "Server Error", false)
                             else -> {
-                                response.body()?.result!!.earnings?.let { earningsList ->
-                                    binding.recyclerView.apply {
-                                         adapter = AdapterFinance(requireContext(), earningsList)
+                                if (response.body()?.result!!.earnings.isNotEmpty()) {
+                                    response.body()?.result!!.earnings?.let { earningsList ->
+                                        binding.recyclerView.apply {
+                                            adapter = AdapterFinance(requireContext(), earningsList)
+                                        }
+                                        binding.tvNoDataFound.visibility = View.GONE
                                     }
+
+                                } else {
+                                    binding.tvNoDataFound.visibility = View.GONE
+
                                 }
-                                binding.balanceText.text= currency+response.body()!!.result.total_earnings
-                                binding.availableAmountText.text= currency+response.body()!!.result.total_earnings+" available to transfer. Info"
+                                binding.balanceText.text =
+                                    currency + response.body()!!.result.total_earnings
+                                binding.availableAmountText.text =
+                                    currency + response.body()!!.result.total_earnings + " available to transfer. Info"
                             }
                         }
                     } catch (e: Exception) {
@@ -299,7 +311,8 @@ class FinanceFragment : Fragment() {
                         myToast(requireContext(), "Something went wrong", false)
                         AppProgressBar.hideLoaderDialog()
                     }
-            }
+                }
+
                 override fun onFailure(call: Call<ModelEarning>, t: Throwable) {
                     AppProgressBar.hideLoaderDialog()
                     count++
@@ -307,7 +320,7 @@ class FinanceFragment : Fragment() {
                         Log.e("count", count.toString())
                         apiCallFinanceData()
                     } else {
-                        myToast(requireContext(),t.message.toString(),false)
+                        myToast(requireContext(), t.message.toString(), false)
                         AppProgressBar.hideLoaderDialog()
 
                     }

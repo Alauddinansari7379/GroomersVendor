@@ -298,7 +298,17 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
                 </androidx.recyclerview.widget.RecyclerView>
 
-
+                <TextView
+                    android:id="@+id/tvNoDataFound"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_data_found"
+                    android:fontFamily="@font/sf_bold"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:visibility="gone"
+                    android:textColor="@android:color/black"
+                    android:layout_marginBottom="8dp"/>
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
