@@ -64,8 +64,9 @@ class Login : AppCompatActivity() {
                 modelLogin?.let {
                     viewModelGetVendor.getVendor()
                     // If login is successful, navigate to MainActivity
-                    startActivity(Intent(context, MainActivity::class.java))
-                    finish()
+                    val intent = Intent(context, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
                 }
             }
 

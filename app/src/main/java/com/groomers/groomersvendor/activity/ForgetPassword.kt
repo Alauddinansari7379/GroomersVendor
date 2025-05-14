@@ -44,7 +44,7 @@ class ForgetPassword : AppCompatActivity() {
 
 
             tvRegister.setOnClickListener {
-                startActivity(Intent(context, Register::class.java))
+                startActivity(Intent(context, Register2::class.java))
             }
         }
     }
@@ -62,14 +62,17 @@ class ForgetPassword : AppCompatActivity() {
                             404 -> myToast(context, "Something went wrong", false)
                             500 -> myToast(context, "Server Error", false)
                             else -> {
-                                myToast(context, "OTP sent successfully", true)
-                                otp = response.body()?.result!!.otp.toString()
-                                val intent = Intent(context, EnterOTP::class.java)
-                                intent.putExtra("OTP", otp)
-                                intent.putExtra("Email", binding.etEmail.text.toString().trim())
-                                context.startActivity(intent)
+                                if (response.body()!!.status==1){
+                                    myToast(context, "OTP sent successfully", true)
+                                    otp = response.body()?.result!!.otp.toString()
+                                    val intent = Intent(context, EnterOTP::class.java)
+                                    intent.putExtra("OTP", otp)
+                                    intent.putExtra("Email", binding.etEmail.text.toString().trim())
+                                    context.startActivity(intent)
+                                }else{
+                                    myToast(context, response.body()!!.message, false)
 
-
+                                }
                             }
                         }
                     } catch (e: Exception) {
