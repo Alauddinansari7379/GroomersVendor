@@ -27,12 +27,13 @@ class AdapterServices(private var categoryList: List<Result>, val context: Conte
 
     override fun getItemCount(): Int = categoryList.size
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(
         holder: CategoryViewHolder,
         @SuppressLint("RecyclerView") position: Int
     ) {
         with(categoryList[position]) {
-            if (selectedServiceName.isNotEmpty()){
+            if (selectedServiceName.isNotEmpty()) {
                 selectedPosition = categoryList.indexOfFirst { it.category_name == serviceName }
             }
             holder.binding.tvName.text = category_name
@@ -62,6 +63,7 @@ class AdapterServices(private var categoryList: List<Result>, val context: Conte
         var serviceId = ""
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun selectedItem(serviceName: String) {
         selectedServiceName = serviceName
         selectedPosition = categoryList.indexOfFirst { it.category_name == serviceName }
@@ -73,9 +75,7 @@ class AdapterServices(private var categoryList: List<Result>, val context: Conte
     fun updateData(newList: List<Result>, selectedCategory: String) {
         categoryList = newList
         selectedPosition = categoryList.indexOfFirst { it.category_name == selectedCategory }
-
-
-            notifyDataSetChanged()
+        notifyDataSetChanged()
 
     }
 

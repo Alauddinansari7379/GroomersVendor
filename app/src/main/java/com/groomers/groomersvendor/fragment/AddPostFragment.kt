@@ -616,12 +616,14 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                     imageUrl = service.image
                 }
                 binding.editTextDescription.setText(viewModel.description)
+                binding.etServiceName.setText(viewModel.serviceName)
                 binding.edPrice.setText(viewModel.price)
                 binding.date.setText(viewModel.date)
                 binding.editTextAddress.setText(viewModel.address)
                 adapterServices.updateData(categoryList, viewModel.serviceName.toString())
                 AdapterServices(categoryList, requireContext())
                 binding.rvService.adapter = adapterServices
+                adapterServices.selectedItem(viewModel.serviceName!!)
 
 
                 val imageUrl = "${ApiServiceProvider.IMAGE_URL}${viewModel.imageUrl}"

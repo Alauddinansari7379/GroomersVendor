@@ -195,7 +195,7 @@ interface ApiService {
     @POST("profile_picture")
     suspend fun uploadCoverPicture(
         @Header("Authorization") authorization: String,
-        @Part image: MultipartBody.Part
+        @Part vendorCoverImage: MultipartBody.Part
     ): Response<ModelUpdateProfPhoto>
 
     @Multipart

@@ -77,8 +77,8 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun uploadCoverPicture(file: File) {
-        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-        val body = MultipartBody.Part.createFormData("image", file.name, requestFile)
+        val requestFile = file.asRequestBody("vendorCoverImage/*".toMediaTypeOrNull())
+        val body = MultipartBody.Part.createFormData("vendorCoverImage", file.name, requestFile)
 
         viewModelScope.launch {
             _uploadResult.postValue("Uploading...")
