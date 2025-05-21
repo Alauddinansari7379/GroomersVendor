@@ -1,12 +1,14 @@
 package com.groomers.groomersvendor.model.modelGetBooking
-
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+@Parcelize
 data class Result(
-    val error:String,
+    val error: String? = null,
     val address: String,
-    val comments: Any,
+    val comments: String,
     val created_at: String,
     val customerName: String,
-    val customer_comments: Any,
+    val customer_comments: String,
     val customer_id: Int,
     val customer_rating: Int,
     val date: String,
@@ -36,4 +38,4 @@ data class Result(
     val updated_at: String,
     val user_type: String,
     val vendor_id: Int
-)
+) : Parcelable

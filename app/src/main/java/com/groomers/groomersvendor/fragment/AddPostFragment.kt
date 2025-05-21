@@ -644,10 +644,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         }
     }
 
-    private fun showErrorField(field: EditText, message: String) {
-        field.error = message
-        field.requestFocus()
-    }
 
     private fun ContentResolver.getFileName(uri: Uri): String {
         return query(uri, null, null, null, null)?.use { cursor ->

@@ -1,6 +1,7 @@
 package com.groomers.groomersvendor.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.ehcf.Helper.currency
 import com.groomers.groomersvendor.R
+import com.groomers.groomersvendor.activity.BookingDetailsActivity
 import com.groomers.groomersvendor.databinding.BookingItemBinding
 import com.groomers.groomersvendor.model.modelGetBooking.Result
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
@@ -93,6 +95,49 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
                         layoutAccept.visibility = View.GONE
                     }
                 }
+                root.setOnClickListener {
+                    val intent = Intent(context, BookingDetailsActivity::class.java)
+                    val booking = bookingList[position]
+
+                    intent.putExtra("error", booking.error)
+                    intent.putExtra("address", booking.address)
+                    intent.putExtra("comments", booking.comments)
+                    intent.putExtra("created_at", booking.created_at)
+                    intent.putExtra("customerName", booking.customerName)
+                    intent.putExtra("customer_comments", booking.customer_comments)
+                    intent.putExtra("customer_id", booking.customer_id)
+                    intent.putExtra("customer_rating", booking.customer_rating)
+                    intent.putExtra("date", booking.date)
+                    intent.putExtra("description", booking.description)
+                    intent.putExtra("email", booking.email)
+                    intent.putExtra("end_time", booking.end_time)
+                    intent.putExtra("id", booking.id)
+                    intent.putExtra("image", booking.image)
+                    intent.putExtra("mobile", booking.mobile)
+                    intent.putExtra("notes", booking.notes)
+                    intent.putExtra("payment_mode", booking.payment_mode)
+                    intent.putExtra("payment_name", booking.payment_name)
+                    intent.putExtra("price", booking.price)
+                    intent.putExtra("profile_picture", booking.profile_picture)
+                    intent.putExtra("rating", booking.rating)
+                    intent.putExtra("serviceName", booking.serviceName)
+                    intent.putExtra("serviceType", booking.serviceType)
+                    intent.putExtra("service_id", booking.service_id)
+                    intent.putExtra("slot_id", booking.slot_id)
+                    intent.putExtra("slug", booking.slug)
+                    intent.putExtra("start_time", booking.start_time)
+                    intent.putExtra("status", booking.status)
+                    intent.putExtra("status_for_vendor", booking.status_for_vendor)
+                    intent.putExtra("status_name", booking.status_name)
+                    intent.putExtra("time", booking.time)
+                    intent.putExtra("total", booking.total)
+                    intent.putExtra("updated_at", booking.updated_at)
+                    intent.putExtra("user_type", booking.user_type)
+                    intent.putExtra("vendor_id", booking.vendor_id)
+
+                    context.startActivity(intent)
+                }
+
                 btnAccept.setOnClickListener {
                    accept.accept(id.toString())
                 }

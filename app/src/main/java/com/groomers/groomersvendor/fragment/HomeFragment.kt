@@ -126,10 +126,14 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
 
         }
         binding.searchView.addTextChangedListener { str ->
-            setRecyclerViewAdapter(mainData.filter {
-                it.customerName != null && it.customerName!!.contains(str.toString(), ignoreCase = true)
-            } as ArrayList<Result>)
+            if (::mainData.isInitialized) {
+                val filtered = mainData.filter {
+                    it.customerName != null && it.customerName!!.contains(str.toString(), ignoreCase = true)
+                }
+                setRecyclerViewAdapter(ArrayList(filtered))
+            }
         }
+
     }
     private fun setRecyclerViewAdapter(data: ArrayList<Result>) {
         binding.rvOrderList.apply {
