@@ -884,9 +884,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             }
         }
     }
-
-    // Assuming this code is inside your Activity or Fragment
-
     // Function to reset all fields
     @RequiresApi(Build.VERSION_CODES.M)
     private fun resetAllFields() {

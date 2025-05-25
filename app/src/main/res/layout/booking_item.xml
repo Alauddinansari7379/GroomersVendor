@@ -58,6 +58,19 @@
                             android:textSize="10sp"
                             android:textStyle="bold" />
                         <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnReview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="20dp"
+                            android:background="@drawable/corner"
+                            android:backgroundTint="@color/Blue"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="Submit Review"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                        <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnAccept"
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"

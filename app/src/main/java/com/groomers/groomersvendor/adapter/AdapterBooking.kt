@@ -67,6 +67,7 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
                         btnAccept.visibility = View.VISIBLE
                         btnReject.visibility = View.VISIBLE
                         btnComplete.visibility = View.GONE
+                        btnReview.visibility = View.GONE
                         tvBookingStatues.background.setTint(ContextCompat.getColor(context, R.color.yellow))
                     }
 
@@ -77,6 +78,7 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
                             btnAccept.visibility = View.GONE
                             btnReject.visibility = View.GONE
                             btnComplete.visibility = View.VISIBLE
+                            btnReview.visibility = View.VISIBLE
                         }
 
                     }
@@ -150,6 +152,10 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
                    accept.complete(id.toString())
                 }
 
+                btnReview.setOnClickListener {
+                   accept.rating(id.toString())
+                }
+
                 //                card.setOnClickListener {
 //                    val intent = Intent(context, About::class.java)
 //                    context.startActivity(intent)
@@ -164,6 +170,7 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
         fun accept(bookingId: String)
         fun reject(bookingId: String)
         fun complete(bookingId: String)
+        fun rating(bookingId: String)
 
     }
 

@@ -1,6 +1,8 @@
 package com.groomers.groomersvendor.fragment
 
 import CalendarAdapter
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.R
+import com.groomers.groomersvendor.activity.Rating
 import com.groomers.groomersvendor.adapter.AdapterBooking
 import com.groomers.groomersvendor.databinding.FragmentHomeBinding
 import com.groomers.groomersvendor.helper.CustomLoader
@@ -289,8 +292,17 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
             .show()
     }
 
+    override fun rating(bookingId: String) {
+        val intent = Intent(requireActivity(), Rating::class.java)
+            .putExtra("meetingId", bookingId)
+        startActivity(intent)
+
+    }
+
     fun getCurrentDate(): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return sdf.format(Date())
     }
+
 }
+
