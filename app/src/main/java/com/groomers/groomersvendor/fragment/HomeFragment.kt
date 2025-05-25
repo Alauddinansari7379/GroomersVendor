@@ -191,7 +191,7 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
                 isIconAnimated = true,
                 textColor = if (false) Color.BLUE else null,
             ).show()
-            makeGetBookingAPICall("")
+            makeGetBookingAPICall(getCurrentDate())
         }
     }
 
