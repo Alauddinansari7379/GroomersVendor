@@ -63,6 +63,8 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/email"
                     android:drawablePadding="5dp"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
                     android:fontFamily="@font/sf_regular"
                     android:paddingVertical="8dp" />
             </com.google.android.material.textfield.TextInputLayout>

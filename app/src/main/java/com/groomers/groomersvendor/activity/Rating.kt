@@ -1,6 +1,5 @@
 package com.groomers.groomersvendor.activity
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -9,31 +8,16 @@ import android.provider.MediaStore
 import android.util.Log
 import android.widget.Button
 import android.widget.RatingBar
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.ehcf.Helper.myToast
 import com.groomers.groomersvendor.R
-import com.groomers.groomersvendor.activity.MySlot.Companion.dayId
-import com.groomers.groomersvendor.adapter.AdapterSlotsList
 import com.groomers.groomersvendor.databinding.ActivityRatingBinding
-import com.groomers.groomersvendor.helper.AppProgressBar
 import com.groomers.groomersvendor.helper.CustomLoader
-import com.groomers.groomersvendor.helper.NetworkChangeReceiver
 import com.groomers.groomersvendor.helper.Toastic
-import com.groomers.groomersvendor.model.modelslotlist.ModelSlotList
-import com.groomers.groomersvendor.retrofit.ApiClient
-import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import com.groomers.groomersvendor.viewmodel.RatingViewModel
-import com.groomers.groomersvendor.viewmodel.SlotListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 @AndroidEntryPoint
 class Rating : AppCompatActivity() {
@@ -103,7 +87,6 @@ class Rating : AppCompatActivity() {
                 finish()
             }
         }
-
 
         // Observe error message if login fails
         viewModel.errorMessage.observe(this@Rating) { errorMessage ->
