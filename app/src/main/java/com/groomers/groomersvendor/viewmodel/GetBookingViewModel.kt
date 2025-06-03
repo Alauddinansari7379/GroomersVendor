@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.groomers.groomersvendor.model.modelGetBooking.ModelGetBooking
-import com.groomers.groomersvendor.model.modelcategory.ModelCategory
 import com.groomers.groomersvendor.retrofit.ApiService
 import kotlinx.coroutines.launch
 import okio.IOException

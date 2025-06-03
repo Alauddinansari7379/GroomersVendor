@@ -78,7 +78,11 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
                             btnAccept.visibility = View.GONE
                             btnReject.visibility = View.GONE
                             btnComplete.visibility = View.VISIBLE
-                            btnReview.visibility = View.VISIBLE
+                            if (comments == null){
+                                btnReview.visibility = View.VISIBLE
+                            }else{
+                                btnReview.visibility = View.GONE
+                            }
                         }
 
                     }
