@@ -51,7 +51,11 @@ class Register3 : Common() {
         val bankName = viewModel.bankName ?: ""
         val ifsc = viewModel.ifsc ?: ""
         val branchName = viewModel.branchName ?: ""
-
+        val service = viewModel.services ?: ""
+        val latitude = viewModel.latitude.toString() ?: ""
+        val longitude = viewModel.longitude.toString() ?: ""
+        val aboutBusiness = viewModel.aboutBusiness.toString() ?: ""
+        val adrdress=viewModel.address1+" "+viewModel.address2+" "+viewModel.city+" "+viewModel.zipcode
         // Convert image path to MultipartBody.Part
         val shopAgreement = prepareFilePart("shop_agreement", idproofImagePath)
 
@@ -76,7 +80,12 @@ class Register3 : Common() {
                     accountNo,
                     bankName,
                     ifsc,
-                    branchName
+                    branchName,
+                    adrdress,
+                    service,
+                    latitude,
+                    longitude,
+                    aboutBusiness,
                 )
             } else {
                 Toast.makeText(this, "Please select at least one working day.", Toast.LENGTH_SHORT)
@@ -145,16 +154,21 @@ class Register3 : Common() {
         accountNo: String,
         bankName: String,
         ifsc: String,
-        branchName: String
+        branchName: String,
+        adrdress: String,
+        service: String,
+        latitude: String,
+        longitude: String,
+        aboutBusiness: String,
     ) {
 
         val apiService = ApiServiceProvider.getApiService() // Initialize ApiService
         viewModel.registerUser(
             apiService,
             name, mobile, email, password, password, // passwordConfirmation
-            "vendor", businessName, businessCategory, "Best shop in town",
-            teamSize, "123 Street", city, zipcode, "Aadhar", "Haircut, Spa",
-            "40.7128", "-74.0060", shopAgreement, "1", businessName,accountName,accountNo,bankName,ifsc,branchName
+            "vendor", businessName, businessCategory, aboutBusiness,
+            teamSize, adrdress, city, zipcode, "",service ,
+            latitude,  longitude, shopAgreement, "1", businessName,accountName,accountNo,bankName,ifsc,branchName
         )
     }
 

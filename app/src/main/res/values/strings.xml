@@ -219,7 +219,6 @@
     <string name="use_social_post_creator_to_keep_yourself_busy">Use Social Post creator to keep yourself busy</string>
     <string name="view_transaction_summary">View Transaction Summary</string>
     <string name="review_your_recent_sales_and_make_sure_all_of_your_appointments_are_checked_out">Review your recent sales and make sure all of your appointments are checked out.</string>
-    <string name="portfolio">Portfolio</string>
     <string name="add_from_phone">Add from phone</string>
     <string name="latest_reviews">Latest Reviews</string>
     <string name="no_reviews_yet">No reviews yet ...</string>
@@ -270,5 +269,16 @@
     <string name="help_list">Help list</string>
     <string name="query">Query</string>
     <string name="no_appointment_found">No appointment Found</string>
+    <string name="_503_18_ave_sw_t2s_0c6_calgary">503 18 Ave SW, T2S 0C6, Calgary</string>
+    <string name="the_executive_men_s_hair_studio">The Executive Men’s Hair Studio</string>
+    <string name="service">SERVICE</string>
+    <string name="reviews">REVIEWS</string>
+    <string name="portfolio">PORTFOLIO</string>
+    <string name="details">DETAILS</string>
+    <string name="popular_services">Popular Services</string>
+    <string name="entrepreneur">Entrepreneur</string>
+    <string name="haircut">Haircut</string>
+    <string name="classic_and_clean_40min">Classic and clean...40min</string>
+    <string name="book">Book</string>
 
 </resources>

@@ -154,7 +154,8 @@ class YourAddress : Common() {
                                 geocoder.getFromLocation(location.latitude, location.longitude, 1)
                             Log.e(ContentValues.TAG, "addresses[0].latitude: ${addresses?.get(0)?.latitude}")
                             Log.e(ContentValues.TAG, "addresses[0].longitude: ${addresses?.get(0)?.longitude}")
-
+                            viewModel.latitude= {addresses?.get(0)?.longitude}.toString()
+                            viewModel.longitude= {addresses?.get(0)?.longitude}.toString()
                             val address = addresses?.get(0)
                             val locality = address?.locality
                             val countryName = address?.countryName

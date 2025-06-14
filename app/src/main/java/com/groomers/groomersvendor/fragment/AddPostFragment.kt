@@ -406,8 +406,20 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         }
 
         // Step 7: Validate Discount
-        if (discount.isEmpty()) {
-            showErrorField1(binding.etDiscount, "Please enter discount")
+//        if (discount.isEmpty()) {
+//            showErrorField1(binding.etDiscount, "Please enter discount")
+//            return
+//        }
+
+        // Step 9: Validate Start Time
+        if (startTimeFormatted.contentEquals("00:00:00")) {
+            showWarningDialog("The start time must be greater 00:00:00")
+            return
+        }
+
+        // Step 10: Validate End Time
+        if (endTimeFormatted.contentEquals("00:00:00")) {
+            showWarningDialog("The End time must be greater 00:00:00")
             return
         }
 
@@ -417,18 +429,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             return
         } else {
             viewModel.time = serviceDuration
-        }
-
-        // Step 9: Validate Start Time
-        if (startTimeFormatted == "000000") {
-            showWarningDialog("The session slabs must be within the time limit of the clinic timings")
-            return
-        }
-
-        // Step 10: Validate End Time
-        if (endTimeFormatted == "000000") {
-            showWarningDialog("The session slabs must be within the time limit of the clinic timings")
-            return
         }
 
 //        // Step 11: Validate Selected Service

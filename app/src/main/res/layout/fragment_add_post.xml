@@ -55,6 +55,7 @@
                 android:id="@+id/etServiceName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:fontFamily="@font/sf_bold"
                 android:paddingVertical="8dp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -68,7 +69,7 @@
             android:fontFamily="@font/sf_regular"
             android:gravity="top|start"
             android:hint="Service description"
-            android:inputType="textMultiLine"
+            android:inputType="text"
             android:minHeight="120dp"
             android:padding="10dp"
             android:textColorHint="@color/black"
@@ -321,7 +322,7 @@
                 android:clickable="true"
                 android:focusable="false"
                 android:fontFamily="@font/sf_bold"
-                android:inputType="none"
+                android:inputType="text"
                 android:paddingVertical="8dp" />
         </com.google.android.material.textfield.TextInputLayout>
 

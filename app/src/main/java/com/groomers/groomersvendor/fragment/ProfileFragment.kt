@@ -44,6 +44,7 @@ import com.groomers.groomersvendor.activity.Login
 import com.groomers.groomersvendor.activity.ManageSlots
 import com.groomers.groomersvendor.activity.MySlot
 import com.groomers.groomersvendor.activity.Settings
+import com.groomers.groomersvendor.activity.ViewOnGroomers
 import com.groomers.groomersvendor.adapter.AdapterFinance
 import com.groomers.groomersvendor.databinding.ActivityMainBinding
 import com.groomers.groomersvendor.databinding.FragmentProfileBinding
@@ -130,7 +131,8 @@ class ProfileFragment : Fragment() {
             openImageChooser()
         }
         binding.addCoverButton.setOnClickListener {
-            captureLayoutAndShare(requireContext(),binding.layoutMain)
+//            captureLayoutAndShare(requireContext(),binding.layoutMain)
+            startActivity(Intent(requireContext(),ViewOnGroomers::class.java))
         }
 
 
