@@ -109,7 +109,6 @@ interface ApiService {
         @Query("interval") interval: String
     ): Response<ModelSlot>
 
-
     @Multipart
     @POST("CreateServicePost")
     suspend fun createServicePost(
@@ -126,7 +125,19 @@ interface ApiService {
 //        @Part image: List<MultipartBody.Part>
         @Part image: MultipartBody.Part,
         @Query("discount") discount: String,
+        @Query("start_time") start_time: String,
+        @Query("end_time") end_time: String,
+        @Query("quantity") quantity: Int,
+        @Query("Day1") Day1: String,
+        @Query("Day2") Day2: String,
+        @Query("Day3") Day3: String,
+        @Query("Day4") Day4: String,
+        @Query("Day5") Day5: String,
+        @Query("Day6") Day6: String,
+        @Query("Day7") Day7: String,
+
     ): Response<ModelCreateServiceX>
+
 
     @Multipart
     @POST("updatePost")

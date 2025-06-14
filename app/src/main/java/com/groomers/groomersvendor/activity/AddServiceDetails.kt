@@ -1,5 +1,6 @@
 package com.groomers.groomersvendor.activity
 
+import android.R
 import android.annotation.SuppressLint
 import android.app.TimePickerDialog
 import android.content.Intent
@@ -57,8 +58,8 @@ class AddServiceDetails : AppCompatActivity() {
 
     private fun setupSpinners() {
         val userTypeList = listOf("Male", "Female", "Pet")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, userTypeList)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val adapter = ArrayAdapter(this, R.layout.simple_spinner_item, userTypeList)
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         binding.spinnerUserType.adapter = adapter
 
         // Set selected user type
@@ -139,7 +140,17 @@ class AddServiceDetails : AppCompatActivity() {
                             userType,
                             imageList,
                             "",
-                            discount
+                            discount,
+                            start_time = TODO(),
+                            end_time = TODO(),
+                            quantity = TODO(),
+                            Day1 = TODO(),
+                            Day2 = TODO(),
+                            Day3 = TODO(),
+                            Day4 = TODO(),
+                            Day5 = TODO(),
+                            Day6 = TODO(),
+                            Day7 = TODO()
                         )
                     }
                 }

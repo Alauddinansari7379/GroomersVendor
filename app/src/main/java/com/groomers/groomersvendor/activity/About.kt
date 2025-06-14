@@ -26,9 +26,11 @@ class About : Common() {
             val businessName = binding.etBusinessName.text.toString()
             val yourName = binding.etYourName.text.toString()
             val phoneNO = binding.etPhoneNo.text.toString()
+            val aboutYourBusiness = binding.etAboutBusiness.text.toString()
             viewModel.businessName = businessName
             viewModel.yourName = yourName
             viewModel.mobile = phoneNO
+            viewModel.aboutBusiness = aboutYourBusiness
 
             if (businessName.isEmpty()) {
                 binding.etBusinessName.error = "Please enter your business name"
@@ -48,6 +50,8 @@ class About : Common() {
                 binding.etPhoneNo.error = "Please enter valid phone no"
                 binding.etPhoneNo.requestFocus()
                 return@setOnClickListener
+            }else if(aboutYourBusiness.isEmpty()){
+                binding.etAboutBusiness.error = "Please select about your business"
             }
             val intent = Intent(this, AboutYourCredentials::class.java)
             startActivity(intent)

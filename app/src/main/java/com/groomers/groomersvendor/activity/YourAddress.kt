@@ -154,15 +154,15 @@ class YourAddress : Common() {
                                 geocoder.getFromLocation(location.latitude, location.longitude, 1)
                             Log.e(ContentValues.TAG, "addresses[0].latitude: ${addresses?.get(0)?.latitude}")
                             Log.e(ContentValues.TAG, "addresses[0].longitude: ${addresses?.get(0)?.longitude}")
-                            viewModel.latitude= {addresses?.get(0)?.longitude}.toString()
-                            viewModel.longitude= {addresses?.get(0)?.longitude}.toString()
+                            viewModel.latitude= addresses?.get(0)?.latitude.toString()
+                            viewModel.longitude= addresses?.get(0)?.longitude.toString()
                             val address = addresses?.get(0)
                             val locality = address?.locality
                             val countryName = address?.countryName
                             val countryCode = address?.countryCode
                             val postalCode = address?.postalCode.toString()
                             val subLocality = address?.subLocality
-                            val subAdminArea = address?.subAdminArea ?: "Unknown SubAdminArea"
+                            val subAdminArea = address?.subAdminArea ?: ""
                             val fullAddress = address?.getAddressLine(0)
                             postalCodeNew = postalCode
 

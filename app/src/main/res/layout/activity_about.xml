@@ -97,6 +97,21 @@
                 android:maxLength="12"
                 android:fontFamily="@font/sf_bold" />
         </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/about_business">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAboutBusiness"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:paddingVertical="8dp"
+                android:inputType="textMultiLine"
+                android:fontFamily="@font/sf_bold" />
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 

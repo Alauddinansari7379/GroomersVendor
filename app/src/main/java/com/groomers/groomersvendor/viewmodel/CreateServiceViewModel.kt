@@ -59,7 +59,16 @@ class CreateServiceViewModel(
         user_type: String,
         images: MultipartBody.Part,
         servideType: String,
-        discount: String,
+        discount: String, start_time : String,
+        end_time : String,
+        quantity  : String,
+        Day1 : String,
+        Day2 : String,
+        Day3 : String,
+        Day4 : String,
+        Day5 : String,
+        Day6 : String,
+        Day7: String
     ) {
         viewModelScope.launch {
             _isLoading.postValue(true)
@@ -76,7 +85,17 @@ class CreateServiceViewModel(
                     address,
                     user_type,
                     images,
-                    discount
+                    discount,
+                    start_time,
+                    end_time,
+                    quantity.toInt() ,
+                    Day1 ,
+                    Day2,
+                    Day3,
+                    Day4 ,
+                    Day5 ,
+                    Day6 ,
+                    Day7
                 )
 
                 if (response.isSuccessful) {

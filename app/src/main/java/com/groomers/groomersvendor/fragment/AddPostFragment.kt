@@ -102,7 +102,15 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     var dayList = ArrayList<ModelDay>()
     private var endTime = "00:00:00"
     private var startTime = "00:00:00"
+    private var selecteddurationTime = ""
     var dayId = ""
+    var day1 = ""
+    var day2 = ""
+    var day3 = ""
+    var day4 = ""
+    var day5 = ""
+    var day6 = ""
+    var day7 = ""
     private lateinit var adapterServices: AdapterServices
 
     private val takePictureLauncher =
@@ -167,6 +175,36 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                 if (dayList.isNotEmpty()) {
                     val modelDay = dayList[i]
                     dayId = modelDay.id.toString()
+                    when (dayId) {
+                        "1" -> {
+                            day1 = "1"
+                        }
+
+                        "2" -> {
+                            day2 = "2"
+                        }
+
+                        "3" -> {
+                            day3 = "3"
+                        }
+
+                        "4" -> {
+                            day4 = "4"
+                        }
+
+                        "5" -> {
+                            day5 = "5"
+                        }
+
+                        "6" -> {
+                            day6 = "6"
+                        }
+
+                        "7" -> {
+                            day7 = "7"
+                        }
+
+                    }
 
                     // Check if it's already selected
                     if (selectedDays.any { it.id == modelDay.id }) {
@@ -474,8 +512,17 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                         userType,
                         imageList,
                         serviceId,
-                        discount
-
+                        discount,
+                        startTime,
+                        endTime,
+                        quantity.toString(),
+                        day1,
+                        day2,
+                        day3,
+                        day4,
+                        day5,
+                        day6,
+                        day7
                     )
                 }
             }
@@ -766,6 +813,45 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         }
     }
 
+    @SuppressLint("SetTextI18n", "LogNotTimber", "DefaultLocale")
+    private fun durationTime() {
+        val view = layoutInflater.inflate(R.layout.time_picker_dialog, null)
+        val dialog = Dialog(requireContext())
+
+        if (view.parent != null) {
+            (view.parent as ViewGroup).removeView(view)
+        }
+
+        dialog.setContentView(view)
+        dialog.setCancelable(true)
+        dialog.show()
+
+        val btnOkTimePicker = view.findViewById<Button>(R.id.btnOkTimePicker)
+        val timePicker = view.findViewById<TimePicker>(R.id.timePicker)
+        val tvTimeTimePicker = view.findViewById<TextView>(R.id.tvTimeTimePicker)
+
+        timePicker.setIs24HourView(true) // Set to 24-hour format
+
+        timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
+//            val formattedHour = String.format("%02d", hourOfDay)
+//            val formattedMinute = String.format("%02d", minute)
+            val formattedTime = String.format("%02d:%02d", hourOfDay, minute)
+//            val selectedTime = "$formattedTime:$formattedTime:00" // Ensure "HH:mm:ss" format
+
+//            tvTimeTimePicker.text = selectedTime
+            binding.etDuration.setText(formattedTime)
+            selecteddurationTime = formattedTime
+
+
+
+            Log.e("Selected Duration Time", selecteddurationTime)
+        }
+
+        btnOkTimePicker.setOnClickListener {
+            dialog.dismiss()
+        }
+    }
+
     @SuppressLint("SetTextI18n", "LogNotTimber")
     private fun endTime() {
         val view = layoutInflater.inflate(R.layout.time_picker_dialog, null)
@@ -821,14 +907,15 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
     private fun setupClickListeners() {
         binding.etDuration.setOnClickListener {
-            TimePickerDialog(
-                requireContext(),
-                { _, hourOfDay, minute ->
-                    val formattedTime = String.format("%02d:%02d", hourOfDay, minute)
-                    binding.etDuration.setText(formattedTime)
-                },
-                0, 0, true
-            ).show()
+//            TimePickerDialog(
+//                requireContext(),
+//                { _, hourOfDay, minute ->
+//                    val formattedTime = String.format("%02d:%02d", hourOfDay, minute)
+//                    binding.etDuration.setText(formattedTime)
+//                },
+//                0, 0, true
+//            ).show()
+            durationTime()
         }
 
     }
@@ -884,6 +971,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             }
         }
     }
+
     // Function to reset all fields
     @RequiresApi(Build.VERSION_CODES.M)
     private fun resetAllFields() {
@@ -948,7 +1036,13 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                 selectedDays.clear()
                 selectedDays.addAll(dayList)  // Assuming dayList contains all available days
                 daysAdapter.updateList(selectedDays.toMutableList()) // Update RecyclerView
-
+                day1 = "1"
+                day2 = "2"
+                day3 = "3"
+                day4 = "4"
+                day5 = "5"
+                day6 = "6"
+                day7 = "7"
                 // Change the button text to "Clear All" and set the color
                 binding.tvSelectAllDays.text = "Clear All"
                 binding.tvSelectAllDays.setTextColor(
@@ -966,7 +1060,13 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                     selectedDays.add(firstDay)  // Select only the first day
                 }
                 daysAdapter.updateList(selectedDays.toMutableList()) // Update RecyclerView
-
+                day1 = ""
+                day2 = ""
+                day3 = ""
+                day4 = ""
+                day5 = ""
+                day6 = ""
+                day7 = ""
                 // Change the button text back to "Select All" and set the color
                 binding.tvSelectAllDays.text = "Select All"
                 binding.tvSelectAllDays.setTextColor(
