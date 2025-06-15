@@ -398,6 +398,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         val selectedService = binding.spinnerService.selectedItem.toString()
         userType = binding.spinnerUserType.selectedItem.toString()
         discount = binding.etDiscount.text.toString().trim()
+        serviceDuration=""
         serviceDuration = binding.etDuration.text.toString().trim()
         serviceDuration = convertIntoMin(serviceDuration)
         serviceNameNew = binding.etServiceName.text.toString()
@@ -460,7 +461,10 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             showWarningDialog("The End time must be greater 00:00:00")
             return
         }
-
+        if (startTimeFormatted > endTimeFormatted) {
+            Toast.makeText(context, "Start time should not be greater than End time", Toast.LENGTH_SHORT).show()
+            return
+        }
         // Step 8: Validate Service Duration
         if (serviceDuration.isEmpty()) {
             showErrorField1(binding.etDuration, "Please enter service duration")
@@ -925,16 +929,18 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             if (result != null && result.status == 1) {
                 for (i in selectedDays) {
 
-                    slotViewModel.createSlot(
-                        ApiServiceProvider.getApiService(),
-                        startTimeFormatted,
-                        endTimeFormatted,
-                        i.id,
-                        serviceId,
-                        quantity.toString(),
-                        result.result.id.toString(), serviceDuration
-                    )
-                    Log.i("Slot created", "Slot Created")
+                    if (serviceDuration.isNotEmpty()) {
+                        slotViewModel.createSlot(
+                            ApiServiceProvider.getApiService(),
+                            startTimeFormatted,
+                            endTimeFormatted,
+                            i.id,
+                            serviceId,
+                            quantity.toString(),
+                            result.result.id.toString(), serviceDuration
+                        )
+                    }
+                    Log.i("Slot created", serviceDuration)
                 }
             }
 
@@ -982,7 +988,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         binding.editTextDescription.text?.clear()
 //        binding.imageViewPreview.setImageDrawable(null)
         binding.imageViewPreview.setImageDrawable(Color.TRANSPARENT.toDrawable())
-
+        serviceDuration=""
         binding.edPrice.text.clear()
         binding.date.text.clear()
         binding.etDiscount.text.clear()
