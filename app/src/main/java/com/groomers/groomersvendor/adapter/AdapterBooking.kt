@@ -160,10 +160,6 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
                    accept.rating(id.toString())
                 }
 
-                //                card.setOnClickListener {
-//                    val intent = Intent(context, About::class.java)
-//                    context.startActivity(intent)
-//                }
             }
 
         }

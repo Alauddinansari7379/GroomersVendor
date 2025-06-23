@@ -1,7 +1,6 @@
 package com.groomers.groomersvendor.fragment
 
 import CalendarAdapter
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -106,7 +105,7 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
                 duration = Toastic.LENGTH_SHORT,
                 type = Toastic.ERROR,
                 isIconAnimated = true,
-                textColor = if (false) Color.BLUE else null,
+                textColor = Color.BLUE,
             ).show()
         }
         // Observe isLoading to show/hide progress
@@ -165,7 +164,7 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
                 duration = Toastic.LENGTH_SHORT,
                 type = Toastic.ERROR,
                 isIconAnimated = true,
-                textColor = if (false) Color.BLUE else null,
+                textColor = Color.BLUE,
             ).show()
         }
         // Observe isLoading to show/hide progress
@@ -189,7 +188,7 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
                 duration = Toastic.LENGTH_SHORT,
                 type = Toastic.SUCCESS,
                 isIconAnimated = true,
-                textColor = if (false) Color.BLUE else null,
+                textColor =  Color.BLUE,
             ).show()
             makeGetBookingAPICall(getCurrentDate())
         }

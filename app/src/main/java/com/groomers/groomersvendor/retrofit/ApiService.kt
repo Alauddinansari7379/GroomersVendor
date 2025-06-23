@@ -143,18 +143,28 @@ interface ApiService {
     @POST("updatePost")
     suspend fun updateServicePost(
         @Header("Authorization") authorization: String,
+        @Query("id") id: String,
         @Query("serviceName") serviceName: String,
         @Query("description") description: String,
         @Query("price") price: String,
         @Query("time") time: String,
         @Query("serviceType") serviceType: String,
         @Query("date") date: String,
-        @Query("category") category: String,
-        @Query("address") address: String,
-        @Query("user_type") user_type: String,
-        @Part image: MultipartBody.Part,
-        @Query("id") id: String,
         @Query("discount") discount: String,
+        @Query("user_type") user_type: String,
+//        @Query("category") category: String,
+//        @Query("address") address: String,
+        @Query("start_time") startTime: String,
+        @Query("end_time") endTime: String,
+        @Query("quantity") quantity: Int,
+        @Query("Day1") day1: Int,
+        @Query("Day2") day2: Int,
+        @Query("Day3") day3: Int,
+        @Query("Day4") day4: Int,
+        @Query("Day5") day5: Int,
+        @Query("Day6") day6: Int,
+        @Query("Day7") day7: Int,
+        @Part image: MultipartBody.Part,
     ): Response<ModelUpdateService>
 
     @POST("deletePost")

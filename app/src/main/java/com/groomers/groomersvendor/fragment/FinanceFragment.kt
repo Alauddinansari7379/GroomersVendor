@@ -10,9 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ehcf.Helper.currency
 import com.example.ehcf.Helper.myToast
 import com.github.mikephil.charting.charts.LineChart
@@ -26,9 +24,7 @@ import com.groomers.groomersvendor.activity.BankInformation
 import com.groomers.groomersvendor.adapter.AdapterFinance
 import com.groomers.groomersvendor.databinding.FragmentFinanceBinding
 import com.groomers.groomersvendor.helper.AppProgressBar
-import com.groomers.groomersvendor.helper.Toastic
 import com.groomers.groomersvendor.model.modelEarning.ModelEarning
-import com.groomers.groomersvendor.model.modelEarning.Result
 import com.groomers.groomersvendor.retrofit.ApiClient
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -82,13 +78,6 @@ class FinanceFragment : Fragment() {
 //                setupChart(binding.lineChart, "week")
 //            }
 
-            // Show Today's Revenue Data
-//            tabToday.setOnClickListener {
-//                tabToday.setBackgroundResource(R.drawable.tab_selected)
-//                tabWeek.setBackgroundResource(R.drawable.tab_unselected)
-//                tabMonth.setBackgroundResource(R.drawable.tab_unselected)
-//                setupChart(binding.lineChart, "today")
-//            }
 
             // Show Monthly Revenue Data
 //            tabMonth.setOnClickListener {
@@ -273,7 +262,6 @@ class FinanceFragment : Fragment() {
     }
 
     private fun apiCallFinanceData() {
-        //  AppProgressBar.showLoaderDialog(requireContext())
         ApiClient.apiService.vendorEarning(
             "Bearer ${sessionManager.accessToken}",
         )

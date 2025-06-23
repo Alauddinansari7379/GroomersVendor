@@ -3,7 +3,6 @@ package com.groomers.groomersvendor.fragment
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.app.TimePickerDialog
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
@@ -27,6 +26,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -36,13 +36,16 @@ import com.bumptech.glide.Glide
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.activity.ServiceList
 import com.groomers.groomersvendor.adapter.AdapterServices
+import com.groomers.groomersvendor.adapter.AdapterServices.Companion.serviceId
 import com.groomers.groomersvendor.adapter.AdapterServices.Companion.serviceName
+import com.groomers.groomersvendor.adapter.DaysAdapter
 import com.groomers.groomersvendor.adapter.OthersCategoryAdapter
 import com.groomers.groomersvendor.databinding.FragmentAddPostBinding
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.helper.Toastic
 import com.groomers.groomersvendor.helper.UploadRequestBody
 import com.groomers.groomersvendor.model.ModelDay
+import com.groomers.groomersvendor.model.modelcategory.Result
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
 import com.groomers.groomersvendor.viewmodel.CategoryViewModel
@@ -67,10 +70,6 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
-import androidx.core.graphics.drawable.toDrawable
-import com.groomers.groomersvendor.adapter.AdapterServices.Companion.serviceId
-import com.groomers.groomersvendor.adapter.DaysAdapter
-import com.groomers.groomersvendor.model.modelcategory.Result
 
 @AndroidEntryPoint
 class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
@@ -178,30 +177,37 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                     when (dayId) {
                         "1" -> {
                             day1 = "1"
+                            viewModel.day1 = day1.toInt()
                         }
 
                         "2" -> {
                             day2 = "2"
+                            viewModel.day2 = day2.toInt()
                         }
 
                         "3" -> {
                             day3 = "3"
+                            viewModel.day3 = day3.toInt()
                         }
 
                         "4" -> {
                             day4 = "4"
+                            viewModel.day4 = day4.toInt()
                         }
 
                         "5" -> {
                             day5 = "5"
+                            viewModel.day5 = day5.toInt()
                         }
 
                         "6" -> {
                             day6 = "6"
+                            viewModel.day6 = day6.toInt()
                         }
 
                         "7" -> {
                             day7 = "7"
+                            viewModel.day7 = day7.toInt()
                         }
 
                     }
@@ -341,12 +347,11 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         }
         // Observe error message if login fails
         viewModel.errorMessage.observe(requireActivity()) { errorMessage ->
-            if (errorMessage != null) {
-                if (errorMessage.isNotEmpty()) {
-                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-                }
+            if (!errorMessage.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
             }
         }
+
         // Observe the result of the login attempt
         slotViewModel.modelSlot.observe(requireActivity()) { modelSlot ->
             if (modelSlot != null && modelSlot.status == 1) {
@@ -357,7 +362,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                     duration = Toastic.LENGTH_SHORT,
                     type = Toastic.SUCCESS,
                     isIconAnimated = true,
-                    textColor = if (false) Color.BLUE else null,
+                    textColor = Color.BLUE,
                 ).show()
                 resetAllFields()
             } else {
@@ -368,7 +373,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                         duration = Toastic.LENGTH_SHORT,
                         type = Toastic.ERROR,
                         isIconAnimated = true,
-                        textColor = if (false) Color.BLUE else null,
+                        textColor = Color.BLUE,
                     ).show()
                 }
             }
@@ -395,10 +400,9 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         viewModel.serviceName = serviceName
         startTimeFormatted = binding.tvStartTime.text.toString()
         endTimeFormatted = binding.tvEndTime.text.toString()
-        val selectedService = binding.spinnerService.selectedItem.toString()
         userType = binding.spinnerUserType.selectedItem.toString()
         discount = binding.etDiscount.text.toString().trim()
-        serviceDuration=""
+        serviceDuration = ""
         serviceDuration = binding.etDuration.text.toString().trim()
         serviceDuration = convertIntoMin(serviceDuration)
         serviceNameNew = binding.etServiceName.text.toString()
@@ -462,7 +466,11 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             return
         }
         if (startTimeFormatted > endTimeFormatted) {
-            Toast.makeText(context, "Start time should not be greater than End time", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                "Start time should not be greater than End time",
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
         // Step 8: Validate Service Duration
@@ -473,33 +481,37 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             viewModel.time = serviceDuration
         }
 
-//        // Step 11: Validate Selected Service
-//        if (selectedService == "Select service") {
-//            showWarningDialog("Please select the service")
-//            return
-//        }
-
-        // Proceed with API call
         sessionManager.accessToken?.let { token ->
             viewModel.images?.let { imageList ->
                 if (!viewModel.editFlag.isNullOrEmpty()) {
+
+
                     viewModel.updateService(
-                        token,
-                        ApiServiceProvider.getApiService(),
-                        serviceNameNew,
-                        viewModel.description ?: "",
-                        viewModel.price ?: "",
-                        viewModel.time ?: "",
-                        viewModel.serviceType ?: "",
-                        viewModel.date ?: "",
-                        viewModel.category ?: "",
-                        viewModel.slot_time ?: "",
-                        viewModel.address ?: "",
-                        userType,
-                        imageList,
-                        viewModel.editFlag!!,
-                        discount
+                        token = token,
+                        apiService = ApiServiceProvider.getApiService(),
+                        serviceName = serviceNameNew,
+                        description = viewModel.description ?: "",
+                        price = viewModel.price ?: "",
+                        time = viewModel.time ?: "",
+                        serviceType = viewModel.serviceType ?: "",
+                        date = viewModel.date ?: "",
+                        discount = discount,
+                        userType = userType,
+                        startTime = viewModel.start_time
+                            ?: "00:00:00",  // Add this field in your ViewModel
+                        endTime = viewModel.end_time ?: "01:00:00",      // Add this too
+                        quantity = viewModel.quantity ?: 1,
+                        day1 = viewModel.day1 ?: 1,
+                        day2 = viewModel.day2 ?: 2,
+                        day3 = viewModel.day3 ?: 3,
+                        day4 = viewModel.day4 ?: 4,
+                        day5 = viewModel.day5 ?: 5,
+                        day6 = viewModel.day6 ?: 6,
+                        day7 = viewModel.day7 ?: 7,
+                        image = imageList, // Safely access first image or return
+                        id = viewModel.editFlag ?: "" // editFlag used as ID
                     )
+
                 } else {
                     viewModel.createService(
                         token,
@@ -581,7 +593,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
     private fun handleImageSelection(uri: Uri) {
         createMultipartFromUri(requireContext(), uri)?.let {
-            //parts.add(it)
             parts = it
             viewModel.images = parts
         }
@@ -589,7 +600,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
     private fun handleImageSelection1(uri: Uri) {
         createMultipartFromUri1(requireContext(), uri)?.let {
-            //parts.add(it)
             parts = it
             viewModel.images = parts
         }
@@ -632,9 +642,10 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                 binding.date.setText(formattedDate)
                 viewModel.date = formattedDate
             },
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
+            calendar[Calendar.YEAR],
+            calendar[Calendar.MONTH],
+            calendar[Calendar.DAY_OF_MONTH]
+
         )
         datePickerDialog.datePicker.minDate =
             System.currentTimeMillis() - 1000 // Disable past dates
@@ -808,6 +819,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             tvTimeTimePicker.text = selectedTime
             binding.tvStartTime.text = selectedTime
             startTime = selectedTime
+            viewModel.start_time = startTime
 
             Log.e("Selected Start Time", startTime)
         }
@@ -832,17 +844,12 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
         val btnOkTimePicker = view.findViewById<Button>(R.id.btnOkTimePicker)
         val timePicker = view.findViewById<TimePicker>(R.id.timePicker)
-        val tvTimeTimePicker = view.findViewById<TextView>(R.id.tvTimeTimePicker)
+
 
         timePicker.setIs24HourView(true) // Set to 24-hour format
 
         timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
-//            val formattedHour = String.format("%02d", hourOfDay)
-//            val formattedMinute = String.format("%02d", minute)
             val formattedTime = String.format("%02d:%02d", hourOfDay, minute)
-//            val selectedTime = "$formattedTime:$formattedTime:00" // Ensure "HH:mm:ss" format
-
-//            tvTimeTimePicker.text = selectedTime
             binding.etDuration.setText(formattedTime)
             selecteddurationTime = formattedTime
 
@@ -883,6 +890,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             tvTimeTimePicker.text = selectedTime
             binding.tvEndTime.text = selectedTime
             endTime = selectedTime
+            viewModel.start_time = endTime
 
             Log.e("Selected End Time", endTime)
         }
@@ -911,14 +919,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
     private fun setupClickListeners() {
         binding.etDuration.setOnClickListener {
-//            TimePickerDialog(
-//                requireContext(),
-//                { _, hourOfDay, minute ->
-//                    val formattedTime = String.format("%02d:%02d", hourOfDay, minute)
-//                    binding.etDuration.setText(formattedTime)
-//                },
-//                0, 0, true
-//            ).show()
             durationTime()
         }
 
@@ -954,7 +954,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                     duration = Toastic.LENGTH_SHORT,
                     type = Toastic.SUCCESS,
                     isIconAnimated = true,
-                    textColor = if (false) Color.BLUE else null,
+                    textColor = Color.BLUE,
                 ).show()
                 requireActivity().finish()
             }
@@ -986,9 +986,8 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
         serviceName = ""
         binding.editTextDescription.text?.clear()
-//        binding.imageViewPreview.setImageDrawable(null)
         binding.imageViewPreview.setImageDrawable(Color.TRANSPARENT.toDrawable())
-        serviceDuration=""
+        serviceDuration = ""
         binding.edPrice.text.clear()
         binding.date.text.clear()
         binding.etDiscount.text.clear()
@@ -998,11 +997,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         binding.tvEndTime.text = "00:00:00"
         selectedDays.clear()
         daysAdapter.updateList(selectedDays.toMutableList())
-//        binding.spinnerUserType.setSelection(0) // Set to the default position
-//        binding.spinnerDay.setSelection(0) // Set to the default position
-//        binding.spinnerService.setSelection(0) // Set to the default position
-        binding.tvQuantity.text = "1" // Reset to default value
-//        binding.editTextAddress.text?.clear()
+        binding.tvQuantity.text = "1"
         binding.layoutDateFromDilog.visibility = View.GONE
         binding.btnCreate.visibility = View.GONE
         categoryViewModel.getCategory(ApiServiceProvider.getApiService())
@@ -1073,6 +1068,14 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                 day5 = ""
                 day6 = ""
                 day7 = ""
+                viewModel.day1 = null
+                viewModel.day2 = null
+                viewModel.day3 = null
+                viewModel.day4 = null
+                viewModel.day5 = null
+                viewModel.day6 = null
+                viewModel.day7 = null
+
                 // Change the button text back to "Select All" and set the color
                 binding.tvSelectAllDays.text = "Select All"
                 binding.tvSelectAllDays.setTextColor(

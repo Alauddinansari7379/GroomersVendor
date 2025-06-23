@@ -107,23 +107,23 @@ class AddServiceDetails : AppCompatActivity() {
             sessionManager.accessToken?.let { token ->
                 viewModel.images?.let { imageList ->
                     if (!viewModel.editFlag.isNullOrEmpty()) {
-                        viewModel.updateService(
-                            token,
-                            apiService,
-                            serviceName,
-                            viewModel.description ?: "",
-                            viewModel.price ?: "",
-                            viewModel.time ?: "",
-                            viewModel.serviceType ?: "",
-                            viewModel.date ?: "",
-                            viewModel.category ?: "",
-                            viewModel.slot_time ?: "",
-                            viewModel.address ?: "",
-                            userType,
-                            imageList,
-                            viewModel.editFlag!!,
-                            discount
-                        )
+//                        viewModel.updateService(
+//                            token,
+//                            apiService,
+//                            serviceName,
+//                            viewModel.description ?: "",
+//                            viewModel.price ?: "",
+//                            viewModel.time ?: "",
+//                            viewModel.serviceType ?: "",
+//                            viewModel.date ?: "",
+//                            viewModel.category ?: "",
+//                            viewModel.slot_time ?: "",
+//                            viewModel.address ?: "",
+//                            userType,
+//                            imageList,
+//                            viewModel.editFlag!!,
+//                            discount,
+//                        )
                     } else {
                         viewModel.createService(
                             token,

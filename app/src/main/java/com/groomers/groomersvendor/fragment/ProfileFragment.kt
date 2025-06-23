@@ -1,18 +1,15 @@
 package com.groomers.groomersvendor.fragment
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -24,15 +21,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toDrawable
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.pedant.SweetAlert.SweetAlertDialog
@@ -42,7 +35,6 @@ import com.groomers.groomersvendor.MainActivity
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.activity.Login
 import com.groomers.groomersvendor.activity.ManageSlots
-import com.groomers.groomersvendor.activity.MySlot
 import com.groomers.groomersvendor.activity.Settings
 import com.groomers.groomersvendor.activity.ViewOnGroomers
 import com.groomers.groomersvendor.adapter.AdapterFinance
@@ -131,7 +123,6 @@ class ProfileFragment : Fragment() {
             openImageChooser()
         }
         binding.addCoverButton.setOnClickListener {
-//            captureLayoutAndShare(requireContext(),binding.layoutMain)
             startActivity(Intent(requireContext(),ViewOnGroomers::class.java))
         }
 
@@ -184,7 +175,7 @@ class ProfileFragment : Fragment() {
                     duration = Toastic.LENGTH_SHORT,
                     type = Toastic.SUCCESS,
                     isIconAnimated = true,
-                    textColor = if (false) Color.BLUE else null,
+                    textColor = Color.BLUE ,
                 ).show()
             }
         }

@@ -28,6 +28,16 @@ class CreateServiceViewModel(
     var address: String? = null
     var user_type: String? = null
     var discount: String? = null
+    var start_time: String? = null
+    var end_time: String? = null
+    var quantity: Int? = null
+    var day1: Int? = null
+    var day2: Int? = null
+    var day3: Int? = null
+    var day4: Int? = null
+    var day5: Int? = null
+    var day6: Int? = null
+    var day7: Int? = null
     var serviceDuration: String? = null
     var imageUrl: String? = null
     var editFlag: String? = null
@@ -130,37 +140,52 @@ class CreateServiceViewModel(
         time: String,
         serviceType: String,
         date: String,
-        category: String,
-        slot_time: String,
-        address: String,
-        user_type: String,
+        discount: String,
+        userType: String,
+        startTime: String,
+        endTime: String,
+        quantity: Int,
+        day1: Int,
+        day2: Int,
+        day3: Int,
+        day4: Int,
+        day5: Int,
+        day6: Int,
+        day7: Int,
         image: MultipartBody.Part,
-        id : String,
-        discount : String,
+        id: String,
     ) {
         viewModelScope.launch {
             _isLoading.postValue(true)
             try {
                 val response = apiService.updateServicePost(
-                    "Bearer $token",
-                    serviceName,
-                    description,
-                    price,
-                    time,
-                    serviceType,
-                    date,
-                    category,
-                    address,
-                    user_type,
-                    image,
-                    id,
-                    discount
+                    authorization = "Bearer $token",
+                    id = id,
+                    serviceName = serviceName,
+                    description = description,
+                    price = price,
+                    time = time,
+                    serviceType = serviceType,
+                    date = date,
+                    discount = discount,
+                    user_type = userType,
+                    startTime = startTime,
+                    endTime = endTime,
+                    quantity = quantity,
+                    day1 = day1,
+                    day2 = day2,
+                    day3 = day3,
+                    day4 = day4,
+                    day5 = day5,
+                    day6 = day6,
+                    day7 = day7,
+                    image = image
                 )
 
                 if (response.isSuccessful) {
-                    response.body()?.let {
-                        if (it.status == 1) {
-                            _modelUpdateService.postValue(it)
+                    response.body()?.let { body ->
+                        if (body.status == 1) {
+                            _modelUpdateService.postValue(body)
                         } else {
                             _errorMessage.postValue("Service update failed. Please try again.")
                         }
@@ -179,6 +204,7 @@ class CreateServiceViewModel(
             }
         }
     }
+
     fun clearServiceData() {
         _modelCreateService.value = null
         _modelUpdateService.value = null
