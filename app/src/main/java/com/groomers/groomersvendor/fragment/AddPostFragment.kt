@@ -395,6 +395,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             null
         }
     }
+
     private val cameraPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
@@ -403,6 +404,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                 showError("Camera permission denied")
             }
         }
+
     private fun checkCameraPermissionAndLaunch() {
         when {
             ContextCompat.checkSelfPermission(
@@ -431,6 +433,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             }
         }
     }
+
     private fun openCamera() {
         imageUri = createImageUri()
         imageUri?.let {
@@ -450,10 +453,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                 showError("Failed to capture image")
             }
         }
-
-
-
-
 
 
     private fun validateAndProceed() {
@@ -725,23 +724,81 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         viewModelService.modelSingleService.observe(viewLifecycleOwner) { response ->
             response?.result?.firstOrNull()?.let { service ->
                 viewModel.apply {
-                    category = service.category ?: ""
+//                    category = service.category.toString() ?: ""
                     serviceType = service.serviceType ?: ""
                     description = service.description ?: ""
                     price = service.price?.toString() ?: ""
-                    address = service.address ?: ""
+//                    address = service.address.toString() ?: ""
                     time = service.time ?: ""
                     date = service.date ?: ""
-                    slot_time = service.slot_time ?: ""
+//                    slot_time = service.slot_time.toString() ?: ""
                     serviceName = service.serviceName ?: ""
                     user_type = service.user_type ?: ""
                     imageUrl = service.image
+                    discount = service.discount
+                    val result = convertMinutesToHourMinFormat(service.time)
+                    time = result
+                    start_time = service.start_time
+                    end_time = service.end_time
+                    quantity = service.quantity
+                    day1 = service.Day1
+                    day2 = service.Day2
+                    day3 = service.Day3
+                    day4 = service.Day4
+                    day5 = service.Day5
+                    day6 = service.Day6
+                    day7 = service.Day7
+                    user_type = service.user_type
+
+
+// Mapping numbers to day names
+                    val dayMap = mapOf(
+                        "1" to "Monday",
+                        "2" to "Tuesday",
+                        "3" to "Wednesday",
+                        "4" to "Thursday",
+                        "5" to "Friday",
+                        "6" to "Saturday",
+                        "7" to "Sunday"
+                    )
+
+// Combine all day strings
+                    val allDaysCombined = listOf(
+                        service.Day1,
+                        service.Day2,
+                        service.Day3,
+                        service.Day4,
+                        service.Day5,
+                        service.Day6,
+                        service.Day7
+                    )
+                        .filterNotNull() // Ignore nulls if any
+                        .joinToString(",") // Merge into one comma-separated string
+
+// Split, remove duplicates, trim spaces
+                    val uniqueDayIds = allDaysCombined.split(",").map { it.trim() }.toSet()
+
+                    selectedDays.clear()
+// Build the selectedDays list
+                    for (id in uniqueDayIds) {
+                        dayMap[id]?.let { dayName ->
+                            selectedDays.add(ModelDay(day = dayName, id = id, isSelected = true))
+                        }
+                    }
+
+                    daysAdapter.updateList(selectedDays.toMutableList())
+
                 }
                 binding.editTextDescription.setText(viewModel.description)
                 binding.etServiceName.setText(viewModel.serviceName)
                 binding.edPrice.setText(viewModel.price)
                 binding.date.setText(viewModel.date)
+                binding.etDiscount.setText(viewModel.discount)
+                binding.etDuration.setText(viewModel.time)
                 binding.editTextAddress.setText(viewModel.address)
+                binding.tvStartTime.text = viewModel.start_time
+                binding.tvEndTime.text = viewModel.end_time
+                binding.tvQuantity.text = viewModel.quantity.toString()
                 adapterServices.updateData(categoryList, viewModel.serviceName.toString())
                 AdapterServices(categoryList, requireContext())
                 binding.rvService.adapter = adapterServices
@@ -759,6 +816,14 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             }
         }
     }
+
+    private fun convertMinutesToHourMinFormat(minutesStr: String): String {
+        val totalMinutes = minutesStr.toIntOrNull() ?: return "00:00"
+        val hours = totalMinutes / 60
+        val minutes = totalMinutes % 60
+        return String.format("%02d:%02d", hours, minutes)
+    }
+
 
     private fun showError(message: String) {
         if (message != null) {
