@@ -67,7 +67,7 @@ class AdapterServices(private var categoryList: List<Result>, val context: Conte
     @SuppressLint("NotifyDataSetChanged")
     fun selectedItem(serviceName: String) {
         selectedServiceName = serviceName
-        selectedPosition = categoryList.indexOfFirst { it.category_name == serviceName }
+        selectedPosition = categoryList.indexOfFirst { it.id.toString() == serviceName }
         notifyDataSetChanged()
     }
 
@@ -75,7 +75,7 @@ class AdapterServices(private var categoryList: List<Result>, val context: Conte
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newList: List<Result>, selectedCategory: String) {
         categoryList = newList
-        selectedPosition = categoryList.indexOfFirst { it.category_name == selectedCategory }
+        selectedPosition = categoryList.indexOfFirst { it.id.toString() == selectedCategory }
         notifyDataSetChanged()
 
     }

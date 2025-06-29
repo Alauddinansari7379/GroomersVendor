@@ -799,10 +799,10 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                 binding.tvStartTime.text = viewModel.start_time
                 binding.tvEndTime.text = viewModel.end_time
                 binding.tvQuantity.text = viewModel.quantity.toString()
-                adapterServices.updateData(categoryList, viewModel.serviceName.toString())
+                adapterServices!!.updateData(categoryList, viewModel.serviceType.toString())
                 AdapterServices(categoryList, requireContext())
                 binding.rvService.adapter = adapterServices
-                adapterServices.selectedItem(viewModel.serviceName!!)
+                adapterServices!!.selectedItem(viewModel.serviceType!!)
 
 
                 val imageUrl = "${ApiServiceProvider.IMAGE_URL}${viewModel.imageUrl}"
@@ -842,6 +842,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     override fun onDestroyView() {
         super.onDestroyView()
         binding
+        viewModel.editFlag=""
     }
 
     private fun createMultipartFromUri1(context: Context, uri: Uri): MultipartBody.Part? {

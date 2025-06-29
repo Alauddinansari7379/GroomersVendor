@@ -71,7 +71,7 @@ class BookingDetailsActivity : AppCompatActivity() {
                 .load("https://groomers.co.in/public/uploads/$profilePicture") // replace with your real base URL
                 .into(binding.ivProfileImage)
         } else {
-            binding.ivProfileImage.setImageResource(R.drawable.error_image)
+            binding.ivProfileImage.setImageResource(R.drawable.photo)
         }
     }
 }

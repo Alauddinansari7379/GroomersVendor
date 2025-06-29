@@ -41,10 +41,10 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
                 if (bookingList[position].profile_picture != null) {
                     Picasso.get()
                         .load("${sessionManager.imageUrl}${bookingList[position].profile_picture}")
-                        .error(R.drawable.error_image)
+                        .error(R.drawable.photo)
                         .into(imageView)
                 } else {
-                    imageView.setImageResource(R.drawable.error_image) // Correct method to set the image
+                    imageView.setImageResource(R.drawable.photo) // Correct method to set the image
                 }
 
 
@@ -73,12 +73,12 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
 
                     "accepted" -> {
                         tvBookingStatues.background.setTint(ContextCompat.getColor(context, R.color.green))
-                        if (isCurrentTimeGreater(date,end_time)){
+                        if (isCurrentTimeGreater(date,end_time.toString())){
                             layoutAccept.visibility = View.VISIBLE
                             btnAccept.visibility = View.GONE
                             btnReject.visibility = View.GONE
                             btnComplete.visibility = View.VISIBLE
-                            if (comments == null){
+                            if (slug.contains("accepted")&&comments == null){
                                 btnReview.visibility = View.VISIBLE
                             }else{
                                 btnReview.visibility = View.GONE
