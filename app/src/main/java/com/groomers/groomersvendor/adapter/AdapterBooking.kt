@@ -73,15 +73,17 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
 
                     "accepted" -> {
                         tvBookingStatues.background.setTint(ContextCompat.getColor(context, R.color.green))
-                        if (isCurrentTimeGreater(date,end_time.toString())){
-                            layoutAccept.visibility = View.VISIBLE
-                            btnAccept.visibility = View.GONE
-                            btnReject.visibility = View.GONE
-                            btnComplete.visibility = View.VISIBLE
-                            if (slug.contains("accepted")&&comments == null){
-                                btnReview.visibility = View.VISIBLE
-                            }else{
-                                btnReview.visibility = View.GONE
+                        if (end_time!=null) {
+                            if (isCurrentTimeGreater(date, end_time.toString())) {
+                                layoutAccept.visibility = View.VISIBLE
+                                btnAccept.visibility = View.GONE
+                                btnReject.visibility = View.GONE
+                                btnComplete.visibility = View.VISIBLE
+                                if (slug.contains("accepted") && comments == null) {
+                                    btnReview.visibility = View.VISIBLE
+                                } else {
+                                    btnReview.visibility = View.GONE
+                                }
                             }
                         }
 

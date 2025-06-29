@@ -145,7 +145,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         setupSpinners1()
         observeViewModel1()
         setupClickListeners()
-
         Log.e("BankName", sessionManager.bankName.toString())
 
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
@@ -712,109 +711,131 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     }
 
     private fun observeViewModel() {
-        viewModelService.isLoading.observe(requireActivity()) { isLoading ->
-            if (isLoading) CustomLoader.showLoaderDialog(requireContext())
-            else CustomLoader.hideLoaderDialog()
-        }
+        if (isAdded) {
+            viewModelService.isLoading.observe(requireActivity()) { isLoading ->
+                if (isLoading) CustomLoader.showLoaderDialog(requireContext())
+                else CustomLoader.hideLoaderDialog()
+            }
 
-        viewModelService.errorMessage.observe(requireActivity()) { errorMessage ->
-            showError(errorMessage)
+            viewModelService.errorMessage.observe(requireActivity()) { errorMessage ->
+                showError(errorMessage)
+            }
         }
 
         viewModelService.modelSingleService.observe(requireActivity()) { response ->
-            response?.result?.firstOrNull()?.let { service ->
-                viewModel.apply {
+            if (isAdded){
+                response?.result?.firstOrNull()?.let { service ->
+                    viewModel.apply {
 //                    category = service.category.toString() ?: ""
-                    serviceType = service.serviceType ?: ""
-                    description = service.description ?: ""
-                    price = service.price?.toString() ?: ""
+                        serviceType = service.serviceType ?: ""
+                        description = service.description ?: ""
+                        price = service.price?.toString() ?: ""
 //                    address = service.address.toString() ?: ""
-                    time = service.time ?: ""
-                    date = service.date ?: ""
+                        time = service.time ?: ""
+                        date = service.date ?: ""
 //                    slot_time = service.slot_time.toString() ?: ""
-                    serviceName = service.serviceName ?: ""
-                    user_type = service.user_type ?: ""
-                    imageUrl = service.image
-                    discount = service.discount
-                    val result = convertMinutesToHourMinFormat(service.time)
-                    time = result
-                    start_time = service.start_time
-                    end_time = service.end_time
-                    quantity = service.quantity
-                    day1 = service.Day1
-                    day2 = service.Day2
-                    day3 = service.Day3
-                    day4 = service.Day4
-                    day5 = service.Day5
-                    day6 = service.Day6
-                    day7 = service.Day7
-                    user_type = service.user_type
+                        serviceName = service.serviceName ?: ""
+                        user_type = service.user_type ?: ""
+                        imageUrl = service.image
+                        discount = service.discount
+                        val result = convertMinutesToHourMinFormat(service.time)
+                        time = result
+                        start_time = service.start_time
+                        end_time = service.end_time
+                        quantity = service.quantity
+                        day1 = service.Day1
+                        day2 = service.Day2
+                        day3 = service.Day3
+                        day4 = service.Day4
+                        day5 = service.Day5
+                        day6 = service.Day6
+                        day7 = service.Day7
+                        user_type = service.user_type
 
 
 // Mapping numbers to day names
-                    val dayMap = mapOf(
-                        "1" to "Monday",
-                        "2" to "Tuesday",
-                        "3" to "Wednesday",
-                        "4" to "Thursday",
-                        "5" to "Friday",
-                        "6" to "Saturday",
-                        "7" to "Sunday"
-                    )
+                        val dayMap = mapOf(
+                            "1" to "Monday",
+                            "2" to "Tuesday",
+                            "3" to "Wednesday",
+                            "4" to "Thursday",
+                            "5" to "Friday",
+                            "6" to "Saturday",
+                            "7" to "Sunday"
+                        )
 
 // Combine all day strings
-                    val allDaysCombined = listOf(
-                        service.Day1,
-                        service.Day2,
-                        service.Day3,
-                        service.Day4,
-                        service.Day5,
-                        service.Day6,
-                        service.Day7
-                    )
-                        .filterNotNull() // Ignore nulls if any
-                        .joinToString(",") // Merge into one comma-separated string
+                        val allDaysCombined = listOf(
+                            service.Day1,
+                            service.Day2,
+                            service.Day3,
+                            service.Day4,
+                            service.Day5,
+                            service.Day6,
+                            service.Day7
+                        )
+                            .filterNotNull() // Ignore nulls if any
+                            .joinToString(",") // Merge into one comma-separated string
 
 // Split, remove duplicates, trim spaces
-                    val uniqueDayIds = allDaysCombined.split(",").map { it.trim() }.toSet()
+                        val uniqueDayIds = allDaysCombined.split(",").map { it.trim() }.toSet()
 
-                    selectedDays.clear()
+                        selectedDays.clear()
 // Build the selectedDays list
-                    for (id in uniqueDayIds) {
-                        dayMap[id]?.let { dayName ->
-                            selectedDays.add(ModelDay(day = dayName, id = id, isSelected = true))
+                        for (id in uniqueDayIds) {
+                            dayMap[id]?.let { dayName ->
+                                selectedDays.add(
+                                    ModelDay(
+                                        day = dayName,
+                                        id = id,
+                                        isSelected = true
+                                    )
+                                )
+                            }
                         }
+
+                        daysAdapter.updateList(selectedDays.toMutableList())
+
+                    }
+                    binding.editTextDescription.setText(viewModel.description)
+                    binding.etServiceName.setText(viewModel.serviceName)
+                    binding.edPrice.setText(viewModel.price)
+                    binding.date.setText(viewModel.date)
+                    binding.etDiscount.setText(viewModel.discount)
+                    binding.etDuration.setText(viewModel.time)
+                    binding.editTextAddress.setText(viewModel.address)
+                    binding.tvStartTime.text = viewModel.start_time
+                    binding.tvEndTime.text = viewModel.end_time
+                    binding.tvQuantity.text = viewModel.quantity.toString()
+                    adapterServices!!.updateData(categoryList, viewModel.serviceType.toString())
+                    AdapterServices(categoryList, requireContext())
+                    binding.rvService.adapter = adapterServices
+                    adapterServices!!.selectedItemById(viewModel.serviceType!!)
+
+                    var selectedIndex = 0
+                    selectedIndex = if (viewModel.user_type!!.contains("Male")) {
+                        0
+                    } else if (viewModel.user_type!!.contains("Female")) {
+                        1
+                    } else {
+                        2
+                    }
+                    if (selectedIndex != -1) {
+                        binding.spinnerUserType.setSelection(selectedIndex)
                     }
 
-                    daysAdapter.updateList(selectedDays.toMutableList())
+                    val imageUrl = "${ApiServiceProvider.IMAGE_URL}${viewModel.imageUrl}"
 
+                    Glide.with(requireContext())
+                        .load(imageUrl)
+                        .into(binding.imageViewPreview)
+
+                    // Download the image and convert it to MultipartBody
+                    downloadImageAndConvertToMultipart(imageUrl)
                 }
-                binding.editTextDescription.setText(viewModel.description)
-                binding.etServiceName.setText(viewModel.serviceName)
-                binding.edPrice.setText(viewModel.price)
-                binding.date.setText(viewModel.date)
-                binding.etDiscount.setText(viewModel.discount)
-                binding.etDuration.setText(viewModel.time)
-                binding.editTextAddress.setText(viewModel.address)
-                binding.tvStartTime.text = viewModel.start_time
-                binding.tvEndTime.text = viewModel.end_time
-                binding.tvQuantity.text = viewModel.quantity.toString()
-                adapterServices!!.updateData(categoryList, viewModel.serviceType.toString())
-                AdapterServices(categoryList, requireContext())
-                binding.rvService.adapter = adapterServices
-                adapterServices!!.selectedItem(viewModel.serviceType!!)
-
-
-                val imageUrl = "${ApiServiceProvider.IMAGE_URL}${viewModel.imageUrl}"
-
-                Glide.with(requireContext())
-                    .load(imageUrl)
-                    .into(binding.imageViewPreview)
-
-                // Download the image and convert it to MultipartBody
-                downloadImageAndConvertToMultipart(imageUrl)
-            }
         }
+
+    }
     }
 
     private fun convertMinutesToHourMinFormat(minutesStr: String): String {
