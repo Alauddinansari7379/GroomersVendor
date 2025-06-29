@@ -83,7 +83,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     private lateinit var startTimeFormatted: String
     private lateinit var discount: String
     private lateinit var serviceNameNew: String
-    private lateinit var categoryList: List<Result>
+    private var categoryList: List<Result> = emptyList()
     private lateinit var binding: FragmentAddPostBinding
 
     @Inject
@@ -712,16 +712,16 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     }
 
     private fun observeViewModel() {
-        viewModelService.isLoading.observe(viewLifecycleOwner) { isLoading ->
+        viewModelService.isLoading.observe(requireActivity()) { isLoading ->
             if (isLoading) CustomLoader.showLoaderDialog(requireContext())
             else CustomLoader.hideLoaderDialog()
         }
 
-        viewModelService.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+        viewModelService.errorMessage.observe(requireActivity()) { errorMessage ->
             showError(errorMessage)
         }
 
-        viewModelService.modelSingleService.observe(viewLifecycleOwner) { response ->
+        viewModelService.modelSingleService.observe(requireActivity()) { response ->
             response?.result?.firstOrNull()?.let { service ->
                 viewModel.apply {
 //                    category = service.category.toString() ?: ""
