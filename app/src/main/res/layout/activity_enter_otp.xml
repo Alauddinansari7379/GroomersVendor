@@ -50,8 +50,8 @@
             <!-- OTP EditTexts -->
             <EditText
                 android:id="@+id/etOtp1"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_margin="4dp"
                 android:background="@drawable/otp_box_background"
                 android:gravity="center"
@@ -61,8 +61,8 @@
 
             <EditText
                 android:id="@+id/etOtp2"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_margin="4dp"
                 android:background="@drawable/otp_box_background"
                 android:gravity="center"
@@ -72,8 +72,8 @@
 
             <EditText
                 android:id="@+id/etOtp3"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_margin="4dp"
                 android:background="@drawable/otp_box_background"
                 android:gravity="center"
@@ -83,8 +83,8 @@
 
             <EditText
                 android:id="@+id/etOtp4"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_margin="4dp"
                 android:background="@drawable/otp_box_background"
                 android:gravity="center"
@@ -93,8 +93,8 @@
                 android:textSize="18sp" />
             <EditText
                 android:id="@+id/etOtp5"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_margin="4dp"
                 android:background="@drawable/otp_box_background"
                 android:gravity="center"
@@ -103,8 +103,8 @@
                 android:textSize="18sp" />
             <EditText
                 android:id="@+id/etOtp6"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_margin="4dp"
                 android:background="@drawable/otp_box_background"
                 android:gravity="center"

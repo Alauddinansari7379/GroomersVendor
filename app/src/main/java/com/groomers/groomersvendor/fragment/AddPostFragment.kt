@@ -722,18 +722,18 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             }
         }
 
-        viewModelService.modelSingleService.observe(requireActivity()) { response ->
-            if (isAdded){
+        if (isAdded) {
+            viewModelService.modelSingleService.observe(requireActivity()) { response ->
                 response?.result?.firstOrNull()?.let { service ->
                     viewModel.apply {
-//                    category = service.category.toString() ?: ""
+                        //                    category = service.category.toString() ?: ""
                         serviceType = service.serviceType ?: ""
                         description = service.description ?: ""
                         price = service.price?.toString() ?: ""
-//                    address = service.address.toString() ?: ""
+                        //                    address = service.address.toString() ?: ""
                         time = service.time ?: ""
                         date = service.date ?: ""
-//                    slot_time = service.slot_time.toString() ?: ""
+                        //                    slot_time = service.slot_time.toString() ?: ""
                         serviceName = service.serviceName ?: ""
                         user_type = service.user_type ?: ""
                         imageUrl = service.image
@@ -753,7 +753,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                         user_type = service.user_type
 
 
-// Mapping numbers to day names
+                        // Mapping numbers to day names
                         val dayMap = mapOf(
                             "1" to "Monday",
                             "2" to "Tuesday",
@@ -764,7 +764,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                             "7" to "Sunday"
                         )
 
-// Combine all day strings
+                        // Combine all day strings
                         val allDaysCombined = listOf(
                             service.Day1,
                             service.Day2,
@@ -777,11 +777,11 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
                             .filterNotNull() // Ignore nulls if any
                             .joinToString(",") // Merge into one comma-separated string
 
-// Split, remove duplicates, trim spaces
+                        // Split, remove duplicates, trim spaces
                         val uniqueDayIds = allDaysCombined.split(",").map { it.trim() }.toSet()
 
                         selectedDays.clear()
-// Build the selectedDays list
+                        // Build the selectedDays list
                         for (id in uniqueDayIds) {
                             dayMap[id]?.let { dayName ->
                                 selectedDays.add(
@@ -832,10 +832,11 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
                     // Download the image and convert it to MultipartBody
                     downloadImageAndConvertToMultipart(imageUrl)
-                }
-        }
 
-    }
+                }
+
+            }
+        }
     }
 
     private fun convertMinutesToHourMinFormat(minutesStr: String): String {
@@ -863,7 +864,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     override fun onDestroyView() {
         super.onDestroyView()
         binding
-        viewModel.editFlag=""
+        viewModel.editFlag = ""
     }
 
     private fun createMultipartFromUri1(context: Context, uri: Uri): MultipartBody.Part? {
@@ -1072,55 +1073,57 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     }
 
     private fun observeViewModel1() {
-        viewModel.modelCreateService.observe(requireActivity()) { result ->
-            if (result != null && result.status == 1) {
-                for (i in selectedDays) {
+        if (isAdded) {
+            viewModel.modelCreateService.observe(requireActivity()) { result ->
+                if (result != null && result.status == 1) {
+                    for (i in selectedDays) {
 
-                    if (serviceDuration.isNotEmpty()) {
-                        slotViewModel.createSlot(
-                            ApiServiceProvider.getApiService(),
-                            startTimeFormatted,
-                            endTimeFormatted,
-                            i.id,
-                            serviceId,
-                            quantity.toString(),
-                            result.result.id.toString(), serviceDuration
-                        )
+                        if (serviceDuration.isNotEmpty()) {
+                            slotViewModel.createSlot(
+                                ApiServiceProvider.getApiService(),
+                                startTimeFormatted,
+                                endTimeFormatted,
+                                i.id,
+                                serviceId,
+                                quantity.toString(),
+                                result.result.id.toString(), serviceDuration
+                            )
+                        }
+                        Log.i("Slot created", serviceDuration)
                     }
-                    Log.i("Slot created", serviceDuration)
+                }
+
+            }
+
+            viewModel.modelUpdateService.observe(requireActivity()) { result ->
+                if (result != null && result.status == 1) {
+                    Toastic.toastic(
+                        context = requireContext(),
+                        message = "Service updated successfully.",
+                        duration = Toastic.LENGTH_SHORT,
+                        type = Toastic.SUCCESS,
+                        isIconAnimated = true,
+                        textColor = Color.BLUE,
+                    ).show()
+                    requireActivity().finish()
                 }
             }
 
-        }
 
-        viewModel.modelUpdateService.observe(requireActivity()) { result ->
-            if (result != null && result.status == 1) {
-                Toastic.toastic(
-                    context = requireContext(),
-                    message = "Service updated successfully.",
-                    duration = Toastic.LENGTH_SHORT,
-                    type = Toastic.SUCCESS,
-                    isIconAnimated = true,
-                    textColor = Color.BLUE,
-                ).show()
-                requireActivity().finish()
+
+            viewModel.isLoading.observe(requireActivity()) { isLoading ->
+                if (isLoading) {
+                    CustomLoader.showLoaderDialog(requireContext())
+                } else {
+                    CustomLoader.hideLoaderDialog()
+
+                }
             }
-        }
 
-
-
-        viewModel.isLoading.observe(requireActivity()) { isLoading ->
-            if (isLoading) {
-                CustomLoader.showLoaderDialog(requireContext())
-            } else {
-                CustomLoader.hideLoaderDialog()
-
-            }
-        }
-
-        viewModel.errorMessage.observe(requireActivity()) { errorMessage ->
-            if (errorMessage != null) {
-                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+            viewModel.errorMessage.observe(requireActivity()) { errorMessage ->
+                if (errorMessage != null) {
+                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

@@ -37,5 +37,6 @@ data class Result(
     val total: Int,
     val updated_at: String,
     val user_type: String,
-    val vendor_id: Int
+    val vendor_id: Int,
+    val currentAddress: String?
 ) : Parcelable

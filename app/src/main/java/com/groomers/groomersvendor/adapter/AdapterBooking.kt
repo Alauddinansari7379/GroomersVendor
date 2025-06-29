@@ -44,7 +44,7 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
                         .error(R.drawable.photo)
                         .into(imageView)
                 } else {
-                    imageView.setImageResource(R.drawable.photo) // Correct method to set the image
+                    imageView.setImageResource(R.drawable.errorimage) // Correct method to set the image
                 }
 
 
@@ -63,52 +63,77 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
                 @RequiresApi(Build.VERSION_CODES.O)
                 when (slug) {
                     "waiting_for_accept" -> {
-                        layoutAccept.visibility = View.VISIBLE
                         btnAccept.visibility = View.VISIBLE
                         btnReject.visibility = View.VISIBLE
                         btnComplete.visibility = View.GONE
                         btnReview.visibility = View.GONE
-                        tvBookingStatues.background.setTint(ContextCompat.getColor(context, R.color.yellow))
+                        tvBookingStatues.background.setTint(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.yellow
+                            )
+                        )
                     }
 
                     "accepted" -> {
-                        tvBookingStatues.background.setTint(ContextCompat.getColor(context, R.color.green))
-                        if (end_time!=null) {
+
+
+                        tvBookingStatues.background.setTint(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.green
+                            )
+                        )
+                        if (end_time != null) {
                             if (isCurrentTimeGreater(date, end_time.toString())) {
-                                layoutAccept.visibility = View.VISIBLE
                                 btnAccept.visibility = View.GONE
                                 btnReject.visibility = View.GONE
                                 btnComplete.visibility = View.VISIBLE
-                                if (slug.contains("accepted") && comments == null) {
-                                    btnReview.visibility = View.VISIBLE
-                                } else {
-                                    btnReview.visibility = View.GONE
-                                }
+
                             }
                         }
 
                     }
 
                     "rejected" -> {
-                        tvBookingStatues.background.setTint(ContextCompat.getColor(context, R.color.red))
-                        layoutAccept.visibility = View.GONE
+                        btnAccept.visibility = View.GONE
+                        btnReject.visibility = View.GONE
+                        btnComplete.visibility = View.GONE
+                        btnReview.visibility = View.GONE
+
+                        tvBookingStatues.background.setTint(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.red
+                            )
+                        )
+
                     }
 
                     "completed" -> {
-                        tvBookingStatues.background.setTint(ContextCompat.getColor(context, R.color.green))
-                        layoutAccept.visibility = View.GONE
+                        tvBookingStatues.background.setTint(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.green
+                            )
+                        )
+                        btnAccept.visibility = View.GONE
+                        btnReject.visibility = View.GONE
+                        btnComplete.visibility = View.GONE
+                        if (slug.contains("completed") && customer_comments == null) {
+                            btnReview.visibility = View.VISIBLE
+                        } else {
+                            btnReview.visibility = View.GONE
+                        }
                     }
 
-                    else -> {
-                        layoutAccept.visibility = View.GONE
-                    }
                 }
                 root.setOnClickListener {
                     val intent = Intent(context, BookingDetailsActivity::class.java)
                     val booking = bookingList[position]
 
                     intent.putExtra("error", booking.error)
-                    intent.putExtra("address", booking.address)
+                    intent.putExtra("address", booking.currentAddress.toString()!!)
                     intent.putExtra("comments", booking.comments)
                     intent.putExtra("created_at", booking.created_at)
                     intent.putExtra("customerName", booking.customerName)
@@ -147,19 +172,19 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
                 }
 
                 btnAccept.setOnClickListener {
-                   accept.accept(id.toString())
+                    accept.accept(id.toString())
                 }
 
                 btnReject.setOnClickListener {
-                   accept.reject(id.toString())
+                    accept.reject(id.toString())
                 }
 
                 btnComplete.setOnClickListener {
-                   accept.complete(id.toString())
+                    accept.complete(id.toString())
                 }
 
                 btnReview.setOnClickListener {
-                   accept.rating(id.toString())
+                    accept.rating(id.toString())
                 }
 
             }
