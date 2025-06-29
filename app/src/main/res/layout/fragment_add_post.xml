@@ -69,8 +69,9 @@
             android:fontFamily="@font/sf_regular"
             android:gravity="top|start"
             android:hint="Service description"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:minHeight="120dp"
+            android:maxLines="5"
             android:padding="10dp"
             android:textColorHint="@color/black"
             android:textSize="16sp" />

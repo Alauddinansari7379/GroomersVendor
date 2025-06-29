@@ -165,6 +165,7 @@ class YourAddress : Common() {
                             val subAdminArea = address?.subAdminArea ?: ""
                             val fullAddress = address?.getAddressLine(0)
                             postalCodeNew = postalCode
+                            viewModel.address1= fullAddress
 
                             // Update location text
                             Log.e(ContentValues.TAG, "address: $address")
@@ -176,8 +177,9 @@ class YourAddress : Common() {
                             Log.e(ContentValues.TAG, "subAdminArea: $subAdminArea")
                             Log.e(ContentValues.TAG, "fullAddress: $fullAddress")
                             with(binding) {
-                                etAddress1.setText("$subAdminArea $subLocality")
-                                etAddress2.setText(subAdminArea)
+//                                etAddress1.setText("$subAdminArea $subLocality")
+                                etAddress1.setText(fullAddress.toString())
+                                etAddress2.setText(subLocality.toString())
                                 edtCity.setText(locality)
                                 edtZipCode.setText(postalCode)
                             }

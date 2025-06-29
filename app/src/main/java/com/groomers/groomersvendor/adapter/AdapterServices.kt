@@ -2,6 +2,7 @@ package com.groomers.groomersvendor.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -40,7 +41,7 @@ class AdapterServices(private var categoryList: List<Result>, val context: Conte
             Glide.with(context)
                 .load("https://groomers.co.in/public/uploads/" + category_image)
                 .into(holder.binding.iamgeView)
-
+            Log.e("ImageUrl","https://groomers.co.in/public/uploads/" + category_image)
             // Set background color based on selected position
             // Set background color based on selected position
             if (selectedPosition == position) {

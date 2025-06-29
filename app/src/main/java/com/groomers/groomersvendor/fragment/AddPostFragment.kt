@@ -1,11 +1,14 @@
 package com.groomers.groomersvendor.fragment
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -25,6 +28,7 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
@@ -96,7 +100,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     private val slotViewModel: SlotViewModel by viewModels()
     lateinit var daysAdapter: DaysAdapter
 
-    private lateinit var imageUri: Uri
+    private var imageUri: Uri? = null
     var quantity = 1
     var dayList = ArrayList<ModelDay>()
     private var endTime = "00:00:00"
@@ -112,18 +116,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     var day7 = ""
     private lateinit var adapterServices: AdapterServices
 
-    private val takePictureLauncher =
-        registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
-            if (success) {
-                imageUri?.let {
-                    binding.imageViewPreview.setImageURI(it)
-                    handleImageSelection1(it)
-                    binding.imageViewPreview.visibility = View.VISIBLE
-                }
-            } else {
-                showError("Failed to capture image")
-            }
-        }
+
     private val pickImageLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
@@ -290,9 +283,16 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
 
         binding.layoutGallery.setOnClickListener { pickImageLauncher.launch("image/*") }
+//        binding.layoutCamera.setOnClickListener {
+//            imageUri = createImageUri() // This may return null
+//
+//            imageUri?.let {
+//                takePictureLauncher.launch(it)
+//            } ?: showError("Unable to create image URI")
+//        }
+
         binding.layoutCamera.setOnClickListener {
-            imageUri = createImageUri()
-            imageUri?.let { takePictureLauncher.launch(it) }
+            checkCameraPermissionAndLaunch()
         }
 
         binding.date.setOnClickListener { openDatePickerDialog() }
@@ -380,20 +380,80 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         }
     }
 
-    private fun createImageUri(): Uri {
-        val file = File(requireContext().cacheDir, "captured_image.jpg")
+    private fun createImageUri(): Uri? {
+        return try {
+            val file = File(requireContext().cacheDir, "captured_image.jpg")
+            if (!file.parentFile.exists()) file.parentFile.mkdirs()
 
-        // Ensure the cache directory exists
-        if (!file.parentFile.exists()) {
-            file.parentFile.mkdirs()
+            FileProvider.getUriForFile(
+                requireContext(),
+                "${requireContext().packageName}.provider",
+                file
+            )
+        } catch (e: Exception) {
+            Log.e("ImageUriError", "Failed to create URI: ${e.message}", e)
+            null
+        }
+    }
+    private val cameraPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                openCamera() // Proceed to launch camera
+            } else {
+                showError("Camera permission denied")
+            }
+        }
+    private fun checkCameraPermissionAndLaunch() {
+        when {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                // Permission already granted
+                openCamera()
+            }
+
+            shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
+                // Show rationale or dialog if needed
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Permission Required")
+                    .setMessage("Camera access is required to take photos.")
+                    .setPositiveButton("OK") { _, _ ->
+                        cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
+            }
+
+            else -> {
+                // Directly ask for permission
+                cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+            }
+        }
+    }
+    private fun openCamera() {
+        imageUri = createImageUri()
+        imageUri?.let {
+            takePictureLauncher.launch(it)
+        } ?: showError("Unable to create image URI")
+    }
+
+    private val takePictureLauncher =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+            if (success) {
+                imageUri?.let {
+                    binding.imageViewPreview.setImageURI(it)
+                    binding.imageViewPreview.visibility = View.VISIBLE
+                    handleImageSelection1(it)
+                }
+            } else {
+                showError("Failed to capture image")
+            }
         }
 
-        return FileProvider.getUriForFile(
-            requireContext(),
-            "${requireContext().packageName}.provider",
-            file
-        )
-    }
+
+
+
 
 
     private fun validateAndProceed() {
