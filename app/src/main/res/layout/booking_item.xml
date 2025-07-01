@@ -65,6 +65,7 @@
                             android:fontFamily="@font/poppins_regular"
                             android:text="Submit Review"
                             android:textAllCaps="false"
+                            android:visibility="gone"
                             android:textColor="@color/white"
                             android:textSize="10sp"
                             android:textStyle="bold" />
