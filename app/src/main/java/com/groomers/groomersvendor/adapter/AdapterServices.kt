@@ -2,6 +2,7 @@ package com.groomers.groomersvendor.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,12 +10,10 @@ import com.bumptech.glide.Glide
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.SingleRowServicesBinding
 import com.groomers.groomersvendor.model.modelcategory.Result
-
 class AdapterServices(private var categoryList: List<Result>, val context: Context) :
     RecyclerView.Adapter<AdapterServices.CategoryViewHolder>() {
 
-    private var selectedPosition = -1 // No item selected initially
-    private var selectedServiceName = "" // No item selected initially
+    private var selectedPosition = -1
 
     inner class CategoryViewHolder(val binding: SingleRowServicesBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -28,33 +27,29 @@ class AdapterServices(private var categoryList: List<Result>, val context: Conte
     override fun getItemCount(): Int = categoryList.size
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun onBindViewHolder(
-        holder: CategoryViewHolder,
-        @SuppressLint("RecyclerView") position: Int
-    ) {
-        with(categoryList[position]) {
-            if (selectedServiceName.isNotEmpty()) {
-                selectedPosition = categoryList.indexOfFirst { it.category_name == serviceName }
-            }
-            holder.binding.tvName.text = category_name
-            Glide.with(context)
-                .load("https://groomers.co.in/public/uploads/" + category_image)
-                .into(holder.binding.iamgeView)
+    override fun onBindViewHolder(holder: CategoryViewHolder, @SuppressLint("RecyclerView") position: Int) {
+        val item = categoryList[position]
 
-            // Set background color based on selected position
-            // Set background color based on selected position
-            if (selectedPosition == position) {
-                holder.binding.llHaircut.setBackgroundResource(R.drawable.selected_card)
-            } else {
-                holder.binding.llHaircut.setBackgroundResource(R.drawable.card_background)
-            }
+        holder.binding.tvName.text = item.category_name
 
-            holder.binding.llHaircut.setOnClickListener {
-                selectedPosition = position
-                serviceId = categoryList[position].id.toString()
-                notifyDataSetChanged()
-                serviceName = categoryList[position].category_name
-            }
+        Glide.with(context)
+            .load("https://groomers.co.in/public/uploads/${item.category_image}")
+            .into(holder.binding.iamgeView)
+
+        Log.e("ImageUrl", "https://groomers.co.in/public/uploads/${item.category_image}")
+
+        // Highlight selected
+        if (position == selectedPosition) {
+            holder.binding.llHaircut.setBackgroundResource(R.drawable.selected_card)
+        } else {
+            holder.binding.llHaircut.setBackgroundResource(R.drawable.card_background)
+        }
+
+        holder.binding.llHaircut.setOnClickListener {
+            selectedPosition = position
+            serviceId = item.id.toString()
+            serviceName = item.category_name
+            notifyDataSetChanged()
         }
     }
 
@@ -64,19 +59,22 @@ class AdapterServices(private var categoryList: List<Result>, val context: Conte
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun selectedItem(serviceName: String) {
-        selectedServiceName = serviceName
-        selectedPosition = categoryList.indexOfFirst { it.category_name == serviceName }
+    fun selectedItemById(selectedId: String) {
+        selectedPosition = categoryList.indexOfFirst { it.id.toString() == selectedId }
+        if (selectedPosition != -1) {
+            serviceId = categoryList[selectedPosition].id.toString()
+            serviceName = categoryList[selectedPosition].category_name
+        }
         notifyDataSetChanged()
     }
-
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newList: List<Result>, selectedCategory: String) {
+    fun updateData(newList: List<Result>, selectedCategoryId: String? = null) {
         categoryList = newList
-        selectedPosition = categoryList.indexOfFirst { it.category_name == selectedCategory }
+        selectedPosition = selectedCategoryId?.let {
+            categoryList.indexOfFirst { it.id.toString() == it.id.toString() }
+        } ?: -1
         notifyDataSetChanged()
-
     }
-
 }
+

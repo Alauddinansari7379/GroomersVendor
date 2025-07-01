@@ -22,7 +22,7 @@
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/error_image"
+            android:src="@drawable/photo"
             android:scaleType="centerCrop"
             android:padding="4dp"
             android:elevation="8dp"

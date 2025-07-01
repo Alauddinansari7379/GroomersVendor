@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.groomers.groomersvendor.Common
@@ -55,7 +56,9 @@ class Register3 : Common() {
         val latitude = viewModel.latitude.toString() ?: ""
         val longitude = viewModel.longitude.toString() ?: ""
         val aboutBusiness = viewModel.aboutBusiness.toString() ?: ""
-        val adrdress=viewModel.address1+" "+viewModel.address2+" "+viewModel.city+" "+viewModel.zipcode
+//        val adrdress=viewModel.address1+" "+viewModel.address2+" "+viewModel.city+" "+viewModel.zipcode
+        val adrdress=viewModel.address1!!
+        Log.e("Address",adrdress)
         // Convert image path to MultipartBody.Part
         val shopAgreement = prepareFilePart("shop_agreement", idproofImagePath)
 

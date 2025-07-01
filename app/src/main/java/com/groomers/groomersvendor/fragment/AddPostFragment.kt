@@ -1,11 +1,14 @@
 package com.groomers.groomersvendor.fragment
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -25,6 +28,7 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
@@ -79,7 +83,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     private lateinit var startTimeFormatted: String
     private lateinit var discount: String
     private lateinit var serviceNameNew: String
-    private lateinit var categoryList: List<Result>
+    private var categoryList: List<Result> = emptyList()
     private lateinit var binding: FragmentAddPostBinding
 
     @Inject
@@ -96,7 +100,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     private val slotViewModel: SlotViewModel by viewModels()
     lateinit var daysAdapter: DaysAdapter
 
-    private lateinit var imageUri: Uri
+    private var imageUri: Uri? = null
     var quantity = 1
     var dayList = ArrayList<ModelDay>()
     private var endTime = "00:00:00"
@@ -112,18 +116,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     var day7 = ""
     private lateinit var adapterServices: AdapterServices
 
-    private val takePictureLauncher =
-        registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
-            if (success) {
-                imageUri?.let {
-                    binding.imageViewPreview.setImageURI(it)
-                    handleImageSelection1(it)
-                    binding.imageViewPreview.visibility = View.VISIBLE
-                }
-            } else {
-                showError("Failed to capture image")
-            }
-        }
+
     private val pickImageLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
@@ -152,7 +145,6 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         setupSpinners1()
         observeViewModel1()
         setupClickListeners()
-
         Log.e("BankName", sessionManager.bankName.toString())
 
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
@@ -290,9 +282,16 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
 
         binding.layoutGallery.setOnClickListener { pickImageLauncher.launch("image/*") }
+//        binding.layoutCamera.setOnClickListener {
+//            imageUri = createImageUri() // This may return null
+//
+//            imageUri?.let {
+//                takePictureLauncher.launch(it)
+//            } ?: showError("Unable to create image URI")
+//        }
+
         binding.layoutCamera.setOnClickListener {
-            imageUri = createImageUri()
-            imageUri?.let { takePictureLauncher.launch(it) }
+            checkCameraPermissionAndLaunch()
         }
 
         binding.date.setOnClickListener { openDatePickerDialog() }
@@ -380,20 +379,79 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
         }
     }
 
-    private fun createImageUri(): Uri {
-        val file = File(requireContext().cacheDir, "captured_image.jpg")
+    private fun createImageUri(): Uri? {
+        return try {
+            val file = File(requireContext().cacheDir, "captured_image.jpg")
+            if (!file.parentFile.exists()) file.parentFile.mkdirs()
 
-        // Ensure the cache directory exists
-        if (!file.parentFile.exists()) {
-            file.parentFile.mkdirs()
+            FileProvider.getUriForFile(
+                requireContext(),
+                "${requireContext().packageName}.provider",
+                file
+            )
+        } catch (e: Exception) {
+            Log.e("ImageUriError", "Failed to create URI: ${e.message}", e)
+            null
+        }
+    }
+
+    private val cameraPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                openCamera() // Proceed to launch camera
+            } else {
+                showError("Camera permission denied")
+            }
         }
 
-        return FileProvider.getUriForFile(
-            requireContext(),
-            "${requireContext().packageName}.provider",
-            file
-        )
+    private fun checkCameraPermissionAndLaunch() {
+        when {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                // Permission already granted
+                openCamera()
+            }
+
+            shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
+                // Show rationale or dialog if needed
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Permission Required")
+                    .setMessage("Camera access is required to take photos.")
+                    .setPositiveButton("OK") { _, _ ->
+                        cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
+            }
+
+            else -> {
+                // Directly ask for permission
+                cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+            }
+        }
     }
+
+    private fun openCamera() {
+        imageUri = createImageUri()
+        imageUri?.let {
+            takePictureLauncher.launch(it)
+        } ?: showError("Unable to create image URI")
+    }
+
+    private val takePictureLauncher =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+            if (success) {
+                imageUri?.let {
+                    binding.imageViewPreview.setImageURI(it)
+                    binding.imageViewPreview.visibility = View.VISIBLE
+                    handleImageSelection1(it)
+                }
+            } else {
+                showError("Failed to capture image")
+            }
+        }
 
 
     private fun validateAndProceed() {
@@ -653,52 +711,141 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     }
 
     private fun observeViewModel() {
-        viewModelService.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) CustomLoader.showLoaderDialog(requireContext())
-            else CustomLoader.hideLoaderDialog()
+        if (isAdded) {
+            viewModelService.isLoading.observe(requireActivity()) { isLoading ->
+                if (isLoading) CustomLoader.showLoaderDialog(requireContext())
+                else CustomLoader.hideLoaderDialog()
+            }
+
+            viewModelService.errorMessage.observe(requireActivity()) { errorMessage ->
+                showError(errorMessage)
+            }
         }
 
-        viewModelService.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            showError(errorMessage)
-        }
+        if (isAdded) {
+            viewModelService.modelSingleService.observe(requireActivity()) { response ->
+                response?.result?.firstOrNull()?.let { service ->
+                    viewModel.apply {
+                        //                    category = service.category.toString() ?: ""
+                        serviceType = service.serviceType ?: ""
+                        description = service.description ?: ""
+                        price = service.price?.toString() ?: ""
+                        //                    address = service.address.toString() ?: ""
+                        time = service.time ?: ""
+                        date = service.date ?: ""
+                        //                    slot_time = service.slot_time.toString() ?: ""
+                        serviceName = service.serviceName ?: ""
+                        user_type = service.user_type ?: ""
+                        imageUrl = service.image
+                        discount = service.discount
+                        val result = convertMinutesToHourMinFormat(service.time)
+                        time = result
+                        start_time = service.start_time
+                        end_time = service.end_time
+                        quantity = service.quantity
+                        day1 = service.Day1
+                        day2 = service.Day2
+                        day3 = service.Day3
+                        day4 = service.Day4
+                        day5 = service.Day5
+                        day6 = service.Day6
+                        day7 = service.Day7
+                        user_type = service.user_type
 
-        viewModelService.modelSingleService.observe(viewLifecycleOwner) { response ->
-            response?.result?.firstOrNull()?.let { service ->
-                viewModel.apply {
-                    category = service.category ?: ""
-                    serviceType = service.serviceType ?: ""
-                    description = service.description ?: ""
-                    price = service.price?.toString() ?: ""
-                    address = service.address ?: ""
-                    time = service.time ?: ""
-                    date = service.date ?: ""
-                    slot_time = service.slot_time ?: ""
-                    serviceName = service.serviceName ?: ""
-                    user_type = service.user_type ?: ""
-                    imageUrl = service.image
+
+                        // Mapping numbers to day names
+                        val dayMap = mapOf(
+                            "1" to "Monday",
+                            "2" to "Tuesday",
+                            "3" to "Wednesday",
+                            "4" to "Thursday",
+                            "5" to "Friday",
+                            "6" to "Saturday",
+                            "7" to "Sunday"
+                        )
+
+                        // Combine all day strings
+                        val allDaysCombined = listOf(
+                            service.Day1,
+                            service.Day2,
+                            service.Day3,
+                            service.Day4,
+                            service.Day5,
+                            service.Day6,
+                            service.Day7
+                        )
+                            .filterNotNull() // Ignore nulls if any
+                            .joinToString(",") // Merge into one comma-separated string
+
+                        // Split, remove duplicates, trim spaces
+                        val uniqueDayIds = allDaysCombined.split(",").map { it.trim() }.toSet()
+
+                        selectedDays.clear()
+                        // Build the selectedDays list
+                        for (id in uniqueDayIds) {
+                            dayMap[id]?.let { dayName ->
+                                selectedDays.add(
+                                    ModelDay(
+                                        day = dayName,
+                                        id = id,
+                                        isSelected = true
+                                    )
+                                )
+                            }
+                        }
+
+                        daysAdapter.updateList(selectedDays.toMutableList())
+
+                    }
+                    binding.editTextDescription.setText(viewModel.description)
+                    binding.etServiceName.setText(viewModel.serviceName)
+                    binding.edPrice.setText(viewModel.price)
+                    binding.date.setText(viewModel.date)
+                    binding.etDiscount.setText(viewModel.discount)
+                    binding.etDuration.setText(viewModel.time)
+                    binding.editTextAddress.setText(viewModel.address)
+                    binding.tvStartTime.text = viewModel.start_time
+                    binding.tvEndTime.text = viewModel.end_time
+                    binding.tvQuantity.text = viewModel.quantity.toString()
+                    adapterServices!!.updateData(categoryList, viewModel.serviceType.toString())
+                    AdapterServices(categoryList, requireContext())
+                    binding.rvService.adapter = adapterServices
+                    adapterServices!!.selectedItemById(viewModel.serviceType!!)
+
+                    var selectedIndex = 0
+                    selectedIndex = if (viewModel.user_type!!.contains("Male")) {
+                        0
+                    } else if (viewModel.user_type!!.contains("Female")) {
+                        1
+                    } else {
+                        2
+                    }
+                    if (selectedIndex != -1) {
+                        binding.spinnerUserType.setSelection(selectedIndex)
+                    }
+
+                    val imageUrl = "${ApiServiceProvider.IMAGE_URL}${viewModel.imageUrl}"
+
+                    Glide.with(requireContext())
+                        .load(imageUrl)
+                        .into(binding.imageViewPreview)
+
+                    // Download the image and convert it to MultipartBody
+                    downloadImageAndConvertToMultipart(imageUrl)
+
                 }
-                binding.editTextDescription.setText(viewModel.description)
-                binding.etServiceName.setText(viewModel.serviceName)
-                binding.edPrice.setText(viewModel.price)
-                binding.date.setText(viewModel.date)
-                binding.editTextAddress.setText(viewModel.address)
-                adapterServices.updateData(categoryList, viewModel.serviceName.toString())
-                AdapterServices(categoryList, requireContext())
-                binding.rvService.adapter = adapterServices
-                adapterServices.selectedItem(viewModel.serviceName!!)
 
-
-                val imageUrl = "${ApiServiceProvider.IMAGE_URL}${viewModel.imageUrl}"
-
-                Glide.with(requireContext())
-                    .load(imageUrl)
-                    .into(binding.imageViewPreview)
-
-                // Download the image and convert it to MultipartBody
-                downloadImageAndConvertToMultipart(imageUrl)
             }
         }
     }
+
+    private fun convertMinutesToHourMinFormat(minutesStr: String): String {
+        val totalMinutes = minutesStr.toIntOrNull() ?: return "00:00"
+        val hours = totalMinutes / 60
+        val minutes = totalMinutes % 60
+        return String.format("%02d:%02d", hours, minutes)
+    }
+
 
     private fun showError(message: String) {
         if (message != null) {
@@ -717,6 +864,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     override fun onDestroyView() {
         super.onDestroyView()
         binding
+        viewModel.editFlag = ""
     }
 
     private fun createMultipartFromUri1(context: Context, uri: Uri): MultipartBody.Part? {
@@ -925,55 +1073,57 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
     }
 
     private fun observeViewModel1() {
-        viewModel.modelCreateService.observe(requireActivity()) { result ->
-            if (result != null && result.status == 1) {
-                for (i in selectedDays) {
+        if (isAdded) {
+            viewModel.modelCreateService.observe(requireActivity()) { result ->
+                if (result != null && result.status == 1) {
+                    for (i in selectedDays) {
 
-                    if (serviceDuration.isNotEmpty()) {
-                        slotViewModel.createSlot(
-                            ApiServiceProvider.getApiService(),
-                            startTimeFormatted,
-                            endTimeFormatted,
-                            i.id,
-                            serviceId,
-                            quantity.toString(),
-                            result.result.id.toString(), serviceDuration
-                        )
+                        if (serviceDuration.isNotEmpty()) {
+                            slotViewModel.createSlot(
+                                ApiServiceProvider.getApiService(),
+                                startTimeFormatted,
+                                endTimeFormatted,
+                                i.id,
+                                serviceId,
+                                quantity.toString(),
+                                result.result.id.toString(), serviceDuration
+                            )
+                        }
+                        Log.i("Slot created", serviceDuration)
                     }
-                    Log.i("Slot created", serviceDuration)
+                }
+
+            }
+
+            viewModel.modelUpdateService.observe(requireActivity()) { result ->
+                if (result != null && result.status == 1) {
+                    Toastic.toastic(
+                        context = requireContext(),
+                        message = "Service updated successfully.",
+                        duration = Toastic.LENGTH_SHORT,
+                        type = Toastic.SUCCESS,
+                        isIconAnimated = true,
+                        textColor = Color.BLUE,
+                    ).show()
+                    requireActivity().finish()
                 }
             }
 
-        }
 
-        viewModel.modelUpdateService.observe(requireActivity()) { result ->
-            if (result != null && result.status == 1) {
-                Toastic.toastic(
-                    context = requireContext(),
-                    message = "Service updated successfully.",
-                    duration = Toastic.LENGTH_SHORT,
-                    type = Toastic.SUCCESS,
-                    isIconAnimated = true,
-                    textColor = Color.BLUE,
-                ).show()
-                requireActivity().finish()
+
+            viewModel.isLoading.observe(requireActivity()) { isLoading ->
+                if (isLoading) {
+                    CustomLoader.showLoaderDialog(requireContext())
+                } else {
+                    CustomLoader.hideLoaderDialog()
+
+                }
             }
-        }
 
-
-
-        viewModel.isLoading.observe(requireActivity()) { isLoading ->
-            if (isLoading) {
-                CustomLoader.showLoaderDialog(requireContext())
-            } else {
-                CustomLoader.hideLoaderDialog()
-
-            }
-        }
-
-        viewModel.errorMessage.observe(requireActivity()) { errorMessage ->
-            if (errorMessage != null) {
-                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+            viewModel.errorMessage.observe(requireActivity()) { errorMessage ->
+                if (errorMessage != null) {
+                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
