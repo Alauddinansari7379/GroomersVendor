@@ -76,6 +76,9 @@ class EnterOTP : AppCompatActivity() {
                 password.isEmpty() || confirmPassword.isEmpty() -> {
                     myToast(context, "Please fill all fields", false)
                 }
+                password.length < 8 -> {
+                    myToast(context, "Password must be at least 8 characters long", false)
+                }
                 password != confirmPassword -> {
                     myToast(context, "Passwords do not match", false)
                 }

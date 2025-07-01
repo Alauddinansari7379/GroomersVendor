@@ -27,7 +27,7 @@ class ServiceAdapter(val context: Context,private val serviceList: List<Result>,
     override fun onBindViewHolder(holder: ServiceViewMode, position: Int) {
         with(serviceList[position]){
             holder.binding.tvServiceName.text = serviceName
-            holder.binding.slotTime.text = slot_time
+            holder.binding.slotTime.text = date
             holder.binding.tvServiceType.text = serviceType
             holder.binding.tvDescription.text = description
             holder.binding.tvPrice.text = currency +price.toString()
