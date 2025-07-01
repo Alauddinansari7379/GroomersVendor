@@ -60,6 +60,7 @@ class BookingDetailsActivity : AppCompatActivity() {
         binding.tvEndTime.text = endTime
         binding.tvAddress.text = address
         binding.tvStatus.text = statusName
+        binding.tvReview.text = customerComments
         binding.tvDescription.text = description
         binding.tvPrice.text = price.toString()
         binding.tvRating.text = rating.toString()
