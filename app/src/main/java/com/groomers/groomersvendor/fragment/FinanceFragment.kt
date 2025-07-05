@@ -37,6 +37,10 @@ import javax.inject.Inject
 class FinanceFragment : Fragment() {
     private lateinit var binding: FragmentFinanceBinding
     var count = 0
+    var todayRevenueData: List<Int> = emptyList()
+    var weekRevenueData: List<Int> = emptyList()
+    var motnthlyRevenueData: List<Int> = emptyList()
+
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -56,6 +60,7 @@ class FinanceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        apiCallFinanceData()
         setupChart(binding.lineChart, "today") // Load Today's Data by Default
         setupSpinners1()
         with(binding) {
@@ -69,7 +74,6 @@ class FinanceFragment : Fragment() {
             }
             tabWeek.setBackgroundResource(R.drawable.tab_unselected)
 
-            apiCallFinanceData()
             // Show Weekly Revenue Data
 //            tabWeek.setOnClickListener {
 //                tabWeek.setBackgroundResource(R.drawable.tab_selected)
@@ -98,76 +102,18 @@ class FinanceFragment : Fragment() {
 
     private fun setupChart(lineChart: LineChart, type: String) {
         val entries = mutableListOf<Entry>()
-        val revenueData: List<Int>
 
         // Assign revenue data based on the selected type
-        revenueData = when (type) {
-            "today" -> listOf(
-                50,
-                75,
-                100,
-                150,
-                120,
-                200,
-                300,
-                250,
-                275,
-                400,
-                500,
-                600,
-                450,
-                480,
-                550,
-                700,
-                650,
-                720,
-                800,
-                900,
-                850,
-                950,
-                980,
-                1000
-            )
-
-            "week" -> listOf(5000, 7000, 6500, 8000, 9000, 7500, 10000) // 7 days revenue
-            "month" -> listOf(
-                20000,
-                25000,
-                22000,
-                28000,
-                30000,
-                27000,
-                32000,
-                33000,
-                31000,
-                35000,
-                37000,
-                39000,
-                40000,
-                41000,
-                42000,
-                44000,
-                46000,
-                48000,
-                50000,
-                52000,
-                54000,
-                55000,
-                58000,
-                60000,
-                62000,
-                64000,
-                66000,
-                68000,
-                70000,
-                72000
-            ) // 30 days revenue
-            else -> listOf()
+        weekRevenueData = when (type) {
+            "today" -> motnthlyRevenueData.toMutableList()
+            "week" -> weekRevenueData
+            "month" ->motnthlyRevenueData
+            else -> listOf(0).toMutableList()
         }
 
         // Populate entries based on the selected data type
-        for (i in revenueData.indices) {
-            entries.add(Entry(i.toFloat(), revenueData[i].toFloat()))
+        for (i in weekRevenueData.indices) {
+            entries.add(Entry(i.toFloat(), weekRevenueData[i].toFloat()))
         }
 
         val dataSet = LineDataSet(
@@ -284,9 +230,21 @@ class FinanceFragment : Fragment() {
                                         binding.tvNoDataFound.visibility = View.GONE
                                     }
 
+                                    response.body()?.result!!.today_order.let { earningsList ->
+                                        todayRevenueData = earningsList.map { it.amount.toInt() }
+
+                                    }
+                                    response.body()?.result!!.weekly_order.let { earningsList ->
+                                        weekRevenueData = earningsList.map { it.amount.toInt() }
+
+                                    }
+                                    response.body()?.result!!.monthly_order.let { earningsList ->
+                                        motnthlyRevenueData =
+                                            earningsList.map { it.amount.toInt() } // (replace with actual monthly data if needed)
+
+                                    }
                                 } else {
                                     binding.tvNoDataFound.visibility = View.GONE
-
                                 }
                                 binding.balanceText.text =
                                     currency + response.body()!!.result.total_earnings
