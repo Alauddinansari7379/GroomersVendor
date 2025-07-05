@@ -51,4 +51,33 @@ class AcceptBookingViewModel(application: Application) : AndroidViewModel(applic
             }
         }
     }
+    fun bookingStatusChange(apiService: ApiService,accessToken: String,booking_id: String,slug: String) {
+        _isLoading.postValue(true)
+        viewModelScope.launch {
+            try {
+                val response = apiService.bookingStatusChange("Bearer $accessToken",booking_id,slug)
+
+                if (response.isSuccessful) {
+                    response.body()?.let { responseBody ->
+                        if (responseBody.status == 1) {
+                            _modelAccept.postValue(responseBody)
+                        } else {
+                            _errorMessage.postValue("Error: Invalid category data")
+                        }
+                    } ?: _errorMessage.postValue("Error: Empty response from server")
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    _errorMessage.postValue(errorBody ?: "Server error: ${response.message()}")
+                }
+            } catch (e: IOException) {
+                _errorMessage.postValue("Network error: Please check your internet connection")
+            } catch (e: HttpException) {
+                _errorMessage.postValue("Server error: ${e.message}")
+            } catch (e: Exception) {
+                _errorMessage.postValue("Unexpected error: ${e.localizedMessage}")
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
+    }
 }

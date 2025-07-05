@@ -1,23 +1,44 @@
 package com.groomers.groomersvendor.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.lifecycleScope
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivityAboutYourCredentialsBinding
+import com.groomers.groomersvendor.helper.CustomLoader
+import com.groomers.groomersvendor.helper.Toastic
 import com.groomers.groomersvendor.viewmodel.MyApplication
 import com.groomers.groomersvendor.viewmodel.RegisterViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
 class AboutYourCredentials : AppCompatActivity() {
     private val binding by lazy { ActivityAboutYourCredentialsBinding.inflate(layoutInflater) }
     private val viewModel by lazy {
         (application as MyApplication).registerViewModel
     }
-
+    private var searchJob: Job? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        binding.etUserId.doOnTextChanged { text, _, _, _ ->
+            searchJob?.cancel() // Cancel previous job
+            searchJob = lifecycleScope.launch {
+                delay(500) // Debounce delay: 500ms
+                text?.let {
+                    if (it.isNotEmpty()) {
+                        viewModel.checkUserExist(text.toString(),text.toString())
+                    }
+                }
+            }
+    }
 
         binding.btnContinue3.setOnClickListener {
             val userId = binding.etUserId.text.toString().trim()
@@ -63,5 +84,22 @@ class AboutYourCredentials : AppCompatActivity() {
             val intent = Intent(this, Register4::class.java)
             startActivity(intent)
         }
+
+
+        viewModel.modelUserExist.observe(this@AboutYourCredentials) { modelRating ->
+            if (modelRating?.status == 1) {
+                binding.etUserId.error = "Username is already exist"
+            }
+        }
+
+        // Observe error message if login fails
+        viewModel.errorMessage.observe(this@AboutYourCredentials) { errorMessage ->
+
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.clearRegisterData()
     }
 }

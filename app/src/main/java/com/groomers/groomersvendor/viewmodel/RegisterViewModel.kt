@@ -6,7 +6,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.groomers.groomersvendor.adapter.CategoryAdapter.Companion.categoryId
 import com.groomers.groomersvendor.model.modelregister.ModelRegister
+import com.groomers.groomersvendor.model.modeluserexist.ModelUserExist
+import com.groomers.groomersvendor.retrofit.ApiClient.apiService
 import com.groomers.groomersvendor.retrofit.ApiService
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -48,6 +51,9 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     private val _modelRegister = MutableLiveData<ModelRegister?>()
     val modelRegister: MutableLiveData<ModelRegister?> = _modelRegister
 
+    private val _modelUserExist = MutableLiveData<ModelUserExist?>()
+    val modelUserExist: MutableLiveData<ModelUserExist?> = _modelUserExist
+
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
 
@@ -80,7 +86,8 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
         accountNumber: String,
         bankName: String,
         ifsc: String,
-        branch: String
+        branch: String,
+        mapUrl: String,
     ) {
         viewModelScope.launch {
             _isLoading.postValue(true) // Show loading state
@@ -93,9 +100,9 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                     passwordConfirmation,
                     role,
                     businessName,
-                    "4",
+                    businessCategory,
                     aboutBusiness,
-                    "7",
+                    teamSize,
                     address,
                     city,
                     zipcode,
@@ -103,8 +110,8 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                     services,
                     latitude,
                     longitude,
-                    "23",
-                    "23",
+                    "",
+                    "",
                     userName,
                     shopAgreement,
                     shopAgreement,
@@ -114,7 +121,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                     bankName,
                     ifsc,
                     branch,
-                    "MapUrl"
+                    mapUrl
                 )
 
                 if (response.isSuccessful) {
@@ -150,8 +157,46 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
 
     }
 
+    fun checkUserExist(email: String, userName: String) {
+        _isLoading.postValue(true)
+
+        viewModelScope.launch {
+            try {
+                val response = apiService.checkUserExist(email, userName)
+
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody?.status == 1) {
+                        // User exists
+                        _modelUserExist.postValue(responseBody)
+                    } else {
+                        // User doesn't exist or some business logic error
+                        _errorMessage.postValue(responseBody?.message ?: "Unable to verify user. Please try again.")
+                    }
+                } else {
+                    // Server returned an HTTP error
+                    _errorMessage.postValue("Oops! Something went wrong: ${response.code()} ${response.message()}")
+                }
+
+            } catch (e: IOException) {
+                // Network error like no internet
+                _errorMessage.postValue("You're offline. Please check your internet connection.")
+            } catch (e: HttpException) {
+                // Unexpected HTTP protocol exception
+                _errorMessage.postValue("A server error occurred. Please try again later.")
+            } catch (e: Exception) {
+                // Catch-all for other issues
+                _errorMessage.postValue("Unexpected error occurred. Please try again.")
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
+    }
+
+
     fun clearRegisterData() {
         _modelRegister.value = null
         _errorMessage.value = null
+        _modelUserExist.value = null
     }
 }

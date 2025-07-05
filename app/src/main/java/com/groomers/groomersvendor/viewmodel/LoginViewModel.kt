@@ -37,7 +37,7 @@ class LoginViewModel @Inject constructor(
                 response = if (isValidEmail(email)) {
                     apiService.login(email, password,"vendor")
                 }else{
-                    apiService.login(email, password,"vendor")
+                    apiService.loginWithUsername(email, password,"vendor")
 
 //                    apiService.loginWithUsername(email,password,"vendor")
                 }

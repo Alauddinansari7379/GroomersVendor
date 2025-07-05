@@ -28,10 +28,14 @@ class CategoryAdapter(private val categoryList : List<Result>, val context : Con
                 .load("https://groomers.co.in/public/uploads/"+category_image)
                 .into(holder.binding.ivCategory)
             holder.binding.root.setOnClickListener{
+                categoryId = id.toString()
                 val intent = Intent(context, About::class.java)
                 context.startActivity(intent)
             }
         }
 
+    }
+    companion object{
+        var categoryId = ""
     }
 }

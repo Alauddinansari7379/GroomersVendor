@@ -15,6 +15,7 @@ class Register4 : Common() {
     private val viewModel by lazy {
         (application as MyApplication).registerViewModel
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -28,7 +29,25 @@ class Register4 : Common() {
             if (selectedId != -1) {
                 val selectedRadioButton = findViewById<RadioButton>(selectedId)
                 val teamSize = selectedRadioButton.text.toString()
-                viewModel.teamSize = teamSize
+                var newTeamSize = ""
+                when (teamSize) {
+                    "Just me" -> {
+                        newTeamSize = "1"
+                    }
+
+                    "2-3 staff members" -> {
+                        newTeamSize = "3"
+                    }
+
+                    "4-6 staff members" -> {
+                        newTeamSize = "6"
+                    }
+
+                    "More than 6 staff members" -> {
+                        newTeamSize = "7"
+                    }
+                }
+                viewModel.teamSize = newTeamSize
                 val intent = Intent(this, YourAddress::class.java)
                 startActivity(intent)
 

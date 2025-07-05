@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.groomers.groomersvendor.Common
 import com.groomers.groomersvendor.MainActivity
 import com.groomers.groomersvendor.adapter.CategoryAdapter
+import com.groomers.groomersvendor.adapter.CategoryAdapter.Companion.categoryId
 import com.groomers.groomersvendor.adapter.OthersCategoryAdapter
 import com.groomers.groomersvendor.databinding.ActivityRegister2Binding
 import com.groomers.groomersvendor.helper.CustomLoader
@@ -33,7 +34,6 @@ class Register2 : Common() {
 
         // Update the status bar color to match the background color
         updateStatusBarColor(backgroundColor)
-        viewModel.businessCategory = "category"
         val apiService = ApiServiceProvider.getApiService()
         categoryViewModel.getCategory(apiService)
         // Observe isLoading to show/hide progress

@@ -21,6 +21,7 @@ import com.groomers.groomersvendor.model.modelslotlist.ModelSlotList
 import com.groomers.groomersvendor.model.modelstate.ModelState
 import com.groomers.groomersvendor.model.modelupdateprfphoto.ModelUpdateProfPhoto
 import com.groomers.groomersvendor.model.modelupdateservice.ModelUpdateService
+import com.groomers.groomersvendor.model.modeluserexist.ModelUserExist
 import com.groomers.groomersvendor.model.rating.Rating
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -186,6 +187,13 @@ interface ApiService {
         @Query("slug") slug: String
     ): Response<ModelAccept>
 
+    @POST("booking_status_change")
+    suspend fun bookingStatusChange(
+        @Header("Authorization") authorization: String,
+        @Query("booking_id") booking_id: String,
+        @Query("slug") slug: String
+    ): Response<ModelAccept>
+
 
     @GET("getBookings")
     suspend fun getBookings(
@@ -279,4 +287,10 @@ interface ApiService {
         @Query("rating") rating: String,
         @Query("comments") comments: String,
     ): Response<Rating>
+
+    @POST("checkUserExist")
+    suspend fun checkUserExist(
+        @Query("email") email: String,
+        @Query("username") username: String,
+    ): Response<ModelUserExist>
 }

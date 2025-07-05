@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.groomers.groomersvendor.Common
+import com.groomers.groomersvendor.adapter.CategoryAdapter.Companion.categoryId
 import com.groomers.groomersvendor.databinding.ActivityRegister3Binding
 import com.groomers.groomersvendor.helper.CustomLoader
 import com.groomers.groomersvendor.helper.Toastic
@@ -30,7 +31,7 @@ class Register3 : Common() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        viewModel.businessCategory = categoryId
         // Get the background color of the root view
         val backgroundColor = (binding.root.background as? ColorDrawable)?.color ?: Color.WHITE
         // Update the status bar color to match the background color
@@ -52,13 +53,15 @@ class Register3 : Common() {
         val bankName = viewModel.bankName ?: ""
         val ifsc = viewModel.ifsc ?: ""
         val branchName = viewModel.branchName ?: ""
+        val username = viewModel.userId ?: ""
         val service = viewModel.services ?: ""
+        val mapUrl = viewModel.mapUrl ?: ""
         val latitude = viewModel.latitude.toString() ?: ""
         val longitude = viewModel.longitude.toString() ?: ""
         val aboutBusiness = viewModel.aboutBusiness.toString() ?: ""
 //        val adrdress=viewModel.address1+" "+viewModel.address2+" "+viewModel.city+" "+viewModel.zipcode
-        val adrdress=viewModel.address1!!
-        Log.e("Address",adrdress)
+        val adrdress = viewModel.address1!!
+        Log.e("Address", adrdress)
         // Convert image path to MultipartBody.Part
         val shopAgreement = prepareFilePart("shop_agreement", idproofImagePath)
 
@@ -78,7 +81,7 @@ class Register3 : Common() {
                     city,
                     zipcode,
                     shopAgreement,
-                    businessName,
+                    username,
                     accountName,
                     accountNo,
                     bankName,
@@ -89,6 +92,7 @@ class Register3 : Common() {
                     latitude,
                     longitude,
                     aboutBusiness,
+                    mapUrl,
                 )
             } else {
                 Toast.makeText(this, "Please select at least one working day.", Toast.LENGTH_SHORT)
@@ -152,7 +156,7 @@ class Register3 : Common() {
         name: String, mobile: String, email: String, password: String, teamSize: String,
         businessName: String, businessCategory: String, city: String, zipcode: String,
         shopAgreement: MultipartBody.Part,
-        businessName1: String,
+        username: String,
         accountName: String,
         accountNo: String,
         bankName: String,
@@ -163,15 +167,38 @@ class Register3 : Common() {
         latitude: String,
         longitude: String,
         aboutBusiness: String,
+        mapUrl: String,
     ) {
 
         val apiService = ApiServiceProvider.getApiService() // Initialize ApiService
         viewModel.registerUser(
             apiService,
-            name, mobile, email, password, password, // passwordConfirmation
-            "vendor", businessName, businessCategory, aboutBusiness,
-            teamSize, adrdress, city, zipcode, "",service ,
-            latitude,  longitude, shopAgreement, "1", businessName,accountName,accountNo,bankName,ifsc,branchName
+            name,
+            mobile,
+            email,
+            password,
+            password, // passwordConfirmation
+            "vendor",
+            businessName,
+            businessCategory,
+            aboutBusiness,
+            teamSize,
+            adrdress,
+            city,
+            zipcode,
+            "",
+            service,
+            latitude,
+            longitude,
+            shopAgreement,
+            "1",
+            username,
+            accountName,
+            accountNo,
+            bankName,
+            ifsc,
+            branchName,
+            mapUrl
         )
     }
 

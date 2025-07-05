@@ -85,6 +85,7 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
                             )
                         )
                         if (end_time != null) {
+                            btnReview.visibility = View.GONE
                             if (isCurrentTimeGreater(date, end_time.toString())) {
                                 btnAccept.visibility = View.GONE
                                 btnReject.visibility = View.GONE

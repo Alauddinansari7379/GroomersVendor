@@ -156,6 +156,50 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
         sessionManager.accessToken?.let { token ->
             lifecycleScope.launch {
                 acceptBookingViewModel.acceptBooking(apiService, token, bookingId, slug)
+
+            }
+        } ?: run {
+            Toastic.toastic(
+                context = requireActivity(),
+                message = "Missing Token.",
+                duration = Toastic.LENGTH_SHORT,
+                type = Toastic.ERROR,
+                isIconAnimated = true,
+                textColor = Color.BLUE,
+            ).show()
+        }
+        // Observe isLoading to show/hide progress
+        acceptBookingViewModel.isLoading.observe(requireActivity()) { isLoading ->
+            if (isLoading) {
+                CustomLoader.showLoaderDialog(context)
+            } else {
+                CustomLoader.hideLoaderDialog()
+            }
+        }
+        // Observe error message if login fails
+        acceptBookingViewModel.errorMessage.observe(requireActivity()) { response ->
+            if (response.isNotEmpty()) {
+                Toast.makeText(context, response, Toast.LENGTH_SHORT).show()
+            }
+        }
+        acceptBookingViewModel.modelAccept.observe(requireActivity()) { response ->
+            Toastic.toastic(
+                context = requireActivity(),
+                message = response.message,
+                duration = Toastic.LENGTH_SHORT,
+                type = Toastic.SUCCESS,
+                isIconAnimated = true,
+                textColor =  Color.BLUE,
+            ).show()
+            makeGetBookingAPICall(getCurrentDate())
+        }
+    }
+    private fun makeAcceptBookingAPICall1(bookingId: String, slug: String) {
+        val apiService = ApiServiceProvider.getApiService()
+        sessionManager.accessToken?.let { token ->
+            lifecycleScope.launch {
+                acceptBookingViewModel.bookingStatusChange(apiService, token, bookingId, slug)
+
             }
         } ?: run {
             Toastic.toastic(
@@ -283,7 +327,8 @@ class HomeFragment : Fragment(), AdapterBooking.Accept {
             .showCancelButton(true)
             .setConfirmClickListener { sDialog ->
                 sDialog.cancel()
-                makeAcceptBookingAPICall(bookingId, "completed")
+//                makeAcceptBookingAPICall(bookingId, "completed")
+                makeAcceptBookingAPICall1(bookingId, "completed")
             }
             .setCancelClickListener { sDialog ->
                 sDialog.cancel()
