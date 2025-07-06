@@ -63,6 +63,8 @@ class FinanceFragment : Fragment() {
         apiCallFinanceData()
         setupChart(binding.lineChart, "today") // Load Today's Data by Default
         setupSpinners1()
+        binding.recyclerView.visibility = View.VISIBLE
+        binding.lineChart.visibility = View.GONE
         with(binding) {
             if (sessionManager.isBank == "1") {
                 setupNowButton.visibility = View.GONE

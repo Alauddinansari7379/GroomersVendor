@@ -5,8 +5,8 @@ data class Result(
     val today_order: List<Earning>,
     val weekly_order: List<Earning>,
     val monthly_order: List<Earning>,
-    val monthly_earnings: Float,
-    val today_earnings: Float,
-    val total_earnings: Float,
-    val weekly_earnings: Float
+    val monthly_earnings: Double,
+    val today_earnings: Double,
+    val total_earnings: Double,
+    val weekly_earnings: Double
 )

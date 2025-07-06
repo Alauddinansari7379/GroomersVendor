@@ -34,7 +34,7 @@ class OrderListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentOrderListBinding.bind(view)
         binding.llInstagram.setOnClickListener {
-            startActivity(Intent(requireContext(), CreateInstaTemplate::class.java))
+           // startActivity(Intent(requireContext(), CreateInstaTemplate::class.java))
         }
         binding.cardGetHelp.setOnClickListener {
             startActivity(Intent(requireContext(), AddHelp::class.java))

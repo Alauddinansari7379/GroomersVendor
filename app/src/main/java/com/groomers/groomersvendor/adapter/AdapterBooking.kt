@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
 import com.example.ehcf.Helper.currency
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.activity.BookingDetailsActivity
@@ -39,10 +40,12 @@ class AdapterBooking(val bookingList: List<Result>, val context: Context, val ac
         with(bookingList[position]) {
             with(holder.binding) {
                 if (bookingList[position].profile_picture != null) {
-                    Picasso.get()
+                    Glide.with(context)
                         .load("${sessionManager.imageUrl}${bookingList[position].profile_picture}")
-                        .error(R.drawable.photo)
+                        .placeholder(R.drawable.photo)
+                        .error(R.drawable.errorimage)
                         .into(imageView)
+
                 } else {
                     imageView.setImageResource(R.drawable.errorimage) // Correct method to set the image
                 }
