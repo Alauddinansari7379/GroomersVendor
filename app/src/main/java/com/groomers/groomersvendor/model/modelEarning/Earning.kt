@@ -7,5 +7,7 @@ data class Earning(
     val customer_id: String,
     val id: Int,
     val updated_at: String,
+    val name: String,
+    val serviceName: String,
     val vendor_id: Int
 )

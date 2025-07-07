@@ -225,9 +225,9 @@ class FinanceFragment : Fragment() {
                             500 -> myToast(requireContext(), "Server Error", false)
                             else -> {
                                 if (response.body()?.result!!.earnings.isNotEmpty()) {
-                                    response.body()?.result!!.earnings?.let { earningsList ->
+                                    response.body()?.result!!.today_order?.let { earningsList ->
                                         binding.recyclerView.apply {
-                                            adapter = AdapterFinance(requireContext(), earningsList)
+                                            adapter = AdapterFinance(requireContext(), response.body()?.result!!)
                                         }
                                         binding.tvNoDataFound.visibility = View.GONE
                                     }

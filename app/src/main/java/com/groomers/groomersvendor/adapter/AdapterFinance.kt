@@ -14,17 +14,20 @@ import com.groomers.groomersvendor.model.modelEarning.Result
 
 class AdapterFinance(
     val context: Context,
-    private val items: List<Earning>,
+    private val items: Result,
 ) : RecyclerView.Adapter<AdapterFinance.SliderViewHolder>() {
 
     inner class SliderViewHolder(private val binding: SingleRowFinanceBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @RequiresApi(Build.VERSION_CODES.O)
-        fun bind(item: Earning, position: Int) {
-            binding.tvName.text = item.customer_id
-            binding.tvDate.text = changeDateFormat6(item.created_at)
-            binding.tvAmt.text = currency+item.amount.toString()
-            binding.tvServiceType.text = ""
+        fun bind(item: List<Earning>, position: Int) {
+
+            for (i in item) {
+                binding.tvName.text = i.name
+                binding.tvDate.text = changeDateFormat6(i.created_at)
+                binding.tvAmt.text = currency + i.amount.toString()
+                binding.tvServiceType.text = i.serviceName
+            }
 
 
         }
@@ -38,8 +41,8 @@ class AdapterFinance(
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: SliderViewHolder, position: Int) {
-        holder.bind(items[position], position)
+        holder.bind(items.today_order, position)
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = items.today_order.size
 }

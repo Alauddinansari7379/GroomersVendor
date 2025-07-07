@@ -44,6 +44,7 @@ import com.groomers.groomersvendor.helper.AppProgressBar
 import com.groomers.groomersvendor.helper.Toastic
 import com.groomers.groomersvendor.model.modelEarning.Earning
 import com.groomers.groomersvendor.model.modelEarning.ModelEarning
+import com.groomers.groomersvendor.model.modelEarning.Result
 import com.groomers.groomersvendor.retrofit.ApiClient
 import com.groomers.groomersvendor.retrofit.ApiServiceProvider
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
@@ -343,10 +344,8 @@ class ProfileFragment : Fragment() {
                             500 -> myToast(requireContext(), "Server Error", false)
                             else -> {
                                 val result = response.body()?.result
-                                val earningsList = result?.earnings
-
-                                if (earningsList != null) {
-                                    showFinanceDialog(earningsList)
+                                if (result != null) {
+                                    showFinanceDialog(result)
                                 }
                             }
                         }
@@ -407,7 +406,7 @@ class ProfileFragment : Fragment() {
     }
 
     @SuppressLint("MissingInflatedId")
-    private fun showFinanceDialog(earningsList: List<Earning>) {
+    private fun showFinanceDialog(earningsList: Result) {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_finance_data, null)
         val recyclerView = dialogView.findViewById<RecyclerView>(R.id.dialogRecyclerView)
 
