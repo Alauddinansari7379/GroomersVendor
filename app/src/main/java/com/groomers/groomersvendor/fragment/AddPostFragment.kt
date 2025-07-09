@@ -37,6 +37,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
+import com.example.ehcf.Helper.myToast
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.activity.ServiceList
 import com.groomers.groomersvendor.adapter.AdapterServices
@@ -849,7 +850,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
 
     private fun showError(message: String) {
         if (message != null) {
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            myToast(requireContext(),message,false)
         }
     }
 
@@ -1038,7 +1039,7 @@ class AddPostFragment() : Fragment(R.layout.fragment_add_post) {
             tvTimeTimePicker.text = selectedTime
             binding.tvEndTime.text = selectedTime
             endTime = selectedTime
-            viewModel.start_time = endTime
+            viewModel.end_time = endTime
 
             Log.e("Selected End Time", endTime)
         }

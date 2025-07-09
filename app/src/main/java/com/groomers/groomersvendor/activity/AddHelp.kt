@@ -152,6 +152,10 @@ class AddHelp : Common() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
         viewModel.clearRegisterData()
     }
 }

@@ -10,10 +10,12 @@ import com.bumptech.glide.Glide
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.SingleRowServicesBinding
 import com.groomers.groomersvendor.model.modelcategory.Result
+
 class AdapterServices(private var categoryList: List<Result>, val context: Context) :
     RecyclerView.Adapter<AdapterServices.CategoryViewHolder>() {
 
     private var selectedPosition = -1
+    private var flag = false
 
     inner class CategoryViewHolder(val binding: SingleRowServicesBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -27,7 +29,10 @@ class AdapterServices(private var categoryList: List<Result>, val context: Conte
     override fun getItemCount(): Int = categoryList.size
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun onBindViewHolder(holder: CategoryViewHolder, @SuppressLint("RecyclerView") position: Int) {
+    override fun onBindViewHolder(
+        holder: CategoryViewHolder,
+        @SuppressLint("RecyclerView") position: Int
+    ) {
         val item = categoryList[position]
 
         holder.binding.tvName.text = item.category_name
@@ -44,12 +49,17 @@ class AdapterServices(private var categoryList: List<Result>, val context: Conte
         } else {
             holder.binding.llHaircut.setBackgroundResource(R.drawable.card_background)
         }
-
-        holder.binding.llHaircut.setOnClickListener {
-            selectedPosition = position
-            serviceId = item.id.toString()
-            serviceName = item.category_name
-            notifyDataSetChanged()
+        if (flag) {
+            holder.binding.llHaircut.isClickable = false
+            holder.binding.llHaircut.setOnClickListener(null) // remove click listener
+        } else {
+            holder.binding.llHaircut.isClickable = true
+            holder.binding.llHaircut.setOnClickListener {
+                selectedPosition = position
+                serviceId = item.id.toString()
+                serviceName = item.category_name
+                notifyDataSetChanged()
+            }
         }
     }
 
@@ -64,6 +74,7 @@ class AdapterServices(private var categoryList: List<Result>, val context: Conte
         if (selectedPosition != -1) {
             serviceId = categoryList[selectedPosition].id.toString()
             serviceName = categoryList[selectedPosition].category_name
+            flag = true
         }
         notifyDataSetChanged()
     }

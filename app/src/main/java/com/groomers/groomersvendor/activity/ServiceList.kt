@@ -106,4 +106,15 @@ class ServiceList : AppCompatActivity(), DeleteService {
 
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        sessionManager.accessToken?.let { token ->
+            lifecycleScope.launch {
+                viewModel.getServiceList(token)
+            }
+        } ?: run {
+            Toast.makeText(this, "Error: Missing Token", Toast.LENGTH_LONG).show()
+        }
+    }
 }
