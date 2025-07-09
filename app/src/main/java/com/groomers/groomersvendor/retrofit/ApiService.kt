@@ -1,5 +1,6 @@
 package com.groomers.groomersvendor.retrofit
 
+import com.example.groomers.model.modelvendorrating.ModelVendorRating
 import com.groomers.groomersvendor.model.ModelGetVendor.ModelGetVendor
 import com.groomers.groomersvendor.model.modelAccept.ModelAccept
 import com.groomers.groomersvendor.model.modelEarning.ModelEarning
@@ -293,4 +294,10 @@ interface ApiService {
         @Query("email") email: String,
         @Query("username") username: String,
     ): Response<ModelUserExist>
+
+    @POST("getAllVendorRatings")
+    suspend fun getAllVendorRatings(
+        @Header("Authorization") authorization: String,
+        @Query("vendor_id") vendor_id: String,
+    ): Response<ModelVendorRating>
 }

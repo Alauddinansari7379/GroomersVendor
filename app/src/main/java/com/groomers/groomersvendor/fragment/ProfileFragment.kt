@@ -35,6 +35,7 @@ import com.groomers.groomersvendor.MainActivity
 import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.activity.Login
 import com.groomers.groomersvendor.activity.ManageSlots
+import com.groomers.groomersvendor.activity.ReviewActivity
 import com.groomers.groomersvendor.activity.Settings
 import com.groomers.groomersvendor.activity.ViewOnGroomers
 import com.groomers.groomersvendor.adapter.AdapterFinance
@@ -111,7 +112,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.llSlotlist.setOnClickListener {
-            //  startActivity(Intent(requireContext(), MySlot::class.java))
+              startActivity(Intent(requireContext(), ReviewActivity::class.java))
         }
 
         binding.cameraBtn.setOnClickListener {

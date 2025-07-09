@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.groomers.model.modelvendorrating.ModelVendorRating
 import com.groomers.groomersvendor.model.rating.Rating
 import com.groomers.groomersvendor.retrofit.ApiService
 import com.groomers.groomersvendor.sharedpreferences.SessionManager
@@ -24,6 +25,9 @@ class RatingViewModel @Inject constructor(
 
     private val _modelRating = MutableLiveData<Rating?>()
     val modelRating: LiveData<Rating?> = _modelRating
+
+    private val _modelVendorRating = MutableLiveData<ModelVendorRating?>()
+    val modelVendorRating: LiveData<ModelVendorRating?> = _modelVendorRating
 
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
@@ -72,8 +76,48 @@ class RatingViewModel @Inject constructor(
         }
     }
 
+    fun getAllVendorRatings(
+        vendorId: String,
+    ) {
+        _isLoading.postValue(true)
+
+        val token = sessionManager.accessToken.orEmpty()
+
+        viewModelScope.launch {
+            try {
+                val response = apiService.getAllVendorRatings(
+                    "Bearer $token",
+                    vendorId,
+                )
+
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody?.status == 1) {
+                        _modelVendorRating.postValue(responseBody)
+                    } else {
+                        _errorMessage.postValue(
+                            responseBody?.message ?: "Rating submission failed."
+                        )
+                    }
+                } else {
+                    _errorMessage.postValue("Server error: ${response.code()} - ${response.message()}")
+                }
+
+            } catch (e: IOException) {
+                _errorMessage.postValue("No internet connection. Please check your network.")
+            } catch (e: HttpException) {
+                _errorMessage.postValue("Server error. Please try again later.")
+            } catch (e: Exception) {
+                _errorMessage.postValue("Unexpected error occurred.")
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
+    }
+
     fun clearData() {
         _modelRating.value = null
         _errorMessage.value = null
+        _modelVendorRating.value = null
     }
 }

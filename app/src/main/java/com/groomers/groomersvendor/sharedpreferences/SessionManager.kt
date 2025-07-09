@@ -24,6 +24,12 @@ class SessionManager(context: Context) {
             prefs.edit().putString(USERNAME, value).apply()
         }
 
+    var vendorId: String?
+        get() = prefs.getString(VENDOR_ID, null)
+        set(value) {
+            prefs.edit().putString(VENDOR_ID, value).apply()
+        }
+
     var isLogin: Boolean
         get() = prefs.getBoolean(IS_LOGIN, false)
         set(value) {
@@ -148,6 +154,7 @@ class SessionManager(context: Context) {
         private const val PROFILE_PICTURE_URL = "PROFILE_PICTURE_URL"
         private const val COVER_PICTURE_URL = "COVER_PICTURE_URL"
         private const val USERNAME = "USERNAME"
+        private const val VENDOR_ID = "VENDOR_ID"
         private const val NAME = "NAME"
         private const val ROLE = "ROLE"
         private const val MOBILE = "MOBILE"
