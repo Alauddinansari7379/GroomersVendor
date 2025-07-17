@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This shape drawable creates a white background with rounded corners and a light gray border. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- The background color of the shape -->
+    <solid android:color="@android:color/white" />
+
+    <!-- The rounded corners -->
+    <corners android:radius="12dp" />
+
+    <!-- The border (stroke) -->
+    <stroke
+        android:width="1dp"
+        android:color="#EEEEEE" />
+
+</shape>

@@ -2,10 +2,12 @@ package com.groomers.groomersvendor.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.groomers.groomersvendor.MainActivity
+import com.groomers.groomersvendor.R
 import com.groomers.groomersvendor.databinding.ActivityLoginBinding
 import com.groomers.groomersvendor.helper.AppProgressBar
 import com.groomers.groomersvendor.helper.CustomLoader
@@ -27,10 +29,10 @@ class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        setupPasswordToggle()
 
         with(binding) {
-            btnLogin.setOnClickListener {
+            btnContinue.setOnClickListener {
                 val email = binding.etEmail.text.toString()
                 val password = binding.etPassword.text.toString()
 
@@ -86,6 +88,26 @@ class Login : AppCompatActivity() {
             }
         }
     }
+    private fun setupPasswordToggle() {
+        var isPasswordVisible = false
 
+
+        binding.buttonTogglePassword.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+
+            if (isPasswordVisible) {
+                // Show password
+                binding.etPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                binding.buttonTogglePassword.setImageResource(R.drawable.ic_visibility) // Eye open icon
+            } else {
+                // Hide password
+                binding.etPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                binding.buttonTogglePassword.setImageResource(R.drawable.ic_visibility_off) // Eye slash icon
+            }
+
+            // Keep cursor at the end
+            binding.etPassword.setSelection(binding.etPassword.text.length)
+        }
+    }
 }
 
